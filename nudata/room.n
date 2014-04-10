@@ -1,0 +1,159 @@
+*
+*            room.n
+*    24 Apr 2005 - moved along x
+*    23 Aug 1998 - wall moved away
+*    20 Mar 1998 - lowered
+*     1 Feb 1996 - Don Herbison-Evans
+* 
+*************************************************
+*
+figure room 33 *
+ joist floor wallz * 
+ bdx00 bdx01 bdx02 bdx03 bdx04 bdx05 bdx06 bdx07 bdx08 bdx09 *
+ bdx10 bdx11 bdx12 bdx13 bdx14 bdx15 bdx16 bdx17 bdx18 bdx19 *
+ brdz0 brdz1 brdz2 brdz3 brdz4 brdz5 brdz6 brdz7 brdz8 brdz9 *
+ellipsoid wallz    1 6000 6000
+ellipsoid floor 60000    1 6000
+ellipsoid bdx00 60000    1  220
+ellipsoid bdx01 60000    1  220
+ellipsoid bdx02 60000    1  220
+ellipsoid bdx03 60000    1  220
+ellipsoid bdx04 60000    1  220
+ellipsoid bdx05 60000    1  220
+ellipsoid bdx06 60000    1  220
+ellipsoid bdx07 60000    1  220
+ellipsoid bdx08 60000    1  220
+ellipsoid bdx09 60000    1  220
+ellipsoid bdx10 60000    1  220
+ellipsoid bdx11 60000    1  220
+ellipsoid bdx12 60000    1  220
+ellipsoid bdx13 60000    1  220
+ellipsoid bdx14 60000    1  220
+ellipsoid bdx15 60000    1  220
+ellipsoid bdx16 60000    1  220
+ellipsoid bdx17 60000    1  220
+ellipsoid bdx18 60000    1  220
+ellipsoid bdx19 60000    1  220
+ellipsoid brdz0  220    1 6000
+ellipsoid brdz1  220    1 6000
+ellipsoid brdz2  220    1 6000
+ellipsoid brdz3  220    1 6000
+ellipsoid brdz4  220    1 6000
+ellipsoid brdz5  220    1 6000
+ellipsoid brdz6  220    1 6000
+ellipsoid brdz7  220    1 6000
+ellipsoid brdz8  220    1 6000
+ellipsoid brdz9  220    1 6000
+ellipsoid joist    1    1    1
+*
+joint nail   floor 0 0 0 joist 0 -5 1800
+*
+joint crkx00 bdx00 0 0 0 joist 500  0    0
+joint crkx01 bdx01 0 0 0 joist 500  0  800
+joint crkx02 bdx02 0 0 0 joist 500  0 1600
+joint crkx03 bdx03 0 0 0 joist 500  0 2400
+joint crkx04 bdx04 0 0 0 joist 500  0 3200
+joint crkx05 bdx05 0 0 0 joist 500  0 4000
+joint crkx06 bdx06 0 0 0 joist 500  0 4800
+joint crkx07 bdx07 0 0 0 joist 500  0 5600
+joint crkx08 bdx08 0 0 0 joist 500  0 6400
+joint crkx09 bdx09 0 0 0 joist 500  0 7200
+joint crkx10 bdx10 0 0 0 joist 500  0 8000
+joint crkx11 bdx11 0 0 0 joist 500  0 8800
+joint crkx12 bdx12 0 0 0 joist 500  0 9600
+joint crkx13 bdx13 0 0 0 joist 500  0 10400
+joint crkx14 bdx14 0 0 0 joist 500  0 11200
+joint crkx15 bdx15 0 0 0 joist 500  0 12000
+joint crkx16 bdx16 0 0 0 joist 500  0 12800
+joint crkx17 bdx17 0 0 0 joist 500  0 13600
+joint crkx18 bdx18 0 0 0 joist 500  0 14400
+joint crkx19 bdx19 0 0 0 joist 500  0 15200
+*
+joint crkz10 brdz0 0 0 0 joist -3200 -3 1000
+joint crkz11 brdz1 0 0 0 joist -2400 -3 1000
+joint crkz12 brdz2 0 0 0 joist -1600 -3 1000
+joint crkz13 brdz3 0 0 0 joist  -800 -3 1000
+joint crkz14 brdz4 0 0 0 joist     0 -3 1000
+joint crkz15 brdz5 0 0 0 joist   800 -3 1000
+joint crkz16 brdz6 0 0 0 joist  1600 -3 1000
+joint crkz17 brdz7 0 0 0 joist  2400 -3 1000
+joint crkz18 brdz8 0 0 0 joist  3200 -3 1000
+joint crkz19 brdz9 0 0 0 joist  4000 -3 1000
+*
+joint joinz  wallz 0 0 0 joist  -3402 1 3000
+*
+repeat 0 1 colour wallz  64 255  64
+repeat 0 1 colour floor 150 150   0
+*
+repeat 0 1 colour bdx00 200 200   0
+repeat 0 1 colour bdx01 200 200   0
+repeat 0 1 colour bdx02 200 200   0
+repeat 0 1 colour bdx03 200 200   0
+repeat 0 1 colour bdx04 200 200   0
+repeat 0 1 colour bdx05 200 200   0
+repeat 0 1 colour bdx06 200 200   0
+repeat 0 1 colour bdx07 200 200   0
+repeat 0 1 colour bdx08 200 200   0
+repeat 0 1 colour bdx09 200 200   0
+repeat 0 1 colour bdx10 200 200   0
+repeat 0 1 colour bdx11 200 200   0
+repeat 0 1 colour bdx12 200 200   0
+repeat 0 1 colour bdx13 200 200   0
+repeat 0 1 colour bdx14 200 200   0
+repeat 0 1 colour bdx15 200 200   0
+repeat 0 1 colour bdx16 200 200   0
+repeat 0 1 colour bdx17 200 200   0
+repeat 0 1 colour bdx18 200 200   0
+repeat 0 1 colour bdx19 200 200   0
+*
+repeat 0 1 colour brdz0 255 255   0
+repeat 0 1 colour brdz1 255 255   0
+repeat 0 1 colour brdz2 255 255   0
+repeat 0 1 colour brdz3 255 255   0
+repeat 0 1 colour brdz4 255 255   0
+repeat 0 1 colour brdz5 255 255   0
+repeat 0 1 colour brdz6 255 255   0
+repeat 0 1 colour brdz7 255 255   0
+repeat 0 1 colour brdz8 255 255   0
+repeat 0 1 colour brdz9 255 255   0
+*
+linear 0 1 spinby room joist world  90 y
+repeat 0 1 moveto room joist 0 -2 0
+*
+repeat 0 1 colour wallz  64 255  64
+repeat 0 1 colour floor 150 150   0
+*
+repeat 0 1 colour bdx00 200 200   0
+repeat 0 1 colour bdx01 200 200   0
+repeat 0 1 colour bdx02 200 200   0
+repeat 0 1 colour bdx03 200 200   0
+repeat 0 1 colour bdx04 200 200   0
+repeat 0 1 colour bdx05 200 200   0
+repeat 0 1 colour bdx06 200 200   0
+repeat 0 1 colour bdx07 200 200   0
+repeat 0 1 colour bdx08 200 200   0
+repeat 0 1 colour bdx09 200 200   0
+repeat 0 1 colour bdx10 200 200   0
+repeat 0 1 colour bdx11 200 200   0
+repeat 0 1 colour bdx12 200 200   0
+repeat 0 1 colour bdx13 200 200   0
+repeat 0 1 colour bdx14 200 200   0
+repeat 0 1 colour bdx15 200 200   0
+repeat 0 1 colour bdx16 200 200   0
+repeat 0 1 colour bdx17 200 200   0
+repeat 0 1 colour bdx18 200 200   0
+repeat 0 1 colour bdx19 200 200   0
+*
+repeat 0 1 colour brdz0 255 255   0
+repeat 0 1 colour brdz1 255 255   0
+repeat 0 1 colour brdz2 255 255   0
+repeat 0 1 colour brdz3 255 255   0
+repeat 0 1 colour brdz4 255 255   0
+repeat 0 1 colour brdz5 255 255   0
+repeat 0 1 colour brdz6 255 255   0
+repeat 0 1 colour brdz7 255 255   0
+repeat 0 1 colour brdz8 255 255   0
+repeat 0 1 colour brdz9 255 255   0
+*
+linear 0 1 spinby room joist world  90 y
+*

@@ -1,0 +1,124 @@
+* Ginger - a female figure
+*
+*   2 Jun 2005   scaled to match Fred
+*   6 Oct 1996   Don Herbison-Evans 
+*
+figure ginger 28 *
+ wlfoot wrfoot wlheel wrheel wlleg wrleg wlthigh wrthigh *
+ wluarm wruarm wllarm wrlarm wlhand wrhand wlthumb wrthumb *
+ wlbrst wrbrst wltoe  wrtoe *
+ wpelvis wchest wshldrs wneck whead wnose whair wbun
+*
+ellipsoid wltoe     1   1   1
+ellipsoid wrtoe     1   1   1
+ellipsoid wlfoot   40  80  20
+ellipsoid wrfoot   40  80  20
+ellipsoid wlheel   20  40  20
+ellipsoid wrheel   20  40  20
+ellipsoid wlleg    40 200  40
+ellipsoid wrleg    40 200  40
+ellipsoid wlthigh  50 200  60
+ellipsoid wrthigh  50 200  60
+*
+ellipsoid wluarm   40 135  40
+ellipsoid wruarm   40 135  40
+ellipsoid wllarm   35 120  35
+ellipsoid wrlarm   35 120  35
+ellipsoid wlhand   40  70  20
+ellipsoid wrhand   40  70  20
+ellipsoid wlthumb  10  50  10
+ellipsoid wrthumb  10  50  10
+*
+ellipsoid wlbrst   41  40  60
+ellipsoid wrbrst   41  40  60
+ellipsoid wpelvis 120  75  75 
+ellipsoid wchest  130 230  75 
+ellipsoid wshldrs 155  50  40 
+ellipsoid wneck    30  60  30 
+ellipsoid whead    73 100  80 
+ellipsoid wnose    20  20  60 
+*
+ellipsoid whair    76  98  84 
+ellipsoid wbun     50  25  50 
+*
+joint wlmeta   wltoe     0    0    0  wlfoot  0  -79   0
+joint wrmeta   wrtoe     0    0    0  wrfoot  0  -79   0
+joint wlankle  wlfoot    0  +55    0  wlleg   0 -185   0
+joint wrankle  wrfoot    0  +55    0  wrleg   0 -185   0
+joint wlcuboi  wlheel    0    0    0  wlleg   0 -185   0
+joint wrcuboi  wrheel    0    0    0  wrleg   0 -185   0
+joint wlknee   wlleg     0 +185    0  wlthigh 0 -175   0
+joint wrknee   wrleg     0 +185    0  wrthigh 0 -175   0
+joint wlhip    wlthigh   0 +150    0  wpelvis -60    0   0
+joint wrhip    wrthigh   0 +150    0  wpelvis +60    0   0
+*
+joint wlshldr  wshldrs -145   0    0  wluarm  0 +120   0
+joint wrshldr  wshldrs +145   0    0  wruarm  0 +120   0
+joint wlelbow  wluarm    0 -115    0  wllarm  0 +100   0
+joint wrelbow  wruarm    0 -115    0  wrlarm  0 +100   0
+joint wlwrist  wllarm    0 -115    0  wlhand  0  +50   0
+joint wrwrist  wrlarm    0 -115    0  wrhand  0  +50   0
+joint wlpalm   wlhand  -20  +40  +10  wlthumb 0  +40   0
+joint wrpalm   wrhand  +20  +40  +10  wrthumb 0  +40   0
+*
+joint wlchest  wchest  -50 +100  +50  wlbrst  0    0   0
+joint wrchest  wchest  +50 +100  +50  wrbrst  0    0   0
+joint wwaist   wpelvis   0  +25    0  wchest  0 -205   0
+joint wthorax  wchest    0 +155    0  wshldrs 0    0   0
+joint wspine   wshldrs   0  +40    0  wneck   0  -10   0
+joint wthroat  wneck     0  +20    0  whead   0 -100   0
+*
+joint wface    whead     0    0  +55  wnose   0    0   0
+joint wscalp   whead     0   +6   -6  whair   0    0   0
+joint wribbon  whair     0  +80  -60  wbun    0    0   0
+*
+limit wlankle  -1 130   -5 5   -5 5
+limit wrankle  -1 130   -5 5   -5 5
+limit wlknee   -130 1   -1 1   -1 1
+limit wrknee   -130 1   -1 1   -1 1
+*
+quadra 0 1 colour wlfoot   255 100 100
+quadra 0 1 colour wrfoot   255 100 100
+quadra 0 1 colour wlheel   255 100 100
+quadra 0 1 colour wrheel   255 100 100
+quadra 0 1 colour wlleg    255 100 100
+quadra 0 1 colour wrleg    255 100 100
+quadra 0 1 colour wlthigh  255 100 100
+quadra 0 1 colour wrthigh  255 100 100
+quadra 0 1 colour wluarm   255 100 100
+quadra 0 1 colour wruarm   255 100 100
+quadra 0 1 colour wllarm   255 100 100
+quadra 0 1 colour wrlarm   255 100 100
+quadra 0 1 colour wlhand   255 128  64
+quadra 0 1 colour wrhand   255 128  64
+quadra 0 1 colour wlthumb  255 128  64
+quadra 0 1 colour wrthumb  255 128  64
+quadra 0 1 colour wlbrst   255 100 100
+quadra 0 1 colour wrbrst   255 100 100
+quadra 0 1 colour wpelvis  255 100 100
+quadra 0 1 colour wchest   255 100 100
+quadra 0 1 colour wshldrs  255 100 100
+quadra 0 1 colour wneck    255 128  64
+quadra 0 1 colour whead    255 128  64
+quadra 0 1 colour wnose    255 128  64
+quadra 0 1 colour whair    128  64   0
+quadra 0 1 colour wbun     128  64   0
+*
+quadra   0   1 flex   wbun    wribbon  +45
+quadra   0   1 flex   whair   wscalp    +5
+quadra   0   1 flex   wnose   wface    -30
+quadra   0   1 flex   wlthumb wlpalm   +10
+quadra   0   1 flex   wrthumb wrpalm   +10
+quadra   0   1 flex   wlfoot  wlankle  +75
+quadra   0   1 flex   wrfoot  wrankle  +75
+*
+variable 1 woman
+repeat 0 1 set woman ginger
+*
+quadra   0   1 grofig woman wpelvis 1.0  0.9  1.0
+quadra   0   1 grofig woman wpelvis 0.5  0.5  0.5
+quadra   0   1 moveto woman wpelvis 500  500  500
+linear   0   1 ground woman
+*
+****************************************
+*

@@ -1,0 +1,1897 @@
+*   hapkido : 1994 Honours Thesis
+*       arm movements
+*             Andrew Wilcockson  26 March 1994
+*
+figure afred 31 *
+ alfoot  arfoot alleg   arleg  althigh arthigh *
+ aluarm  aruarm allarm  arlarm alhand  arhand althumb arthumb *
+ alfing arfing alx arx altoes artoes apelvis achest ashldrs aneck * 
+ ahead   anose  ahair abelt aknot ati1 ati2
+*
+ellipsoid alfoot   40  80  20
+ellipsoid arfoot   40  80  20
+ellipsoid alleg    40 200  40
+ellipsoid arleg    40 200  40
+ellipsoid althigh  50 200  60
+ellipsoid arthigh  50 200  60
+ellipsoid aluarm   40 135  40
+ellipsoid aruarm   40 135  40
+ellipsoid allarm   35 120  35
+ellipsoid arlarm   35 120  35
+ellipsoid alhand   40  45  20
+ellipsoid arhand   40  45  20
+ellipsoid alfing   40  45  20
+ellipsoid arfing   40  45  20
+ellipsoid alx      10  10  10
+ellipsoid arx      10  10  10
+ellipsoid altoes    5   5   5
+ellipsoid artoes    5   5   5
+ellipsoid althumb  10  30  10	*10 50 10
+ellipsoid arthumb  10  30  10	*10 50 10
+ellipsoid ahair    76  98  84 
+ellipsoid ahead    73 100  80
+ellipsoid anose    20  20  60
+ellipsoid aneck    30  60  30
+ellipsoid ashldrs 155  50  40
+ellipsoid achest  120 230  75	*130 230 75
+ellipsoid apelvis 110  75  75	*120 75 75
+ellipsoid abelt	 110  20 65
+ellipsoid aknot  15  15  15
+ellipsoid ati1   10  70  10
+ellipsoid ati2   10  70  10 
+*
+joint alankle  alfoot     0  +55    0  alleg     0 -185   0
+joint arankle  arfoot     0  +55    0  arleg     0 -185   0
+joint alknee   alleg      0 +185    0  althigh   0 -175   0
+joint arknee   arleg      0 +185    0  arthigh   0 -175   0
+joint alhip    althigh    0 +150    0  apelvis -60    0   0
+joint arhip    arthigh    0 +150    0  apelvis +60    0   0
+joint alshldr  ashldrs -145    0    0  aluarm    0 +120   0
+joint arshldr  ashldrs +145    0    0  aruarm    0 +120   0
+joint alelbow  aluarm     0 -115    0  allarm    0 +100   0
+joint arelbow  aruarm     0 -115    0  arlarm    0 +100   0
+joint alwrist  allarm     0 -115    0  alhand    0  +20   0
+joint arwrist  arlarm     0 -115    0  arhand    0  +20   0
+joint alknuck  alhand     0  -20    0  alfing    0  +20   0
+joint arknuck  arhand     0  -20    0  arfing    0  +20   0
+joint alpalm   alhand   -20  +50  +10  althumb   0  +50   0
+joint arpalm   arhand   +20  +50  +10  arthumb   0  +50   0
+joint ascalp   ahead      0   +6   -6  ahair     0    0   0
+joint aface    ahead      0  +30  +55  anose     0    0   0
+joint athroat  ahead      0 -100    0  aneck     0  +20   0
+joint aspine   aneck      0  -10    0  ashldrs   0  +40   0
+joint athorax  ashldrs    0    0    0  achest    0 +155   0
+joint awaist   apelvis    0  +75    0  achest    0 -155   0
+joint alheel   alx        0    0    0  alleg     0 -185   0
+joint arheel   arx        0    0    0  arleg     0 -185   0
+joint alball   altoes     0    0    0  alfoot    0  -55   0
+joint arball   artoes     0    0    0  arfoot    0  -55   0
+joint ab1      abelt      0    0    0  achest    0  -140  0
+joint ab2      aknot      0    0    0  achest    0  -140 65
+joint ab3      ati1       0  +50    0  achest    0  -140 65
+joint ab4      ati2       0  +50    0  achest    0  -140 65
+*
+linear 0 1 colour abelt	    34  139   34
+linear 0 1 colour aknot     34  139   34
+linear 0 1 colour ati1      34  139   34
+linear 0 1 colour ati2      34  139   34
+linear 0 1 colour alleg     70   70   70
+linear 0 1 colour arleg     70   70   70
+linear 0 1 colour althigh   70   70   70
+linear 0 1 colour arthigh   70   70   70
+linear 0 1 colour aluarm   255    0    0
+linear 0 1 colour aruarm   255    0    0
+linear 0 1 colour allarm   255    0    0
+linear 0 1 colour arlarm   255    0    0
+linear 0 1 colour ahair    165  42   42 
+linear 0 1 colour ashldrs  255    0    0
+linear 0 1 colour achest   255    0    0
+linear 0 1 colour apelvis   70   70   70
+*
+figure bfred 31 *
+ blfoot  brfoot blleg   brleg blthigh brthigh *
+ bluarm  bruarm bllarm  brlarm blhand  brhand blthumb brthumb *
+ blfing brfing blx brx bltoes brtoes bpelvis bchest bshldrs bneck * 
+ bhead   bnose  bhair bbelt bknot bti1 bti2
+*
+ellipsoid blfoot   40  80  20
+ellipsoid brfoot   40  80  20
+ellipsoid blleg    40 200  40
+ellipsoid brleg    40 200  40
+ellipsoid blthigh  50 200  60
+ellipsoid brthigh  50 200  60
+ellipsoid bluarm   40 135  40
+ellipsoid bruarm   40 135  40
+ellipsoid bllarm   35 120  35
+ellipsoid brlarm   35 120  35
+ellipsoid blhand   40  45  20
+ellipsoid brhand   40  45  20
+ellipsoid blfing   40  45  20
+ellipsoid brfing   40  45  20
+ellipsoid blx      10  10  10
+ellipsoid brx      10  10  10
+ellipsoid bltoes    5   5   5
+ellipsoid brtoes    5   5   5
+ellipsoid blthumb  10  30  10	*10 50 10
+ellipsoid brthumb  10  30  10	*10 50 10
+ellipsoid bhair    76  98  84 
+ellipsoid bhead    73 100  80
+ellipsoid bnose    20  20  60
+ellipsoid bneck    30  60  30
+ellipsoid bshldrs 155  50  40
+ellipsoid bchest  120 230  75	*130 230 75
+ellipsoid bpelvis 110  75  75	*120 75 75
+ellipsoid bbelt	 110  20 65
+ellipsoid bknot   15  15  15
+ellipsoid bti1   10  70  10
+ellipsoid bti2   10  70  10 
+*
+joint blankle  blfoot     0  +55    0  blleg     0 -185   0
+joint brankle  brfoot     0  +55    0  brleg     0 -185   0
+joint blknee   blleg      0 +185    0  blthigh   0 -175   0
+joint brknee   brleg      0 +185    0  brthigh   0 -175   0
+joint blhip    blthigh    0 +150    0  bpelvis -60    0   0
+joint brhip    brthigh    0 +150    0  bpelvis +60    0   0
+joint blshldr  bshldrs -145    0    0  bluarm    0 +120   0
+joint brshldr  bshldrs +145    0    0  bruarm    0 +120   0
+joint blelbow  bluarm     0 -115    0  bllarm    0 +100   0
+joint brelbow  bruarm     0 -115    0  brlarm    0 +100   0
+joint blwrist  bllarm     0 -115    0  blhand    0  +20   0
+joint brwrist  brlarm     0 -115    0  brhand    0  +20   0
+joint blknuck  blhand     0  -20    0  blfing    0  +20   0
+joint brknuck  brhand     0  -20    0  brfing    0  +20   0
+joint blpalm   blhand   -20  +50  +10  blthumb   0  +50   0
+joint brpalm   brhand   +20  +50  +10  brthumb   0  +50   0
+joint bscalp   bhead      0   +6   -6  bhair     0    0   0
+joint bface    bhead      0  +30  +55  bnose     0    0   0
+joint bthroat  bhead      0 -100    0  bneck     0  +20   0
+joint bspine   bneck      0  -10    0  bshldrs   0  +40   0
+joint bthorax  bshldrs    0    0    0  bchest    0 +155   0
+joint bwaist   bpelvis    0  +75    0  bchest    0 -155   0
+joint blheel   blx        0    0    0  blleg     0 -185   0
+joint brheel   brx        0    0    0  brleg     0 -185   0
+joint blball   bltoes     0    0    0  blfoot    0  -55   0
+joint brball   brtoes     0    0    0  brfoot    0  -55   0
+joint bb1      bbelt      0    0    0  bchest    0  -140  0
+joint bb2      bknot      0    0    0  bchest    0  -140 65
+joint bb3      bti1       0  +50    0  bchest    0  -140 65
+joint bb4      bti2       0  +50    0  bchest    0  -140 65
+*
+linear 0 1 colour bbelt	    34  139   34
+linear 0 1 colour bknot     34  139   34
+linear 0 1 colour bti1      34  139   34
+linear 0 1 colour bti2      34  139   34
+linear 0 1 colour blleg     70   70   70
+linear 0 1 colour brleg     70   70   70
+linear 0 1 colour blthigh   70   70   70
+linear 0 1 colour brthigh   70   70   70
+linear 0 1 colour bluarm   255    0    0
+linear 0 1 colour bruarm   255    0    0
+linear 0 1 colour bllarm   255    0    0
+linear 0 1 colour brlarm   255    0    0
+linear 0 1 colour bhair    165  42   42 
+linear 0 1 colour bshldrs  255    0    0
+linear 0 1 colour bchest   255    0    0
+linear 0 1 colour bpelvis   70   70   70
+*
+var 8 lfoot  rfoot lleg rleg lthigh rthigh lfing rfing
+var 8 luarm  ruarm llarm  rlarm lhand  rhand lthumb rthumb
+var 8 lx rx ltoes rtoes pelvis chest shldrs neck 
+var 3 head   nose  hair
+var 8 lankle rankle  rknee lknee  lhip rhip lshldr rshldr
+var 8 lelbow  relbow  lwrist rwrist lknuck rknuck lpalm rpalm
+var 10 scalp   face throat spine thorax waist lheel rheel lball rball
+var 8 belt knot tie1 tie2 b1 b2 b3 b4
+var 1 fred
+
+*
+*************************************************************************
+*var decs for variable length subroutines
+var 6 alength blength length atime btime time
+var 10 t1 t2 t3 t4 t5 t6 t7 t8 t9 t10
+var 10 t11 t12 t13 t14 t15 t16 t17 t18 t19 t20
+var 10 t21 t22 t23 t24 t25 t26 t27 t28 t29 t30
+*
+*************************************************************************
+*  main Program
+linear  0  1 observe -15 0 0
+linear  0  1 place 0 400 0
+call    0  1 setup
+linear  0  1 spinby afred achest world +90 y	*+90
+linear  0  1 spinby bfred bchest world -90 y	*-90
+repeat  0  1 ground afred
+repeat  0  1 ground bfred
+repeat  0  1 call seta
+repeat  0  1 call normtime
+call    0  1 horse
+repeat  0  1 call seta
+repeat  0  1 call normtime
+call    0  1 blbelt
+repeat  0  1 call seta
+repeat  0  1 call normtime
+call    0  1 3hair
+**
+repeat  5 10 call seta
+repeat  5 10 set length 10
+repeat  5 10 set time 6
+repeat  5 10 call calctime
+call    5 10 rublock
+repeat 10 22 call seta
+repeat 10 22 set length 10
+repeat 10 22 set time 13
+repeat 10 22 call calctime
+call   10 22 rokhstrike
+**
+repeat  0  1 call setb
+repeat  0  1 call normtime
+call    0  1 horse
+repeat  0  1 call setb
+repeat  0  1 call normtime
+call    0  1 blbelt
+repeat  0  1 call setb
+repeat  0  1 call normtime
+call    0  1 6hair
+**
+repeat  1 13 call setb
+repeat  1 13 set length 14
+repeat  1 13 set time 13
+repeat  1 13 call calctime
+call    1 13 hrpnch
+repeat  5 11 call setb
+repeat  5 11 call normtime
+call    5 11 eff3
+*
+*  End of main Program
+*************************************************************************
+*
+subroutine seta
+repeat 0 1 set fred afred
+repeat 0 1 set rankle arankle
+repeat 0 1 set lankle alankle
+repeat 0 1 set relbow arelbow
+repeat 0 1 set lelbow alelbow
+repeat 0 1 set rlarm arlarm
+repeat 0 1 set llarm allarm
+repeat 0 1 set rshldr arshldr
+repeat 0 1 set lshldr alshldr
+repeat 0 1 set ruarm aruarm
+repeat 0 1 set luarm aluarm
+repeat 0 1 set rleg arleg
+repeat 0 1 set lleg alleg
+repeat 0 1 set rfoot arfoot
+repeat 0 1 set lfoot alfoot
+repeat 0 1 set rknee arknee
+repeat 0 1 set lknee alknee
+repeat 0 1 set rthigh arthigh
+repeat 0 1 set lthigh althigh
+repeat 0 1 set rhip arhip
+repeat 0 1 set lhip alhip
+repeat 0 1 set rwrist arwrist
+repeat 0 1 set lwrist alwrist
+repeat 0 1 set rhand arhand
+repeat 0 1 set lhand alhand
+repeat 0 1 set lfing alfing
+repeat 0 1 set rfing arfing
+repeat 0 1 set lx alx
+repeat 0 1 set rx arx
+repeat 0 1 set ltoes altoes
+repeat 0 1 set rtoes artoes
+repeat 0 1 set lthumb althumb
+repeat 0 1 set rthumb arthumb
+repeat 0 1 set hair ahair
+repeat 0 1 set head ahead
+repeat 0 1 set nose anose
+repeat 0 1 set neck aneck
+repeat 0 1 set shldrs ashldrs
+repeat 0 1 set chest achest
+repeat 0 1 set pelvis apelvis
+repeat 0 1 set lknuck alknuck
+repeat 0 1 set rknuck arknuck
+repeat 0 1 set lpalm alpalm
+repeat 0 1 set rpalm arpalm
+repeat 0 1 set lheel alheel
+repeat 0 1 set rheel arheel
+repeat 0 1 set lball alball
+repeat 0 1 set rball arball
+repeat 0 1 set scalp ascalp
+repeat 0 1 set face aface
+repeat 0 1 set throat athroat
+repeat 0 1 set spine aspine
+repeat 0 1 set thorax athorax
+repeat 0 1 set waist awaist
+repeat 0 1 set belt abelt
+repeat 0 1 set knot aknot
+repeat 0 1 set tie1 ati1
+repeat 0 1 set tie2 ati2
+repeat 0 1 set b1 ab1
+repeat 0 1 set b2 ab2
+repeat 0 1 set b3 ab3
+repeat 0 1 set b4 ab4
+end seta
+*
+*************************************************************************
+*
+subroutine setb
+repeat 0 1 set fred bfred
+repeat 0 1 set rankle brankle
+repeat 0 1 set lankle blankle
+repeat 0 1 set relbow brelbow
+repeat 0 1 set lelbow blelbow
+repeat 0 1 set rlarm brlarm
+repeat 0 1 set llarm bllarm
+repeat 0 1 set rshldr brshldr
+repeat 0 1 set lshldr blshldr
+repeat 0 1 set ruarm bruarm
+repeat 0 1 set luarm bluarm
+repeat 0 1 set rleg brleg
+repeat 0 1 set lleg blleg
+repeat 0 1 set rfoot brfoot
+repeat 0 1 set lfoot blfoot
+repeat 0 1 set rknee brknee
+repeat 0 1 set lknee blknee
+repeat 0 1 set rthigh brthigh
+repeat 0 1 set lthigh blthigh
+repeat 0 1 set rhip brhip
+repeat 0 1 set lhip blhip
+repeat 0 1 set rwrist brwrist
+repeat 0 1 set lwrist blwrist
+repeat 0 1 set rhand brhand
+repeat 0 1 set lhand blhand
+repeat 0 1 set lfing blfing
+repeat 0 1 set rfing brfing
+repeat 0 1 set lx blx
+repeat 0 1 set rx brx
+repeat 0 1 set ltoes bltoes
+repeat 0 1 set rtoes brtoes
+repeat 0 1 set lthumb blthumb
+repeat 0 1 set rthumb brthumb
+repeat 0 1 set hair bhair
+repeat 0 1 set head bhead
+repeat 0 1 set nose bnose
+repeat 0 1 set neck bneck
+repeat 0 1 set shldrs bshldrs
+repeat 0 1 set chest bchest
+repeat 0 1 set pelvis bpelvis
+repeat 0 1 set lknuck blknuck
+repeat 0 1 set rknuck brknuck
+repeat 0 1 set lpalm blpalm
+repeat 0 1 set rpalm brpalm
+repeat 0 1 set lheel blheel
+repeat 0 1 set rheel brheel
+repeat 0 1 set lball blball
+repeat 0 1 set rball brball
+repeat 0 1 set scalp bscalp
+repeat 0 1 set face bface
+repeat 0 1 set throat bthroat
+repeat 0 1 set spine bspine
+repeat 0 1 set thorax bthorax
+repeat 0 1 set waist bwaist
+repeat 0 1 set belt bbelt
+repeat 0 1 set knot bknot
+repeat 0 1 set tie1 bti1
+repeat 0 1 set tie2 bti2
+repeat 0 1 set b1 bb1
+repeat 0 1 set b2 bb2
+repeat 0 1 set b3 bb3
+repeat 0 1 set b4 bb4
+end setb
+*
+*************************************************************************
+*
+subroutine setup
+*   prepare figure (hair and nose)
+*   note that figure is facing away from the observer (along z axis)
+*   in anatomical position ( palms facing forwards )
+*
+call 0 1 seta
+linear   0   1 flex nose   face     -30 
+linear   0   1 flex hair   scalp     +5
+linear   0   1 flex rthumb rpalm    +10
+linear   0   1 flex lthumb lpalm    +10
+linear   0   1 abduct tie1 b3 15
+linear   0   1 abduct tie2 b4 15
+linear   0   1 flex tie1 b3 10
+linear   0   1 flex tie2 b4 10
+*
+*   stand down on heels -
+*
+linear   0   1 flex   lfoot lankle     90
+linear   0   1 flex   rfoot rankle     90
+*
+linear     0  1 grofig fred chest 0.55 0.55 0.55
+quadratic  0  1 moveto fred chest -175 150 -40 *200 700 500
+*
+*  Turn palms inward.
+*
+linear 0 1 rotate lhand lwrist 90
+linear 0 1 rotate rhand rwrist 90
+*
+call 0 1 setb
+linear   0   1 flex nose   face     -30 
+linear   0   1 flex hair   scalp     +5
+linear   0   1 flex rthumb rpalm    +10
+linear   0   1 flex lthumb lpalm    +10
+linear   0   1 abduct tie1 b3 15
+linear   0   1 abduct tie2 b4 15
+linear   0   1 flex tie1 b3 10
+linear   0   1 flex tie2 b4 10
+*
+*   stand down on heels -
+*
+linear   0   1 flex   lfoot lankle     90
+linear   0   1 flex   rfoot rankle     90
+*
+linear     0  1 grofig fred chest 0.55 0.55 0.55
+quadratic  0  1 moveto fred chest 175 150 40 *600 700 500 dist height l/r
+*
+*  Turn palms inward.
+*
+linear 0 1 rotate lhand lwrist 90
+linear 0 1 rotate rhand rwrist 90
+*
+call 0 1 seta
+*linear 0 1 place 0 0 0
+*linear 0 1 observe 0 90 0
+*linear     0  1 spinby afred achest world +90 y
+*linear     0  1 spinby bfred bchest world -90 y
+*
+*  Setup Angles for open and close hands
+*
+var 6 lfx lfy lfz rfx rfy rfz
+var 6 lox loy loz rox roy roz
+repeat 0 1 angles lfing lhand lox loy loz
+repeat 0 1 angles rfing rhand rox roy roz
+linear 0 1 flex lfing lknuck 180
+linear 0 1 flex rfing rknuck 180
+repeat 0 1 angles lfing lhand lfx lfy lfz
+repeat 0 1 angles rfing rhand rfx rfy rfz
+call 0 1 open
+*
+*  Setup leg angles for anatomical position
+*
+var 3 laax laay laaz
+var 3 lakx laky lakz
+var 3 lahx lahy lahz
+var 3 raax raay raaz
+var 3 rakx raky rakz
+var 3 rahx rahy rahz
+repeat 0 1 angles lfoot pelvis 	laax laay laaz
+repeat 0 1 angles lleg pelvis 	lakx laky lakz
+repeat 0 1 angles lthigh pelvis lahx lahy lahz
+repeat 0 1 angles rfoot pelvis 	raax raay raaz
+repeat 0 1 angles rleg pelvis 	rakx raky rakz
+repeat 0 1 angles rthigh pelvis rahx rahy rahz
+*repeat 0 1 angles lfoot lleg 	laax laay laaz
+*repeat 0 1 angles lleg lthigh 	lakx laky lakz
+*repeat 0 1 angles lthigh pelvis lahx lahy lahz
+*repeat 0 1 angles rfoot rleg 	raax raay raaz
+*repeat 0 1 angles rleg rthigh 	rakx raky rakz
+*repeat 0 1 angles rthigh pelvis rahx rahy rahz
+*
+*  Set up arm angles for right foot back kicking stance
+*
+var 3 rklex rkley rklez	*l elbow
+var 3 rkrex rkrey rkrez	*r elbow
+var 3 rklsx rklsy rklsz	*l shldr
+var 3 rkrsx rkrsy rkrsz	*r shldr
+linear 0 1 rotate chest waist -45
+linear 0 1 rotate head throat -45
+linear 0 1 flex llarm lelbow 155
+linear 0 1 flex rlarm relbow 145
+linear 0 1 rotate luarm lshldr -25
+linear 0 1 rotate ruarm rshldr 55
+linear 0 1 bendby ruarm rshldr head 10 z
+linear 0 1 bendby luarm lshldr head -10 x
+linear 0 1 bendby ruarm rshldr head -10 x
+*
+repeat 0 1 angles luarm pelvis rklsx rklsy rklsz
+repeat 0 1 angles ruarm pelvis rkrsx rkrsy rkrsz
+repeat 0 1 angles llarm pelvis rklex rkley rklez
+repeat 0 1 angles rlarm pelvis rkrex rkrey rkrez
+*
+linear 0 1 bendby ruarm rshldr head 10 x
+linear 0 1 bendby luarm lshldr head 10 x
+linear 0 1 bendby ruarm rshldr head -10 z
+linear 0 1 rotate luarm lshldr 25
+linear 0 1 rotate ruarm rshldr -55
+linear 0 1 flex llarm lelbow -155
+linear 0 1 flex rlarm relbow -145
+linear 0 1 rotate head throat 45
+linear 0 1 rotate chest waist 45
+*
+*  Set up arm angles for left foot back kicking stance
+*
+var 3 lklex lkley lklez	*l elbow
+var 3 lkrex lkrey lkrez	*r elbow
+var 3 lklsx lklsy lklsz	*l shldr
+var 3 lkrsx lkrsy lkrsz	*r shldr
+linear 0 1 rotate chest waist 45
+linear 0 1 rotate head throat 45
+linear 0 1 flex rlarm relbow 155
+linear 0 1 flex llarm lelbow 145
+linear 0 1 rotate ruarm rshldr -25	*-25
+linear 0 1 rotate luarm lshldr 55	*55
+linear 0 1 bendby luarm lshldr head -10 z
+linear 0 1 bendby ruarm rshldr head -10 x
+linear 0 1 bendby luarm lshldr head -10 x
+*
+repeat 0 1 angles luarm pelvis lklsx lklsy lklsz
+repeat 0 1 angles ruarm pelvis lkrsx lkrsy lkrsz
+repeat 0 1 angles llarm pelvis lklex lkley lklez
+repeat 0 1 angles rlarm pelvis lkrex lkrey lkrez
+*
+linear 0 1 bendby luarm lshldr head 10 x
+linear 0 1 bendby ruarm rshldr head 10 x
+linear 0 1 bendby luarm lshldr head 10 z
+linear 0 1 rotate luarm lshldr -55
+linear 0 1 rotate ruarm rshldr 25
+linear 0 1 flex rlarm relbow -155
+linear 0 1 flex llarm lelbow -145
+linear 0 1 rotate head throat -45
+linear 0 1 rotate chest waist -45
+*
+*  Setup arm angles for ready position
+*
+var 3 rlex rley rlez	*l elbow
+var 3 rrex rrey rrez	*r elbow
+var 3 rlsx rlsy rlsz	*l shldr
+var 3 rrsx rrsy rrsz	*r shldr
+linear 0 1 flex luarm lshldr 15
+linear 0 1 flex ruarm rshldr 15
+linear 0 1 abduct luarm lshldr 5
+linear 0 1 abduct ruarm rshldr 5
+linear 0 1 rotate llarm lelbow 90
+linear 0 1 rotate rlarm relbow 90
+linear 0 1 abduct llarm lelbow -30
+linear 0 1 abduct rlarm relbow -30
+*
+repeat 0 1 angles luarm pelvis rlsx rlsy rlsz
+repeat 0 1 angles ruarm pelvis rrsx rrsy rrsz
+repeat 0 1 angles llarm pelvis rlex rley rlez
+repeat 0 1 angles rlarm pelvis rrex rrey rrez
+*
+linear 0 1 abduct llarm lelbow 30
+linear 0 1 abduct rlarm relbow 30
+linear 0 1 rotate llarm lelbow -90
+linear 0 1 rotate rlarm relbow -90
+linear 0 1 abduct luarm lshldr -5
+linear 0 1 abduct ruarm rshldr -5
+linear 0 1 flex luarm lshldr -15
+linear 0 1 flex ruarm rshldr -15
+*
+*  Setup leg angles for kicking stance
+*
+var 3 lkax lkay lkaz
+var 3 lkkx lkky lkkz
+var 3 lkhx lkhy lkhz
+var 3 rkax rkay rkaz
+var 3 rkkx rkky rkkz
+var 3 rkhx rkhy rkhz
+linear 0 1 abduct lthigh lhip 5
+linear 0 1 abduct pelvis rhip 5
+linear 0 1 abduct lfoot lankle -5
+linear 0 1 bendby rleg rankle pelvis 5 z
+linear 0 1 bendby pelvis lhip head 45 y
+linear 0 1 rotate head throat -45
+linear 0 1 bendby lleg lankle head -10 x
+linear 0 1 bendby pelvis lhip head 10 x
+repeat 0 1 angles lfoot lleg 	lkax lkay lkaz
+repeat 0 1 angles lleg lthigh 	lkkx lkky lkkz
+repeat 0 1 angles lthigh pelvis lkhx lkhy lkhz
+repeat 0 1 angles rfoot rleg 	rkax rkay rkaz
+repeat 0 1 angles rleg rthigh 	rkkx rkky rkkz
+repeat 0 1 angles rthigh pelvis rkhx rkhy rkhz
+linear 0 1 bendby pelvis lhip head -10 x
+linear 0 1 bendby lleg lankle head 10 x
+linear 0 1 rotate head throat 45
+linear 0 1 bendby pelvis lhip head -45 y
+linear 0 1 bendby rleg rankle pelvis -5 z
+linear 0 1 abduct lfoot lankle 5
+linear 0 1 abduct pelvis rhip -5
+linear 0 1 abduct lthigh lhip -5
+*
+*  Setup arm angles for Horse Riding Stance
+*
+var 3 hlex hley hlez	*l elbow
+var 3 hrex hrey hrez	*r elbow
+var 3 hlsx hlsy hlsz	*l shldr
+var 3 hrsx hrsy hrsz	*r shldr
+linear 0 1 flex luarm lshldr -60
+linear 0 1 flex ruarm rshldr -60
+linear 0 1 flex llarm lelbow 105
+linear 0 1 flex rlarm relbow 105
+linear 0 1 rotate llarm lelbow -90
+linear 0 1 rotate rlarm relbow -90
+*
+repeat 0 1 angles luarm pelvis hlsx hlsy hlsz
+repeat 0 1 angles ruarm pelvis hrsx hrsy hrsz
+repeat 0 1 angles llarm pelvis hlex hley hlez
+repeat 0 1 angles rlarm pelvis hrex hrey hrez
+*
+linear 0 1 rotate llarm lelbow 90
+linear 0 1 rotate rlarm relbow 90
+linear 0 1 flex llarm lelbow -105
+linear 0 1 flex rlarm relbow -105
+linear 0 1 flex luarm lshldr 60
+linear 0 1 flex ruarm rshldr 60
+*
+*  Setup variables for multi height kicks
+*
+var 5 backh fsnaph turnh sideh sidei
+*
+end setup
+*
+*************************************************************************
+*length 1
+subroutine anatom
+linear 0 1 bendto lfoot lankle lleg 	laax laay laaz
+linear 0 1 bendto lleg lknee lthigh 	lakx laky lakz
+linear 0 1 bendto lthigh lhip pelvis 	lahx lahy lahz
+linear 0 1 bendto rfoot rankle rleg 	raax raay raaz
+linear 0 1 bendto rleg rknee rthigh	rakx raky rakz
+linear 0 1 bendto rthigh rhip pelvis 	rahx rahy rahz
+end anatom
+
+subroutine calctime
+repeat 0 1 mul t1 1 time
+repeat 0 1 mul t2 2 time
+repeat 0 1 mul t3 3 time
+repeat 0 1 mul t4 4 time
+repeat 0 1 mul t5 5 time
+repeat 0 1 mul t6 6 time
+repeat 0 1 mul t7 7 time
+repeat 0 1 mul t8 8 time
+repeat 0 1 mul t9 9 time
+repeat 0 1 mul t10 10 time
+repeat 0 1 mul t11 11 time
+repeat 0 1 mul t12 12 time
+repeat 0 1 mul t13 13 time
+repeat 0 1 mul t14 14 time
+repeat 0 1 mul t15 15 time
+repeat 0 1 mul t16 16 time
+repeat 0 1 mul t17 17 time
+repeat 0 1 mul t18 18 time
+repeat 0 1 mul t19 19 time
+repeat 0 1 mul t20 20 time
+repeat 0 1 mul t21 21 time
+repeat 0 1 mul t22 22 time
+repeat 0 1 mul t23 23 time
+repeat 0 1 mul t24 24 time
+repeat 0 1 mul t25 25 time
+repeat 0 1 mul t26 26 time
+repeat 0 1 mul t27 27 time
+repeat 0 1 mul t28 28 time
+repeat 0 1 mul t29 29 time
+repeat 0 1 mul t30 30 time
+repeat 0 1 div t1 t1 length
+repeat 0 1 div t2 t2 length
+repeat 0 1 div t3 t3 length
+repeat 0 1 div t4 t4 length
+repeat 0 1 div t5 t5 length
+repeat 0 1 div t6 t6 length
+repeat 0 1 div t7 t7 length
+repeat 0 1 div t8 t8 length
+repeat 0 1 div t9 t9 length
+repeat 0 1 div t10 t10 length
+repeat 0 1 div t11 t11 length
+repeat 0 1 div t12 t12 length
+repeat 0 1 div t13 t13 length
+repeat 0 1 div t14 t14 length
+repeat 0 1 div t15 t15 length
+repeat 0 1 div t16 t16 length
+repeat 0 1 div t17 t17 length
+repeat 0 1 div t18 t18 length
+repeat 0 1 div t19 t19 length
+repeat 0 1 div t20 t20 length
+repeat 0 1 div t21 t21 length
+repeat 0 1 div t22 t22 length
+repeat 0 1 div t23 t23 length
+repeat 0 1 div t24 t24 length
+repeat 0 1 div t25 t25 length
+repeat 0 1 div t26 t26 length
+repeat 0 1 div t27 t27 length
+repeat 0 1 div t28 t28 length
+repeat 0 1 div t29 t29 length
+repeat 0 1 div t30 t30 length
+end calctime
+
+subroutine normtime
+repeat 0 1 set t1 1
+repeat 0 1 set t2 2
+repeat 0 1 set t3 3
+repeat 0 1 set t4 4
+repeat 0 1 set t5 5
+repeat 0 1 set t6 6
+repeat 0 1 set t7 7
+repeat 0 1 set t8 8
+repeat 0 1 set t9 9
+repeat 0 1 set t10 10
+repeat 0 1 set t11 11
+repeat 0 1 set t12 12
+repeat 0 1 set t13 13
+repeat 0 1 set t14 14
+repeat 0 1 set t15 15
+repeat 0 1 set t16 16
+repeat 0 1 set t17 17
+repeat 0 1 set t18 18
+repeat 0 1 set t19 19
+repeat 0 1 set t20 20
+repeat 0 1 set t21 21
+repeat 0 1 set t22 22
+repeat 0 1 set t23 23
+repeat 0 1 set t24 24
+repeat 0 1 set t25 25
+repeat 0 1 set t26 26
+repeat 0 1 set t27 27
+repeat 0 1 set t28 28
+repeat 0 1 set t29 29
+repeat 0 1 set t30 30
+end normtime
+*
+*************************************************************************
+*
+*             HANDS.N
+*
+*************************************************************************
+*
+subroutine lfist
+linear 0 1 bendto lfing lknuck lhand lfx lfy lfz
+end lfist
+*
+*************************************************************************
+*
+subroutine rfist
+linear 0 1 bendto rfing rknuck rhand rfx rfy rfz
+end rfist
+*
+*************************************************************************
+*
+subroutine fist
+call 0 1 lfist
+call 0 1 rfist
+end fist
+*
+*************************************************************************
+*
+subroutine lopen
+linear 0 1 bendto lfing lknuck lhand lox loy loz
+end lopen
+*
+*************************************************************************
+*
+subroutine ropen
+linear 0 1 bendto rfing rknuck rhand rox roy roz
+end ropen
+*
+*************************************************************************
+*
+subroutine open
+call 0 1 lopen
+call 0 1 ropen
+end open
+*
+*************************************************************************
+*
+subroutine hands1 * Horse Riding Stance
+linear 0 1 flex luarm lshldr -60
+linear 0 1 flex ruarm rshldr -60
+linear 0 1 flex llarm lelbow 105
+linear 0 1 flex rlarm relbow 105
+linear 0 1 rotate llarm lelbow -90
+linear 0 1 rotate rlarm relbow -90
+end hands1
+*
+*************************************************************************
+*
+subroutine hands2 * (Other)
+linear 1 4 bendto luarm lshldr pelvis rklsx rklsy rklsz
+linear 1 4 bendto ruarm rshldr pelvis rkrsx rkrsy rkrsz
+linear 1 4 bendto llarm lelbow pelvis  rklex rkley rklez
+linear 1 4 bendto rlarm relbow pelvis  rkrex rkrey rkrez
+end hands2
+subroutine hands2x
+linear 0 1 bendto luarm lshldr head rklsx rklsy rklsz
+linear 0 1 bendto ruarm rshldr head rkrsx rkrsy rkrsz
+linear 0 1 bendto llarm lelbow head rklex rkley rklez
+linear 0 1 bendto rlarm relbow head rkrex rkrey rkrez
+end hands2x
+*
+*************************************************************************
+*
+*            STANCES.N
+*
+*************************************************************************
+*length 15
+subroutine bow
+quadratic 1 6 flex chest waist -65
+quadratic 1 6 flex head throat -40
+quad 1 6 flex llarm lelbow 60
+quad 1 6 flex rlarm relbow 60
+quad 1 6 flex luarm lshldr -10
+quad 1 6 flex ruarm rshldr -10
+quad 1 6 flex lhand lwrist 10
+quad 1 6 flex rhand rwrist 10
+
+quadratic 10 15 flex chest waist 65
+quadratic 10 15 flex head throat 40
+quad 10 15 flex llarm lelbow -60
+quad 10 15 flex rlarm relbow -60
+quad 10 15 flex luarm lshldr 10
+quad 10 15 flex ruarm rshldr 10
+quad 10 15 flex lhand lwrist -10
+quad 10 15 flex rhand rwrist -10
+end bow
+*
+*************************************************************************
+*length 1, completed 23 April 1994  REMOVE WHEN FINISHED
+subroutine ready
+call 0 1 fist
+linear 0 1 abduct lthigh lhip 5
+linear 0 1 abduct pelvis rhip 5
+linear 0 1 abduct lfoot lankle -5
+linear 0 1 bendby rleg rankle pelvis 5 z
+linear 0 1 bendto luarm lshldr head rlsx rlsy rlsz
+linear 0 1 bendto ruarm rshldr head rrsx rrsy rrsz
+linear 0 1 bendto llarm lelbow head rlex rley rlez
+linear 0 1 bendto rlarm relbow head rrex rrey rrez
+end ready
+*
+*************************************************************************
+*length 7, completed 23 April 1994
+subroutine a2r
+linear 1 3 flex lthigh lhip 10
+linear 5 7 flex lthigh lhip -10
+linear 1 3 flex lleg lknee 10
+linear 5 7 flex lleg lknee -10
+linear 1 7 abduct lthigh lhip 5
+linear 1 7 abduct pelvis rhip 5
+linear 1 7 abduct lfoot lankle -5
+linear 1 7 bendby rleg rankle pelvis 5 z
+call 4 5 fist
+linear 4 7 flex luarm lshldr 15
+linear 4 7 flex ruarm rshldr 15
+linear 4 7 abduct luarm lshldr 5	*25
+linear 4 7 abduct ruarm rshldr 5	*25
+linear 4 7 rotate llarm lelbow 90
+linear 4 7 rotate rlarm relbow 90
+linear 4 7 abduct llarm lelbow -30	*-50
+linear 4 7 abduct rlarm relbow -30	*-50
+end a2r
+*
+*************************************************************************
+*length 7, completed 27 April 1994
+subroutine r2a
+linear 1 3 flex lthigh lhip 10
+linear 5 7 flex lthigh lhip -10
+linear 1 3 flex lleg lknee 10
+linear 5 7 flex lleg lknee -10
+linear 1 7 abduct lthigh lhip -5
+linear 1 7 abduct pelvis rhip -5
+linear 1 7 abduct lfoot lankle 5
+linear 1 7 bendby rleg rankle pelvis -5 z
+call 4 5 open
+linear 4 7 abduct llarm lelbow 30	*-50
+linear 4 7 abduct rlarm relbow 30	*-50
+linear 4 7 rotate llarm lelbow -90
+linear 4 7 rotate rlarm relbow -90
+linear 4 7 abduct luarm lshldr -5	*25
+linear 4 7 abduct ruarm rshldr -5	*25
+linear 4 7 flex luarm lshldr -15
+linear 4 7 flex ruarm rshldr -15
+end r2a
+*
+*************************************************************************
+*legnth 1	REMOVE WHEN FINISHED
+subroutine horse
+call 0 1 fist
+linear 0 1 abduct lthigh lhip 20
+linear 0 1 bendby lfoot lankle pelvis 20 z
+linear 0 1 bendby lthigh lhip pelvis -30 x
+linear 0 1 bendby lleg lknee pelvis 60 x
+linear 0 1 bendby lfoot lankle pelvis -30 x
+
+linear 0 1 bendby pelvis rhip pelvis -20 z
+linear 0 1 bendby rleg rankle pelvis 20 z
+linear 0 1 bendby pelvis rhip pelvis 30 x
+linear 0 1 bendby rthigh rknee pelvis -60 x
+linear 0 1 bendby rleg rankle pelvis 30 x
+
+*linear 4 7 flex luarm lshldr 15
+*linear 4 7 flex ruarm rshldr 15
+*linear 4 7 abduct luarm lshldr 5	*25
+*linear 4 7 abduct ruarm rshldr 5	*25
+*linear 4 7 abduct llarm lelbow -30	*-50
+*linear 4 7 abduct rlarm relbow -30	*-50
+
+
+linear 0 1 flex luarm lshldr -60
+linear 0 1 flex ruarm rshldr -60
+*linear 4 7 abduct luarm lshldr -5
+*linear 4 7 abduct ruarm rshldr -5
+*linear 4 7 abduct llarm lelbow 30
+*linear 4 7 abduct rlarm relbow 30
+linear 0 1 flex llarm lelbow 105
+linear 0 1 flex rlarm relbow 105
+linear 0 1 rotate llarm lelbow -90
+linear 0 1 rotate rlarm relbow -90
+end horse
+*
+*************************************************************************
+*length 7, Completed April 25 1994
+subroutine r2h
+linear 1 4 abduct lthigh lhip 20
+linear 1 4 bendby lfoot lankle pelvis 20 z
+linear 1 4 bendby lthigh lhip pelvis -25 x	*
+linear 1 4 bendby lleg lknee pelvis 25 x	*
+
+linear 1 4 bendby pelvis rhip pelvis -20 z
+linear 1 4 bendby rleg rankle pelvis 20 z
+
+linear 4 7 bendby lthigh lhip pelvis -5 x
+linear 4 7 bendby lleg lknee pelvis 35 x
+linear 4 7 bendby lfoot lankle pelvis -30 x
+
+linear 4 7 bendby pelvis rhip pelvis 30 x
+linear 4 7 bendby rthigh rknee pelvis -60 x
+linear 4 7 bendby rleg rankle pelvis 30 x
+
+linear 1 4 abduct llarm lelbow 30
+linear 1 4 abduct rlarm relbow 30
+linear 1 4 abduct luarm lshldr -5
+linear 1 4 abduct ruarm rshldr -5
+linear 4 7 rotate llarm lelbow -180
+linear 4 7 rotate rlarm relbow -180
+linear 4 7 flex luarm lshldr -75
+linear 4 7 flex ruarm rshldr -75
+linear 4 7 flex llarm lelbow 115
+linear 4 7 flex rlarm relbow 115
+end r2h
+*
+*************************************************************************
+*length 7, Completed April 27 1994
+subroutine h2r
+linear 1 4 bendby lfoot lankle pelvis 30 x
+linear 1 4 bendby lleg lknee pelvis -35 x
+linear 1 4 bendby lthigh lhip pelvis 5 x
+
+linear 1 4 bendby rleg rankle pelvis -30 x
+linear 1 4 bendby rthigh rknee pelvis 60 x
+linear 1 4 bendby pelvis rhip pelvis -30 x
+
+linear 4 7 bendby lleg lknee pelvis -25 x
+linear 4 7 bendby lthigh lhip pelvis 25 x
+linear 4 7 bendby lfoot lankle pelvis -20 z
+linear 4 7 abduct lthigh lhip -20
+
+linear 4 7 bendby rleg rankle pelvis -20 z
+linear 4 7 bendby pelvis rhip pelvis 20 z
+
+linear 1 4 flex llarm lelbow -115
+linear 1 4 flex rlarm relbow -115
+linear 1 4 flex luarm lshldr 75
+linear 1 4 flex ruarm rshldr 75
+linear 1 4 rotate llarm lelbow 180
+linear 1 4 rotate rlarm relbow 180
+linear 4 7 abduct luarm lshldr 5
+linear 4 7 abduct ruarm rshldr 5
+linear 4 7 abduct llarm lelbow -30
+linear 4 7 abduct rlarm relbow -30
+end h2r
+*
+*************************************************************************
+*
+*            PUNCHES.N
+*
+*************************************************************************
+*length - 6
+subroutine jab
+linear 1 3 bendby luarm lshldr head -90 x
+linear 1 3 bendby llarm lelbow head 155 x
+linear 1 3 rotate chest waist -30
+linear 1 3 rotate head throat -30
+linear 1 3 bendby luarm lshldr head -30 y
+linear 4 6 bendby luarm lshldr head 30 y
+linear 4 6 rotate head throat 30
+linear 4 6 rotate chest waist 30
+linear 4 6 bendby llarm lelbow head -155 x
+linear 4 6 bendby luarm lshldr head 90 x
+end jab
+*
+*************************************************************************
+*length - 10
+subroutine cross
+quad 1 5 rotate luarm lshldr 45
+quad 1 5 rotate head throat 45
+quad 1 5 rotate chest waist 55
+quad 1 5 rotate ruarm rshldr -45
+acce 1 5 flex rlarm relbow -135
+acce 1 5 flex ruarm rshldr 85
+*
+acce 6 10 flex ruarm rshldr -85
+acce 6 10 flex rlarm relbow 135
+quad 6 10 rotate ruarm rshldr 45
+quad 6 10 rotate chest waist -55
+quad 6 10 rotate head throat -45
+quad 6 10 rotate luarm lshldr -45
+end cross
+*
+*************************************************************************
+*length - 14
+subroutine lrpnch
+acce 1 t7 flex ruarm rshldr 105
+acce 1 t7 flex rlarm relbow -105
+acce t4 t7 rotate rlarm relbow 180
+acce t4 t7 bendby  ruarm rshldr head -15 y
+dece t8 t11 bendby  ruarm rshldr head 15 y
+dece t8 t11 rotate rlarm relbow -180
+dece t8 t14 flex rlarm relbow 105
+dece t8 t14 flex ruarm rshldr -105
+end lrpnch
+*
+*************************************************************************
+*
+subroutine mrpnch
+acce 1 t7 flex ruarm rshldr 150
+acce 1 t7 flex rlarm relbow -105
+acce t4 t7 rotate rlarm relbow 180
+acce t4 t7 bendby ruarm rshldr head -15 y
+dece t8 t11 bendby ruarm rshldr head 15 y
+dece t8 t11 rotate rlarm relbow -180
+dece t8 t14 flex rlarm relbow 105
+dece t8 t14 flex ruarm rshldr -150
+end mrpnch
+*
+*************************************************************************
+*
+subroutine hrpnch
+acce 1 t7 flex ruarm rshldr 170
+acce 1 t7 flex rlarm relbow -105
+acce t4 t7 rotate rlarm relbow 180
+acce t4 t7 bendby ruarm rshldr head -15 y
+dece t8 t11 bendby ruarm rshldr head 15 y
+dece t8 t11 rotate rlarm relbow -180
+dece t8 t14 flex rlarm relbow 105
+dece t8 t14 flex ruarm rshldr -170
+end hrpnch
+*
+*************************************************************************
+*
+subroutine llpnch
+acce 1 t7 flex luarm lshldr 105
+acce 1 t7 flex llarm lelbow -105
+acce t4 t7 rotate llarm lelbow 180
+acce t4 t7 bendby luarm lshldr head 15 y
+dece t8 t11 bendby luarm lshldr head -15 y
+dece t8 t11 rotate llarm lelbow -180
+dece t8 t14 flex llarm lelbow 105
+dece t8 t14 flex luarm lshldr -105
+end llpnch
+*
+*************************************************************************
+*
+subroutine mlpnch
+acce 1 t7 flex luarm lshldr 150
+acce 1 t7 flex llarm lelbow -105
+acce t4 t7 rotate llarm lelbow 180
+acce t4 t7 bendby luarm lshldr head 15 y
+dece t8 t11 bendby luarm lshldr head -15 y
+dece t8 t11 rotate llarm lelbow -180
+dece t8 t14 flex llarm lelbow 105
+dece t8 t14 flex luarm lshldr -150
+end mlpnch
+*
+*************************************************************************
+*
+subroutine hlpnch
+acce 1 t7 flex luarm lshldr 170
+acce 1 t7 flex llarm lelbow -105
+acce t4 t5 rotate llarm lelbow 180
+acce t4 t7 bendby luarm lshldr head 15 y
+dece t8 t11 bendby luarm lshldr head -15 y
+dece t8 t11 rotate llarm lelbow -180
+dece t8 t14 flex llarm lelbow 105
+dece t8 t14 flex luarm lshldr -170
+end hlpnch
+*
+*************************************************************************
+*
+subroutine triple
+call 1 10 hrpnch
+call 11 20 mlpnch
+call 21 30 lrpnch
+end triple
+*
+*************************************************************************
+*
+*
+*************************************************************************
+*
+*        BLOCKS.N
+*
+*************************************************************************
+* Outer block with right hand
+subroutine oblk
+linear 1 4 flex ruarm rshldr 80
+linear 1 4 rotate rlarm relbow 90
+linear 1 4 flex rlarm relbow -25
+linear 2 4 rotate ruarm rshldr 90
+linear 4 7 bendby rlarm relbow pelvis -100 z
+end oblk
+*
+*************************************************************************
+* Outer block with left hand, bring back right hand
+subroutine oswapl
+linear 1 4 bendby rlarm relbow pelvis 100 z
+linear 4 5 rotate ruarm rshldr -90
+linear 4 7 flex rlarm relbow 25
+linear 4 7 rotate rlarm relbow -90
+linear 4 7 flex ruarm rshldr -80
+
+linear 1 4 flex luarm lshldr 80
+linear 1 4 rotate llarm lelbow 90
+linear 1 4 flex llarm lelbow -25
+linear 3 5 rotate luarm lshldr 90
+linear 4 7 bendby llarm lelbow pelvis 100 z
+end oswapl
+*
+*************************************************************************
+* Outer block with right hand, bring back left hand
+subroutine oswapr
+linear 1 4 flex ruarm rshldr 80
+linear 1 4 rotate rlarm relbow 90
+linear 1 4 flex rlarm relbow -25
+linear 2 4 rotate ruarm rshldr 90
+linear 4 7 bendby rlarm relbow pelvis -100 z
+
+linear 1 4 bendby llarm lelbow pelvis -100 z
+linear 4 5 rotate luarm lshldr -90
+linear 4 7 flex llarm lelbow 25
+linear 4 7 rotate llarm lelbow -90
+linear 4 7 flex luarm lshldr -80
+end oswapr
+*
+*************************************************************************
+* Bring back left hand
+subroutine oback
+linear 1 4 bendby llarm lelbow pelvis -100 z
+linear 4 5 rotate luarm lshldr -90
+linear 4 7 flex llarm lelbow 25
+linear 4 7 rotate llarm lelbow -90
+linear 4 7 flex luarm lshldr -80
+end oback
+*
+*************************************************************************
+*
+subroutine okblk
+call 2 3 ropen
+call 1 7 oblk
+end okblk
+*
+*************************************************************************
+*
+subroutine okswapl
+call 3 4 lopen
+call 5 6 rfist
+call 1 7 oswapl
+end okswapl
+*
+*************************************************************************
+*
+subroutine okswapr
+call 3 4 ropen
+call 5 6 lfist
+call 1 7 oswapr
+end okswapr
+*
+*************************************************************************
+*
+subroutine okback
+call 1 7 oback
+call 5 6 lfist
+end okback
+*
+*************************************************************************
+* Upper bock with right hand
+subroutine ublk
+linear 1 4 flex ruarm rshldr 80
+linear 1 4 rotate rlarm relbow 90
+linear 1 4 flex rlarm relbow -25
+linear 2 4 rotate ruarm rshldr 90
+linear 4 7 bendby ruarm rshldr pelvis -160 x
+linear 6 7 flex rlarm relbow -20
+end ublk
+*
+*************************************************************************
+* Upper block with left hand, bring back right hand
+subroutine uswapl
+linear 1 2 flex rlarm relbow 20
+linear 1 4 bendby ruarm rshldr pelvis 160 x
+linear 4 5 rotate ruarm rshldr -90
+linear 4 7 flex rlarm relbow 25
+linear 4 7 rotate rlarm relbow -90
+linear 4 7 flex ruarm rshldr -80
+
+linear 1 4 flex luarm lshldr 80
+linear 1 4 rotate llarm lelbow 90
+linear 1 4 flex llarm lelbow -25
+linear 3 5 rotate luarm lshldr 90
+linear 4 7 bendby luarm lshldr pelvis -160 x
+linear 6 7 flex llarm lelbow -20
+end uswapl
+*
+*************************************************************************
+* Upper block with right hand, bring back left hand
+subroutine uswapr
+linear 1 4 flex ruarm rshldr 80
+linear 1 4 rotate rlarm relbow 90
+linear 1 4 flex rlarm relbow -25
+linear 2 4 rotate ruarm rshldr 90
+linear 4 7 bendby ruarm rshldr pelvis -160 x
+linear 6 7 flex rlarm relbow -20
+
+linear 1 2 flex llarm lelbow 20
+linear 1 4 bendby luarm lshldr pelvis 160 x
+linear 4 5 rotate luarm lshldr -90
+linear 4 7 flex llarm lelbow 25
+linear 4 7 rotate llarm lelbow -90
+linear 4 7 flex luarm lshldr -80
+end uswapr
+*
+*************************************************************************
+* Bring back left hand
+subroutine uback
+linear 1 2 flex llarm lelbow 20
+linear 1 4 bendby luarm lshldr pelvis 160 x
+linear 4 5 rotate luarm lshldr -90
+linear 4 7 flex llarm lelbow 25
+linear 4 7 rotate llarm lelbow -90
+linear 4 7 flex luarm lshldr -80
+end uback
+*
+*************************************************************************
+*
+subroutine ukblk
+call 2 3 ropen
+call 1 7 ublk
+end ukblk
+*
+*************************************************************************
+*
+subroutine ukswapl
+call 3 4 lopen
+call 5 6 rfist
+call 1 7 uswapl
+end ukswapl
+*
+*************************************************************************
+*
+subroutine ukswapr
+call 3 4 ropen
+call 5 6 lfist
+call 1 7 uswapr
+end ukswapr
+*
+*************************************************************************
+*
+subroutine ukback
+call 1 7 uback
+call 5 6 lfist
+end ukback
+*
+*************************************************************************
+*
+subroutine lblk
+linear 1 4 flex ruarm rshldr 80
+linear 1 4 rotate rlarm relbow 90
+linear 1 4 flex rlarm relbow -25
+linear 2 4 rotate ruarm rshldr 90
+linear 4 5 bendby rlarm relbow pelvis -55 z
+linear 5 7 bendby rlarm relbow pelvis 135 z
+linear 6 7 bendby ruarm rshldr pelvis 5 z
+linear 6 7 bendby rlarm relbow pelvis -10 x
+end lblk
+*
+*************************************************************************
+* Lower block with left hand, bring back right hand
+subroutine lswapl
+linear 1 2 bendby rlarm relbow pelvis 10 x
+linear 1 2 bendby ruarm rshldr pelvis -5 z
+linear 1 3 bendby rlarm relbow pelvis -135 z
+linear 3 4 bendby rlarm relbow pelvis 55 z
+linear 4 5 rotate ruarm rshldr -90
+linear 4 7 flex rlarm relbow 25
+linear 4 7 rotate rlarm relbow -90
+linear 4 7 flex ruarm rshldr -80
+
+linear 1 4 flex luarm lshldr 80
+linear 1 4 rotate llarm lelbow 90
+linear 1 4 flex llarm lelbow -25
+linear 3 5 rotate luarm lshldr 90
+linear 4 5 bendby llarm lelbow pelvis 55 z
+linear 5 7 bendby llarm lelbow pelvis -135 z
+linear 6 7 bendby luarm lshldr pelvis -5 z
+linear 6 7 bendby llarm lelbow pelvis -10 x
+end lswapl
+*
+*************************************************************************
+* Lower block with right hand, bring back left hand
+subroutine lswapr
+linear 1 4 flex ruarm rshldr 80
+linear 1 4 rotate rlarm relbow 90
+linear 1 4 flex rlarm relbow -25
+linear 2 4 rotate ruarm rshldr 90
+linear 4 5 bendby rlarm relbow pelvis -55 z
+linear 5 7 bendby rlarm relbow pelvis 135 z
+linear 6 7 bendby ruarm rshldr pelvis 5 z
+linear 6 7 bendby rlarm relbow pelvis -10 x
+
+linear 1 2 bendby llarm lelbow pelvis 10 x
+linear 1 2 bendby luarm lshldr pelvis 5 z
+linear 1 3 bendby llarm lelbow pelvis 135 z
+linear 3 4 bendby llarm lelbow pelvis -55 z
+linear 4 5 rotate luarm lshldr -90
+linear 4 7 flex llarm lelbow 25
+linear 4 7 rotate llarm lelbow -90
+linear 4 7 flex luarm lshldr -80
+end lswapr
+*
+*************************************************************************
+* Bring back left hand
+subroutine lback
+linear 1 2 bendby llarm lelbow pelvis 10 x
+linear 1 2 bendby luarm lshldr pelvis 5 z
+linear 1 3 bendby llarm lelbow pelvis 135 z
+linear 3 4 bendby llarm lelbow pelvis -55 z
+linear 4 5 rotate luarm lshldr -90
+linear 4 7 flex llarm lelbow 25
+linear 4 7 rotate llarm lelbow -90
+linear 4 7 flex luarm lshldr -80
+end lback
+*
+*************************************************************************
+*
+subroutine lkblk
+call 2 3 ropen
+call 1 7 lblk
+end lkblk
+*
+*************************************************************************
+*
+subroutine lkswapl
+call 3 4 lopen
+call 5 6 rfist
+call 1 7 lswapl
+end lkswapl
+*
+*************************************************************************
+*
+subroutine lkswapr
+call 3 4 ropen
+call 5 6 lfist
+call 1 7 lswapr
+end lkswapr
+*
+*************************************************************************
+*
+subroutine lkback
+call 1 7 lback
+call 5 6 lfist
+end lkback
+*
+*************************************************************************
+*
+subroutine iblk
+linear 1 4 flex ruarm rshldr 60
+linear 1 4 rotate rlarm relbow 90
+linear 1 4 flex rlarm relbow 45
+linear 4 7 rotate rlarm relbow 90
+linear 4 7 bendby rlarm relbow pelvis 45 z
+*linear 2 4 rotate ruarm rshldr 90
+*linear 4 7 bendby rlarm relbow pelvis -100 z
+end iblk
+*
+*************************************************************************
+* Inner block with left hand, bring back right hand
+subroutine iswapl
+linear 1 4 bendby rlarm relbow pelvis 100 z
+linear 4 5 rotate ruarm rshldr -90
+linear 4 7 flex rlarm relbow 25
+linear 4 7 rotate rlarm relbow -90
+linear 4 7 flex ruarm rshldr -80
+
+linear 1 4 flex luarm lshldr 80
+linear 1 4 rotate llarm lelbow 90
+linear 1 4 flex llarm lelbow -25
+linear 3 5 rotate luarm lshldr 90
+linear 4 7 bendby llarm lelbow pelvis 100 z
+end iswapl
+*
+*************************************************************************
+* Inner block with right hand, bring back left hand
+subroutine iswapr
+linear 1 4 flex ruarm rshldr 80
+linear 1 4 rotate rlarm relbow 90
+linear 1 4 flex rlarm relbow -25
+linear 2 4 rotate ruarm rshldr 90
+linear 4 7 bendby rlarm relbow pelvis -100 z
+
+linear 1 4 bendby llarm lelbow pelvis -100 z
+linear 4 5 rotate luarm lshldr -90
+linear 4 7 flex llarm lelbow 25
+linear 4 7 rotate llarm lelbow -90
+linear 4 7 flex luarm lshldr -80
+end iswapr
+*
+*************************************************************************
+* Bring back left hand
+subroutine iback
+linear 1 4 bendby llarm lelbow pelvis -100 z
+linear 4 5 rotate luarm lshldr -90
+linear 4 7 flex llarm lelbow 25
+linear 4 7 rotate llarm lelbow -90
+linear 4 7 flex luarm lshldr -80
+end iback
+*
+*************************************************************************
+*
+subroutine ikblk
+call 2 3 ropen
+call 1 7 iblk
+end ikblk
+*
+*************************************************************************
+*
+subroutine ikswapl
+call 3 4 lopen
+call 5 6 rfist
+call 1 7 iswapl
+end ikswapl
+*
+*************************************************************************
+*
+subroutine ikswapr
+call 3 4 ropen
+call 5 6 lfist
+call 1 7 iswapr
+end ikswapr
+*
+*************************************************************************
+*
+subroutine ikback
+call 1 7 iback
+call 5 6 lfist
+end ikback
+*
+*************************************************************************
+*
+*	The following have been added for testing of the fight program
+*
+*************************************************************************
+*
+subroutine roblock ***OK***
+linear 1 t3 flex ruarm rshldr 80
+linear 1 t3 rotate rlarm relbow 90
+linear 1 t3 flex rlarm relbow -25
+linear t2 t3 rotate ruarm rshldr 90
+linear t3 t5 bendby rlarm relbow pelvis -100 z
+
+linear t6 t8 bendby rlarm relbow pelvis 100 z
+linear t8 t9 rotate ruarm rshldr -90
+linear t8 t10 flex rlarm relbow 25
+linear t8 t10 rotate rlarm relbow -90
+linear t8 t10 flex ruarm rshldr -80
+end roblock
+
+subroutine rublock ***OK***
+repeat 1 t10 print time
+repeat 1 t10 print t1
+repeat 1 t10 print t2
+repeat 1 t10 print t3
+repeat 1 t10 print t4
+repeat 1 t10 print t5
+repeat 1 t10 print t6
+repeat 1 t10 print t7
+repeat 1 t10 print t8
+repeat 1 t10 print t9
+repeat 1 t10 print t10
+linear 1 t3 flex ruarm rshldr 80
+linear 1 t3 rotate rlarm relbow 90
+linear 1 t3 flex rlarm relbow -25
+linear t2 t3 rotate ruarm rshldr 90
+linear t3 t5 bendby ruarm rshldr pelvis -160 x
+linear t4 t5 flex rlarm relbow -20
+
+linear t6 t7 flex rlarm relbow 20
+linear t6 t8 bendby ruarm rshldr pelvis 160 x
+linear t8 t9 rotate ruarm rshldr -90
+linear t8 t10 flex rlarm relbow 25
+linear t8 t10 rotate rlarm relbow -90
+linear t8 t10 flex ruarm rshldr -80
+end rublock
+
+subroutine rlblock ***OK***
+linear 1 t3 flex ruarm rshldr 80
+linear 1 t3 rotate rlarm relbow 90
+linear 1 t3 flex rlarm relbow -25
+linear t2 t3 rotate ruarm rshldr 90
+linear t3 t4 bendby rlarm relbow pelvis -55 z
+linear t4 t5 bendby rlarm relbow pelvis 135 z
+linear t4 t5 bendby ruarm rshldr pelvis 5 z
+linear t4 t5 bendby rlarm relbow pelvis -10 x
+
+linear t6 t7 bendby rlarm relbow pelvis 10 x
+linear t6 t7 bendby ruarm rshldr pelvis -5 z
+linear t6 t7 bendby rlarm relbow pelvis -135 z
+linear t7 t8 bendby rlarm relbow pelvis 55 z
+linear t8 t9 rotate ruarm rshldr -90
+linear t8 t10 flex rlarm relbow 25
+linear t8 t10 rotate rlarm relbow -90
+linear t8 t10 flex ruarm rshldr -80
+end rlblock
+
+subroutine riblock
+linear 1 3 flex ruarm rshldr 60
+linear 1 3 rotate rlarm relbow 90
+linear 1 3 flex rlarm relbow 45
+linear 2 3 rotate ruarm rshldr -45
+linear 3 5 rotate ruarm rshldr 90
+linear 4 5 flex rlarm relbow -30
+
+linear 6 7 flex rlarm relbow 30
+linear 6 8 rotate ruarm rshldr -90
+linear 9 10 rotate ruarm rshldr 45
+linear 8 10 flex rlarm relbow -45
+linear 8 10 rotate rlarm relbow -90
+linear 8 10 flex ruarm rshldr -60
+end riblock
+
+subroutine loblock ***OK***
+linear 1 3 flex luarm lshldr 80
+linear 1 3 rotate llarm lelbow 90
+linear 1 3 flex llarm lelbow -25
+linear 2 3 rotate luarm lshldr 90
+linear 3 5 bendby llarm lelbow pelvis 100 z
+
+linear 6 8 bendby llarm lelbow pelvis -100 z
+linear 8 9 rotate luarm lshldr -90
+linear 8 10 flex llarm lelbow 25
+linear 8 10 rotate llarm lelbow -90
+linear 8 10 flex luarm lshldr -80
+end loblock
+
+subroutine lublock ***OK***
+linear 1 3 flex luarm lshldr 80
+linear 1 3 rotate llarm lelbow 90
+linear 1 3 flex llarm lelbow -25
+linear 2 3 rotate luarm lshldr 90
+linear 3 5 bendby luarm lshldr pelvis -160 x
+linear 4 5 flex llarm lelbow -20
+
+linear 6 7 flex llarm lelbow 20
+linear 6 8 bendby luarm lshldr pelvis 160 x
+linear 8 9 rotate luarm lshldr -90
+linear 8 10 flex llarm lelbow 25
+linear 8 10 rotate llarm lelbow -90
+linear 8 10 flex luarm lshldr -80
+end lublock
+
+subroutine llblock ***OK***
+linear 1 t3 flex luarm lshldr 80
+linear 1 t3 rotate llarm lelbow 90
+linear 1 t3 flex llarm lelbow -25
+linear t2 t3 rotate luarm lshldr 90
+linear t3 t4 bendby llarm lelbow pelvis 55 z
+linear t4 t5 bendby llarm lelbow pelvis -135 z
+linear t4 t5 bendby luarm lshldr pelvis -5 z
+linear t4 t5 bendby llarm lelbow pelvis -10 x
+
+linear t6 t7 bendby llarm lelbow pelvis 10 x
+linear t6 t7 bendby luarm lshldr pelvis 5 z
+linear t6 t7 bendby llarm lelbow pelvis 135 z
+linear t7 t8 bendby llarm lelbow pelvis -55 z
+linear t8 t9 rotate luarm lshldr -90
+linear t8 t10 flex llarm lelbow 25
+linear t8 t10 rotate llarm lelbow -90
+linear t8 t10 flex luarm lshldr -80
+end llblock
+
+subroutine liblock
+linear 1 3 flex luarm lshldr 60
+linear 1 3 rotate llarm lelbow 90
+linear 1 3 flex llarm lelbow 45
+linear 2 3 rotate luarm lshldr -45
+linear 3 5 rotate luarm lshldr 90
+linear 4 5 flex llarm lelbow -30
+
+linear 6 7 flex llarm lelbow 30
+linear 6 8 rotate luarm lshldr -90
+linear 9 10 rotate luarm lshldr 45
+linear 8 10 flex llarm lelbow -45
+linear 8 10 rotate llarm lelbow -90
+linear 8 10 flex luarm lshldr -60
+end liblock
+
+subroutine rokblock
+call 2 3 ropen
+call 1 10 roblock
+call 7 8 rfist
+end rokblock
+
+subroutine rukblock
+call 2 3 ropen
+call 1 10 rublock
+call 7 8 rfist
+end rukblock
+
+subroutine rlkblock
+call 2 3 ropen
+call 1 10 rlblock
+call 7 8 rfist
+end rlkblock
+
+subroutine rikblock
+call 2 3 ropen
+call 1 10 riblock
+call 7 8 rfist
+end rikblock
+
+subroutine lokblock
+call 2 3 open
+call 1 10 loblock
+call 7 8 lfist
+end lokblock
+
+subroutine lukblock
+call 1 10 lublock
+call 2 3 lopen
+call 7 8 lfist
+end lukblock
+
+subroutine llkblock
+call 2 3 lopen
+call 1 10 llblock
+call 7 8 lfist
+end llkblock
+
+subroutine likblock
+call 2 3 lopen
+call 1 10 liblock
+call 7 8 lfist
+end likblock
+*
+*************************************************************************
+*
+*        EFFECTS.N
+*
+*************************************************************************
+*
+subroutine eff1
+end eff1
+
+subroutine eff2
+linear 1 t3 flex ruarm rshldr 0
+linear t3 t4 bendby ruarm rshldr head -30 y
+linear t6 t7 bendby ruarm rshldr head 30 y
+end eff2
+
+subroutine eff3
+linear 1 t3 flex ruarm rshldr 0
+linear t3 t4 flex ruarm rshldr 30
+linear t6 t7 flex ruarm rshldr -30
+end eff3
+
+subroutine eff4
+end eff4
+
+subroutine eff5
+linear 1 t3 flex luarm lshldr 0
+linear t3 t4 bendby luarm lshldr head 30 y
+linear t6 t7 bendby luarm lshldr head -30 y
+end eff5
+
+subroutine eff6
+linear 1 t3 flex luarm lshldr 0
+linear t3 t4 flex luarm lshldr 30
+linear t6 t7 flex luarm lshldr -30
+end eff6
+*
+*************************************************************************
+*
+*        KHSTRIKE.N
+*
+*************************************************************************
+*
+subroutine rokhstrike
+linear 1 t4 flex ruarm rshldr 90
+linear t2 t4 rotate ruarm rshldr 80
+linear t2 t4 flex rlarm relbow 30
+call t3 t4 ropen
+
+linear t4 t6 flex ruarm rshldr 60
+linear t4 t6 rotate ruarm rshldr -80
+linear t4 t6 flex rlarm relbow -130
+linear t4 t5 rotate rlarm relbow 180
+
+linear t9 t10 rotate rlarm relbow -180
+linear t7 t10 flex rlarm relbow 130
+linear t7 t10 rotate ruarm rshldr 80
+linear t7 t10 flex ruarm rshldr -60
+
+call t7 t8 rfist
+linear t7 t10 flex rlarm relbow -30
+linear t7 t10 rotate ruarm rshldr -80
+linear t7 t10 flex ruarm rshldr -90
+end rokhstrike
+
+subroutine lokhstrike
+linear t1 t4 flex luarm lshldr 90
+linear t2 t4 rotate luarm lshldr 80
+linear t2 t4 flex llarm lelbow 30
+call t3 t4 lopen
+
+linear t4 t6 flex luarm lshldr 60
+linear t4 t6 rotate luarm lshldr -80
+linear t4 t6 flex llarm lelbow -130
+linear t4 t5 rotate llarm lelbow 180
+
+linear t9 t10 rotate llarm lelbow -180
+linear t7 t10 flex llarm lelbow 130
+linear t7 t10 rotate luarm lshldr 80
+linear t7 t10 flex luarm lshldr -60
+
+call t7 t8 lfist
+linear t7 t10 flex llarm lelbow -30
+linear t7 t10 rotate luarm lshldr -80
+linear t7 t10 flex luarm lshldr -90
+end lokhstrike
+
+subroutine rdkhstrike
+linear 1 3 flex ruarm rshldr 160
+linear 1 3 flex rlarm relbow 20
+linear 2 3 rotate rlarm relbow 90
+
+linear 1 3 rotate chest waist -20
+linear 1 3 rotate head throat -20
+
+linear 1 3 flex luarm lshldr 80
+linear 1 3 rotate llarm lelbow 90
+linear 1 3 flex llarm lelbow -25
+linear 2 3 rotate luarm lshldr 90
+
+linear 3 5 flex rlarm relbow -120
+linear 3 5 flex ruarm rshldr -10
+
+linear 3 5 rotate chest waist 20
+linear 3 5 rotate head throat 20
+
+linear 3 4 rotate luarm lshldr -90
+linear 3 5 flex llarm lelbow 25
+linear 3 5 rotate llarm lelbow -90
+linear 3 5 flex luarm lshldr -80
+
+linear 6 8 flex ruarm rshldr -150
+linear 6 8 flex rlarm relbow 100
+linear 7 8 rotate rlarm relbow -90
+end rdkhstrike
+
+subroutine ldkhstrike
+linear 1 3 flex luarm lshldr 160
+linear 1 3 flex llarm lelbow 20
+linear 2 3 rotate llarm lelbow 90
+
+linear 1 3 rotate chest waist 20
+linear 1 3 rotate head throat 20
+
+linear 1 3 flex ruarm rshldr 80
+linear 1 3 rotate rlarm relbow 90
+linear 1 3 flex rlarm relbow -25
+linear 2 3 rotate ruarm rshldr 90
+
+linear 3 5 flex llarm lelbow -120
+linear 3 5 flex luarm lshldr -10
+
+linear 3 5 rotate chest waist -20
+linear 3 5 rotate head throat -20
+
+linear 3 4 rotate ruarm rshldr -90
+linear 3 5 flex rlarm relbow 25
+linear 3 5 rotate rlarm relbow -90
+linear 3 5 flex ruarm rshldr -80
+
+linear 6 8 flex luarm lshldr -150
+linear 6 8 flex llarm lelbow 100
+linear 7 8 rotate llarm lelbow -90
+end ldkhstrike
+*
+*************************************************************************
+*
+*        HAIR.N
+*
+*************************************************************************
+*
+subroutine 1hair
+linear 0 1 colour hair 165 42 42
+end 1hair
+
+subroutine 2hair
+linear 0 1 colour hair 244 164 96
+end 2hair
+
+subroutine 3hair
+linear 0 1 colour hair 139 35 35
+end 3hair
+
+subroutine 4hair
+linear 0 1 colour hair 205 51 51
+end 4hair
+
+subroutine 5hair
+linear 0 1 colour hair 255 69 0
+end 5hair
+
+subroutine 6hair
+linear 0 1 colour hair 0 0 0
+end 6hair
+*
+*************************************************************************
+*
+*        BELTS.N
+*
+*************************************************************************
+*
+subroutine wbelt
+linear 0 1 colour belt 255 255 255
+linear 0 1 colour knot 255 255 255
+linear 0 1 colour tie1 255 255 255
+linear 0 1 colour tie2 255 255 255
+end wbelt
+
+subroutine obelt
+linear 0 1 colour belt 255 165   0
+linear 0 1 colour knot 255 165   0
+linear 0 1 colour tie1 255 165   0
+linear 0 1 colour tie2 255 165   0
+end obelt
+
+subroutine ybelt  ** Problems???
+linear 0 1 colour belt 255 255   0
+linear 0 1 colour knot 255 255   0
+linear 0 1 colour tie1 255 255   0
+linear 0 1 colour tie2 255 255   0
+end ybelt
+
+subroutine gbelt
+linear 0 1 colour belt  34 139  34
+linear 0 1 colour knot  34 139  34
+linear 0 1 colour tie1  34 139  34
+linear 0 1 colour tie2  34 139  34
+end gbelt
+
+subroutine Bbelt  ** Problems???
+linear 0 1 colour belt   0 191 255
+linear 0 1 colour knot   0 191 255
+linear 0 1 colour tie1   0 191 255
+linear 0 1 colour tie2   0 191 255
+end Bbelt
+
+subroutine brbelt
+linear 0 1 colour belt 139  69  19
+linear 0 1 colour knot 139  69  19
+linear 0 1 colour tie1 139  69  19
+linear 0 1 colour tie2 139  69  19
+end brbelt
+
+subroutine rbelt
+linear 0 1 colour belt 255   0   0
+linear 0 1 colour knot 255   0   0
+linear 0 1 colour tie1 255   0   0
+linear 0 1 colour tie2 255   0   0
+end rbelt
+
+subroutine blbelt
+linear 0 1 colour belt   0   0   0
+linear 0 1 colour knot   0   0   0
+linear 0 1 colour tie1   0   0   0
+linear 0 1 colour tie2   0   0   0
+end blbelt
+stop

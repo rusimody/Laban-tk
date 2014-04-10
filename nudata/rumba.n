@@ -1,0 +1,444 @@
+* rumba - a female figure doing a rumba basic
+*           in 97 frames
+*     with no hip movements
+*   Don Herbison-Evans 1 June 1994
+*
+figure ginger 28 *
+ wlfoot wrfoot wlheel wrheel wlleg wrleg wlthigh wrthigh *
+ wluarm wruarm wllarm wrlarm wlhand wrhand wlthumb wrthumb *
+ wlbrst wrbrst wltoe  wrtoe *
+ wpelvis wchest wshldrs wneck whead wnose whair wbun
+*
+ellipsoid wltoe     1   1   1
+ellipsoid wrtoe     1   1   1
+ellipsoid wlfoot   40  80  20
+ellipsoid wrfoot   40  80  20
+ellipsoid wlheel   20  40  20
+ellipsoid wrheel   20  40  20
+ellipsoid wlleg    40 200  40
+ellipsoid wrleg    40 200  40
+ellipsoid wlthigh  50 200  60
+ellipsoid wrthigh  50 200  60
+*
+ellipsoid wluarm   40 135  40
+ellipsoid wruarm   40 135  40
+ellipsoid wllarm   35 120  35
+ellipsoid wrlarm   35 120  35
+ellipsoid wlhand   40  70  20
+ellipsoid wrhand   40  70  20
+ellipsoid wlthumb  10  50  10
+ellipsoid wrthumb  10  50  10
+*
+ellipsoid wlbrst   41  40  60
+ellipsoid wrbrst   41  40  60
+ellipsoid wpelvis 120  75  75 
+ellipsoid wchest  130 230  75 
+ellipsoid wshldrs 155  50  40 
+ellipsoid wneck    30  60  30 
+ellipsoid whead    73 100  80 
+ellipsoid wnose    20  20  60 
+*
+ellipsoid whair    76  98  84 
+ellipsoid wbun     50  25  50 
+*
+joint wlmeta   wltoe     0    0    0  wlfoot  0  -79   0
+joint wrmeta   wrtoe     0    0    0  wrfoot  0  -79   0
+joint wlankle  wlfoot    0  +55    0  wlleg   0 -185   0
+joint wrankle  wrfoot    0  +55    0  wrleg   0 -185   0
+joint wlcuboi  wlheel    0    0    0  wlleg   0 -185   0
+joint wrcuboi  wrheel    0    0    0  wrleg   0 -185   0
+joint wlknee   wlleg     0 +185    0  wlthigh 0 -175   0
+joint wrknee   wrleg     0 +185    0  wrthigh 0 -175   0
+joint wlhip    wlthigh   0 +150    0  wpelvis -60    0   0
+joint wrhip    wrthigh   0 +150    0  wpelvis +60    0   0
+*
+joint wlshldr  wshldrs -145   0    0  wluarm  0 +120   0
+joint wrshldr  wshldrs +145   0    0  wruarm  0 +120   0
+joint wlelbow  wluarm    0 -115    0  wllarm  0 +100   0
+joint wrelbow  wruarm    0 -115    0  wrlarm  0 +100   0
+joint wlwrist  wllarm    0 -115    0  wlhand  0  +50   0
+joint wrwrist  wrlarm    0 -115    0  wrhand  0  +50   0
+joint wlpalm   wlhand  -20  +40  +10  wlthumb 0  +40   0
+joint wrpalm   wrhand  +20  +40  +10  wrthumb 0  +40   0
+*
+joint wlchest  wchest  -50 +100  +50  wlbrst  0    0   0
+joint wrchest  wchest  +50 +100  +50  wrbrst  0    0   0
+joint wwaist   wpelvis   0  +25    0  wchest  0 -205   0
+joint wthorax  wchest    0 +155    0  wshldrs 0    0   0
+joint wspine   wshldrs   0  +40    0  wneck   0  -10   0
+joint wthroat  wneck     0  +20    0  whead   0 -100   0
+*
+joint wface    whead     0    0  +55  wnose   0    0   0
+joint wscalp   whead     0   +6   -6  whair   0    0   0
+joint wribbon  whair     0  +80  -60  wbun    0    0   0
+*
+limit wlankle  -1 130   -5 5   -5 5
+limit wrankle  -1 130   -5 5   -5 5
+limit wlknee   -130 1   -1 1   -1 1
+limit wrknee   -130 1   -1 1   -1 1
+*
+quadra 0 1 colour wlfoot   100 100 100
+quadra 0 1 colour wrfoot   100 100 100
+quadra 0 1 colour wlheel   100 100 100
+quadra 0 1 colour wrheel   100 100 100
+quadra 0 1 colour wlleg    100 100 100
+quadra 0 1 colour wrleg    100 100 100
+quadra 0 1 colour wlthigh  100 100 100
+quadra 0 1 colour wrthigh  100 100 100
+quadra 0 1 colour wluarm   100 100 100
+quadra 0 1 colour wruarm   100 100 100
+quadra 0 1 colour wllarm   100 100 100
+quadra 0 1 colour wrlarm   100 100 100
+quadra 0 1 colour wlhand   255 128  64
+quadra 0 1 colour wrhand   255 128  64
+quadra 0 1 colour wlthumb  255 128  64
+quadra 0 1 colour wrthumb  255 128  64
+quadra 0 1 colour wlbrst   100 100 100
+quadra 0 1 colour wrbrst   100 100 100
+quadra 0 1 colour wpelvis  100 100 100
+quadra 0 1 colour wchest   100 100 100
+quadra 0 1 colour wshldrs  100 100 100
+quadra 0 1 colour wneck    255 128  64
+quadra 0 1 colour whead    255 128  64
+quadra 0 1 colour wnose    255 128  64
+quadra 0 1 colour whair    128 128   0
+quadra 0 1 colour wbun     128 128   0
+*
+quadra   0   1 flex   wbun    wribbon  +45
+quadra   0   1 flex   whair   wscalp    +5
+quadra   0   1 flex   wnose   wface    -30
+quadra   0   1 flex   wlthumb wlpalm   +10
+quadra   0   1 flex   wrthumb wrpalm   +10
+quadra   0   1 flex   wlfoot  wlankle  +75
+quadra   0   1 flex   wrfoot  wrankle  +75
+quadra   0   1 rotate wlthigh wlhip    -30
+quadra   0   1 rotate wrthigh wrhip    -30
+*
+quadra   0   1 grofig ginger wpelvis 0.6  0.6  0.6
+quadra   0   1 moveto ginger wpelvis 400 500 500
+*
+call     0   1 lstart
+call     1  13 rback
+call    13  25 lrepl
+call    25  49 rside
+call    49  61 lfor
+call    61  73 rrepl
+call    73  97 lside
+*
+quadra   0   1 observe -10 120   0
+quadra   0   1 place   500 400 500
+*
+*end main program
+**********************************************
+*
+subroutine lstart
+*
+*  starting with the weight on the L foot
+*
+variables 3 gx gy gz
+variables 6 rsx rsy rsz lsx lsy lsz
+variables 6 rax ray raz lax lay laz
+variables 3 rbx rby rbz
+variables 6 lux luy luz rux ruy ruz
+variables 6 rfsx rfsy rfsz lfsx lfsy lfsz
+variables 3 lfx lfy lfz
+variables 2 ang nang
+variables 2 pang pnang
+variables 2 rang rnang
+variables 2 roang ronang
+variables 2 flang flnang
+variables 2 kang knang
+*
+repeat  0  1 angles wlfoot  wlleg lax lay laz
+repeat  0  1 angles wrfoot  wrleg rax ray raz
+repeat  0  1 set    ang       25
+repeat  0  1 set    nang     -25
+repeat  0  1 set    rang      20
+repeat  0  1 set    rnang    -20
+repeat  0  1 set    pang      20
+repeat  0  1 set    pnang    -20
+repeat  0  1 set    flang     50
+repeat  0  1 set    flnang   -50
+repeat  0  1 set    kang      20
+repeat  0  1 set    knang    -20
+*
+repeat  0  1 add   roang rang pang
+repeat  0  1 add   ronang rnang pnang
+*
+*   store positions for feet apart -
+*
+repeat  0  1 angles wlthigh wpelvis lux luy luz
+repeat  0  1 angles wrthigh wpelvis rux ruy ruz
+*
+quadra  0  1 flex   wrthigh wrhip   nang
+repeat  0  1 angles wrthigh wpelvis rbx rby rbz
+quadra  0  1 flex   wrthigh wrhip   ang
+*
+quadra  0  1 flex   wrthigh wrhip   ang
+quadra  0  1 abduct wrthigh wrhip   ang
+repeat  0  1 angles wrthigh wpelvis rfsx rfsy rfsz
+quadra  0  1 bendto wrthigh wrhip   wpelvis rux ruy ruz
+*
+quadra  0  1 flex   wlthigh wlhip   ang
+quadra  0  1 abduct wlthigh wlhip   ang
+repeat  0  1 angles wlthigh wpelvis lfsx lfsy lfsz
+quadra  0  1 bendto wlthigh wlhip   wpelvis lux luy luz
+*
+quadra  0  1 flex   wlthigh wlhip   ang
+repeat  0  1 angles wlthigh wpelvis lfx lfy lfz
+quadra  0  1 flex   wlthigh wlhip   nang
+*
+*   R foot side -
+*
+quadra  0  1 abduct wrthigh wrhip   ang
+repeat  0  1 angles wrthigh wpelvis rsx rsy rsz
+quadra  0  1 abduct wrthigh wrhip   nang
+*
+*   L foot side -
+*
+quadra  0  1 abduct wlthigh wlhip   ang
+repeat  0  1 angles wlthigh wpelvis lsx lsy lsz
+quadra  0  1 abduct wlthigh wlhip   nang
+*
+*   lstart position -
+*
+quadra  0  1 abduct wrthigh wrhip    ang
+repeat  0  1 drag   wrfoot  wrfoot   wrankle  wrleg  x
+*
+quadra  0  1 rotate wruarm  wrshldr  ang
+quadra  0  1 flex   wruarm  wrshldr  ang
+quadra  0  1 flex   wrlarm  wrelbow   50
+quadra  0  1 flex   wrhand  wrwrist  -10
+*
+quadra  0  1 abduct wluarm  wlshldr   40
+quadra  0  1 bendby wluarm  wlshldr wshldrs  45 y
+quadra  0  1 rotate wluarm  wlshldr  ang
+quadra  0  1 flex   wllarm  wlelbow   45
+quadra  0  1 rotate wlhand  wlwrist  -45
+*
+end lstart
+*******************************************
+*
+subroutine rback
+*
+* step back onto R foot
+*   from R side
+*  in 12 frames
+*   1 - 13
+*
+repeat  0  1 centre wltoe   gx gy gz
+*
+quadra  0  6 bendby wpelvis wlhip   wpelvis pnang z
+quadra  0  6 abduct wchest  wwaist  pang
+quadra  6 12 abduct wchest  wwaist  pnang
+quadra  6 12 bendby wpelvis wlhip   wpelvis pang z
+*
+linear  0  4 bendto wrthigh wrhip   wchest  rux ruy ruz
+repeat  0  4 moveto ginger  wlfoot  gx gy gz
+repeat  0  4 flex   wrleg   wrknee  90
+repeat  0  4 drag   wrfoot  wrleg   wrknee  wrthigh  x
+*
+repeat  4  8 moveto ginger  wlfoot  gx gy gz
+quadra  4  8 bendto wrthigh wrhip   wchest  rbx rby rbz
+quadra  4  8 bendto wrfoot  wrankle wrleg   rax ray raz
+repeat  4  8 flex   wrleg   wrknee  90
+repeat  4  8 drag   wrfoot  wrleg   wrknee  wrthigh  x
+*
+quadra  8 12 bendto wrthigh wrhip   wchest  rux ruy ruz
+quadra  8 12 bendto wlthigh wlhip   wchest  lfx lfy lfz
+quadra  8 12 bendto wrleg   wrknee  wrthigh 0   0   0
+repeat  8 12 bendto wlfoot  wlankle wlleg   lax lay laz
+repeat  8 12 drag   wlfoot  wlfoot  wlankle wlleg x
+*
+repeat  0 12 moveto ginger  wltoe   gx gy gz
+repeat  0 12 ground ginger
+*
+quadra  0 12 rotate wlhand  wlwrist  90
+quadra  0 12 flex   wllarm  wlelbow -50
+quadra  0 12 abduct wluarm  wlshldr  30
+*
+end rback
+*******************************************
+*
+subroutine lrepl
+*
+*  transfer weight forward onto L foot
+*    from L forward
+*  in 12 frames
+*    13 - 25
+*
+repeat  0  1 centre wrtoe   gx gy gz
+*
+quadra  0  6 bendby wpelvis wrhip   wpelvis pang z
+quadra  0  6 abduct wchest  wwaist  pnang
+quadra  6 12 abduct wchest  wwaist  pang
+quadra  6 12 bendby wpelvis wrhip   wpelvis pnang z
+*
+quadra  0  6 flex   wlleg   wlknee  +40
+repeat  0  6 flex   wlfoot  wlankle 90
+repeat  0  6 drag   wlfoot  wlfoot  wlankl  wlleg  x
+quadra  0 12 bendto wrthigh wrhip   wchest  rbx rby rbz
+*
+quadra  6 12 flex   wlleg   wlknee  -40
+quadra  6 12 bendto wlthigh wlhip   wchest  lux luy luz
+quadra  6 12 bendto wlfoot  wlankle wlleg   lax lay laz
+repeat  6 12 flex   wrfoot  wrankle 90
+repeat  6 12 drag   wrfoot  wrfoot  wrankl  wrleg  x
+*
+repeat  1 12 moveto ginger  wrtoe   gx gy gz
+repeat  1 12 ground ginger
+*
+quadra  0 12 rotate wlhand  wlwrist -90
+quadra  0 12 flex   wllarm  wlelbow  50
+quadra  0 12 abduct wluarm  wlshldr -30
+*
+end lrepl
+**********************************************
+*
+subroutine rside
+*
+*  step to side onto R foot
+*    from R back
+*  in 24 frames
+*  25 - 49
+*
+repeat  0  1 centre wltoe   gx gy gz
+*
+quadra  0 12 bendby wpelvis wlhip   wpelvis pnang z
+quadra  0 12 abduct wchest  wwaist  pang
+quadra 12 24 abduct wchest  wwaist  pnang
+quadra 12 24 bendby wpelvis wlhip   wpelvis pang z
+*
+repeat  0  4 bendto wlthigh wlhip   wchest  lux luy luz
+quadra  0  4 bendto wrthigh wrhip   wchest  rfsx rfsy rfsz
+quadra  0  4 flex   wrleg   wrknee  flang
+*
+quadra  4  8 bendto wrthigh wrhip   wchest  rsx rsy rsz
+quadra  4  8 flex   wrleg   wrknee  flnang
+repeat  0  8 flex   wrfoot  wrankle 90
+repeat  0  8 drag   wrfoot  wrfoot  wrankle wrleg x
+*
+quadra  8 24 bendto wrthigh wrhip   wchest  rux ruy ruz
+quadra  8 24 bendto wlthigh wlhip   wchest  lsx lsy lsz
+quadra  8 24 bendto wrfoot  wrankle wrleg   rax ray raz
+repeat  8 24 flex   wlfoot  wlankle 90
+repeat  8 24 drag   wlfoot  wlfoot  wlankle wlleg x
+*
+repeat  0 24 moveto ginger  wltoe   gx gy gz
+repeat  0 24 ground ginger
+*
+quadra  0 24 rotate wlhand  wlwrist  90
+quadra  0 24 flex   wllarm  wlelbow -50
+quadra  0 24 abduct wluarm  wlshldr  30
+*
+end rside
+**********************************************
+*
+subroutine lfor
+*
+* step forward onto L foot
+*   from side L
+*  in 12 frames
+*   49 - 61
+*
+repeat  0  1 centre wrtoe   gx gy gz
+*
+quadra  0  6 bendby wpelvis wrhip   wpelvis pang z
+quadra  0  6 abduct wchest  wwaist  pnang
+quadra  6 12 abduct wchest  wwaist  pang
+quadra  6 12 bendby wpelvis wrhip   wpelvis pnang z
+*
+quadra  0  4 bendto wlthigh wlhip   wchest  lfx lfy lfz
+quadra  0  4 flex   wlleg   wlknee  60
+*
+quadra  4  8 flex   wlleg   wlknee  -60
+repeat  0  8 flex   wlfoot  wlankle 90
+repeat  0  8 drag   wlfoot  wlfoot  wlankle wlleg x
+*
+quadra  8 12 bendto wlfoot  wlankle wlleg   lax lay laz
+quadra  8 12 bendto wlthigh wlhip   wchest  lux luy luz
+quadra  8 12 bendto wrthigh wrhip   wchest  rbx rby rbz
+repeat  8 12 flex   wrfoot  wrankle 90
+repeat  8 12 drag   wrfoot  wrfoot  wrankle wrleg x
+*
+repeat  0 12 moveto ginger  wrtoe   gx gy gz
+repeat  0 12 ground ginger
+*
+quadra  0  8 rotate wlhand  wlwrist -90
+quadra  0  8 flex   wllarm  wlelbow  50
+quadra  0  8 abduct wluarm  wlshldr -30
+*
+end lfor
+**********************************************
+*
+subroutine rrepl
+*
+*  transfer weight back onto R foot
+*    from R back
+*  in 12 frames
+*    61 - 73
+*
+repeat  0  1 centre wltoe   gx gy gz
+*
+quadra  0  6 bendby wpelvis wlhip   wpelvis pnang z
+quadra  0  6 abduct wchest  wwaist  pang
+quadra  6 12 abduct wchest  wwaist  pnang
+quadra  6 12 bendby wpelvis wlhip   wpelvis pang z
+*
+quadra  0 12 bendto wrthigh wrhip   wchest  rux ruy ruz
+quadra  0 12 bendto wlthigh wlhip   wchest  lfx lfy lfz
+*
+quadra  0 12 bendto wrfoot  wrankle wrleg   rax ray raz
+repeat  0 12 flex   wlfoot  wlankle 90
+repeat  0 12 drag   wlfoot  wlfoot  wlankl  wlleg  x
+*
+repeat  0 12 moveto ginger  wltoe   gx gy gz
+repeat  0 12 ground ginger
+*
+quadra  0 12 rotate wlhand  wlwrist  90
+quadra  0 12 flex   wllarm  wlelbow -50
+quadra  0 12 abduct wluarm  wlshldr  30
+*
+end rrepl
+**********************************************
+*
+subroutine lside
+*
+*  step to side onto L foot
+*    from L forward
+*  in 24 frames
+*    73 - 97
+*
+repeat  0  1 centre wrtoe   gx gy gz
+*
+quadra  0 12 bendby wpelvis wrhip   wpelvis pang z
+quadra  0 12 abduct wchest  wwaist  pnang
+quadra 12 24 abduct wchest  wwaist  pang
+quadra 12 24 bendby wpelvis wrhip   wpelvis pnang z
+*
+repeat  0  4 bendto wrthigh wrhip   wchest  rux ruy ruz
+quadra  0  4 bendto wlthigh wlhip   wchest  lfsx lfsy lfsz
+quadra  0  4 flex   wlleg   wlknee  flang
+*
+quadra  4  8 bendto wlthigh wlhip   wchest  lsx lsy lsz
+quadra  4  8 flex   wlleg   wlknee  flnang
+repeat  0  8 flex   wlfoot  wlankle 90
+repeat  0  8 drag   wlfoot  wlfoot  wlankle wlleg x
+*
+quadra  8 24 bendto wlthigh wlhip   wchest  lux luy luz
+quadra  8 24 bendto wrthigh wrhip   wchest  rsx rsy rsz
+quadra  8 24 bendto wlfoot  wlankle wlleg   lax lay laz
+repeat  8 24 flex   wrfoot  wrankle 90
+repeat  8 24 drag   wrfoot  wrfoot  wrankle wrleg x
+*
+repeat  0 24 moveto ginger  wrtoe   gx gy gz
+repeat  0 24 ground ginger
+*
+quadra  0 24 rotate wlhand  wlwrist -90
+quadra  0 24 flex   wllarm  wlelbow  50
+quadra  0 24 abduct wluarm  wlshldr -30
+*
+end lside
+************************************************
+*
+stop

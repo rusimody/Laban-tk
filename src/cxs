@@ -1,0 +1,8 @@
+#  cxs - compile a c program on a sun x terminal
+#   copying binary into unsufficed filename.
+#     Greg Ryan 6 April 1994
+gcc $1.c -o $1.b -lm -lX11 -Xlinker -L/usr/openwin/lib -Xlinker -R/usr/openwin/lib -Xlinker -R/usr/ucblib
+cp $1.b $1
+rm $1.b
+chmod 775 $1
+

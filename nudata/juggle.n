@@ -1,0 +1,468 @@
+* juggle - two hands juggling 3 skittles
+*            in 130 frames.
+*       Joshua Mintz - December 1984
+* For a cyclic sequence do -
+* view 34 130
+*
+****************************************************
+*
+figure sk1 3 s1b s1t s1m
+ell s1t 60 65 60
+ell s1m 30 80 30
+ell s1b 1 1 1
+linear 0 1 colour s1t 255 255 0
+linear 0 1 colour s1m 255 255 0
+linear 0 1 colour s1b 255 255 0
+joint j1 s1t 0 -55 0 s1m 0 65 0
+joint j2 s1b 0 0 0 s1m 0 -78 0
+*
+figure sk2 3 s2b s2t s2m
+ell   s2t 60 65 60
+ell   s2m 30 80 30 
+ell   s2b 1 1 1
+linear 0 1 colour s2t 0 255 255
+linear 0 1 colour s2m 0 255 255
+linear 0 1 colour s2b 0 255 255
+joint j3 s2t 0 -55 0 s2m 0 65 0
+joint j4 s2b 0 0 0 s2m 0 -78 0
+*
+figure sk3 3 s3b s3t s3m
+ell s3t 60 65 60
+ell s3m 30 80 30
+ell s3b 1 1 1
+linear 0 1 colour s3t 255 0 255
+linear 0 1 colour s3m 255 0 255
+linear 0 1 colour s3b 255 0 255
+joint j5 s3t 0 -55 0 s3m 0 65 0
+joint j6 s3b 0 0 0 s3m 0 -78 0
+*
+****************************************************
+*
+figure lhand 25 *
+lf1t lf1m lf1b lf2t lf2m lf2b lf3t lf3m lf3b lf4t lf4m lf4b 
+lf5t lf5m lf5b lth lbh loh lih lmh ln1 ln2 ln3 ln4 ln5
+*
+ellipsoid ln1 8 10 4
+ellipsoid ln2 10 10 4
+ellipsoid ln3 13 11 4
+ellipsoid ln4 12 10 4
+ellipsoid ln5 9 10 4
+ellipsoid lf1t 13 12 12
+ellipsoid lf2t 15 17 14
+ellipsoid lf3t 17 18 14
+ellipsoid lf4t 16 17 14
+ellipsoid lf1m 14 14 14
+ellipsoid lf2m 16 19 16
+ellipsoid lf3m 18 19 16
+ellipsoid lf4m 16 20 16
+ellipsoid lf1b 16 19 16
+ellipsoid lf2b 18 27 18
+ellipsoid lf3b 20 29 18
+ellipsoid lf4b 18 27 18
+ellipsoid lth 67 30 20
+ellipsoid lbh 67 27 30
+ellipsoid loh 40 70 25
+ellipsoid lih 40 70 25
+ellipsoid lmh 40 60 25
+ellipsoid lf5t 15 17 16
+ellipsoid lf5m 20 45 18
+ellipsoid lf5b 35 40 30
+*
+joint ljn1 lf1t 0 0 10 ln1 0 -8 0
+joint ljn2 lf2t 0 0 12 ln2 0 -10 0
+joint ljn3 lf3t 0 0 12 ln3 0 -11 0
+joint ljn4 lf4t 0 0 12 ln4 0 -10 0
+joint ljn5 lf5t 0 0 14 ln5 0 -10 0
+joint lj1t lf1t 0 -10 0 lf1m 0 12 0
+joint lj1m lf1m 0 -15 0 lf1b 0 15 0
+joint lj1b lf1b 0 -16 0 lth -49 20 0
+joint lj2t lf2t 0 -15 0 lf2m 0 17 0
+joint lj2m lf2m 0 -18 0 lf2b 0 24 0
+joint lj2b lf2b 0 -23 0 lth -17 23 0
+joint lj3t lf3t 0 -16 0 lf3m 0 17 0
+joint lj3m lf3m 0 -18 0 lf3b 0 27 0
+joint lj3b lf3b 0 -26 0 lth 15 23 0
+joint lj4t lf4t 0 -15 0 lf4m 0 17 0
+joint lj4m lf4m 0 -18 0 lf4b 0 24 0
+joint lj4b lf4b 0 -24 0 lth 47 20 0
+joint lj5t lf5t 0 -15 0 lf5m 0 40 0
+joint lj5m lf5m 0 -35 0 lf5b 0  8 0
+joint lj5b lf5b 0 -30 0 lih 30 -45 -10
+joint ljtm lth 0 0 0 lmh 0 50 -15
+joint ljbm lbh 0 0 0 lmh 0 -45 -15
+joint ljom loh 34 0 0 lmh 0 0 -15
+joint ljim lih -40 0 0 lmh -10 0 -15
+*
+****************************************************
+*
+figure rhand 25 *
+rf1t rf1m rf1b rf2t rf2m rf2b rf3t rf3m rf3b rf4t rf4m rf4b 
+rf5t rf5m rf5b rth rbh roh rih rmh rn1 rn2 rn3 rn4 rn5
+*
+ellipsoid rn1  8 10 4
+ellipsoid rn2 10 10 4
+ellipsoid rn3 13 11 4
+ellipsoid rn4 12 10 4
+ellipsoid rn5  9 10 4
+ellipsoid rf1t 13 12 12
+ellipsoid rf2t 15 17 14
+ellipsoid rf3t 17 18 14
+ellipsoid rf4t 16 17 14
+ellipsoid rf1m 14 14 14
+ellipsoid rf2m 16 19 16
+ellipsoid rf3m 18 19 16
+ellipsoid rf4m 16 20 16
+ellipsoid rf1b 16 19 16
+ellipsoid rf2b 18 27 18
+ellipsoid rf3b 20 29 18
+ellipsoid rf4b 18 27 18
+ellipsoid rth 67 30 20
+ellipsoid rbh 67 27 30
+ellipsoid roh 40 70 25
+ellipsoid rih 40 70 25
+ellipsoid rmh 40 60 25
+ellipsoid rf5t 15 17 16
+ellipsoid rf5m 20 45 18
+ellipsoid rf5b 35 40 30
+*
+joint rjn1 rf1t 0 0 -10 rn1 0 -8 0
+joint rjn2 rf2t 0 0 -12 rn2 0 -10 0
+joint rjn3 rf3t 0 0 -12 rn3 0 -11 0
+joint rjn4 rf4t 0 0 -12 rn4 0 -10 0
+joint rjn5 rf5t 0 0 -14 rn5 0 -10 0
+joint rj1t rf1t 0 -10 0 rf1m 0 12 0
+joint rj1m rf1m 0 -15 0 rf1b 0 15 0
+joint rj1b rf1b 0 -16 0 rth -49 20 0
+joint rj2t rf2t 0 -15 0 rf2m 0 17 0
+joint rj2m rf2m 0 -18 0 rf2b 0 24 0
+joint rj2b rf2b 0 -23 0 rth -17 23 0
+joint rj3t rf3t 0 -16 0 rf3m 0 17 0
+joint rj3m rf3m 0 -18 0 rf3b 0 27 0
+joint rj3b rf3b 0 -26 0 rth 15 23 0
+joint rj4t rf4t 0 -15 0 rf4m 0 17 0
+joint rj4m rf4m 0 -18 0 rf4b 0 24 0
+joint rj4b rf4b 0 -24 0 rth 47 20 0
+joint rj5t rf5t 0 -15 0 rf5m 0 40 0
+joint rj5m rf5m 0 -35 0 rf5b 0  8 0
+joint rj5b rf5b 0 -30 0 rih 30 -45 10
+joint rjtm rth 0 0 0 rmh 0 50 15
+joint rjbm rbh 0 0 0 rmh 0 -45 15
+joint rjom roh 34 0 0 rmh 0 0 15
+joint rjih rih -40 0 0 rmh -10 0 15
+*
+***********************************************************
+quad 0 1 place 500 300 0
+quad 0 1 grofig every world 0.5 0.7 0.5
+quad 0 1 moveto sk1 s1b 250 0 1000
+quad 0 1 moveto sk2 s2b 750 0 1000
+quad 0 1 moveto sk3 s3b -1000 -1000 -1000
+quad 0 1 moveto lhand lmh 205 0 1000
+quad 0 1 moveto rhand rmh 795 0 1000
+quad 0 1 spinby lhand lmh world -90 y
+quad 0 1 spinby rhand rmh world -90 y
+quad 0 1 spinby sk1 s1b world -114 x
+quad 0 1 spinby sk2 s2b world -114 x
+quad 0 1 spinby lhand lmh world -150 x
+quad 0 1 spinby rhand rmh world -150 x
+**quad 0 1 spinby every   rmh world  -20 x
+**quad 0 1 spinby every   rmh world  -90 y
+**quad 0 1 observ -10 0 0
+*
+call    0   34 start
+call   34  130 jug
+*
+*********************************
+*
+subroutine start
+* in 34 frames
+variables 3 s1x s1y s1z
+call   0   4 lhold
+call   0   4 rhold
+accel 10  18 moveby lhand world 0 200 0
+accel 10  18 spinby lhand lmh world 114 x
+accel 10  18 moveby sk1 world 0 200 0
+accel 10  18 spinby sk1 s1b world 114 x
+call  18  22 rlhold
+call  18  22 lrel
+lin   18  34 moveby sk1 world 250 0 0
+dec   18  34 moveby sk1 world 0 300 0
+lin   18  34 spinby sk1 s1m world 360 x
+accel 26  34 moveby rhand world 0 200 0
+accel 26  34 spinby rhand rmh world 114 x
+accel 26  34 moveby sk2 world  0 200 0
+accel 26  34 spinby sk2 s2b world 114 x
+call  30  34 rlrel
+call  30  34 lhold
+repe  17  18 centre s1b s1x s1y s1z
+repe  33  34 moveto sk3 s3b s1x s1y s1z
+end start
+*************************************
+*
+sub jug
+*
+*   juggle in 96 frames ( 34 - 130 )
+*
+call  34  42 ldown
+call  34  38 rt
+call  34  42 s3down
+call  42  50 lup
+call  42  50 s3up
+line  34  50 moveby sk1 world 250 0 0
+acce  34  50 moveby sk1 world 0 -300 0
+line  34  50 spinby sk1 s1m world 360 x
+line  34  50 moveby sk2 world -250 0 0
+dece  34  50 moveby sk2 world 0 350 0
+call  50  54 lt
+*
+call  46  50 rc
+call  50  58 rdown
+call  50  58 s1down
+call  58  66 rup
+call  58  66 s1up
+acce  50  66 moveby sk2 world 0 -350 0
+line  50  66 moveby sk2 world -250 0 0
+line  50  66 spinby sk2 s2m world 360 x
+dece  50  66 moveby sk3 world 0 300 0
+line  50  66 moveby sk3 world 250 0 0
+line  50  66 spinby sk3 s3m world 360 x
+call  66  70 rt
+*
+call  62  66 lc
+call  66  74 ldown
+call  66  74 s2down
+call  74  82 lup
+call  74  82 s2up
+dece  66  82 moveby sk1 world -250 0 0
+line  66  82 moveby sk1 world 0 350 0
+line  66  82 spinby sk1 s1m world 360 x
+acce  66  82 moveby sk3 world 250 0 0
+line  66  82 moveby sk3 world 0 -300 0
+line  66  82 spinby sk3 s3m world 360 x
+call  82  86 lt
+*
+call  78  82 rc
+call  82  90 rdown
+call  82  90 s3down
+call  90  98 rup
+call  90  98 s3up
+acce  82  98 moveby sk1 world 0 -350 0
+line  82  98 moveby sk1 world -250 0 0
+line  82  98 spinby sk1 s1m world 360 x
+dece  82  98 moveby sk2 world 0 300 0
+line  82  98 moveby sk2 world 250 0 0
+line  82  98 spinby sk2 s2m world 360 x
+call  98 102 rt
+ *
+call  94  98 lc
+call  98 106 ldown
+call  98 106 s1down
+call 106 114 lup
+call 106 114 s1up
+acce  98 114 moveby sk2 world 0 -300 0
+line  98 114 moveby sk2 world 250 0 0
+line  98 114 spinby sk2 s2m world 360 x
+dece  98 114 moveby sk3 world 0 350 0
+line  98 114 moveby sk3 world -250 0 0
+line  98 114 spinby sk3 s3m world 360 x
+call 114 118 lt
+*
+call 110 114 rc
+call 114 122 rdown
+call 114 122 s2down
+call 122 130 rup
+call 122 130 s2up
+dece 114 130 moveby sk1 world 0 300 0
+line 114 130 moveby sk1 world 250 0 0
+line 114 130 spinby sk1 s1m world 360 x
+acce 114 130 moveby sk3 world 0 -350 0
+line 114 130 moveby sk3 world -250 0 0
+line 114 130 spinby sk3 s3m world 360 x
+call 126 130 lc
+end jug
+***********************************
+*
+sub s1up
+accel 0 8 moveby sk1 world 0 200 0
+accel 0 8 spinby sk1 s1b world 114 x
+end s1up
+**********************************
+*
+sub s2up
+accel 0 8 moveby sk2 world 0 200 0
+accel 0 8 spinby sk2 s2b world 114 x
+end s2up
+**********************************
+*
+sub s3up
+accel 0 8 moveby sk3 world 0 200 0
+accel 0 8 spinby sk3 s3b world 114 x
+end s3up
+**********************************
+*
+sub s1down
+decel 0 8 moveby sk1 world 0 -200 0
+decel 0 8 spinby sk1 s1b world -114 x
+end s1down
+**********************************
+*
+sub s2down
+decel 0 8 moveby sk2 world 0 -200 0
+decel 0 8 spinby sk2 s2b world -114 x
+end s2down
+**********************************
+*
+sub s3down
+decel 0 8 moveby sk3 world 0 -200 0
+decel 0 8 spinby sk3 s3b world -114 x
+end s3down
+**********************************
+*
+sub lrel
+quad 0 4 bendby lf5b lj5b lth -30 z
+quad 0 4 bendby lf4b lj4b lth -20 z
+quad 0 4 bendby lf2b lj2b lth 10 z
+quad 0 4 bendby lf1b lj1b lth 20 z
+end lrel
+**********************************
+*
+sub rrrel
+quad 0 4 bendby rf5b rj5b rth  30 z
+quad 0 4 bendby rf4b rj4b rth 20 z
+quad 0 4 bendby rf2b rj2b rth -10 z
+quad 0 4 bendby rf1b rj1b rth -20 z
+end rrrel
+**********************************
+*
+sub rlrel
+quad 0 4 bendby lf5b lj5b lth 30 z
+quad 0 4 bendby lf4b lj4b lth 20 z
+quad 0 4 bendby lf2b lj2b lth -10 z
+quad 0 4 bendby lf1b lj1b lth -20 z
+end rlrel
+**********************************
+*
+sub rup
+accel 0 8 moveby rhand world 0 200 0
+accel 0 8 spinby rhand rmh world 114 x
+end rup
+**********************************
+*
+sub rt
+call 0 4 rrhold
+call 0 4 rrel
+end rt
+**********************************
+*
+sub lup
+accel 0 8 moveby lhand world 0 200 0
+accel 0 8 spinby lhand lmh world 114 x
+end lup
+**********************************
+*
+sub lt
+call 0 4 rlhold
+call 0 4 lrel
+end lt
+**********************************
+*
+sub rdown
+decel 0 8 moveby rhand world 0 -200 0
+decel 0 8 spinby rhand rmh world -114 x
+end rdown
+**********************************
+*
+sub rc
+call 0 4 rrrel
+call 0 4 rhold
+end rc
+**********************************
+*
+sub ldown
+decel 0 8 moveby lhand world 0 -200 0
+decel 0 8 spinby lhand lmh world -114 x
+end ldown
+**********************************
+*
+sub lc
+call 0 4 rlrel
+call 0 4 lhold
+end lc
+**********************************
+*
+sub rrel
+quad 0 4 bendby rf5b rj5b rth -30 z
+quad 0 4 bendby rf4b rj4b rth -20 z
+quad 0 4 bendby rf2b rj2b rth 10 z
+quad 0 4 bendby rf1b rj1b rth 20 z
+end rrel
+**********************************
+*
+subrou rhold
+quad 0 4 bendby rf5b rj5b rih 45 x
+quad 0 4 bendby rf4b rj4b rth 30 x
+quad 0 4 bendby rf4m rj4m rth 45 x
+quad 0 4 bendby rf4t rj4t rth 15 x
+quad 0 4 bendby rf3b rj3b rth 45 x
+quad 0 4 bendby rf3m rj3m rth 45 x
+quad 0 4 bendby rf3t rj3t rth 30 x
+quad 0 4 bendby rf2b rj2b rth 75 x
+quad 0 4 bendby rf2m rj2m rth 45 x
+quad 0 4 bendby rf2t rj2t rth 45 x
+quad 0 4 bendby rf1b rj1b rth 75 x
+quad 0 4 bendby rf1m rj1m rth 45 x
+quad 0 4 bendby rf1t rj1t rth 45 x
+end rhold
+**********************************
+*
+subrou lhold
+quad 0 4 bendby lf5b lj5b lih -45 x
+quad 0 4 bendby lf4b lj4b lth -30 x
+quad 0 4 bendby lf4m lj4m lth -45 x
+quad 0 4 bendby lf4t lj4t lth -15 x
+quad 0 4 bendby lf3b lj3b lth -45 x
+quad 0 4 bendby lf3m lj3m lth -45 x
+quad 0 4 bendby lf3t lj3t lth -30 x
+quad 0 4 bendby lf2b lj2b lth -75 x
+quad 0 4 bendby lf2m lj2m lth -45 x
+quad 0 4 bendby lf2t lj2t lth -45 x
+quad 0 4 bendby lf1b lj1b lth -75 x
+quad 0 4 bendby lf1m lj1m lth -45 x
+quad 0 4 bendby lf1t lj1t lth -45 x
+end lhold
+*********************************
+*
+subrou rrhold
+quad 0 4 bendby rf5b rj5b rih -45 x
+quad 0 4 bendby rf4b rj4b rth -30 x
+quad 0 4 bendby rf4m rj4m rth -45 x
+quad 0 4 bendby rf4t rj4t rth -15 x
+quad 0 4 bendby rf3b rj3b rth -45 x
+quad 0 4 bendby rf3m rj3m rth -45 x
+quad 0 4 bendby rf3t rj3t rth -30 x
+quad 0 4 bendby rf2b rj2b rth -75 x
+quad 0 4 bendby rf2m rj2m rth -45 x
+quad 0 4 bendby rf2t rj2t rth -45 x
+quad 0 4 bendby rf1b rj1b rth -75 x
+quad 0 4 bendby rf1m rj1m rth -45 x
+quad 0 4 bendby rf1t rj1t rth -45 x
+end rrhold
+*********************************
+*
+subrou rlhold
+quad 0 4 bendby lf5b lj5b lih 45 x
+quad 0 4 bendby lf4b lj4b lth 30 x
+quad 0 4 bendby lf4m lj4m lth 45 x
+quad 0 4 bendby lf4t lj4t lth 15 x
+quad 0 4 bendby lf3b lj3b lth 45 x
+quad 0 4 bendby lf3m lj3m lth 45 x
+quad 0 4 bendby lf3t lj3t lth 30 x
+quad 0 4 bendby lf2b lj2b lth 75 x
+quad 0 4 bendby lf2m lj2m lth 45 x
+quad 0 4 bendby lf2t lj2t lth 45 x
+quad 0 4 bendby lf1b lj1b lth 75 x
+quad 0 4 bendby lf1m lj1m lth 45 x
+quad 0 4 bendby lf1t lj1t lth 45 x
+end rlhold
+*************************
+*
+stop

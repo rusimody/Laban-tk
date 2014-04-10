@@ -1,0 +1,26 @@
+* stage.n
+*
+figure stage 4 floor right left back
+*
+ellipsoid floor 2000 5 2000
+ellipsoid back  2000 2000 5
+ellipsoid right 5 2000 2000
+ellipsoid left  5 2000 2000
+*
+joint crack floor 0 0 2050 back  0 -1000 0
+joint lwing floor -470 0 2000 left  0 0 2000
+joint rwing floor +470 0 2000 right 0 0 2000
+*
+linear 0 1 colour floor 255 255 0
+linear 0 1 colour back  0 0 255
+linear 0 1 colour left  0 0 0
+linear 0 1 colour right 0 0 0
+*
+linear 0 1 moveto stage floor 500 -5 500
+linear 0 1 rotate left  lwing 2
+linear 0 1 rotate right rwing 2
+repeat 0 1 observe -10 0 0
+repeat 0 1 place 500 500 500
+*
+stop
+*

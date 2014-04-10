@@ -1,0 +1,752 @@
+*               rev10.n
+*
+*   a  ballroom couple doing 3 Waltz Reverse Turns
+*                 in 253 frames
+*             by Don Herbison-Evans
+*
+*   reduced syncopation (28 Oct 2004)
+*   abducting man's R arm 80 degrees (16 Sep 2003)
+*   lifting lady's R hand (15 Sep 2003)
+*   keeping lady's L thumb on man's upper arm (13 Sep 2003)
+*   keeping man's R arm fixed (13 Sep 2003)
+*   bringing back wall closer (13 Sep 2003)
+*   new room, slowed down (13 Sep 2003)
+*   delete unhold etc for new 'dotouch' in prfrm (12 Sep 2003)
+*   with a room to dance in (28 Aug 1996)
+*   with timing of beat '2' syncopated
+*   using 'touch' command
+*   using 'repeat' subroutine calls
+*   using 'abut' command
+*
+*************************************************
+*
+*            room.n
+*    6 Dec 2002 moved right (z)
+*   20 Mar 1998 lowered 
+*    1 Feb 1996 Don Herbison-Evans  
+*************************************************
+*
+figure room 29 *
+ floor wallx wallz *
+ bdx00 bdx01 bdx02 bdx03 bdx04 bdx05 bdx06 bdx07 bdx08 bdx09 *
+ bdx10 bdx11 bdx12 bdx13 bdx14 bdx15  *
+ bdz00 bdz01 bdz02 bdz03 bdz04 bdz05 bdz06 bdz07 bdz08 bdz09
+*
+ellipsoid floor 6000    0.1 6000
+ellipsoid wallx 6000   6000    1
+ellipsoid wallz    1   6000 6000
+ellipsoid bdx00 6000    0.1  220
+ellipsoid bdx01 6000    0.1  220
+ellipsoid bdx02 6000    0.1  220
+ellipsoid bdx03 6000    0.1  220
+ellipsoid bdx04 6000    0.1  220
+ellipsoid bdx05 6000    0.1  220
+ellipsoid bdx06 6000    0.1  220
+ellipsoid bdx07 6000    0.1  220
+ellipsoid bdx08 6000    0.1  220
+ellipsoid bdx09 6000    0.1  220
+ellipsoid bdx10 6000    0.1  220
+ellipsoid bdx11 6000    0.1  220
+ellipsoid bdx12 6000    0.1  220
+ellipsoid bdx13 6000    0.1  220
+ellipsoid bdx14 6000    0.1  220
+ellipsoid bdx15 6000    0.1  220
+*
+ellipsoid bdz00  220    0.1 6000
+ellipsoid bdz01  220    0.1 6000
+ellipsoid bdz02  220    0.1 6000
+ellipsoid bdz03  220    0.1 6000
+ellipsoid bdz04  220    0.1 6000
+ellipsoid bdz05  220    0.1 6000
+ellipsoid bdz06  220    0.1 6000
+ellipsoid bdz07  220    0.1 6000
+ellipsoid bdz08  220    0.1 6000
+ellipsoid bdz09  220    0.1 6000
+*
+joint crkx00 bdx00 0 0 0 floor 0  0.4 -6000
+joint crkx01 bdx01 0 0 0 floor 0  0.4 -5200
+joint crkx02 bdx02 0 0 0 floor 0  0.4 -4400
+joint crkx03 bdx03 0 0 0 floor 0  0.4 -3600
+joint crkx04 bdx04 0 0 0 floor 0  0.4 -2800
+joint crkx05 bdx05 0 0 0 floor 0  0.4 -2000
+joint crkx06 bdx06 0 0 0 floor 0  0.4 -1200
+joint crkx07 bdx07 0 0 0 floor 0  0.4  -400
+joint crkx08 bdx08 0 0 0 floor 0  0.4   400
+joint crkx09 bdx09 0 0 0 floor 0  0.4  1200
+joint crkx10 bdx10 0 0 0 floor 0  0.4  2000
+joint crkx11 bdx11 0 0 0 floor 0  0.4  2800
+joint crkx12 bdx12 0 0 0 floor 0  0.4  3600
+joint crkx13 bdx13 0 0 0 floor 0  0.4  4400
+joint crkx14 bdx14 0 0 0 floor 0  0.4  5200
+joint crkx15 bdx15 0 0 0 floor 0  0.4  6000
+*
+joint crkz10 bdz00 0 0 0 floor -1600 2 0
+joint crkz11 bdz01 0 0 0 floor  -800 2 0
+joint crkz12 bdz02 0 0 0 floor     0 2 0
+joint crkz13 bdz03 0 0 0 floor   800 2 0
+joint crkz14 bdz04 0 0 0 floor  1600 2 0
+joint crkz15 bdz05 0 0 0 floor  2400 2 0
+joint crkz16 bdz06 0 0 0 floor  3200 2 0
+joint crkz17 bdz07 0 0 0 floor  4000 2 0
+joint crkz18 bdz08 0 0 0 floor  4800 2 0
+joint crkz19 bdz09 0 0 0 floor  5600 2 0
+
+joint joinx  wallx 0 0 0 floor   0 0 200
+joint joinz  wallz 0 0 0 floor -2000   0 0
+*
+linear 0 1 flex   wallx joinx -20
+repeat 0 1 colour wallx 255 128 255
+repeat 0 1 colour wallz 128 255 128
+repeat 0 1 colour floor 150 150   0
+*
+repeat 0 1 colour bdx00 200 200   0
+repeat 0 1 colour bdx01 200 200   0
+repeat 0 1 colour bdx02 200 200   0
+repeat 0 1 colour bdx03 200 200   0
+repeat 0 1 colour bdx04 200 200   0
+repeat 0 1 colour bdx05 200 200   0
+repeat 0 1 colour bdx06 200 200   0
+repeat 0 1 colour bdx07 200 200   0
+repeat 0 1 colour bdx08 200 200   0
+repeat 0 1 colour bdx09 200 200   0
+repeat 0 1 colour bdx10 200 200   0
+repeat 0 1 colour bdx11 200 200   0
+repeat 0 1 colour bdx12 200 200   0
+repeat 0 1 colour bdx13 200 200   0
+repeat 0 1 colour bdx14 200 200   0
+repeat 0 1 colour bdx15 200 200   0
+*
+repeat 0 1 colour bdz00 255 255   0
+repeat 0 1 colour bdz01 255 255   0
+repeat 0 1 colour bdz02 255 255   0
+repeat 0 1 colour bdz03 255 255   0
+repeat 0 1 colour bdz04 255 255   0
+repeat 0 1 colour bdz05 255 255   0
+repeat 0 1 colour bdz06 255 255   0
+repeat 0 1 colour bdz07 255 255   0
+repeat 0 1 colour bdz08 255 255   0
+repeat 0 1 colour bdz09 255 255   0
+*
+repeat 0 1 moveto room floor 0 -4 2000
+*
+*
+figure fred 21 *
+ mlfoot mrfoot mlleg mrleg mlthigh mrthigh *
+ mluarm mruarm mllarm mrlarm mlhand mrhand mlthumb mrthumb *
+ mhair  mhead mnose mneck mshldrs mchest mpelvis
+*
+ellipsoid mlfoot   40  80  20
+ellipsoid mrfoot   40  80  20
+ellipsoid mlleg    40 200  40
+ellipsoid mrleg    40 200  40
+ellipsoid mlthigh  50 200  60
+ellipsoid mrthigh  50 200  60
+ellipsoid mluarm   40 135  40
+ellipsoid mruarm   40 135  40
+ellipsoid mllarm   35 120  35
+ellipsoid mrlarm   35 120  35
+ellipsoid mlhand   40  70  20
+ellipsoid mrhand   40  70  20
+ellipsoid mlthumb  10  50  10
+ellipsoid mrthumb  10  50  10
+ellipsoid mhair    76  98  84 
+ellipsoid mhead    73 100  80
+ellipsoid mnose    20  20  60
+ellipsoid mneck    30  60  30
+ellipsoid mshldrs 155  50  40
+ellipsoid mchest  130 230  75
+ellipsoid mpelvis 120  75  75
+*
+joint mlankle  mlfoot    0  +55    0  mlleg   0 -185   0
+joint mrankle  mrfoot    0  +55    0  mrleg   0 -185   0
+joint mlknee   mlleg     0 +185    0  mlthigh 0 -175   0
+joint mrknee   mrleg     0 +185    0  mrthigh 0 -175   0
+joint mlhip    mlthigh   0 +150    0  mpelvis -60    0   0
+joint mrhip    mrthigh   0 +150    0  mpelvis +60    0   0
+joint mlshldr  mshldrs -145   0    0  mluarm  0 +120   0
+joint mrshldr  mshldrs +145   0    0  mruarm  0 +120   0
+joint mlelbow  mluarm    0 -115    0  mllarm  0 +100   0
+joint mrelbow  mruarm    0 -115    0  mrlarm  0 +100   0
+joint mlwrist  mllarm    0 -115    0  mlhand  0  +50   0
+joint mrwrist  mrlarm    0 -115    0  mrhand  0  +50   0
+joint mlpalm   mlhand  -20  +50  +10  mlthumb 0  +50   0
+joint mrpalm   mrhand  +20  +50  +10  mrthumb 0  +50   0
+joint mscalp   mhead     0   +6   -6  mhair   0    0   0
+joint mface    mhead     0  +30  +55  mnose   0    0   0
+joint mthroat  mhead     0 -100    0  mneck   0  +20   0
+joint mspine   mneck     0  -10    0  mshldrs 0  +40   0
+joint mthorax  mshldrs   0    0    0  mchest  0 +155   0
+joint mwaist   mpelvis 0  +75    0  mchest  0 -155   0
+*
+linear   0   1 flex   mrthumb mrpalm   +10
+linear   0   1 flex   mlfoot  mlankle  +90
+linear   0   1 flex   mrfoot  mrankle  +90
+*
+repeat 0 1 colour mlfoot   128 128 255
+repeat 0 1 colour mrfoot   128 128 255
+repeat 0 1 colour mlleg    128 128 255
+repeat 0 1 colour mrleg    128 128 255
+repeat 0 1 colour mlthigh  128 128 255
+repeat 0 1 colour mrthigh  128 128 255
+repeat 0 1 colour mluarm   128 128 255
+repeat 0 1 colour mruarm   128 128 255
+repeat 0 1 colour mllarm   128 128 255
+repeat 0 1 colour mrlarm   128 128 255
+**repeat 0 1 colour mlhand   128 128 255
+**repeat 0 1 colour mrhand   128 128 255
+**repeat 0 1 colour mlthumb  128 128 255
+**repeat 0 1 colour mrthumb  128 128 255
+repeat 0 1 colour mhair     64  32   0
+**repeat 0 1 colour mhead    128 128 255
+**repeat 0 1 colour mnose    128 128 255
+**repeat 0 1 colour mneck    128 128 255
+repeat 0 1 colour mshldrs  128 128 255
+repeat 0 1 colour mchest   128 128 255
+repeat 0 1 colour mpelvis  128 128 255
+*
+figure ginger 26 *
+ wlfoot wrfoot wlheel wrheel wlleg wrleg wlthigh wrthigh *
+ wluarm wruarm wllarm wrlarm wlhand wrhand wlthumb wrthumb *
+ wlbrst wrbrst *
+ wpelvis wchest wshldrs wneck whead wnose whair wbun
+*
+ellipsoid wlfoot   40  80  20
+ellipsoid wrfoot   40  80  20
+ellipsoid wlheel   20  40  20
+ellipsoid wrheel   20  40  20
+ellipsoid wlleg    40 200  40
+ellipsoid wrleg    40 200  40
+ellipsoid wlthigh  50 200  60
+ellipsoid wrthigh  50 200  60
+*
+ellipsoid wluarm   40 135  40
+ellipsoid wruarm   40 135  40
+ellipsoid wllarm   35 120  35
+ellipsoid wrlarm   35 120  35
+ellipsoid wlhand   40  70  20
+ellipsoid wrhand   40  70  20
+ellipsoid wlthumb  10  50  10
+ellipsoid wrthumb  10  50  10
+*
+ellipsoid wlbrst   41  40  60
+ellipsoid wrbrst   41  40  60
+ellipsoid wpelvis 120  75  75 
+ellipsoid wchest  130 230  75 
+ellipsoid wshldrs 155  50  40 
+ellipsoid wneck    30  60  30 
+ellipsoid whead    73 100  80 
+ellipsoid wnose    20  20  60 
+*
+ellipsoid whair    76  98  84 
+ellipsoid wbun     50  25  50 
+*
+joint wlankle  wlfoot    0  +55    0  wlleg   0 -185   0
+joint wrankle  wrfoot    0  +55    0  wrleg   0 -185   0
+joint wlcuboi  wlheel    0    0    0  wlleg   0 -185   0
+joint wrcuboi  wrheel    0    0    0  wrleg   0 -185   0
+joint wlknee   wlleg     0 +185    0  wlthigh 0 -175   0
+joint wrknee   wrleg     0 +185    0  wrthigh 0 -175   0
+joint wlhip    wlthigh   0 +150    0  wpelvis -60    0   0
+joint wrhip    wrthigh   0 +150    0  wpelvis +60    0   0
+*
+joint wlshldr  wshldrs -145   0    0  wluarm  0 +120   0
+joint wrshldr  wshldrs +145   0    0  wruarm  0 +120   0
+joint wlelbow  wluarm    0 -115    0  wllarm  0 +100   0
+joint wrelbow  wruarm    0 -115    0  wrlarm  0 +100   0
+joint wlwrist  wllarm    0 -115    0  wlhand  0  +50   0
+joint wrwrist  wrlarm    0 -115    0  wrhand  0  +50   0
+joint wlpalm   wlhand  -20  +40  +10  wlthumb 0  +40   0
+joint wrpalm   wrhand  +20  +40  +10  wrthumb 0  +40   0
+*
+joint wlchest  wchest  -50 +100  +50  wlbrst  0    0   0
+joint wrchest  wchest  +50 +100  +50  wrbrst  0    0   0
+joint wwaist   wpelvis   0  +75    0  wchest  0 -155   0
+joint wthorax  wchest    0 +155    0  wshldrs 0    0   0
+joint wspine   wshldrs   0  +40    0  wneck   0  -10   0
+joint wthroat  wneck     0  +20    0  whead   0 -100   0
+*
+joint wface    whead     0    0  +55  wnose   0    0   0
+joint wscalp   whead     0   +6   -6  whair   0    0   0
+joint wribbon  whair     0  +80  -60  wbun    0    0   0
+*
+linear   0   1 flex   wbun    wribbon  +45
+linear   0   1 flex   whair   wscalp    +5
+linear   0   1 flex   mhair   mscalp    +5
+linear   0   1 flex   wnose   wface    -30
+linear   0   1 flex   wlthumb wlpalm   +10
+linear   0   1 flex   wlfoot  wlankle  +70
+linear   0   1 flex   wrfoot  wrankle  +70
+*
+repeat 0 1 colour wlfoot   255 128 128
+repeat 0 1 colour wrfoot   255 128 128
+repeat 0 1 colour wlheel   255 128 128
+repeat 0 1 colour wrheel   255 128 128
+repeat 0 1 colour wlleg    255 128 128
+repeat 0 1 colour wrleg    255 128 128
+repeat 0 1 colour wlthigh  255 128 128
+repeat 0 1 colour wrthigh  255 128 128
+repeat 0 1 colour wluarm   255 128 128
+repeat 0 1 colour wruarm   255 128 128
+repeat 0 1 colour wllarm   255 128 128
+repeat 0 1 colour wrlarm   255 128 128
+**repeat 0 1 colour wlhand   255 128 128
+**repeat 0 1 colour wrhand   255 128 128
+**repeat 0 1 colour wlthumb  255 128 128
+**repeat 0 1 colour wrthumb  255 128 128
+repeat 0 1 colour wlbrst   255 128 128
+repeat 0 1 colour wrbrst   255 128 128
+repeat 0 1 colour wpelvis  255 128 128
+repeat 0 1 colour wchest   255 128 128
+repeat 0 1 colour wshldrs  255 128 128
+**repeat 0 1 colour wneck    255 128 128
+**repeat 0 1 colour whead    255 128 128
+**repeat 0 1 colour wnose    255 128 128
+repeat 0 1 colour whair    128  32   0
+repeat 0 1 colour wbun     128  32   0
+*
+variables 3 px py pz
+variables 6 alfoot   arfoot  alleg   arleg   althigh arthigh
+variables 6 alankle  arankle alknee  arknee  alhip   arhip
+variables 6 blfoot   brfoot  blleg   brleg   blthigh brthigh
+variables 6 blankle  brankle blknee  brknee  blhip   brhip
+variables 5 ashldrs aluarm aruarm  alshldr arshldr
+variables 6 apang   bpang  anang   bnang   tang    temp
+variables 1 wang
+variables 1 mang
+variables 4 afig    bfig   apelvis bpelvis
+variables 3 wx wy wz
+variables 3 mx my mz
+variables 2 shift sepn
+variables 6 ml1 ml2 ml3 mr1 mr2 mr3
+variables 6 wl1 wl2 wl3 wr1 wr2 wr3
+variables 6 al1 al2 al3 ar1 ar2 ar3
+variables 6 bl1 bl2 bl3 br1 br2 br3
+variables 3 fx fy fz
+variables 3 mf1 mf2 mf3
+variables 3 wf1 wf2 wf3
+variables 6 af1 af2 af3 bf1 bf2 bf3
+variables 2 parm narm
+*
+linear  0   1 grofig fred   mpelvis 0.4  0.4  0.4
+linear  0   1 grofig ginger wpelvis 0.4  0.36  0.4
+linear  0   1 grofig fred   mchest  1.5 1.5 1.5
+linear  0   1 grofig ginger mchest  1.5 1.5 1.5
+linear  0   1 grofig room   mchest  1.5 1.5 1.5
+linear  0   1 spinby ginger wpelvis wpelvis 180 y
+repeat  0   1 moveto fred   mpelvis 300 0 1000
+linear  0   1 spinby fred   mpelvis world 90 y
+linear  0   1 spinby ginger wpelvis world 90 y
+repeat  0   1 observe       -20 0 0
+*
+*
+call    0   1 setup
+call    0   1 posture
+*
+repeat  0   1 set    tang -40
+call    0   1 rise
+*
+call    1  85 reverse
+call   85 169 reverse
+call  169 253 reverse
+*
+repeat  0 254 ground fred
+repeat  0 254 ground ginger
+repeat  0 254 call hold
+repeat  0 254 centre mpelvis px py pz
+repeat  0 254 place  px 400 pz
+*
+*end main program
+********************************************
+*
+subroutine posture
+*
+*   put into ballroom posture -
+*
+linear  0  1 abduct mlthigh mlhip     -2
+linear  0  1 abduct mrthigh mrhip     -2
+*
+linear  0  1 abduct mluarm mlshldr   80
+linear  0  1 flex   mllarm mlelbow   55
+linear  0  1 abduct mlhand mlwrist  +20
+linear  0  1 rotate mlhand mlwrist  +20
+linear  0  1 flex   mlhand mlwrist  -20
+*
+linear  0  1 abduct mruarm mrshldr   80
+linear  0  1 bendby mruarm mrshldr mshldrs -40 y
+linear  0  1 flex   mrlarm mrelbow  +70
+linear  0  1 rotate mruarm mrshldr  +30
+linear  0  1 flex   mrhand mrwrist  +40
+*
+linear  0  1 abduct mneck  mspine   +10
+linear  0  1 rotate mneck  mspine   -10
+linear  0  1 flex   mhead  mthroat  +10
+linear  0  1 flex   mchest mwaist   +10
+*
+linear  0  1 flex   wlfoot wlankle   -5
+linear  0  1 flex   wrfoot wrankle   -5
+linear  0  1 abduct wlthigh wlhip    -2
+linear  0  1 abduct wrthigh wrhip    -2
+*
+linear  0  1 flex   wruarm wrshldr   15
+linear  0  1 abduct wruarm wrshldr   90
+linear  0  1 rotate wruarm wrshldr  -50
+linear  0  1 flex   wrlarm wrelbow   20
+linear  0  1 abduct wrhand wrwrist  +20
+linear  0  1 flex   wrhand wrwrist  -14
+linear  0  1 rotate wrhand wrwrist  +55
+*
+linear  0  1 abduct wluarm wlshldr  110
+linear  0  1 rotate wluarm wlshldr  -30
+linear  0  1 flex   wllarm wlelbow  130
+linear  0  1 rotate wlhand wlwrist   70
+*
+linear  0  1 abduct wneck  wspine   +20
+linear  0  1 rotate wneck  wspine   +20
+linear  0  1 flex   whead  wthroat  +10
+linear  0  1 flex   wchest wwaist   +10
+linear  0  1 rotate wchest wwaist   -10
+*
+repeat  0  1 centre mpelvis  mx my mz
+repeat  0  1 moveto ginger   wpelvis mx my mz
+repeat  0  1 moveby ginger   wpelvis shift 0 sepn
+*
+repeat  0  1 ground fred
+repeat  0  1 ground ginger
+*
+end posture
+**********************************************
+*
+subroutine hold
+*
+repeat  0  1 centre mpelvis  mx my mz
+repeat  0  1 moveto ginger   wpelvis mx my mz
+repeat  0  1 moveby ginger   wpelvis shift 0 sepn
+repeat  0  1 abut   wpelvis  mpelvis mpelvis z
+repeat  0  1 ground fred
+repeat  0  1 ground ginger
+* 
+repeat  0  1 touch  wrthumb mlthumb  wruarm wshldrs wrshldr y
+repeat  0  1 touch  wrthumb mlthumb  wruarm wshldrs wrshldr x
+repeat  0  1 touch  wrthumb mlthumb  wruarm wshldrs wrshldr z
+*
+*repeat  0  1 touch  wluarm  mrlarm   wluarm wshldrs wlshldr x
+repeat  0  1 touch  wlhand  mruarm   wllarm wluarm  wlelbow y
+*
+end hold
+**************************************************
+*
+subroutine setup
+*
+*   find values of variables
+*
+repeat  0  1 set mang +30
+repeat  0  1 set wang +33
+*
+repeat  0  1 set temp mang
+repeat  0  1 neg temp
+*
+repeat  0  1 flex   mlthigh  mlhip   mang
+repeat  0  1 angles mlthigh  mpelvis mf1 mf2 mf3
+repeat  0  1 flex   mlthigh  mlhip   temp
+repeat  0  1 abduct mlthigh  mlhip   mang
+repeat  0  1 angles mlthigh  mpelvis ml1 ml2 ml3
+repeat  0  1 abduct mlthigh  mlhip   temp
+repeat  0  1 abduct mrthigh  mrhip   mang
+repeat  0  1 angles mrthigh  mpelvis mr1 mr2 mr3
+repeat  0  1 abduct mrthigh  mrhip   temp
+*
+repeat  0  1 set temp wang
+repeat  0  1 neg temp
+*
+repeat  0  1 flex   wlthigh  wlhip   wang
+repeat  0  1 angles wlthigh  wpelvis wf1 wf2 wf3
+repeat  0  1 flex   wlthigh  wlhip   temp
+repeat  0  1 abduct wlthigh  wlhip   wang
+repeat  0  1 angles wlthigh  wpelvis wl1 wl2 wl3
+repeat  0  1 abduct wlthigh  wlhip   temp
+repeat  0  1 abduct wrthigh  wrhip   wang
+repeat  0  1 angles wrthigh  wpelvis wr1 wr2 wr3
+repeat  0  1 abduct wrthigh  wrhip   temp
+*
+repeat  0  1 axes   mpelvis mx my mz
+repeat  0  1 axes   wpelvis wx wy wz
+repeat  0  1 add    sepn mz wz
+repeat  0  1 negate sepn
+repeat  0  1 multip shift   wx 0.5
+repeat  0  1 negate shift
+*
+end setup
+**********************************************
+*
+subroutine reverse
+*
+*   a reverse turn in 84 frames
+*
+call    1  2 revfor
+call    1 43 lchange
+call   43 44 revbak
+call   43 85 lchange
+end reverse
+***************************************************
+*
+subroutine lchange
+*
+*  a waltz change step starting L foot forward
+*   with a 3*tang turn
+*     in 42 frames (1-43)
+*
+*   lower for next step -
+*
+quadra  1  7 flex   mlfoot   mlankle  mang
+quadra  1  7 flex   mrfoot   mrankle  mang
+quadra  1  7 flex   wlfoot   wlankle  wang
+quadra  1  7 flex   wrfoot   wrankle  wang
+*
+*   compress, and reach forward -
+*
+quadra  1  7 flex   arleg    arankle anang
+quadra  1  7 flex   arthigh  arknee  anang
+quadra  1  7 flex   arthigh  arknee  anang
+quadra  1  7 flex   apelvis  arhip   anang
+quadra  1  7 flex   althigh  alhip   apang
+*
+quadra  1  7 flex   blleg    blankle bnang
+quadra  1  7 flex   blthigh  blknee  bnang
+quadra  1  7 flex   blthigh  blknee  bnang
+quadra  1  7 flex   bpelvis  blhip   bnang
+quadra  1  7 flex   brfoot   brankle bpang
+quadra  1  7 flex   brthigh  brhip   bnang
+*
+*   transfer weight forward -
+*
+quadra  7 12 flex   arfoot   arankle anang
+quadra  7 12 flex   arfoot   arankle anang
+quadra  7 12 flex   arthigh  arknee  apang
+quadra  7 12 flex   arthigh  arknee  apang
+quadra  7 12 flex   apelvis  arhip   apang
+quadra  7 12 flex   apelvis  arhip   apang
+quadra  7 12 flex   alfoot   alankle apang
+quadra  7 12 flex   alleg    alknee  apang
+quadra  7 12 flex   alleg    alknee  apang
+*
+quadra  7 12 flex   brthigh  brknee  bnang
+quadra  7 12 flex   brleg    brknee  bpang
+quadra  7 12 flex   bpelvis  brhip   bnang
+quadra  7 12 flex   brthigh  brhip   bpang
+quadra  7 12 flex   blfoot   blankle bnang
+quadra  7 12 flex   blfoot   blankle bnang
+quadra  7 12 flex   blleg    blknee  bnang
+quadra  7 12 flex   blleg    blknee  bnang
+quadra  7 12 bendby aluarm   alshldr ashldrs parm x
+quadra  7 12 bendby aruarm   arshldr ashldrs parm x
+*
+*   reach to side and take 2*tang turn -
+*
+quadra 12 19 bendby aluarm   alshldr ashldrs narm x
+quadra 12 19 bendby aruarm   arshldr ashldrs narm x
+quadra 12 19 bendto arthigh  arhip   apelvis ar1 ar2 ar3
+quadra 12 19 bendto blthigh  blhip   bpelvis bl1 bl2 bl3
+quadra 12 19 spinby afig     alfoot  apelvis tang y
+quadra 12 19 spinby afig     alfoot  apelvis tang y
+quadra 12 19 spinby bfig     brfoot  bpelvis tang y
+quadra 12 19 spinby bfig     brfoot  bpelvis tang y
+*
+*   transfer weight to side onto a flexed leg -
+*
+repeat 19 26 centre mrfoot   fx fy fz
+quadra 19 26 bendto arthigh  arhip   apelvis af1 af2 af3
+quadra 19 26 flex   arleg    arknee  apang
+quadra 19 26 flex   arleg    arknee  apang
+quadra 19 26 flex   arfoot   arankle apang
+quadra 19 26 bendto althigh  alhip   apelvis al1 al2 al3
+quadra 19 26 flex   alleg    alknee  anang
+quadra 19 26 flex   alleg    alknee  anang
+quadra 19 26 flex   alfoot   alankle anang
+quadra 19 26 flex   alfoot   alankle anang
+*
+quadra 19 26 bendto blthigh  blhip   bpelvis bf1 bf2 bf3
+quadra 19 26 flex   blleg    blknee  bpang
+quadra 19 26 flex   blleg    blknee  bpang
+quadra 19 26 flex   blfoot   blankle bpang
+quadra 19 26 bendto brthigh  brhip   bpelvis br1 br2 br3
+quadra 19 26 flex   brleg    brknee  bnang
+quadra 19 26 flex   brleg    brknee  bnang
+quadra 19 26 flex   brfoot   brankle bnang
+quadra 19 26 flex   brfoot   brankle bnang
+repeat 19 26 moveto fred     mrfoot  fx fy fz
+*
+*  close with a further 'tang' turn -
+*
+quadra 26 43 flex   arthigh  arhip   anang
+quadra 26 43 flex   arleg    arknee  anang
+quadra 26 43 flex   arleg    arknee  anang
+quadra 26 43 flex   arfoot   arankle anang
+quadra 26 43 abduct althigh  alhip   anang
+*
+quadra 26 43 flex   blthigh  blhip   bnang
+quadra 26 43 flex   blleg    blknee  bnang
+quadra 26 43 flex   blleg    blknee  bnang
+quadra 26 43 flex   blfoot   blankle bnang
+quadra 26 43 abduct brthigh  brhip   bnang
+quadra 26 43 spinby afig     arfoot  apelvis tang y
+quadra 26 43 spinby bfig     blfoot  bpelvis tang y
+end lchange
+*********************************
+*
+subroutine revfor
+*
+*   for a reverse forward turn: m=a, w=b
+*
+repeat 0 1 set afig    fred
+repeat 0 1 set apelvis mpelvis
+repeat 0 1 set arfoot  mrfoot
+repeat 0 1 set alfoot  mlfoot
+repeat 0 1 set arfoot  mrfoot
+repeat 0 1 set alleg   mlleg
+repeat 0 1 set arleg   mrleg
+repeat 0 1 set althigh mlthigh
+repeat 0 1 set arthigh mrthigh
+repeat 0 1 set aluarm  mluarm
+repeat 0 1 set aruarm  mruarm
+repeat 0 1 set ashldrs mshldrs
+repeat 0 1 set alankle mlankle
+repeat 0 1 set arankle mrankle
+repeat 0 1 set alknee  mlknee
+repeat 0 1 set arknee  mrknee
+repeat 0 1 set alhip   mlhip
+repeat 0 1 set arhip   mrhip
+repeat 0 1 set alshldr mlshldr
+repeat 0 1 set arshldr mrshldr
+repeat 0 1 set apang   mang
+repeat 0 1 set anang   mang
+repeat 0 1 neg anang
+repeat 0 1 set af1     mf1
+repeat 0 1 set af2     mf2
+repeat 0 1 set af3     mf3
+*
+repeat 0 1 set bfig    ginger
+repeat 0 1 set bpelvis wpelvis
+repeat 0 1 set brfoot  wrfoot
+repeat 0 1 set blfoot  wlfoot
+repeat 0 1 set brfoot  wrfoot
+repeat 0 1 set blleg   wlleg
+repeat 0 1 set brleg   wrleg
+repeat 0 1 set blthigh wlthigh
+repeat 0 1 set brthigh wrthigh
+repeat 0 1 set blankle wlankle
+repeat 0 1 set brankle wrankle
+repeat 0 1 set blknee  wlknee
+repeat 0 1 set brknee  wrknee
+repeat 0 1 set blhip   wlhip
+repeat 0 1 set brhip   wrhip
+repeat 0 1 set bpang   wang
+repeat 0 1 set bnang   wang
+repeat 0 1 neg bnang
+repeat 0 1 set bf1     wf1
+repeat 0 1 set bf2     wf2
+repeat 0 1 set bf3     wf3
+*
+repeat 0 1 set al1     ml1
+repeat 0 1 set al2     ml2
+repeat 0 1 set al3     ml3
+repeat 0 1 set bl1     wl1
+repeat 0 1 set bl2     wl2
+repeat 0 1 set bl3     wl3
+repeat 0 1 set ar1     mr1
+repeat 0 1 set ar2     mr2
+repeat 0 1 set ar3     mr3
+repeat 0 1 set br1     wr1
+repeat 0 1 set br2     wr2
+repeat 0 1 set br3     wr3
+*
+repeat 0 1 set parm +20
+repeat 0 1 set narm -20
+end revfor
+**********************************
+*
+subroutine revbak
+*
+*   for a reverse backward turn: w=a, m=b
+*
+repeat 0 1 set bfig    fred
+repeat 0 1 set bpelvis mpelvis
+repeat 0 1 set brfoot  mrfoot
+repeat 0 1 set blfoot  mlfoot
+repeat 0 1 set brfoot  mrfoot
+repeat 0 1 set blleg   mlleg
+repeat 0 1 set brleg   mrleg
+repeat 0 1 set blthigh mlthigh
+repeat 0 1 set brthigh mrthigh
+repeat 0 1 set blankle mlankle
+repeat 0 1 set brankle mrankle
+repeat 0 1 set blknee  mlknee
+repeat 0 1 set brknee  mrknee
+repeat 0 1 set blhip   mlhip
+repeat 0 1 set brhip   mrhip
+repeat 0 1 set bpang   mang
+repeat 0 1 set bnang   mang
+repeat 0 1 neg bnang
+repeat 0 1 set bf1     mf1
+repeat 0 1 set bf2     mf2
+repeat 0 1 set bf3     mf3
+repeat 0 1 set bl1     ml1
+repeat 0 1 set bl2     ml2
+repeat 0 1 set bl3     ml3
+repeat 0 1 set br1     mr1
+repeat 0 1 set br2     mr2
+repeat 0 1 set br3     mr3
+*
+repeat 0 1 set afig    ginger
+repeat 0 1 set apelvis wpelvis
+repeat 0 1 set arfoot  wrfoot
+repeat 0 1 set alfoot  wlfoot
+repeat 0 1 set arfoot  wrfoot
+repeat 0 1 set alleg   wlleg
+repeat 0 1 set arleg   wrleg
+repeat 0 1 set althigh wlthigh
+repeat 0 1 set arthigh wrthigh
+repeat 0 1 set aluarm  wluarm
+repeat 0 1 set aruarm  wruarm
+repeat 0 1 set ashldrs wshldrs
+repeat 0 1 set alankle wlankle
+repeat 0 1 set arankle wrankle
+repeat 0 1 set alknee  wlknee
+repeat 0 1 set arknee  wrknee
+repeat 0 1 set alhip   wlhip
+repeat 0 1 set arhip   wrhip
+repeat 0 1 set alshldr wlshldr
+repeat 0 1 set arshldr wrshldr
+repeat 0 1 set apang   wang
+repeat 0 1 set anang   wang
+repeat 0 1 neg anang
+repeat 0 1 set af1     wf1
+repeat 0 1 set af2     wf2
+repeat 0 1 set af3     wf3
+repeat 0 1 set al1     wl1
+repeat 0 1 set al2     wl2
+repeat 0 1 set al3     wl3
+repeat 0 1 set ar1     wr1
+repeat 0 1 set ar2     wr2
+repeat 0 1 set ar3     wr3
+*
+repeat 0 1 set parm 0
+repeat 0 1 set narm 0
+end revbak
+******************************************
+*
+subroutine rise
+repeat  1  2 set    temp     mang
+repeat  1  2 negate temp
+quadra  1  2 flex   mlfoot   mlankle  temp
+quadra  1  2 flex   mrfoot   mrankle  temp
+repeat  1  2 set    temp     wang
+repeat  1  2 negate temp
+quadra  1  2 flex   wlfoot   wlankle  temp
+quadra  1  2 flex   wrfoot   wrankle  temp
+repeat  1  2 ground fred
+repeat  1  2 ground ginger
+end rise
+******************************************
+*
+stop
+

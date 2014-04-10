@@ -1,0 +1,275 @@
+*      frank
+*
+*  2 Jun 2005   curled fingers, scaled to match Fred
+*  5 Jan 1996   fingers and foot parts   Don Herbison-Evans  
+*
+figure frank 89 *
+    mlball  mrball mlbtoe  mrbtoe  mltoe2  mrtoe2 mltoe3  mrtoe3 *
+    mltoe4  mrtoe4 mltoe5  mrtoe5  mltoes  mrtoes mlnkle  mrnkle *
+    mlfoot  mrfoot mlleg   mrleg   mlnee   mrnee  mlthigh mrthigh *
+    mluarm  mruarm mlhumrs mrhumrs mllarm  mrlarm mlhand  mrhand *
+    mlf4t   mrf4t  mlf4m   mrf4m   mlf4b   mrf4b  mlf4n   mrf4n *
+    mlf3t   mrf3t  mlf3m   mrf3m   mlf3b   mrf3b  mlf3n   mrf3n *
+    mlf2t   mrf2t  mlf2m   mrf2m   mlf2b   mrf2b  mlf2n   mrf2n *
+    mlf1t   mrf1t  mlf1m   mrf1m   mlf1b   mrf1b  mlf1n   mrf1n *
+    mltht   mrtht  mlthm   mrthm   mlthb   mrthb  mlthn   mrthn *
+    mlcar   mrcar  mlbh    mrbh    mloh    mroh   mlih    mrih *
+    mpelvis mchest mlshd   mrshd   mshldrs mstomach *
+    mneck   mhead  mnose   mhair
+*
+ellipsoid mlball   22   15  12
+ellipsoid mrball   22   15  12
+ellipsoid mlbtoe    8   12   6
+ellipsoid mrbtoe    8   12   6
+ellipsoid mltoe2    8   10   6
+ellipsoid mrtoe2    8   10   6
+ellipsoid mltoe3    8    8   6
+ellipsoid mrtoe3    8    8   6
+ellipsoid mltoe4    8    6   6
+ellipsoid mrtoe4    8    6   6
+ellipsoid mltoe5    8    4   6
+ellipsoid mrtoe5    8    4   6
+ellipsoid mltoes   22   12   8
+ellipsoid mrtoes   22   12   8
+ellipsoid mlnkle   18   18  18
+ellipsoid mrnkle   18   18  18
+ellipsoid mlfoot   24   35  12
+ellipsoid mrfoot   24   35  12
+ellipsoid mlleg    24  120  24
+ellipsoid mrleg    24  120  24
+ellipsoid mlnee    25   30  25
+ellipsoid mrnee    25   30  25
+ellipsoid mlthigh  30  120  36
+ellipsoid mrthigh  30  120  36
+ellipsoid mluarm   24   81  24
+ellipsoid mruarm   24   81  24
+ellipsoid mlhumrs  18   18  18
+ellipsoid mrhumrs  18   18  18
+ellipsoid mllarm   17   72  17
+ellipsoid mrlarm   17   72  17
+ellipsoid mneck    18   36  18
+ellipsoid mhead    44   60  48
+ellipsoid mnose    12   12  36
+ellipsoid mhair    46   59  50
+ellipsoid mlf4n   1.9  2.8   1 * nail little finger
+ellipsoid mrf4n   1.9  2.8   1
+ellipsoid mlf4t   2.9  4.0 2.9 * tip little finger
+ellipsoid mrf4t   2.9  4.0 2.9
+ellipsoid mlf4m   3.4  4.2 3.4 * middle of little finger
+ellipsoid mrf4m   3.4  4.2 3.4
+ellipsoid mlf4b   3.4  6.9 3.4 * base of little finger
+ellipsoid mrf4b   3.4  6.9 3.4
+ellipsoid mlf3n   2.6  3.0   1 * ring finger
+ellipsoid mrf3n   2.6  3.0   1
+ellipsoid mlf3t   3.4  5.7 3.4
+ellipsoid mrf3t   3.4  5.7 3.4
+ellipsoid mlf3m   3.8  6.6 3.8
+ellipsoid mrf3m   3.8  6.6 3.8
+ellipsoid mlf3b   4.3 10.0 4.3
+ellipsoid mrf3b   4.3 10.0 4.3
+ellipsoid mlf2n   2.4  3.4   1 * middle finger
+ellipsoid mrf2n   2.4  3.4   1
+ellipsoid mlf2t   3.6  5.9 3.4
+ellipsoid mrf2t   3.6  5.9 3.4
+ellipsoid mlf2m   4.3  7.1 3.8
+ellipsoid mrf2m   4.3  7.1 3.8
+ellipsoid mlf2b   4.8 10.5 4.3
+ellipsoid mrf2b   4.8 10.5 4.3
+ellipsoid mlf1n   2.4  2.8   1 * index finger
+ellipsoid mrf1n   2.4  2.8   1
+ellipsoid mlf1t   3.4  5.7 3.4
+ellipsoid mrf1t   3.4  5.7 3.4
+ellipsoid mlf1m   3.8  6.9 3.8
+ellipsoid mrf1m   3.8  6.9 3.8
+ellipsoid mlf1b   4.3 10.0 4.3
+ellipsoid mrf1b   4.3 10.0 4.3
+ellipsoid mlthn   2.6  2.8   1 * thumb
+ellipsoid mrthn   2.6  2.8   1
+ellipsoid mltht   3.6  4.5 3.4
+ellipsoid mrtht   3.6  4.5 3.4
+ellipsoid mlthm   4.8  8.3 4.3
+ellipsoid mrthm   4.8  8.3 4.3
+ellipsoid mlthb   7.2 14.1 7.2
+ellipsoid mrthb   7.2 14.1 7.2
+ellipsoid mlcar  16.1  7.6 4.8
+ellipsoid mrcar  16.1  7.6 4.8
+ellipsoid mlbh   16.1  6.9 7.2
+ellipsoid mrbh   16.1  6.9 7.2
+ellipsoid mloh      6 17.2   6
+ellipsoid mroh      6 17.2   6
+ellipsoid mlih      6 17.2   6
+ellipsoid mrih      6 17.2   6
+ellipsoid mlhand 16.1 15.4   6
+ellipsoid mrhand 16.1 15.4   6
+ellipsoid mpelvis  70   45  45
+ellipsoid mchest   75  110  45
+ellipsoid mstomach 65   80  40
+ellipsoid mshldrs  93   30  24
+ellipsoid mlshd    28   58  18
+ellipsoid mrshd    28   58  18
+*
+joint mljshd   mshldrs -87    0    0  mlshd      0    40    0
+joint mrjshd   mshldrs +87    0    0  mrshd      0    40    0
+joint mthorax  mshldrs   0    0    0  mchest     0    75    0
+joint mribs    mchest    0  -40    0  mstomach   0    50    0
+joint mwaist   mstomach  0  -50    0  mpelvis    0    22    0
+joint mljball  mlball    0    0    0  mlfoot     0   -20    0
+joint mrjball  mrball    0    0    0  mrfoot     0   -20    0
+joint mltarsl  mltoes    0    0    0  mlball     0   -10   -2
+joint mrtarsl  mrtoes    0    0    0  mrball     0   -10   -2
+joint mlmetab  mlbtoe    0   10    0  mltoes    14    -4   -2
+joint mrmetab  mrbtoe    0   10    0  mrtoes   -14    -4   -2
+joint mlmeta2  mltoe2    0    8    0  mltoes     7    -4   -2
+joint mrmeta2  mrtoe2    0    8    0  mrtoes    -7    -4   -2
+joint mlmeta3  mltoe3    0    6    0  mltoes     0    -4   -2
+joint mrmeta3  mrtoe3    0    6    0  mrtoes     0    -4   -2
+joint mlmeta4  mltoe4    0    4    0  mltoes    -7    -4   -2
+joint mrmeta4  mrtoe4    0    4    0  mrtoes     7    -4   -2
+joint mlmeta5  mltoe5    0    2    0  mltoes   -14    -4   -2
+joint mrmeta5  mrtoe5    0    2    0  mrtoes    14    -4   -2
+joint mlankle  mlfoot    0   23    0  mlleg      0  -111    0
+joint mrankle  mrfoot    0   23    0  mrleg      0  -111    0
+joint mlkle    mlleg     0 -111    0  mlnkle     0     0    0
+joint mrkle    mrleg     0 -111    0  mrnkle     0     0    0
+joint mlknee   mlleg     0  111    0  mlthigh    0  -105    0
+joint mrknee   mrleg     0  111    0  mrthigh    0  -105    0
+joint mlee     mlleg     0  111    0  mlnee      0     0    0
+joint mree     mrleg     0  111    0  mrnee      0     0    0
+joint mlhip    mlthigh   0   90    0  mpelvis  -36     0    0
+joint mrhip    mrthigh   0   90    0  mpelvis   36     0    0
+joint mlshldr  mshldrs -87    0    0  mluarm     0    72    0
+joint mrshldr  mshldrs +87    0    0  mruarm     0    72    0
+joint mlelbow  mluarm    0  -69    0  mllarm     0    58    0
+joint mrelbow  mruarm    0  -69    0  mrlarm     0    58    0
+joint mlbow    mluarm    0  -69    0  mlhumrs    0     0    0
+joint mrbow    mruarm    0  -69    0  mrhumrs    0     0    0
+joint mlwrist  mlhand    0   12    0  mllarm     0   -62    0
+joint mrwrist  mrhand    0   12    0  mrlarm     0   -62    0
+joint mscalp   mhead     0  3.6 -3.6  mhair      0     0    0
+joint mface    mhead     0    0   33  mnose      0     0    0
+joint mthroat  mhead     0  -60    0  mneck      0    12    0
+joint mspine   mneck     0   -6    0  mshldrs    0    24    0
+joint mljf4n   mlf4t     0    0 -2.6  mlf4n      0   2.6    0
+joint mrjf4n   mrf4t     0    0 -2.6  mrf4n      0   2.6    0
+joint mljf3n   mlf3t     0  0.8 -3.1  mlf3n      0   2.6    0
+joint mrjf3n   mrf3t     0  0.8 -3.1  mrf3n      0   2.6    0
+joint mljf2n   mlf2t     0  0.8 -3.1  mlf2n      0   2.8    0
+joint mrjf2n   mrf2t     0  0.8 -3.1  mrf2n      0   2.8    0
+joint mljf1n   mlf1t     0  0.8 -3.1  mlf1n      0   2.6    0
+joint mrjf1n   mrf1t     0  0.8 -3.1  mrf1n      0   2.6    0
+joint mljthn   mltht     0    0 -3.1  mlthn      0   2.6    0
+joint mrjthn   mrtht     0    0 -3.1  mrthn      0   2.6    0
+joint mljf4t   mlf4t     0  3.0    0  mlf4m      0  -4.2    0
+joint mrjf4t   mrf4t     0  3.0    0  mrf4m      0  -4.2    0
+joint mljf3t   mlf3t     0  5.0    0  mlf3m      0  -5.5    0
+joint mrjf3t   mrf3t     0  5.0    0  mrf3m      0  -5.5    0
+joint mljf2t   mlf2t     0  5.3    0  mlf2m      0  -5.9    0
+joint mrjf2t   mrf2t     0  5.3    0  mrf2m      0  -5.9    0
+joint mljf1t   mlf1t     0  5.0    0  mlf1m      0  -5.4    0
+joint mrjf1t   mrf1t     0  5.0    0  mrf1m      0  -5.4    0
+joint mljtht   mltht     0  3.8    0  mlthm      0  -5.0    0
+joint mrjtht   mrtht     0  3.8    0  mrthm      0  -5.0    0
+joint mljf4m   mlf4m     0  3.8    0  mlf4b      0  -3.8    0
+joint mrjf4m   mrf4m     0  3.8    0  mrf4b      0  -3.8    0
+joint mljf3m   mlf3m     0  5.7    0  mlf3b      0  -7.2    0
+joint mrjf3m   mrf3m     0  5.7    0  mrf3b      0  -7.2    0
+joint mljf2m   mlf2m     0  6.1    0  mlf2b      0  -7.9    0
+joint mrjf2m   mrf2m     0  6.1    0  mrf2b      0  -7.9    0
+joint mljf1m   mlf1m     0  5.8    0  mlf1b      0  -7.1    0
+joint mrjf1m   mrf1m     0  5.8    0  mrf1b      0  -7.1    0
+joint mljthm   mlthm     0  6.2    0  mlthb   -4.5  -7.6  0.2
+joint mrjthm   mrthm     0  6.2    0  mrthb   +4.5  -7.6  0.2
+joint mljf4b   mlf4b     0  4.0    0  mlcar  +12.7  -4.5    0
+joint mrjf4b   mrf4b     0  4.0    0  mrcar  -12.7  -4.5    0
+joint mljf3b   mlf3b     0  6.9    0  mlcar   +4.3  -6.1    0
+joint mrjf3b   mrf3b     0  6.9    0  mrcar   -4.3  -6.1    0
+joint mljf2b   mlf2b     0  7.6    0  mlcar     -5  -6.1    0
+joint mrjf2b   mrf2b     0  7.6    0  mrcar     +5  -6.1    0
+joint mljf1b   mlf1b     0  7.1    0  mlcar  -13.9  -4.4    0
+joint mrjf1b   mrf1b     0  7.1    0  mrcar  +13.9  -4.4    0
+joint mlpalm   mlthb   2.8  9.4    0  mlih    -3.6  11.0 -0.2
+joint mrpalm   mrthb  -2.8  9.4    0  mrih    +3.6  11.0 -0.2
+joint mljftm   mlcar     0    0    0  mlhand     0 -13.9  0.2
+joint mrjftm   mrcar     0    0    0  mrhand     0 -13.9  0.2
+joint mljhbm   mlbh      0    0    0  mlhand  -1.2  12.7 -0.2
+joint mrjhbm   mrbh      0    0    0  mrhand  +1.2  12.7 -0.2
+joint mljhom   mloh      0    0    0  mlhand +10.8     0    0
+joint mrjhom   mroh      0    0    0  mrhand -10.8     0    0
+joint mljhim   mlih      0    0    0  mlhand -10.8     0    0
+joint mrjhim   mrih      0    0    0  mrhand +10.8     0    0
+*
+repeat 0 1 colour mhair    64  64   0
+*
+repeat 0 1 colour mlshd    128 128 255
+repeat 0 1 colour mrshd    128 128 255
+repeat 0 1 colour mshldrs  128 128 255
+repeat 0 1 colour mstomach 128 128 255
+repeat 0 1 colour mchest   128 128 255
+repeat 0 1 colour mpelvis  128 128 255
+*
+repeat 0 1 colour mlball   128 128 255
+repeat 0 1 colour mrball   128 128 255
+repeat 0 1 colour mlbtoe   128 128 255
+repeat 0 1 colour mrbtoe   128 128 255
+repeat 0 1 colour mltoe2   128 128 255
+repeat 0 1 colour mrtoe2   128 128 255
+repeat 0 1 colour mltoe3   128 128 255
+repeat 0 1 colour mrtoe3   128 128 255
+repeat 0 1 colour mltoe4   128 128 255
+repeat 0 1 colour mrtoe4   128 128 255
+repeat 0 1 colour mltoe5   128 128 255
+repeat 0 1 colour mrtoe5   128 128 255
+repeat 0 1 colour mltoes   128 128 255
+repeat 0 1 colour mrtoes   128 128 255
+repeat 0 1 colour mlnkle   128 128 255
+repeat 0 1 colour mrnkle   128 128 255
+repeat 0 1 colour mlfoot   128 128 255
+repeat 0 1 colour mrfoot   128 128 255
+repeat 0 1 colour mlleg    128 128 255
+repeat 0 1 colour mrleg    128 128 255
+repeat 0 1 colour mlnee    128 128 255
+repeat 0 1 colour mrnee    128 128 255
+repeat 0 1 colour mlthigh  128 128 255
+repeat 0 1 colour mrthigh  128 128 255
+repeat 0 1 colour mluarm   128 128 255
+repeat 0 1 colour mruarm   128 128 255
+repeat 0 1 colour mlhumrs  128 128 255
+repeat 0 1 colour mrhumrs  128 128 255
+repeat 0 1 colour mllarm   128 128 255
+repeat 0 1 colour mrlarm   128 128 255
+*
+*   prepare figure
+*   note that figure is facing away from the observer (along z axis)
+*   in anatomical position ( palms facing forward )
+*
+variable 1 man
+repeat 0 1 set man fred
+linear 0 1 grofig man mpelvis 0.83 0.83 0.83
+*
+linear 0 1 abduct mlshd  mljshd   -45
+linear 0 1 abduct mrshd  mrjshd   -45
+linear 0 1 flex   mnose  mface    -30
+linear 0 1 flex   mhair  mscalp     5
+linear 0 1 flex   mrf1m  mrjf1m    20
+linear 0 1 flex   mrf2m  mrjf2m    20
+linear 0 1 flex   mrf3m  mrjf3m    20
+linear 0 1 flex   mrf4m  mrjf4m    20
+linear 0 1 flex   mrthm  mrjthm    40
+linear 0 1 flex   mlf1m  mljf1m    20
+linear 0 1 flex   mlf2m  mljf2m    20
+linear 0 1 flex   mlf3m  mljf3m    20
+linear 0 1 flex   mlf4m  mljf4m    20
+linear 0 1 flex   mlthm  mljthm    40
+linear 0 1 flex   mrhand mrwrist   20
+linear 0 1 flex   mlhand mlwrist   20 
+*
+*   stand down on heels -
+*
+linear 0 1 flex   mlfoot mlankle   +90
+linear 0 1 flex   mrfoot mrankle   +90
+*
+linear 0 1 moveto man mpelvis 500 500 500
+linear 0 1 ground man
+*
+****************************************
+*

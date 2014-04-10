@@ -1,0 +1,287 @@
+*       gloria
+*
+*  2 Jun 2005  fatter fingers, scaled to match Fed, Frank, and Ginger         
+*  5 Jan 1996  with stomach and high heels Don Herbison-Evans  
+*
+figure gloria 94 *
+    wlball wrball wlbtoe  wrbtoe  wltoe2  wrtoe2 wltoe3  wrtoe3 *
+    wltoe4 wrtoe4 wltoe5  wrtoe5  wltoes  wrtoes wlnkle  wrnkle *
+    wlfoot wrfoot wlleg   wrleg   wlnee   wrnee  wlthigh wrthigh *
+    wluarm wruarm wlhumrs wrhumrs wllarm  wrlarm wlhand  wrhand *
+    wlf4t  wrf4t  wlf4m   wrf4m   wlf4b   wrf4b  wlf4n   wrf4n *
+    wlf3t  wrf3t  wlf3m   wrf3m   wlf3b   wrf3b  wlf3n   wrf3n *
+    wlf2t  wrf2t  wlf2m   wrf2m   wlf2b   wrf2b  wlf2n   wrf2n *
+    wlf1t  wrf1t  wlf1m   wrf1m   wlf1b   wrf1b  wlf1n   wrf1n *
+    wltht  wrtht  wlthm   wrthm   wlthb   wrthb  wlthn   wrthn *
+    wlcar  wrcar  wlbh    wrbh    wloh    wroh   wlih    wrih *
+    wlbrst wrbrst wpelvis wchest  wlshd   wrshd  wshldrs wstomach *
+    wneck  whead  wnose   wbun    whair   wlheel wrheel *
+*
+ellipsoid wlheel   10   20  10
+ellipsoid wrheel   10   20  10
+ellipsoid wlball   22   15  12
+ellipsoid wrball   22   15  12
+ellipsoid wlbtoe    8   12   6
+ellipsoid wrbtoe    8   12   6
+ellipsoid wltoe2    8   10   6
+ellipsoid wrtoe2    8   10   6
+ellipsoid wltoe3    8    8   6
+ellipsoid wrtoe3    8    8   6
+ellipsoid wltoe4    8    6   6
+ellipsoid wrtoe4    8    6   6
+ellipsoid wltoe5    8    4   6
+ellipsoid wrtoe5    8    4   6
+ellipsoid wltoes   22   12   8
+ellipsoid wrtoes   22   12   8
+ellipsoid wlnkle   18   18  18
+ellipsoid wrnkle   18   18  18
+ellipsoid wlfoot   24   35  12
+ellipsoid wrfoot   24   35  12
+ellipsoid wlleg    24  120  24
+ellipsoid wrleg    24  120  24
+ellipsoid wlnee    25   30  25
+ellipsoid wrnee    25   30  25
+ellipsoid wlthigh  30  120  36
+ellipsoid wrthigh  30  120  36
+ellipsoid wluarm   24   81  24
+ellipsoid wruarm   24   81  24
+ellipsoid wlhumrs  18   18  18
+ellipsoid wrhumrs  18   18  18
+ellipsoid wllarm   17   72  17
+ellipsoid wrlarm   17   72  17
+ellipsoid wlbrst   25   24  36
+ellipsoid wrbrst   25   24  36
+ellipsoid wneck    18   36  18
+ellipsoid whead    44   60  48
+ellipsoid wnose    12   12  36
+ellipsoid whair    46   59  50
+ellipsoid wbun     30   15  30
+ellipsoid wlf4n   1.9  2.8   1 * nail little finger
+ellipsoid wrf4n   1.9  2.8   1
+ellipsoid wlf4t   2.9  4.4 2.9 * tip little finger
+ellipsoid wrf4t   2.9  4.4 2.9
+ellipsoid wlf4m   3.4  4.6 3.4 * middle of little finger
+ellipsoid wrf4m   3.4  4.6 3.4
+ellipsoid wlf4b   3.4  7.6 3.4 * base of little finger
+ellipsoid wrf4b   3.4  7.6 3.4
+ellipsoid wlf3n   2.6  3.0   1 * ring finger
+ellipsoid wrf3n   2.6  3.0   1
+ellipsoid wlf3t   3.4  6.3 3.4
+ellipsoid wrf3t   3.4  6.3 3.4
+ellipsoid wlf3m   3.8  7.2 3.8
+ellipsoid wrf3m   3.8  7.2 3.8
+ellipsoid wlf3b   4.3 11.0 4.3
+ellipsoid wrf3b   4.3 11.0 4.3
+ellipsoid wlf2n   2.4  3.4   1 * middle finger
+ellipsoid wrf2n   2.4  3.4   1
+ellipsoid wlf2t   3.6  6.5 3.4
+ellipsoid wrf2t   3.6  6.5 3.4
+ellipsoid wlf2m   4.3  7.8 3.8
+ellipsoid wrf2m   4.3  7.8 3.8
+ellipsoid wlf2b   4.8 11.5 4.3
+ellipsoid wrf2b   4.8 11.5 4.3
+ellipsoid wlf1n   2.4  2.8   1 * index finger
+ellipsoid wrf1n   2.4  2.8   1
+ellipsoid wlf1t   3.4  6.3 3.4
+ellipsoid wrf1t   3.4  6.3 3.4
+ellipsoid wlf1m   3.8  7.6 3.8
+ellipsoid wrf1m   3.8  7.6 3.8
+ellipsoid wlf1b   4.3 11.0 4.3
+ellipsoid wrf1b   4.3 11.0 4.3
+ellipsoid wlthn   2.6  2.8   1 * thumb
+ellipsoid wrthn   2.6  2.8   1
+ellipsoid wltht   3.6  4.9 3.4
+ellipsoid wrtht   3.6  4.9 3.4
+ellipsoid wlthm   4.8  9.1 4.3
+ellipsoid wrthm   4.8  9.1 4.3
+ellipsoid wlthb   7.2 15.5 7.2
+ellipsoid wrthb   7.2 15.5 7.2
+ellipsoid wlcar  16.1  7.6 4.8
+ellipsoid wrcar  16.1  7.6 4.8
+ellipsoid wlbh   16.1  6.9 7.2
+ellipsoid wrbh   16.1  6.9 7.2
+ellipsoid wloh      6 17.2   6
+ellipsoid wroh      6 17.2   6
+ellipsoid wlih      6 17.2   6
+ellipsoid wrih      6 17.2   6
+ellipsoid wlhand 16.1 15.4   6
+ellipsoid wrhand 16.1 15.4   6
+ellipsoid wpelvis  75   45  45
+ellipsoid wchest   75  110  45
+ellipsoid wstomach 65   80  40
+ellipsoid wshldrs  93   30  24
+ellipsoid wlshd    28   58  18
+ellipsoid wrshd    28   58  18
+*
+joint wljshd   wshldrs -87    0    0  wlshd      0    40    0
+joint wrjshd   wshldrs +87    0    0  wrshd      0    40    0
+joint wthorax  wshldrs   0    0    0  wchest     0    75    0
+joint wribs    wchest    0  -40    0  wstomach   0    50    0
+joint wwaist   wstomach  0  -50    0  wpelvis    0    22    0
+joint wlwchest wchest  -30   35   30  wlbrst     0     0    0
+joint wrwchest wchest   30   35   30  wrbrst     0     0    0
+joint wljball  wlball    0    0    0  wlfoot     0   -20    0
+joint wrjball  wrball    0    0    0  wrfoot     0   -20    0
+joint wltarsl  wltoes    0    0    0  wlball     0   -10   -2
+joint wrtarsl  wrtoes    0    0    0  wrball     0   -10   -2
+joint wlmetab  wlbtoe    0   10    0  wltoes    14    -4   -2
+joint wrmetab  wrbtoe    0   10    0  wrtoes   -14    -4   -2
+joint wlmeta2  wltoe2    0    8    0  wltoes     7    -4   -2
+joint wrmeta2  wrtoe2    0    8    0  wrtoes    -7    -4   -2
+joint wlmeta3  wltoe3    0    6    0  wltoes     0    -4   -2
+joint wrmeta3  wrtoe3    0    6    0  wrtoes     0    -4   -2
+joint wlmeta4  wltoe4    0    4    0  wltoes    -7    -4   -2
+joint wrmeta4  wrtoe4    0    4    0  wrtoes     7    -4   -2
+joint wlmeta5  wltoe5    0    2    0  wltoes   -14    -4   -2
+joint wrmeta5  wrtoe5    0    2    0  wrtoes    14    -4   -2
+joint wlankle  wlfoot    0   23    0  wlleg      0  -111    0
+joint wrankle  wrfoot    0   23    0  wrleg      0  -111    0
+joint wlshoe   wlheel    0   23    0  wlfoot     0    25    0
+joint wrshoe   wrheel    0   23    0  wrfoot     0    25    0
+joint wlkle    wlleg     0 -105    0  wlnkle     0     0    0
+joint wrkle    wrleg     0 -105    0  wrnkle     0     0    0
+joint wlknee   wlleg     0  111    0  wlthigh    0  -105    0
+joint wrknee   wrleg     0  111    0  wrthigh    0  -105    0
+joint wlee     wlleg     0  111    0  wlnee      0     0    0
+joint wree     wrleg     0  111    0  wrnee      0     0    0
+joint wlhip    wlthigh   0   90    0  wpelvis  -36     0    0
+joint wrhip    wrthigh   0   90    0  wpelvis   36     0    0
+joint wlshldr  wshldrs -87    0    0  wluarm     0    72    0
+joint wrshldr  wshldrs +87    0    0  wruarm     0    72    0
+joint wlelbow  wluarm    0  -69    0  wllarm     0    58    0
+joint wrelbow  wruarm    0  -69    0  wrlarm     0    58    0
+joint wlbow    wluarm    0  -69    0  wlhumrs    0     0    0
+joint wrbow    wruarm    0  -69    0  wrhumrs    0     0    0
+joint wlwrist  wlhand    0   12    0  wllarm     0   -62    0
+joint wrwrist  wrhand    0   12    0  wrlarm     0   -62    0
+joint wscalp   whead     0  3.6 -3.6  whair      0     0    0
+joint wface    whead     0    0   33  wnose      0     0    0
+joint wthroat  whead     0  -60    0  wneck      0    12    0
+joint wspine   wneck     0   -6    0  wshldrs    0    24    0
+joint wribbon  whair     0   48  -36  wbun       0     0    0
+joint wljf4n   wlf4t     0    0 -2.6  wlf4n      0   2.6    0
+joint wrjf4n   wrf4t     0    0 -2.6  wrf4n      0   2.6    0
+joint wljf3n   wlf3t     0  0.8 -3.1  wlf3n      0   2.6    0
+joint wrjf3n   wrf3t     0  0.8 -3.1  wrf3n      0   2.6    0
+joint wljf2n   wlf2t     0  0.8 -3.1  wlf2n      0   2.8    0
+joint wrjf2n   wrf2t     0  0.8 -3.1  wrf2n      0   2.8    0
+joint wljf1n   wlf1t     0  0.8 -3.1  wlf1n      0   2.6    0
+joint wrjf1n   wrf1t     0  0.8 -3.1  wrf1n      0   2.6    0
+joint wljthn   wltht     0    0 -3.1  wlthn      0   2.6    0
+joint wrjthn   wrtht     0    0 -3.1  wrthn      0   2.6    0
+joint wljf4t   wlf4t     0  3.0    0  wlf4m      0  -4.2    0
+joint wrjf4t   wrf4t     0  3.0    0  wrf4m      0  -4.2    0
+joint wljf3t   wlf3t     0  5.0    0  wlf3m      0  -5.5    0
+joint wrjf3t   wrf3t     0  5.0    0  wrf3m      0  -5.5    0
+joint wljf2t   wlf2t     0  5.3    0  wlf2m      0  -5.9    0
+joint wrjf2t   wrf2t     0  5.3    0  wrf2m      0  -5.9    0
+joint wljf1t   wlf1t     0  5.0    0  wlf1m      0  -5.4    0
+joint wrjf1t   wrf1t     0  5.0    0  wrf1m      0  -5.4    0
+joint wljtht   wltht     0  3.8    0  wlthm      0  -5.0    0
+joint wrjtht   wrtht     0  3.8    0  wrthm      0  -5.0    0
+joint wljf4m   wlf4m     0  3.8    0  wlf4b      0  -3.8    0
+joint wrjf4m   wrf4m     0  3.8    0  wrf4b      0  -3.8    0
+joint wljf3m   wlf3m     0  5.7    0  wlf3b      0  -7.2    0
+joint wrjf3m   wrf3m     0  5.7    0  wrf3b      0  -7.2    0
+joint wljf2m   wlf2m     0  6.1    0  wlf2b      0  -7.9    0
+joint wrjf2m   wrf2m     0  6.1    0  wrf2b      0  -7.9    0
+joint wljf1m   wlf1m     0  5.8    0  wlf1b      0  -7.1    0
+joint wrjf1m   wrf1m     0  5.8    0  wrf1b      0  -7.1    0
+joint wljthm   wlthm     0  6.2    0  wlthb   -4.5  -7.6  0.2
+joint wrjthm   wrthm     0  6.2    0  wrthb   +4.5  -7.6  0.2
+joint wljf4b   wlf4b     0  4.0    0  wlcar  +12.7  -4.5    0
+joint wrjf4b   wrf4b     0  4.0    0  wrcar  -12.7  -4.5    0
+joint wljf3b   wlf3b     0  6.9    0  wlcar   +4.3  -6.1    0
+joint wrjf3b   wrf3b     0  6.9    0  wrcar   -4.3  -6.1    0
+joint wljf2b   wlf2b     0  7.6    0  wlcar     -5  -6.1    0
+joint wrjf2b   wrf2b     0  7.6    0  wrcar     +5  -6.1    0
+joint wljf1b   wlf1b     0  7.1    0  wlcar  -13.9  -4.4    0
+joint wrjf1b   wrf1b     0  7.1    0  wrcar  +13.9  -4.4    0
+joint wlpalm   wlthb   2.8  9.4    0  wlih    -3.6  11.0 -0.2
+joint wrpalm   wrthb  -2.8  9.4    0  wrih    +3.6  11.0 -0.2
+joint wljftm   wlcar     0    0    0  wlhand     0 -13.9  0.2
+joint wrjftm   wrcar     0    0    0  wrhand     0 -13.9  0.2
+joint wljhbm   wlbh      0    0    0  wlhand  -1.2  12.7 -0.2
+joint wrjhbm   wrbh      0    0    0  wrhand  +1.2  12.7 -0.2
+joint wljhom   wloh      0    0    0  wlhand +10.8     0    0
+joint wrjhom   wroh      0    0    0  wrhand -10.8     0    0
+joint wljhim   wlih      0    0    0  wlhand -10.8     0    0
+joint wrjhim   wrih      0    0    0  wrhand +10.8     0    0
+*
+repeat 0 1 colour whair    64  64   0
+repeat 0 1 colour wbun     64  64   0
+*
+repeat 0 1 colour wlshd    255  64  64
+repeat 0 1 colour wrshd    255  64  64
+repeat 0 1 colour wshldrs  255  64  64
+repeat 0 1 colour wlbrst   255  64  64
+repeat 0 1 colour wrbrst   255  64  64
+repeat 0 1 colour wstomach 255  64  64
+repeat 0 1 colour wchest   255  64  64
+repeat 0 1 colour wpelvis  255  64  64
+*
+repeat 0 1 colour wlheel   255  64  64
+repeat 0 1 colour wrheel   255  64  64
+repeat 0 1 colour wlball   255  64  64
+repeat 0 1 colour wrball   255  64  64
+repeat 0 1 colour wlbtoe   255  64  64
+repeat 0 1 colour wrbtoe   255  64  64
+repeat 0 1 colour wltoe2   255  64  64
+repeat 0 1 colour wrtoe2   255  64  64
+repeat 0 1 colour wltoe3   255  64  64
+repeat 0 1 colour wrtoe3   255  64  64
+repeat 0 1 colour wltoe4   255  64  64
+repeat 0 1 colour wrtoe4   255  64  64
+repeat 0 1 colour wltoe5   255  64  64
+repeat 0 1 colour wrtoe5   255  64  64
+repeat 0 1 colour wltoes   255  64  64
+repeat 0 1 colour wrtoes   255  64  64
+repeat 0 1 colour wlnkle   255  64  64
+repeat 0 1 colour wrnkle   255  64  64
+repeat 0 1 colour wlfoot   255  64  64
+repeat 0 1 colour wrfoot   255  64  64
+repeat 0 1 colour wlleg    255  64  64
+repeat 0 1 colour wrleg    255  64  64
+repeat 0 1 colour wlnee    255  64  64
+repeat 0 1 colour wrnee    255  64  64
+repeat 0 1 colour wlthigh  255  64  64
+repeat 0 1 colour wrthigh  255  64  64
+repeat 0 1 colour wluarm   255  64  64
+repeat 0 1 colour wruarm   255  64  64
+repeat 0 1 colour wlhumrs  255  64  64
+repeat 0 1 colour wrhumrs  255  64  64
+repeat 0 1 colour wllarm   255  64  64
+repeat 0 1 colour wrlarm   255  64  64
+*
+linear 0 1 abduct wlshd  wljshd   -45
+linear 0 1 abduct wrshd  wrjshd   -45
+linear 0 1 flex   wnose  wface    -30
+linear 0 1 flex   wbun   wribbon   45
+linear 0 1 flex   whair  wscalp     5
+linear 0 1 flex   wlheel wlshoe   -50
+linear 0 1 flex   wrheel wrshoe   -50
+linear 0 1 flex   wlfoot wlankle   50
+linear 0 1 flex   wrfoot wrankle   50
+linear 0 1 flex   wrf1m  wrjf1m    20
+linear 0 1 flex   wrf2m  wrjf2m    20
+linear 0 1 flex   wrf3m  wrjf3m    20
+linear 0 1 flex   wrf4m  wrjf4m    20
+linear 0 1 flex   wrthm  wrjthm    40
+linear 0 1 flex   wlf1m  wljf1m    20
+linear 0 1 flex   wlf2m  wljf2m    20
+linear 0 1 flex   wlf3m  wljf3m    20
+linear 0 1 flex   wlf4m  wljf4m    20
+linear 0 1 flex   wlthm  wljthm    40
+linear 0 1 flex   wrhand wrwrist   20
+linear 0 1 flex   wlhand wlwrist   20 
+linear 0 1 grofig gloria wpelvis   1 0.9 1
+*
+variable 1 woman
+repeat 0 1 set woman gloria
+*
+quadra   0   1 grofig woman wpelvis 0.83  0.83  0.83
+quadra   0   1 moveto woman wpelvis 500  500  500
+linear   0   1 ground woman
+*
+****************************************
+*

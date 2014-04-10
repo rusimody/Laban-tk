@@ -1,0 +1,247 @@
+*  cobalt - hexa-nitro cobaltic anion
+*  1 oscillation cycle while spinning once in 64 frames
+*
+figure jcblto26 37 cobalt *
+       ntrgn1 ntrgn2 ntrgn3 ntrgn4 ntrgn5 ntrgn6 *
+       oxgn11 oxgn12 oxgn21 oxgn22 oxgn31 oxgn32 *
+       oxgn41 oxgn42 oxgn51 oxgn52 oxgn61 oxgn62 *
+       bcn1 bcn2 bcn3 bcn4 bcn5 bcn6 *
+       bon11 bon12 bon21 bon22 bon31 bon32 *
+       bon41 bon42 bon51 bon52 bon61 bon62
+*
+ellipsoid cobalt 8 8 8
+repeat 0 1 colour cobalt 0 128 0
+*
+* nitrogens-
+*
+ellipsoid ntrgn1 5 5 5
+ellipsoid ntrgn2 5 5 5
+ellipsoid ntrgn3 5 5 5
+ellipsoid ntrgn4 5 5 5
+ellipsoid ntrgn5 5 5 5
+ellipsoid ntrgn6 5 5 5
+repeat 0 1 colour ntrgn1 255 255 255
+repeat 0 1 colour ntrgn2 255 255 255
+repeat 0 1 colour ntrgn3 255 255 255
+repeat 0 1 colour ntrgn4 255 255 255
+repeat 0 1 colour ntrgn5 255 255 255
+repeat 0 1 colour ntrgn6 255 255 255
+*
+* oxygens-
+*
+ellipsoid oxgn11 4 4 4
+ellipsoid oxgn12 4 4 4
+ellipsoid oxgn21 4 4 4
+ellipsoid oxgn22 4 4 4
+ellipsoid oxgn31 4 4 4
+ellipsoid oxgn32 4 4 4
+ellipsoid oxgn41 4 4 4
+ellipsoid oxgn42 4 4 4
+ellipsoid oxgn51 4 4 4
+ellipsoid oxgn52 4 4 4
+ellipsoid oxgn61 4 4 4
+ellipsoid oxgn62 4 4 4
+repeat 0 1 colour oxgn11 255 0 0
+repeat 0 1 colour oxgn12 255 0 0
+repeat 0 1 colour oxgn21 255 0 0
+repeat 0 1 colour oxgn22 255 0 0
+repeat 0 1 colour oxgn31 255 0 0
+repeat 0 1 colour oxgn32 255 0 0
+repeat 0 1 colour oxgn41 255 0 0
+repeat 0 1 colour oxgn42 255 0 0
+repeat 0 1 colour oxgn51 255 0 0
+repeat 0 1 colour oxgn52 255 0 0
+repeat 0 1 colour oxgn61 255 0 0
+repeat 0 1 colour oxgn62 255 0 0
+*
+*   cobalt - nitrogen bonds -
+*
+ellipsoid bcn1 9 2 2
+ellipsoid bcn2 9 2 2
+ellipsoid bcn3 9 2 2
+ellipsoid bcn4 9 2 2
+ellipsoid bcn5 9 2 2
+ellipsoid bcn6 9 2 2
+*
+* oxygen - nitrogen bonds -
+*
+ellipsoid bon11 6 2 2
+ellipsoid bon12 6 2 2
+ellipsoid bon21 6 2 2
+ellipsoid bon22 6 2 2
+ellipsoid bon31 6 2 2
+ellipsoid bon32 6 2 2
+ellipsoid bon41 6 2 2
+ellipsoid bon42 6 2 2
+ellipsoid bon51 6 2 2
+ellipsoid bon52 6 2 2
+ellipsoid bon61 6 2 2
+ellipsoid bon62 6 2 2
+*
+*   join the cobalt to the nitrogens -
+*
+join jcblt1 cobalt 0 0 0 bcn1 -9 0 0
+join jcblt2 cobalt 0 0 0 bcn2 -9 0 0
+join jcblt3 cobalt 0 0 0 bcn3 -9 0 0
+join jcblt4 cobalt 0 0 0 bcn4 -9 0 0
+join jcblt5 cobalt 0 0 0 bcn5 -9 0 0
+join jcblt6 cobalt 0 0 0 bcn6 -9 0 0
+*
+join n1co bcn1 9 0 0 ntrgn1 0 0 0
+join n2co bcn2 9 0 0 ntrgn2 0 0 0
+join n3co bcn3 9 0 0 ntrgn3 0 0 0
+join n4co bcn4 9 0 0 ntrgn4 0 0 0
+join n5co bcn5 9 0 0 ntrgn5 0 0 0
+join n6co bcn6 9 0 0 ntrgn6 0 0 0
+*
+* join the nitrogen - oxygen bonds up -
+*
+join n11o ntrgn1 0 0 0 bon11 -6 0 0
+join n12o ntrgn1 0 0 0 bon12 -6 0 0
+join n21o ntrgn2 0 0 0 bon21 -6 0 0
+join n22o ntrgn2 0 0 0 bon22 -6 0 0
+join n31o ntrgn3 0 0 0 bon31 -6 0 0
+join n32o ntrgn3 0 0 0 bon32 -6 0 0
+join n41o ntrgn4 0 0 0 bon41 -6 0 0
+join n42o ntrgn4 0 0 0 bon42 -6 0 0
+join n51o ntrgn5 0 0 0 bon51 -6 0 0
+join n52o ntrgn5 0 0 0 bon52 -6 0 0
+join n61o ntrgn6 0 0 0 bon61 -6 0 0
+join n62o ntrgn6 0 0 0 bon62 -6 0 0
+*
+join joxy11 bon11 6 0 0 oxgn11 0 0 0
+join joxy12 bon12 6 0 0 oxgn12 0 0 0
+join joxy21 bon21 6 0 0 oxgn21 0 0 0
+join joxy22 bon22 6 0 0 oxgn22 0 0 0
+join joxy31 bon31 6 0 0 oxgn31 0 0 0
+join joxy32 bon32 6 0 0 oxgn32 0 0 0
+join joxy41 bon41 6 0 0 oxgn41 0 0 0
+join joxy42 bon42 6 0 0 oxgn42 0 0 0
+join joxy51 bon51 6 0 0 oxgn51 0 0 0
+join joxy52 bon52 6 0 0 oxgn52 0 0 0
+join joxy61 bon61 6 0 0 oxgn61 0 0 0
+join joxy62 bon62 6 0 0 oxgn62 0 0 0
+*
+variables 4 anga angb faca facb
+*
+lin 0 1 set anga 30
+lin 0 1 set angb -30
+lin 0 1 set faca 1.5
+lin 0 1 set facb 0.6666667
+lin 0 1 grofig every world 8 8 8
+lin 0 1 moveto every cobalt 500 300 500
+call 0 1 setup
+*
+call 1 64 cycle
+*
+linear 1 64 spinby every cobalt world -360 y
+*
+repeat 0 1 observ -30 0 0
+repeat 0 1 place 500 500 0
+*
+******************************
+subroutine cycle
+call  1 16 up
+call 16 17 change
+call 16 32 down
+call 32 48 up
+call 48 49 change
+call 48 64 down
+*
+end cycle
+*
+*********************************
+subroutine change
+variables 1 temp
+lin 0 1 set temp anga
+lin 0 1 set anga angb
+lin 0 1 set angb temp
+lin 0 1 set temp faca
+lin 0 1 set faca facb
+lin 0 1 set facb temp
+end change
+*
+****************************************
+*
+subroutine setup
+*
+* open out the oxygens-
+*
+lin 0 1 bendby bon11 n11o ntrgn1 -60 y
+lin 0 1 bendby bon12 n12o ntrgn1 +60 y
+lin 0 1 bendby bon21 n21o ntrgn2 -60 y
+lin 0 1 bendby bon22 n22o ntrgn2 +60 y
+lin 0 1 bendby bon31 n31o ntrgn3 -60 y
+lin 0 1 bendby bon32 n32o ntrgn3 +60 y
+lin 0 1 bendby bon41 n41o ntrgn4 -60 y
+lin 0 1 bendby bon42 n42o ntrgn4 +60 y
+lin 0 1 bendby bon51 n51o ntrgn5 -60 y
+lin 0 1 bendby bon52 n52o ntrgn5 +60 y
+lin 0 1 bendby bon61 n61o ntrgn6 -60 y
+lin 0 1 bendby bon62 n62o ntrgn6 +60 y
+*
+* swing around the nitrogens-
+*
+lin 0 1 bendby bcn1 jcblt1 cobalt 90 x
+lin 0 1 bendby bcn2 jcblt2 cobalt 90 x
+lin 0 1 bendby bcn2 jcblt2 cobalt -180 y
+lin 0 1 bendby bcn3 jcblt3 cobalt -90 y
+lin 0 1 bendby bcn4 jcblt4 cobalt +90 y
+lin 0 1 bendby bcn5 jcblt5 cobalt 90 z
+lin 0 1 bendby bcn6 jcblt6 cobalt -90 z
+*
+end setup
+*
+********************************************
+*
+subroutine up
+decele 0 16 bendby bcn1 jcblt1 cobalt anga z
+decele 0 16 bendby bcn2 jcblt2 cobalt angb z
+decele 0 16 bendby bcn3 jcblt3 cobalt anga x
+decele 0 16 bendby bcn4 jcblt4 cobalt angb x
+*
+decele 0 16 bendby bon11 n11o cobalt anga z
+decele 0 16 bendby bon12 n12o cobalt anga z
+decele 0 16 bendby bon21 n21o cobalt angb z
+decele 0 16 bendby bon22 n22o cobalt angb z
+decele 0 16 bendby bon31 n31o cobalt angb x
+decele 0 16 bendby bon32 n32o cobalt angb x
+decele 0 16 bendby bon41 n41o cobalt anga x
+decele 0 16 bendby bon42 n42o cobalt anga x
+*
+decele 0 16 bendby bon51 n51o cobalt anga x
+decele 0 16 bendby bon52 n52o cobalt angb x
+decele 0 16 bendby bon61 n61o cobalt anga x
+decele 0 16 bendby bon62 n62o cobalt angb x
+*
+decele 0 16 grojnt bcn5 jcblt5 faca 1 1
+decele 0 16 grojnt bcn6 jcblt6 facb 1 1
+end up
+*
+*******************************************
+*
+subroutine down
+accele 0 16 bendby bcn1 jcblt1 cobalt anga z
+accele 0 16 bendby bcn2 jcblt2 cobalt angb z
+accele 0 16 bendby bcn3 jcblt3 cobalt anga x
+accele 0 16 bendby bcn4 jcblt4 cobalt angb x
+*
+accele 0 16 bendby bon11 n11o cobalt anga z
+accele 0 16 bendby bon12 n12o cobalt anga z
+accele 0 16 bendby bon21 n21o cobalt angb z
+accele 0 16 bendby bon22 n22o cobalt angb z
+accele 0 16 bendby bon31 n31o cobalt angb x
+accele 0 16 bendby bon32 n32o cobalt angb x
+accele 0 16 bendby bon41 n41o cobalt anga x
+accele 0 16 bendby bon42 n42o cobalt anga x
+*
+accele 0 16 bendby bon51 n51o cobalt anga x
+accele 0 16 bendby bon52 n52o cobalt angb x
+accele 0 16 bendby bon61 n61o cobalt anga x
+accele 0 16 bendby bon62 n62o cobalt angb x
+*
+accele 0 16 grojnt bcn5 jcblt5 faca 1 1
+accele 0 16 grojnt bcn6 jcblt6 facb 1 1
+end down
+*
+stop

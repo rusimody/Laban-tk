@@ -1,0 +1,165 @@
+*    cholestane
+*     terrie wright   30/5/82
+*
+figure dec 41 *
+   b0102 b0203 b0304 b0405 b0506 b0607 b0708 b0809 b0910 *
+   b0911 b1112 b1213 b1314 b1415 b1516 b1617 *
+   b0110 b0510 b0814 b1317 b1019 b1318 *
+   cc01 cc02 cc03 cc04 cc05 cc06 cc07 cc08 cc09 *
+   cc10 cc11 cc12 cc13 cc14 cc15 cc16 cc17 cc18 cc19
+*
+ellipsoid b0102 20 20 77
+ellipsoid b0203 20 20 77
+ellipsoid b0304 20 20 77
+ellipsoid b0405 20 20 77
+ellipsoid b0506 20 20 77
+ellipsoid b0607 20 20 77
+ellipsoid b0708 20 20 77
+ellipsoid b0809 20 20 77
+ellipsoid b0910 20 20 77
+ellipsoid b0911 20 20 77
+ellipsoid b1112 20 20 77
+ellipsoid b1213 20 20 77
+ellipsoid b1314 20 20 77
+ellipsoid b1415 20 20 77
+ellipsoid b1516 20 20 77
+ellipsoid b1617 20 20 77
+ellipsoid b0110 20 20 77
+ellipsoid b0510 20 20 77
+ellipsoid b0814 20 20 77
+ellipsoid b1317 20 20 77
+ellipsoid b1019 20 20 77
+ellipsoid b1318 20 20 77
+*
+ellipsoid cc01 30 30 30
+ellipsoid cc02 30 30 30
+ellipsoid cc03 30 30 30
+ellipsoid cc04 30 30 30
+ellipsoid cc05 30 30 30
+ellipsoid cc06 30 30 30
+ellipsoid cc07 30 30 30
+ellipsoid cc08 30 30 30
+ellipsoid cc09 30 30 30
+ellipsoid cc10 30 30 30
+ellipsoid cc11 30 30 30
+ellipsoid cc12 30 30 30
+ellipsoid cc13 30 30 30
+ellipsoid cc14 30 30 30
+ellipsoid cc15 30 30 30
+ellipsoid cc16 30 30 30
+ellipsoid cc17 30 30 30
+ellipsoid cc18 30 30 30
+ellipsoid cc19 30 30 30
+*
+joint cj02 b0102 0 0 +77 b0203 0 0 -77
+joint cj03 b0203 0 0 +77 b0304 0 0 -77
+joint cj04 b0304 0 0 +77 b0405 0 0 -77
+joint cj05 b0405 0 0 +77 b0506 0 0 -77
+joint ck05 b0405 0 0 +77 b0510 0 0 -77
+joint cj06 b0506 0 0 +77 b0607 0 0 -77
+joint cj07 b0607 0 0 +77 b0708 0 0 -77
+joint cj08 b0708 0 0 +77 b0809 0 0 -77
+joint cj09 b0809 0 0 +77 b0910 0 0 -77
+joint ck09 b0809 0 0 +77 b0911 0 0 -77
+joint cj10 b0910 0 0 +77 b0110 0 0 -77
+joint cj11 b0911 0 0 +77 b1112 0 0 -77
+joint cj12 b1112 0 0 +77 b1213 0 0 -77
+joint cj13 b1213 0 0 +77 b1314 0 0 -77
+joint cj14 b1314 0 0 +77 b1415 0 0 -77
+joint ck14 b1314 0 0 +77 b0814 0 0 -77
+joint cj15 b1415 0 0 +77 b1516 0 0 -77
+joint cj16 b1516 0 0 +77 b1617 0 0 -77
+joint cj17 b1617 0 0 +77 b1317 0 0 -77
+joint ck10 b0910 0 0 +77 b1019 0 0 -77
+joint ck13 b1213 0 0 +77 b1318 0 0 -77
+*
+joint cb01 cc01 0 0 0 b0102 0 0 -77
+joint cb02 cc02 0 0 0 b0102 0 0 +77
+joint cb03 cc03 0 0 0 b0203 0 0 +77
+joint cb04 cc04 0 0 0 b0304 0 0 +77
+joint cb05 cc05 0 0 0 b0405 0 0 +77
+joint cb06 cc06 0 0 0 b0506 0 0 +77
+joint cb07 cc07 0 0 0 b0607 0 0 +77
+joint cb08 cc08 0 0 0 b0708 0 0 +77
+joint cb09 cc09 0 0 0 b0809 0 0 +77
+joint cb10 cc10 0 0 0 b0910 0 0 +77
+joint cb11 cc11 0 0 0 b0911 0 0 +77
+joint cb12 cc12 0 0 0 b1112 0 0 +77
+joint cb13 cc13 0 0 0 b1213 0 0 +77
+joint cb14 cc14 0 0 0 b1314 0 0 +77
+joint cb15 cc15 0 0 0 b1415 0 0 +77
+joint cb16 cc16 0 0 0 b1516 0 0 +77
+joint cb17 cc17 0 0 0 b1617 0 0 +77
+joint cb18 cc18 0 0 0 b1318 0 0 +77
+joint cb19 cc19 0 0 0 b1019 0 0 +77
+*
+lin 0 1 col cc01 250 0 0
+lin 0 1 col cc02 250 0 0
+lin 0 1 col cc03 250 0 0
+lin 0 1 col cc04 250 0 0
+lin 0 1 col cc05 250 0 0
+lin 0 1 col cc06 250 0 0
+lin 0 1 col cc07 250 0 0
+lin 0 1 col cc08 250 0 0
+lin 0 1 col cc09 250 0 0
+lin 0 1 col cc10 250 0 0
+lin 0 1 col cc11 250 0 0
+lin 0 1 col cc12 250 0 0
+lin 0 1 col cc13 250 0 0
+lin 0 1 col cc14 250 0 0
+lin 0 1 col cc15 250 0 0
+lin 0 1 col cc16 250 0 0
+lin 0 1 col cc17 250 0 0
+lin 0 1 col cc18 250 0 0
+lin 0 1 col cc19 250 0 0
+*
+lin 0 10 bendby b0203 cj02 b0102 +70.5 x
+lin 0 10 bendby b0304 cj03 b0203 +70.5 x
+lin 0 10 bendby b0405 cj04 b0304 +70.5 x
+lin 0 10 bendby b0506 cj05 b0405 +70.5 x
+lin 0 10 bendby b0510 ck05 b0405 +70.5 x
+lin 0 10 bendby b0607 cj06 b0506 +70.5 x
+lin 0 10 bendby b0708 cj07 b0607 +70.5 x
+lin 0 10 bendby b0809 cj08 b0708 +70.5 x
+lin 0 10 bendby b0910 cj09 b0809 +70.5 x
+lin 0 10 bendby b0911 ck09 b0809 +70.5 x
+lin 0 10 bendby b0110 cj10 b0910 +70.5 x
+lin 0 10 bendby b1112 cj11 b0911 +70.5 x
+lin 0 10 bendby b1213 cj12 b1112 +70.5 x
+lin 0 10 bendby b1314 cj13 b1213 +70.5 x
+lin 0 10 bendby b1415 cj14 b1314 +85 x
+lin 0 10 bendby b0814 ck14 b1314 +70.5 x
+lin 0 10 bendby b1516 cj15 b1415 +78 x
+lin 0 10 bendby b1617 cj16 b1516 +78 x
+lin 0 10 bendby b1317 cj17 b1617 +78 x
+lin 0 10 bendby b1317 cj17 b1317 +20 y
+lin 0 10 bendby b1019 ck10 b0910 +70.5 x
+lin 0 10 bendby b1318 ck13 b1314 +70.5 x
+*
+lin 10 21 bendby b0203 cj02 b0102 -60 z
+lin 10 21 bendby b0304 cj03 b0203 -60 z
+lin 10 21 bendby b0405 cj04 b0304 +60 z
+lin 10 21 bendby b0506 cj05 b0405 180 z
+lin 10 21 bendby b0510 ck05 b0405 -60 z
+lin 10 21 bendby b0607 cj06 b0506 180 z
+lin 10 21 bendby b0708 cj07 b0607 -60 z
+lin 10 21 bendby b0809 cj08 b0708 +60 z
+lin 10 21 bendby b0910 cj09 b0809 -60 z
+lin 10 21 bendby b0911 ck09 b0809 -180 z
+lin 10 21 bendby b0110 cj10 b0910 180 z
+lin 10 21 bendby b1112 cj11 b0911 -60 z
+lin 10 21 bendby b1213 cj12 b1112 +60 z
+lin 10 21 bendby b1314 cj13 b1213 -60 z
+lin 10 21 bendby b1415 cj14 b1314 180 z
+lin 10 21 bendby b0814 ck14 b1314 +60 z
+lin 10 21 bendby b1516 cj15 b1415 +60 z
+lin 10 21 bendby b1617 cj16 b1516 -50 z
+lin 10 21 bendby b1019 ck10 b0910 -60 z
+lin 10 21 bendby b1318 ck13 b1213 +60 z
+*
+lin 0 1 grofig dec world 0.5 0.5 0.5
+lin 0 1 moveto dec b0102 400 400 400
+lin 0 21 spinby dec b0102 world 100 y
+lin 0 1 observ -40 0 0
+*
+stop

@@ -1,0 +1,134 @@
+*  walk - walking across the frame in 4 steps
+*
+figure fred 20 *
+       lfoot  rfoot  lleg   rleg   lthigh rthigh  *
+       luarm  ruarm  llarm  rlarm  lhand  rhand  lthumb rthumb *
+       head   nose   neck   shldrs chest  pelvis
+*
+ellipsoid lfoot   40  80  20
+ellipsoid rfoot   40  80  20
+ellipsoid lleg    40 200  40
+ellipsoid rleg    40 200  40
+ellipsoid lthigh  50 200  60
+ellipsoid rthigh  50 200  60
+ellipsoid luarm   40 135  40
+ellipsoid ruarm   40 135  40
+ellipsoid llarm   35 120  35
+ellipsoid rlarm   35 120  35
+ellipsoid lhand   40  70  20
+ellipsoid rhand   40  70  20
+ellipsoid lthumb  10  50  10
+ellipsoid rthumb  10  50  10
+ellipsoid head    73 100  80
+ellipsoid nose    20  20  60
+ellipsoid neck    30  60  30
+ellipsoid shldrs 155  50  40
+ellipsoid chest  130 230  75
+ellipsoid pelvis 120  75  75
+*
+joint lankle  lfoot    0  +55    0  lleg   0 -185   0
+joint rankle  rfoot    0  +55    0  rleg   0 -185   0
+joint lknee   lleg     0 +185    0  lthigh 0 -175   0
+joint rknee   rleg     0 +185    0  rthigh 0 -175   0
+joint lhip    lthigh   0 +150    0  pelvis -60    0   0
+joint rhip    rthigh   0 +150    0  pelvis +60    0   0
+joint lshldr  shldrs -145   0    0  luarm  0 +120   0
+joint rshldr  shldrs +145   0    0  ruarm  0 +120   0
+joint lelbow  luarm    0 -115    0  llarm  0 +100   0
+joint relbow  ruarm    0 -115    0  rlarm  0 +100   0
+joint lwrist  llarm    0 -115    0  lhand  0  +50   0
+joint rwrist  rlarm    0 -115    0  rhand  0  +50   0
+joint lpalm   lhand  -20  +40  +10  lthumb 0  +40   0
+joint rpalm   rhand  +20  +40  +10  rthumb 0  +40   0
+joint face    nose     0    0    0  head   0  +30 +55
+joint throat  head     0 -100    0  neck   0  +20   0
+joint spine   neck     0  -10    0  shldrs 0  +40   0
+joint thorax  shldrs   0    0    0  chest  0 +155   0
+joint waist   pelvis 0  +75    0  chest  0 -155   0
+*
+*   prepare figure
+*   note that figure is facing away from the observer (along z axis)
+*   in anatomical position ( palms facing forward )
+*
+linear 0 1 flex   nose   face    -40
+linear 0 1 flex   lthumb lpalm   +10
+linear 0 1 flex   rthumb rpalm   +10
+*
+*   stand down on heels -
+*
+linear 0 1 flex   lfoot lankle   +90
+linear 0 1 flex   rfoot rankle   +90
+*
+linear 0 1 grofig fred world 0.30 0.30 0.30
+linear 0 1 moveto fred pelvis -200 500 1300
+linear 0 1 ground fred
+linear 0 1 spinby fred pelvis world 100 y
+repeat 0 1 observ -20 0 0
+*
+variables 2 hang ang
+repeat  0  1 set hang 20
+repeat  0  1 add ang hang hang
+call    0  1 start
+call    1 13 step
+call   13 25 step
+call   25 37 step
+call   37 49 step
+*
+*************************************************
+*
+subroutine start
+*
+*  start taking half a step on right leg
+*  in 1 frame
+*
+variables 1 nhang
+repeat     1  2 set nhang hang
+repeat     1  2 negate nhang
+*
+quadratic 1 2 flex   lleg   lankle nhang
+quadratic 1 2 flex   lfoot  lankle nhang
+quadratic 1 2 flex   pelvis lhip   hang
+quadratic 1 2 flex   rthigh rhip   hang
+*
+quadratic 1 2 flex   luarm  lshldr hang
+quadratic 1 2 flex   llarm  lelbow hang
+quadratic 1 2 flex   ruarm  rshldr nhang
+quadratic 1 2 flex   rlarm  relbow hang
+*
+linear    1 2 ground fred
+end start
+**********************************
+*
+subroutine step
+*
+*   take a step ( left, right )
+*   in 12 frames
+*
+variables 1 nang
+repeat     1  2 set nang ang
+repeat     1  2 negate nang
+*
+quadratic  1  7 flex   rleg   rankle nang
+quadratic  1  7 flex   rfoot  rankle nang
+quadratic  1  7 flex   pelvis rhip   ang
+quadratic  1  7 flex   lthigh lhip   ang
+quadratic  1  4 flex   lleg   lknee  ang
+quadratic  4  7 flex   lleg   lknee  nang
+*
+quadratic  1  7 flex   luarm  lshldr nang
+quadratic  1  7 flex   ruarm  rshldr ang
+*
+quadratic  7 13 flex   lleg   lankle nang
+quadratic  7 13 flex   lfoot  lankle nang
+quadratic  7 13 flex   pelvis lhip   ang
+quadratic  7 13 flex   rthigh rhip   ang
+quadratic  7 10 flex   rleg   rknee  ang
+quadratic 10 13 flex   rleg   rknee  nang
+*
+quadratic  7 13 flex   luarm  lshldr ang
+quadratic  7 13 flex   ruarm  rshldr nang
+*
+end step
+*
+*************************************************
+stop

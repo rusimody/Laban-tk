@@ -1,0 +1,8 @@
+#  cxm - compile a c program on a mips x terminal
+#   copying binary into unsufficed filename.
+#     Don Herbison-Evans 27 Apr 1990
+cc $1.c -o $1.b -lm -lX11 -I/usr/include/bsd -lbsd
+cp $1.b $1
+rm $1.b
+chmod 775 $1
+

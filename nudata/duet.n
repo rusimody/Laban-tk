@@ -1,0 +1,551 @@
+* duet - duet between gaina and fred in
+*   484 frames (padded out to 512)
+*
+*******************************************
+*
+figure stage 4 floor right left back
+*
+ellipsoid floor 2000 5 2000
+ellipsoid back  2000 2000 5
+ellipsoid right 5 2000 2000
+ellipsoid left  5 2000 2000
+*
+joint crack floor 0 0 2050 back  0 -1000 0
+joint lwing floor -470 0 2000 left  0 0 2000
+joint rwing floor +470 0 2000 right 0 0 2000
+*
+linear 0 1 colour floor 255 255 0
+linear 0 1 colour back  0 0 255
+linear 0 1 colour left  0 0 0
+linear 0 1 colour right 0 0 0
+*
+linear 0 1 moveto stage floor 500 -5 0
+linear 0 1 rotate left  lwing 2
+linear 0 1 rotate right rwing 2
+*
+*******************************************
+*
+figure fred 21 *
+ mlfoot mrfoot mlleg mrleg mlthigh mrthigh *
+ mluarm mruarm mllarm mrlarm mlhand mrhand mlthumb mrthumb *
+ mhair  mhead mnose mneck mshldrs mchest mpelvis
+*
+ellipsoid mlfoot   40  80  20
+ellipsoid mrfoot   40  80  20
+ellipsoid mlleg    40 200  40
+ellipsoid mrleg    40 200  40
+ellipsoid mlthigh  50 200  60
+ellipsoid mrthigh  50 200  60
+ellipsoid mluarm   40 135  40
+ellipsoid mruarm   40 135  40
+ellipsoid mllarm   35 120  35
+ellipsoid mrlarm   35 120  35
+ellipsoid mlhand   40  70  20
+ellipsoid mrhand   40  70  20
+ellipsoid mlthumb  10  50  10
+ellipsoid mrthumb  10  50  10
+ellipsoid mhair    76  98  84 
+ellipsoid mhead    73 100  80
+ellipsoid mnose    20  20  60
+ellipsoid mneck    30  60  30
+ellipsoid mshldrs 155  50  40
+ellipsoid mchest  130 230  75
+ellipsoid mpelvis 120  75  75
+*
+joint mlankle  mlfoot    0  +55    0  mlleg   0 -185   0
+joint mrankle  mrfoot    0  +55    0  mrleg   0 -185   0
+joint mlknee   mlleg     0 +185    0  mlthigh 0 -175   0
+joint mrknee   mrleg     0 +185    0  mrthigh 0 -175   0
+joint mlhip    mlthigh   0 +150    0  mpelvis -60    0   0
+joint mrhip    mrthigh   0 +150    0  mpelvis +60    0   0
+joint mlshldr  mshldrs -145   0    0  mluarm  0 +120   0
+joint mrshldr  mshldrs +145   0    0  mruarm  0 +120   0
+joint mlelbow  mluarm    0 -115    0  mllarm  0 +100   0
+joint mrelbow  mruarm    0 -115    0  mrlarm  0 +100   0
+joint mlwrist  mllarm    0 -115    0  mlhand  0  +50   0
+joint mrwrist  mrlarm    0 -115    0  mrhand  0  +50   0
+joint mlpalm   mlhand  -20  +50  +10  mlthumb 0  +50   0
+joint mrpalm   mrhand  +20  +50  +10  mrthumb 0  +50   0
+joint mscalp   mhead     0   +6   -6  mhair   0    0   0
+joint mface    mhead     0  +30  +55  mnose   0    0   0
+joint mthroat  mhead     0 -100    0  mneck   0  +20   0
+joint mspine   mneck     0  -10    0  mshldrs 0  +40   0
+joint mthorax  mshldrs   0    0    0  mchest  0 +155   0
+joint mwaist   mpelvis   0  +25    0  mchest  0 -205   0
+*
+linear   0   1 flex   mlthumb mlpalm   +10
+linear   0   1 flex   mrthumb mrpalm   +10
+repeat   0   1 flex   mnose   mface    -30
+linear   0   1 flex   mlfoot  mlankle  +90
+linear   0   1 flex   mrfoot  mrankle  +90
+*
+linear 0 1 colour mlfoot   128 128 255
+linear 0 1 colour mrfoot   128 128 255
+linear 0 1 colour mlleg    128 128 255
+linear 0 1 colour mrleg    128 128 255
+linear 0 1 colour mlthigh  128 128 255
+linear 0 1 colour mrthigh  128 128 255
+linear 0 1 colour mluarm   128 128 255
+linear 0 1 colour mruarm   128 128 255
+linear 0 1 colour mllarm   128 128 255
+linear 0 1 colour mrlarm   128 128 255
+linear 0 1 colour mhair     64  32   0
+linear 0 1 colour mshldrs  128 128 255
+linear 0 1 colour mchest   128 128 255
+linear 0 1 colour mpelvis  128 128 255
+*
+*******************************************
+*
+figure gaina 25 *
+   wlfoot  wrfoot wlleg   wrleg  wlthigh wrthigh *
+   wluarm  wruarm wllarm  wrlarm wlhand  wrhand  wlthumb  *
+   wrthumb wlbrst wrbrst *
+   wpelvi  wchest wshldrs wneck  whead   wnose   whair   wbun    wtutu
+*
+ellipsoid wlfoot   40  80  20
+ellipsoid wrfoot   40  80  20
+ellipsoid wlleg    40 200  40
+ellipsoid wrleg    40 200  40
+ellipsoid wlthigh  50 200  60
+ellipsoid wrthigh  50 200  60
+*
+ellipsoid wluarm   40 135  40
+ellipsoid wruarm   40 135  40
+ellipsoid wllarm   35 120  35
+ellipsoid wrlarm   35 120  35
+ellipsoid wlhand   40  70  20
+ellipsoid wrhand   40  70  20
+ellipsoid wlthumb  10  50  10
+ellipsoid wrthumb  10  50  10
+*
+ellipsoid wlbrst   41  40  60
+ellipsoid wrbrst   41  40  60
+ellipsoid wpelvi  120  75  75  * l
+ellipsoid wchest  130 230  75  * r
+ellipsoid wshldrs 155  50  40  * l
+ellipsoid wneck    30  60  30  * r
+ellipsoid whead    73 100  80  * l
+ellipsoid wnose    20  20  60  * r
+*
+ellipsoid whair    76  98  84  * l
+ellipsoid wbun     50  25  50  * r
+ellipsoid wtutu   300   5 300  * l
+*
+linear 0 1 colour wlbrst  255   0 255
+linear 0 1 colour wrbrst  255   0 255
+linear 0 1 colour wpelvi  255   0 255
+linear 0 1 colour wchest  255   0 255
+linear 0 1 colour wshldrs 255   0 255
+linear 0 1 colour whair    64  32   0
+linear 0 1 colour wbun     64  32   0
+linear 0 1 colour wtutu   255   0 255
+*
+joint wlankle  wlfoot    0  +55    0  wlleg   0 -185   0
+joint wrankle  wrfoot    0  +55    0  wrleg   0 -185   0
+joint wlknee   wlleg     0 +185    0  wlthigh 0 -175   0
+joint wrknee   wrleg     0 +185    0  wrthigh 0 -175   0
+joint wlhip    wlthigh   0 +150    0  wpelvi -60   0   0
+joint wrhip    wrthigh   0 +150    0  wpelvi +60   0   0
+*
+joint wlshldr  wshldrs -145   0    0  wluarm  0 +120   0
+joint wrshldr  wshldrs +145   0    0  wruarm  0 +120   0
+joint wlelbow  wluarm    0 -115    0  wllarm  0 +100   0
+joint wrelbow  wruarm    0 -115    0  wrlarm  0 +100   0
+joint wlwrist  wllarm    0 -115    0  wlhand  0  +50   0
+joint wrwrist  wrlarm    0 -115    0  wrhand  0  +50   0
+joint wlpalm   wlhand  -20  +40  +10  wlthumb 0  +40   0
+joint wrpalm   wrhand  +20  +40  +10  wrthumb 0  +40   0
+*
+joint wlchest  wchest  -50 +100  +50  wlbrst  0    0   0
+joint wrchest  wchest  +50 +100  +50  wrbrst  0    0   0
+joint wwaist   wpelvi    0  +25    0  wchest  0 -205   0
+joint wthorax  wchest    0 +155    0  wshldrs 0    0   0
+joint wspine   wshldrs   0  +40    0  wneck   0  -10   0
+joint wthroat  wneck     0  +20    0  whead   0 -100   0
+*
+joint wface    whead     0    0  +55  wnose   0    0   0
+joint wscalp   whead     0   +6   -6  whair   0    0   0
+joint wribbon  whair     0  +80  -60  wbun    0    0   0
+joint wbelt    wchest    0 -160    0  wtutu   0    0   0
+*
+*   prepare gaina (thumbs, hair, nose, feet)
+*   note that figure is facing away from the observer (along z axis)
+*   in anatomical position (palms facing forwards)
+*
+repeat   0   1 flex   wlthumb wlpalm       +10
+repeat   0   1 flex   wrthumb wrpalm       +10
+repeat   0   1 flex   wbun    wribbon      +45
+repeat   0   1 flex   whair   wscalp        +5
+repeat   0   1 flex   wnose   wface        -30
+repeat   0   1 flex   wlfoot  wlankle      +90
+repeat   0   1 flex   wrfoot  wrankle      +90
+*
+*******************************************
+*
+variables 9 fig   lfoot  rfoot  lleg   rleg   lthigh rthigh pelvis chest
+variables 9 neck  head   nose   shldrs luarm  ruarm  llarm  rlarm  lhand
+variables 9 rhand lankle rankle lknee  rknee  lhip   rhip   waist  thorax
+variables 9 spine throat face   lshldr rshldr lelbow relbow lwrist rwrist
+variables 3 whiz ang nang
+*
+*******************************************
+*
+*   fred's actions-
+*
+call        0 476 dofred
+call      476 512 dofred  * added to pad out to 512 frames
+call        0   1 position
+linear      0   1 grofig fred world      0.28 0.28 0.28
+linear      0   1 moveto fred mchest     300   0 1450
+linear      0   1 spinby fred mchest world +152 y
+*
+repeat      1  26 set  nang +75
+repeat      1  26 set  ang  -45
+call        1  26 raise
+*
+**quadratic  26  51 bendby mlfoot  mlankle mpelv +15 x
+**quadratic  26  51 bendby mpelv   mlhip  mpelv  -15 x
+repeat     26 176 set  whiz -360
+call       26 176 piruette
+**quadratic 151 176 bendby mpelv   mlhip  mpelv  +15 x
+**quadratic 151 176 bendby mlfoot  mlankle mpelv -15 x
+*
+call      176 284 walk
+*
+repeat    284 309 set  ang  +45
+repeat    284 309 set  nang -75
+call      284 309 raise
+*
+call      309 459 point
+quadratic 309 459 spinby fred mchest world +30 y
+*
+call      459 484 courtsey
+*
+******************************
+*
+*   gaina actions-
+*
+call        0 476 dogaina
+call        0   1 position
+linear      0   1 grofig gaina world        0.25 0.25 0.25
+linear      0   1 moveto gaina wchest       750    0  1200
+linear      0   1 spinby gaina wchest world   -152 y
+*
+call        1 151 point
+*
+repeat    151 176 set  nang +80
+repeat    151 176 set  ang  -80
+call      151 176 raise
+*
+call      176 284 walk
+*
+*  lower arms-
+*
+repeat    251 276 set  ang    0
+repeat    251 276 set  nang -80
+call      251 276 raise
+*
+repeat    284 434 set  whiz -390
+call      284 434 piruette
+*
+*   lower feet-
+*
+repeat    434 459 set  ang  +80
+repeat    434 459 set  nang   0
+call      434 459 raise
+*
+call      459 484 courtsey
+*
+*******************************
+*
+*   position for viewing
+*
+repeat      0   1 observ -10 0 0
+repeat      0   1 place  500 500 500
+repeat      0   1 moveby every    world 0 0 500
+repeat      0 512 ground fred
+repeat      0 512 ground gaina
+*
+*end main
+***************************
+*
+subroutine position
+*   ( in   1 frame )
+*
+*   lift arms somewhat-
+*
+repeat   0   1 flex   luarm lshldr        +40
+repeat   0   1 flex   ruarm rshldr        +40
+*
+*   bend arms roundly-
+*
+repeat   0   1 rotate luarm lshldr        +40
+repeat   0   1 rotate ruarm rshldr        +40
+repeat   0   1 rotate llarm lelbow        +80
+repeat   0   1 rotate rlarm relbow        +80
+*
+repeat   0   1 bendby luarm lshldr shldrs -30 y
+repeat   0   1 bendby ruarm rshldr shldrs +30 y
+*
+repeat   0   1 flex   lhand lwrist        +21
+repeat   0   1 flex   rhand rwrist        +21
+repeat   0   1 flex   llarm lelbow        +21
+repeat   0   1 flex   rlarm relbow        +21
+*
+*   turn legs out, placing left foot in front of right-
+*
+repeat   0   1 rotate lthigh lhip         -80
+repeat   0   1 rotate rthigh rhip         -80
+repeat   0   1 flex   lthigh lhip          +5
+repeat   0   1 flex   rthigh rhip          -5
+repeat   0   1 abduct lthigh lhip          -5
+repeat   0   1 abduct rthigh rhip          -5
+end position
+*
+*******************************
+*
+subroutine point
+*      ( 150  frames )
+quadratic   0  25 abduct rthigh rhip         +55
+quadratic   0  25 flex   rleg   rknee       +100
+quadratic   0  25 flex   rfoot  rankle       -45
+*
+*   point right leg, and incline and turn head-
+*
+quadratic  25  50 flex   rleg   rknee       -100
+quadratic  25  50 bendby head   throat neck  -33 z
+quadratic  25  50 bendby head   throat neck  +32 y
+quadratic  25  50 flex   rfoot  rankle       -35
+*
+*   return to upright position-
+*
+quadratic  50  75 abduct rthigh rhip         -55
+quadratic  50  75 bendby head   throat neck  -32 y
+quadratic  50  75 bendby head   throat neck  +33 z
+quadratic  50  75 flex   rfoot  rankle       +80
+*
+*   do same for left leg-
+*
+quadratic  75 100 abduct lthigh lhip         +55
+quadratic  75 100 flex   lleg   lknee       +100
+quadratic  75 100 flex   lfoot  lankle       -45
+*
+quadratic 100 125 flex   lleg   lknee       -100
+quadratic 100 125 bendby head   throat neck  +33 z
+quadratic 100 125 bendby head   throat neck  -32 y
+quadratic 100 125 flex   lfoot  lankle       -35
+*
+quadratic 125 150 abduct lthigh lhip         -55
+quadratic 125 150 bendby head   throat neck  +32 y
+quadratic 125 150 bendby head   throat neck  -33 z
+quadratic 125 150 flex   lfoot  lankle       +80
+*
+end point
+************************************************
+*
+subroutine raise
+*    ( in 25 frames )
+*
+*   on pointes-
+*
+quadratic   0  25 flex lfoot lankle ang
+quadratic   0  25 flex rfoot rankle ang
+*
+*   raise arms-
+*
+quadratic   0  25 flex ruarm rshldr nang
+quadratic   0  25 flex luarm lshldr nang
+*
+end raise
+*
+*********************************
+*
+subroutine piruette
+*   ( in 125  frames )
+*
+quadratic   1  26 flex   ruarm rshldr        +50
+quadratic   1  26 flex   luarm lshldr        +40
+quadratic  26  50 bendby luarm lshldr shldrs -90 y
+quadratic   1  26 bendby head  throat neck   -30 x
+quadratic   1  26 bendby chest  waist pelv   +20 x
+quadratic   1  26 flex   rthigh rhip         -90
+quadratic   1  26 bendby pelv   lhip  pelv    -5 x
+quadratic   1  26 spinby fig    lfoot pelv    +5 x
+*
+decelerate 26 150 spinby fig   lfoot  world whiz y
+*
+quadratic 126 150 spinby fig    lfoot pelv    -5 x
+quadratic 126 150 bendby pelv   lhip  pelv    +5 x
+quadratic 126 150 flex   rthigh rhip         +90
+quadratic 126 150 bendby chest waist  pelv   -20 x
+quadratic 126 150 bendby head  throat neck   +30 x
+quadratic 101 126 bendby luarm lshldr shldrs +90 y
+quadratic 126 150 flex   luarm lshldr        -40
+quadratic 126 150 flex   ruarm rshldr        -50
+*
+end piruette
+********************************
+*
+subroutine courtsey
+*   ( in 25 frames )
+quadratic   1  26 flex   ruarm rshldr         -30
+quadratic   1  26 bendby ruarm rshldr shldrs  +60 y
+quadratic   1  26 bendby luarm lshldr shldrs  -70 y
+quadratic   1  26 bendby head  throat neck    +60 x
+quadratic   1  26 bendby lleg  lankle lfoot   +40 x
+quadratic   1  26 bendby lthigh lknee lfoot   -80 x
+quadratic   1  26 bendby pelv   lhip  lfoot   +40 x
+quadratic   1  26 bendby chest  waist pelv    +50 x
+quadratic   1  26 flex   rthigh rhip          -30
+quadratic   1  26 flex   rleg   rknee         +30
+end courtsey
+*
+*****************************
+*
+subroutine dofred
+repeat      0 476 set  fig    fred
+repeat      0 476 set  lfoot  mlfoot
+repeat      0 476 set  rfoot  mrfoot
+repeat      0 476 set  lleg   mlleg
+repeat      0 476 set  rleg   mrleg
+repeat      0 476 set  lthigh mlthigh
+repeat      0 476 set  rthigh mrthigh
+repeat      0 476 set  pelv   mpelv
+repeat      0 476 set  chest  mchest
+repeat      0 476 set  neck   mneck
+repeat      0 476 set  head   mhead
+repeat      0 476 set  nose   mnose
+repeat      0 476 set  shldrs mshldrs
+repeat      0 476 set  luarm  mluarm
+repeat      0 476 set  ruarm  mruarm
+repeat      0 476 set  llarm  mllarm
+repeat      0 476 set  rlarm  mrlarm
+repeat      0 476 set  lhand  mlhand
+repeat      0 476 set  rhand  mrhand
+*
+repeat      0 476 set  lankle mlankle
+repeat      0 476 set  rankle mrankle
+repeat      0 476 set  lknee  mlknee
+repeat      0 476 set  rknee  mrknee
+repeat      0 476 set  lhip   mlhip
+repeat      0 476 set  rhip   mrhip
+repeat      0 476 set  waist  mwaist
+repeat      0 476 set  thorax mthorax
+repeat      0 476 set  spine  mspine
+repeat      0 476 set  throat mthroat
+repeat      0 476 set  face   mface
+repeat      0 476 set  lshldr mlshldr
+repeat      0 476 set  rshldr mrshldr
+repeat      0 476 set  lelbow mlelbow
+repeat      0 476 set  relbow mrelbow
+repeat      0 476 set  lwrist mlwrist
+repeat      0 476 set  rwrist mrwrist
+end dofred
+********************************
+*
+subroutine dogaina
+repeat      0 476 set  fig    gaina
+repeat      0 476 set  lfoot  wlfoot
+repeat      0 476 set  rfoot  wrfoot
+repeat      0 476 set  lleg   wlleg
+repeat      0 476 set  rleg   wrleg
+repeat      0 476 set  lthigh wlthigh
+repeat      0 476 set  rthigh wrthigh
+repeat      0 476 set  pelv   wpelv
+repeat      0 476 set  chest  wchest
+repeat      0 476 set  neck   wneck
+repeat      0 476 set  head   whead
+repeat      0 476 set  nose   wnose
+repeat      0 476 set  shldrs wshldrs
+repeat      0 476 set  luarm  wluarm
+repeat      0 476 set  ruarm  wruarm
+repeat      0 476 set  llarm  wllarm
+repeat      0 476 set  rlarm  wrlarm
+repeat      0 476 set  lhand  wlhand
+repeat      0 476 set  rhand  wrhand
+*
+repeat      0 476 set  lankle wlankle
+repeat      0 476 set  rankle wrankle
+repeat      0 476 set  lknee  wlknee
+repeat      0 476 set  rknee  wrknee
+repeat      0 476 set  lhip   wlhip
+repeat      0 476 set  rhip   wrhip
+repeat      0 476 set  waist  wwaist
+repeat      0 476 set  thorax wthorax
+repeat      0 476 set  spine  wspine
+repeat      0 476 set  throat wthroat
+repeat      0 476 set  face   wface
+repeat      0 476 set  lshldr wlshldr
+repeat      0 476 set  rshldr wrshldr
+repeat      0 476 set  lelbow wlelbow
+repeat      0 476 set  relbow wrelbow
+repeat      0 476 set  lwrist wlwrist
+repeat      0 476 set  rwrist wrwrist
+end dogaina
+*
+*****************************
+*
+subroutine step
+*
+*   take a step in 12 frames
+*
+quadratic  0 6 bendby lleg   lankle pelvis +16 x
+quadratic  0 6 bendby pelvis lhip   pelvis -16 x
+quadratic  0 6 flex   rthigh rhip          +16
+quadratic  0 6 bendby rfoot  rankle pelvis +16 x
+*
+quadratic 6 12 bendby rleg   rankle pelvis +16 x
+quadratic 6 12 bendby pelvis rhip   pelvis -16 x
+quadratic 6 12 flex   lthigh lhip          +16
+quadratic 6 12 bendby lfoot  lankle pelvis +16 x
+*
+end step
+*
+*****************************
+*
+subroutine hrstep
+*
+*   take half a step starting on the left foot in 6 frames
+*
+quadratic  0 6 bendby rleg   rankle pelvis +8 x
+quadratic  0 6 bendby pelvis rhip   pelvis -8 x
+quadratic  0 6 flex   lthigh lhip          +8
+quadratic  0 6 bendby lfoot  lankle pelvis +8 x
+*
+end hrstep
+*
+********************************
+*
+subroutine hlstep
+*
+*   take half a step starting on the right foot in 6 frames
+*
+quadratic  0 6 bendby lleg   lankle pelvis +8 x
+quadratic  0 6 bendby pelvis lhip   pelvis -8 x
+quadratic  0 6 flex   rthigh rhip          +8
+quadratic  0 6 bendby rfoot  rankle pelvis +8 x
+*
+end hlstep
+*
+********************************
+*
+subroutine walk
+*
+*   ( in  108 frames )
+*
+call        0   6 hrstep
+call        6  18 step
+call       18  30 step
+call       30  42 step
+call       42  54 step
+call       54  66 step
+call       66  78 step
+call       78  90 step
+call       90 102 step
+call      102 108 hlstep
+end walk
+*
+*****************************
+*
+stop
+

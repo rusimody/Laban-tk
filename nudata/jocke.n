@@ -1,0 +1,696 @@
+*  jockf.n
+*
+*   horse and jockey galloping past a fence
+*     obliquely viewed
+*       with  whipping
+*         moving clockwise around course
+*           with body flight
+*             improved shadows
+*   4 gallop cycles in 88 frames
+*   horse goes out of frame at frame 67!
+*
+view 44 45 * to give nice single frame image
+*
+*  horse  created by Tim Cha, Lent term, 1979 Honours Attachment
+*    Basser Dept Computer Science, Uni of Sydney
+*     rider April 1980 by Chris Berry
+*       fence by Don Herbison-Evans
+*          slow pan left along fence by Peter Gummer  5/7/85
+*             colours by Don Herbison-Evans 26 Jan 1988
+*
+*            Eight key frames of the transverse gallop
+*                are described by this program.
+*            Intermediate frames are interpolated.
+*
+*  reference : Gray, James . "Animal Locomotion"
+*              1968 Weidenfeld and Nicolson.
+*
+*-----------------------------------------------------
+figure earth 1 grass
+ellipsoid grass 10000 1 10000
+linear 0 1 ground earth
+linear 0 1 moveby earth grass 0 -21 0
+*
+*  define the parts of the horse and jockey-
+*
+figure horse 51   *
+       lear    rear    luarm   ruarm   lfarm  rfarm *
+       lcnon   rcnon   lfpstrn rfpstrn lfhoof rfhoof *
+       lthigh  rthigh  lshin   rshin   lshnon rshnon *
+       lbpstrn rbpstrn lbhoof  rbhoof *
+       nose    head    neck    shldrs  flank  qrtrs dock tail *
+ *
+       jlfoot  jrfoot  jlleg   jrleg   jlthgh jrthgh *
+       jluarm  jruarm  jllarm  jrlarm  lhand  rhand *
+       jpelvis jchest  jshldr  jneck   jhead  jnose whip peak cap
+*
+*  define the dimensions of the horse
+*
+ellipsoid nose    40  60 140
+ellipsoid head    70  85  85
+ellipsoid neck    60 105 235
+ellipsoid shldrs 165 175 175
+ellipsoid flank  150 150 305
+ellipsoid qrtrs  150 145 145
+ellipsoid dock    25  25  55
+ellipsoid tail    30  30 175
+ellipsoid lear    20  15  40
+ellipsoid rear    20  15  40
+ellipsoid luarm   40  60  95
+ellipsoid ruarm   40  60  95
+ellipsoid lfarm   30  40 125
+ellipsoid rfarm   30  40 125
+ellipsoid lcnon   20  30  90
+ellipsoid rcnon   20  30  90
+ellipsoid lfpstrn 15  20  35
+ellipsoid rfpstrn 15  20  35
+ellipsoid lfhoof  30  30  30
+ellipsoid rfhoof  30  30  30
+ellipsoid lthigh  40  85 135
+ellipsoid rthigh  40  85 135
+ellipsoid lshin   35  45 125
+ellipsoid rshin   35  45 125
+ellipsoid lshnon  30  35 125
+ellipsoid rshnon  30  35 125
+ellipsoid lbpstrn 15  20  45
+ellipsoid rbpstrn 15  20  45
+ellipsoid lbhoof  30  30  30
+ellipsoid rbhoof  30  30  30
+*
+* define the dimensions of the rider
+*
+ellipsoid jlfoot   32  64  16
+ellipsoid jrfoot   32  64  16
+ellipsoid jlleg   32 120  32
+ellipsoid jrleg    32 120  32
+ellipsoid jlthgh  40 128  48
+ellipsoid jrthgh  40 128  48
+ellipsoid jpelvis 96  60  60
+ellipsoid jchest 104 184  60
+ellipsoid jneck   30  48  24
+ellipsoid jhead   58  80  64
+ellipsoid cap     57  79  63
+ellipsoid jnose   16  16  48
+ellipsoid jshldr 124  32  32
+ellipsoid jluarm  32 108  32
+ellipsoid jruarm  32 108  32
+ellipsoid jrlarm 32 108  32
+ellipsoid jllarm  32 108  32
+ellipsoid lhand   16  56  32
+ellipsoid rhand   16  56  32
+ellipsoid whip     4 100   4
+ellipsoid peak    40   4  60
+*
+*  define the joints of the horse
+*
+joint bridge  nose      0    0  -60  head     0    0  +15
+joint learj   head    -40  +75  -20  lear     0    0  -20
+joint rearj   head    +40  +75  -20  rear     0    0  -20
+joint atlas   head      0    0  -70  neck     0    0 +185
+joint spine   neck      0  -40  -65  shldrs   0    0 +145
+joint lshldr  shldrs  -61  -90  +64  luarm    0    0  +65
+joint rshldr  shldrs  +61  -90  +64  ruarm    0    0  +65
+joint lelbow  luarm     0    0  -65  lfarm    0    0  +95
+joint relbow  ruarm     0    0  -65  rfarm    0    0  +95
+joint lknee   lfarm     0    0  -95  lcnon    0    0  +75
+joint rknee   rfarm     0    0  -95  rcnon    0    0  +75
+joint lfftlck lcnon     0    0  -80  lfpstrn  0    0  +25
+joint rfftlck rcnon     0    0  -80  rfpstrn  0    0  +25
+joint lfcfin  lfpstrn   0    0  -25  lfhoof   0  +20    0
+joint rfcfin  rfpstrn   0    0  -25  rfhoof   0  +20    0
+joint lhip    qrtrs   -70    0  -30  lthigh   0  -15  +75
+joint rhip    qrtrs   +70    0  -30  rthigh   0  -15  +75
+joint lstifle lthigh    0    0 -105  lshin    0    0  +80
+joint rstifle rthigh    0    0 -105  rshin    0    0  +80
+joint lhock   lshin     0    0  -95  lshnon   0    0  +95
+joint rhock   rshin     0    0  -95  rshnon   0    0  +95
+joint lbftlck lshnon    0    0 -105  lbpstrn  0    0  +25
+joint rbftlck rshnon    0    0 -105  rbpstrn  0    0  +25
+joint lbcfin  lbpstrn   0    0  -20  lbhoof   0  +20    0
+joint rbcfin  rbpstrn   0    0  -20  rbhoof   0  +20    0
+joint dckj    qrtrs     0  +30 -135  dock     0    0  +35
+joint tailj   dock      0    0  -30  tail     0    0 +145
+joint ubody   shldrs    0  +30  -65  flank    0    0 +145
+joint lbody   flank     0    0 -135  qrtrs    0  +40  +65
+*
+* define the joints of the rider
+*
+joint lankle  jlfoot    0  +44    0  jlleg     0 -108    0
+joint rankle  jrfoot    0  +44    0  jrleg     0 -108    0
+joint jlknee  jlleg     0  +92    0  jlthgh    0 -100    0
+joint jrknee  jrleg     0  +92    0  jrthgh    0 -100    0
+joint jlhip   jlthgh    0 +100    0  jpelvis -48    0    0
+joint jrhip   jrthgh    0 +100    0  jpelvis +48    0    0
+joint jwaist  jpelvis   0  +60    0  jchest    0 -124    0
+joint thorax  jshldr    0    0    0  jchest    0 +124    0
+joint jspine  jneck     0   -8    0  jshldr    0  +32    0
+joint jthroat jhead     0  -80    0  jneck     0   +8    0
+joint face    jhead     0    0  +44  jnose     0    0    0
+joint hat     jhead     0  +30    0  peak      0    0  -40
+joint scalp   jhead     0   +5    0  cap       0    0    0
+joint jlshld  jshldr -116    0    0  jluarm    0 +100    0
+joint jrshld  jshldr +116    0    0  jruarm    0 +100    0
+joint jlelbo  jluarm    0  -92    0  jllarm    0  +92    0
+joint jrelbo  jruarm    0  -92    0  jrlarm    0  +92    0
+joint lwrist  jllarm    0 -100    0  lhand     0  +40    0
+joint rwrist  jrlarm    0 -100    0  rhand     0  +40    0
+joint hold    lhand     0    0    0  whip      0   60    0
+*
+*   join the rider to the horse
+*
+joint seat    jpelvis   0  -64    0  flank    0 +150    0
+*
+******************************************
+*
+figure fence 31 post1 post2 post3 post4 post5 *
+                post6 post7 post8 post9 posta *
+                postb postc postd poste postf postg  *
+                rail1 rail2 rail3 rail4 rail5 *
+                rail6 rail7 rail8 rail9 raila *
+                railb railc raild raile railf *
+ellipsoid post1 30 200 30
+ellipsoid post2 30 200 30
+ellipsoid post3 30 200 30
+ellipsoid post4 30 200 30
+ellipsoid post5 30 200 30
+ellipsoid post6 30 200 30
+ellipsoid post7 30 200 30
+ellipsoid post8 30 200 30
+ellipsoid post9 30 200 30
+ellipsoid posta 30 200 30
+ellipsoid postb 30 200 30
+ellipsoid postc 30 200 30
+ellipsoid postd 30 200 30
+ellipsoid poste 30 200 30
+ellipsoid postf 30 200 30
+ellipsoid postg 30 200 30
+ellipsoid rail1 30 30 300
+ellipsoid rail2 30 30 300
+ellipsoid rail3 30 30 300
+ellipsoid rail4 30 30 300
+ellipsoid rail5 30 30 300
+ellipsoid rail6 30 30 300
+ellipsoid rail7 30 30 300
+ellipsoid rail8 30 30 300
+ellipsoid rail9 30 30 300
+ellipsoid raila 30 30 300
+ellipsoid railb 30 30 300
+ellipsoid railc 30 30 300
+ellipsoid raild 30 30 300
+ellipsoid raile 30 30 300
+ellipsoid railf 30 30 300
+joint p11 rail1 0 0 +200 post1 0 150 0
+joint p12 rail1 0 0 -200 post2 0 150 0
+joint p22 rail2 0 0 +200 post2 0 150 0
+joint p23 rail2 0 0 -200 post3 0 150 0
+joint p33 rail3 0 0 +200 post3 0 150 0
+joint p34 rail3 0 0 -200 post4 0 150 0
+joint p44 rail4 0 0 +200 post4 0 150 0
+joint p45 rail4 0 0 -200 post5 0 150 0
+joint p55 rail5 0 0 +200 post5 0 150 0
+joint p56 rail5 0 0 -200 post6 0 150 0
+joint p66 rail6 0 0 +200 post6 0 150 0
+joint p67 rail6 0 0 -200 post7 0 150 0
+joint p77 rail7 0 0 +200 post7 0 150 0
+joint p78 rail7 0 0 -200 post8 0 150 0
+joint p88 rail8 0 0 +200 post8 0 150 0
+joint p89 rail8 0 0 -200 post9 0 150 0
+joint p99 rail9 0 0 +200 post9 0 150 0
+joint p9a rail9 0 0 -200 posta 0 150 0
+joint paa raila 0 0 +200 posta 0 150 0
+joint pab raila 0 0 -200 postb 0 150 0
+joint pbb railb 0 0 +200 postb 0 150 0
+joint pbc railb 0 0 -200 postc 0 150 0
+joint pcc railc 0 0 +200 postc 0 150 0
+joint pcd railc 0 0 -200 postd 0 150 0
+joint pdd raild 0 0 +200 postd 0 150 0
+joint pde raild 0 0 -200 poste 0 150 0
+joint pee raile 0 0 +200 poste 0 150 0
+joint pef raile 0 0 -200 postf 0 150 0
+joint pff railf 0 0 +200 postf 0 150 0
+joint pfg railf 0 0 -200 postg 0 150 0
+*
+******************************************
+*
+call    0  1  docolour
+*
+decele  0  1  grofig horse world 0.5 0.5 0.5
+decele  0  1  grofig fence world 0.5 0.5 0.5
+*
+linear  0  1  flex   jnose  face    -30
+linear  0  1  flex   jlfoot  lankle  +90
+linear  0  1  flex   jrfoot  rankle  +90
+call    0  1  crouch
+*
+repeat  0  1  observ               -30    0     0
+*
+call    0  1  stand
+call    0  1  start
+linear  0  1  spinby every jpelvis world -150 y
+linear  0  1  moveto horse lfhoof +800 +500  1200
+linear  0  1  moveto fence postg  +800 +500  1800
+repeat  0  1  ground fence
+linear  0  1  moveby fence post1      0  -30     0
+*
+linear  0 88  moveby every world    200    0   344
+*
+call    0 22 gallop
+call   22 44 gallop
+call   44 66 gallop
+call   66 77 gallop
+*
+* end of main program
+*
+************************************
+*
+subroutine stand
+*
+*      stand the horse into position
+*
+linear 100 101  bendby shldrs ubody flank      -35 x
+linear 100 101  bendby flank ubody shldrs       +5 x
+linear 100 101  bendby qrtrs lbody flank       +24 x
+linear 100 101  bendby lthigh lhip qrtrs      -122 x
+linear 100 101  bendby rthigh rhip qrtrs      -122 x
+linear 100 101  bendby lshin lstifle lthigh    +38 x
+linear 100 101  bendby rshin rstifle rthigh    +38 x
+linear 100 101  bendby lshnon lhock lshin      -30 x
+linear 100 101  bendby rshnon rhock rshin      -30 x
+linear 100 101  bendby lbpstrn lbftlck lshnon  -20 x
+linear 100 101  bendby rbpstrn rbftlck rshnon  -20 x
+linear 100 101  bendby lbhoof lbcfin lbpstrn  +110 x
+linear 100 101  bendby rbhoof rbcfin rbpstrn  +110 x
+linear 100 101  bendby luarm lshldr shldrs     -27 x
+linear 100 101  bendby ruarm rshldr shldrs     -27 x
+linear 100 101  bendby lfarm lelbow luarm      -28 x
+linear 100 101  bendby rfarm relbow ruarm      -28 x
+linear 100 101  bendby lfpstrn lfftlck lcnon   -29 x
+linear 100 101  bendby rfpstrn rfftlck rcnon   -29 x
+linear 100 101  bendby lfhoof lfcfin lfpstrn  +119 x
+linear 100 101  bendby rfhoof rfcfin rfpstrn  +119 x
+linear 100 101  bendby neck spine shldrs       -20 x
+linear 100 101  bendby head atlas neck         +49 x
+linear 100 101  bendby nose bridge head        +46 x
+linear 100 101  bendby lear learj head         -60 x
+linear 100 101  bendby rear rearj head         -60 x
+linear 100 101  bendby dock dckj qrtrs         -60 x
+linear 100 101  bendby tail tailj dock         -38 x
+*
+end stand
+*
+*******************************
+*
+subroutine start
+*   start the horse on a gallop
+*
+*   enter into gallop cycle (Gray phase 4)
+*
+*     movement made on right hind leg
+*
+accele 0 1  bendby rshnon rbftlck rbpstrn  +17 x
+accele 0 1  bendby qrtrs rhip rthigh       -19 x
+quadra 0 1  bendby lthigh lhip qrtrs       -40 x
+quadra 0 1  bendby lshin lstifle lthigh     +7 x
+quadra 0 1  bendby lshnon lhock lshin       -5 x
+linear 0 1  bendby lbhoof lbcfin lbpstrn   +25 x
+linear 0 1  bendby lthigh lhip qrtrs        +5 x
+quadra 0 1  bendby ruarm rshldr shldrs     -58 x
+linear 0 1  bendby rfpstrn rfftlck rcnon   +30 x
+quadra 0 1  bendby luarm lshldr shldrs     -30 x
+quadra 0 1  bendby lfarm lelbow luarm      -55 x
+accele 0 1  bendby lcnon lknee lfarm       +91 x
+linear 0 1  bendby lfpstrn lfftlck lcnon   +32 x
+quadra 0 1  bendby neck spine shldrs       +15 x
+quadra 0 1  bendby head atlas neck         -20 x
+linear 0 1  bendby rear rearj head         -80 x
+linear 0 1  bendby lear learj head         -80 x
+linear 0 1  bendby dock dckj qrtrs         +20 x
+linear 0 1  bendby tail tailj dock         +30 x
+*
+*      movement made on left hind leg
+*
+accele 0 1  bendby lshnon lbftlck lbpstrn  +35 x
+accele 0 1  bendby lshin lhock lshnon      +15 x
+accele 0 1  bendby qrtrs lhip lthigh       -43 x
+decele 0 1  bendby rthigh rhip qrtrs        +6 x
+decele 0 1  bendby rshin rstifle rthigh     +2 x
+decele 0 1  bendby rshnon rhock rshin       +8 x
+linear 0 1  bendby rbpstrn rbftlck rshnon  +74 x
+accele 0 1  bendby ruarm rshldr shldrs     +14 x
+linear 0 1  bendby rfarm relbow ruarm       +2 x
+decele 0 1  bendby luarm lshldr shldrs     -48 x
+decele 0 1  bendby lfarm lelbow luarm      +53 x
+decele 0 1  bendby lcnon lknee lfarm       -70 x
+linear 0 1  bendby neck spine shldrs        +7 x
+linear 0 1  bendby head atlas neck         -12 x
+*
+repeat 0 1 ground horse
+*
+end start
+*
+*********************************
+*
+subroutine docolour
+*
+linear 0 1 colour railf  255 255 255
+linear 0 1 colour raile  255 255 255
+linear 0 1 colour raild  255 255 255
+linear 0 1 colour railc  255 255 255
+linear 0 1 colour railb  255 255 255
+linear 0 1 colour raila  255 255 255
+linear 0 1 colour rail9  255 255 255
+linear 0 1 colour rail8  255 255 255
+linear 0 1 colour rail7  255 255 255
+linear 0 1 colour rail6  255 255 255
+linear 0 1 colour rail5  255 255 255
+linear 0 1 colour rail4  255 255 255
+linear 0 1 colour rail3  255 255 255
+linear 0 1 colour rail2  255 255 255
+linear 0 1 colour rail1  255 255 255
+linear 0 1 colour postg  255 255 255
+linear 0 1 colour postf  255 255 255
+linear 0 1 colour poste  255 255 255
+linear 0 1 colour postd  255 255 255
+linear 0 1 colour postc  255 255 255
+linear 0 1 colour postb  255 255 255
+linear 0 1 colour posta  255 255 255
+linear 0 1 colour post9  255 255 255
+linear 0 1 colour post8  255 255 255
+linear 0 1 colour post7  255 255 255
+linear 0 1 colour post6  255 255 255
+linear 0 1 colour post5  255 255 255
+linear 0 1 colour post4  255 255 255
+linear 0 1 colour post3  255 255 255
+linear 0 1 colour post2  255 255 255
+linear 0 1 colour post1  255 255 255
+linear 0 1 colour peak   255 255   0
+linear 0 1 colour whip    10  10  10
+linear 0 1 colour jllarm   0 255 255
+linear 0 1 colour jrlarm   0 255 255
+linear 0 1 colour jruarm   0 255 255
+linear 0 1 colour jluarm   0 255 255
+linear 0 1 colour jshldr 255   0   0
+linear 0 1 colour cap    255 255   0
+linear 0 1 colour jchest 255   0   0
+linear 0 1 colour jpelvis  0   0 255
+linear 0 1 colour jrthgh   0   0 255
+linear 0 1 colour jlthgh   0   0 255
+linear 0 1 colour jrleg    10  10  10
+linear 0 1 colour jlleg   10  10  10
+linear 0 1 colour jrfoot  10  10  10
+linear 0 1 colour jlfoot  10  10  10
+linear 0 1 colour rbhoof  64  64   0
+linear 0 1 colour lbhoof  64  64   0
+linear 0 1 colour rbpstrn 64  64   0
+linear 0 1 colour lbpstrn 64  64   0
+linear 0 1 colour rshnon  64  64   0
+linear 0 1 colour lshnon  64  64   0
+linear 0 1 colour rshin   64  64   0
+linear 0 1 colour lshin   64  64   0
+linear 0 1 colour rthigh  64  64   0
+linear 0 1 colour lthigh  64  64   0
+linear 0 1 colour rfhoof  64  64   0
+linear 0 1 colour lfhoof  64  64   0
+linear 0 1 colour rfpstrn 64  64   0
+linear 0 1 colour lfpstrn 64  64   0
+linear 0 1 colour rcnon   64  64   0
+linear 0 1 colour lcnon   64  64   0
+linear 0 1 colour rfarm   64  64   0
+linear 0 1 colour lfarm   64  64   0
+linear 0 1 colour ruarm   64  64   0
+linear 0 1 colour luarm   64  64   0
+linear 0 1 colour rear    64  64   0
+linear 0 1 colour lear    64  64   0
+linear 0 1 colour tail    64  64   0
+linear 0 1 colour dock    64  64   0
+linear 0 1 colour qrtrs   64  64   0
+linear 0 1 colour flank   64  64   0
+linear 0 1 colour shldrs  64  64   0
+linear 0 1 colour neck    64  64   0
+linear 0 1 colour head    64  64   0
+linear 0 1 colour nose    64  64   0
+linear 0 1 colour grass    0 255   0
+end docolour
+***************************************
+subroutine crouch
+*
+*  jockey crouches over the horse -
+*
+linear 0 1  flex   jlthgh jlhip   +60
+linear 0 1  flex   jrthgh jrhip   +60
+linear 0 1  bendby jlthgh jlhip  jpelvis -50 y
+linear 0 1  bendby jrthgh jrhip  jpelvis +50 y
+linear 0 1  flex   jlleg  jlknee  +60
+linear 0 1  flex   jrleg  jrknee  +60
+linear 0 1  flex   jluarm jlshld  -40
+linear 0 1  flex   jruarm jrshld  +80
+linear 0 1  bendby jluarm jlshld jshldr +20 y
+linear 0 1  flex   jllarm jlelbo  +30
+linear 0 1  flex   jrlarm jrelbo  +30
+linear 0 1  abduct jruarm jrshld  +10
+linear 0 1  abduct jluarm jlshld  +40
+linear 0 1  flex   jchest jwaist  -40
+linear 0 1  flex   jhead  jthroat +40
+*
+end crouch
+*
+*****************************************
+*
+subroutine gallop
+*
+*   in frames 1 - 23
+*
+*    first phase of gallop cycle (Gray phase 5)
+*
+*      movement made on right fore leg
+*
+variables 3 hx hy hz
+*
+repeat  1  2 centre rfhoof  hx hy hz
+accele  1  2 bendby shldrs  rshldr  ruarm    -29 x
+accele  1  2 bendby ruarm   relbow  rfarm     -4 x
+accele  1  2 bendby rcnon   rfftlck rfpstrn  +33 x
+*
+accele  1  2 bendby luarm   lshldr  shldrs   +22 x
+quadra  1  2 bendby lfarm   lelbow  luarm    -11 x
+linear  1  2 bendby lcnon   lknee   lfarm    -20 x
+quadra  1  2 bendby lfpstrn lfftlck lcnon    -21 x
+*
+decele  1  2 bendby rshin   rstifle rthigh    +6 x
+decele  1  2 bendby rshnon  rhock   rshin    +20 x
+*
+linear  1  2 bendby lthigh  lhip    qrtrs     +8 x
+quadra  1  2 bendby lshin   lstifle lthigh   -14 x
+accele  1  2 bendby lshnon  lhock   lshin    +31 x
+accele  1  2 bendby lbpstrn lbftlck lshnon   +76 x
+*
+linear  1  2 bendby neck    spine   shldrs    -2 x
+linear  1  2 bendby head    atlas   neck      +3 x
+*
+*    second phase of gallop cycle (Gray phase 6)
+*
+*      movement made on right fore leg
+*
+linear  2  4 bendby shldrs  rshldr  ruarm    -23 x
+linear  2  4 bendby ruarm   relbow  rfarm    -10 x
+linear  2  4 bendby rcnon   rfftlck rfpstrn  +33 x
+*
+linear  2  4 bendby luarm   lshldr  shldrs    +5 x
+accele  2  4 bendby lfarm   lelbow  luarm    +11 x
+quadra  2  4 bendby lfhoof  lfcfin  lfpstrn  +62 x
+*
+accele  2  4 bendby rthigh  rhip    qrtrs    -17 x
+accele  2  4 bendby rshin   rstifle rthigh   +38 x
+accele  2  4 bendby rshnon  rhock   rshin    -35 x
+*
+decele  2  4 bendby lthigh  lhip    qrtrs     +8 x
+accele  2  4 bendby lshin   lstifle lthigh   +11 x
+linear  2  4 bendby lshnon  lhock   lshin     +4 x
+decele  2  4 bendby lbpstrn lbftlck lshnon   +30 x
+*
+linear  2  4 bendby neck    spine   shldrs    -7 x
+linear  2  4 bendby head    atlas   neck     +12 x
+*
+repeat  1  4 moveto horse   rfhoof  hx hy hz
+*
+*    third phase of gallop cycle (Gray phase 7)
+*
+*     movement made on left fore leg
+*
+repeat  4  5 centre lfhoof  hx hy hz
+decele  4  9 bendby ruarm   rshldr  shldrs   +12 x
+accele  4  9 bendby rfarm   relbow  ruarm    -11 x
+accele  4  9 bendby rcnon   rknee   rfarm    +44 x
+quadra  4  9 bendby rfpstrn rfftlck rcnon    +92 x
+*
+accele  4  9 bendby shldrs  lshldr  luarm    -40 x
+accele  4  9 bendby luarm   lelbow  lfarm     -3 x
+accele  4  9 bendby lcnon   lfftlck lfpstrn  +26 x
+accele  4  9 bendby lfpstrn lfcfin  lfhoof   +17 x
+*
+linear  4  9 bendby rthigh  rhip    qrtrs    -23 x
+linear  4  9 bendby rshin   rstifle rthigh    +7 x
+decele  4  9 bendby rshnon  rhock   rshin    -54 x
+*
+accele  4  9 bendby lthigh  lhip    qrtrs     -6 x
+linear  4  9 bendby lshin   lstifle lthigh   +28 x
+accele  4  9 bendby lshnon  lhock   lshin    -50 x
+accele  4  9 bendby lbpstrn lbftlck lshnon    -5 x
+*
+linear  4  9 bendby neck    spine   shldrs    -3 x
+linear  4  9 bendby head    atlas   neck      +4 x
+*
+*    fourth phase of gallop cycle (Gray phase 8)
+*
+*      movement made on left fore leg
+*
+linear  9 12 bendby ruarm   rshldr  shldrs    -2 x
+linear  9 12 bendby rfarm   relbow  ruarm    -42 x
+decele  9 12 bendby rcnon   rknee   rfarm    +69 x
+*
+decele  9 12 bendby shldrs  lshldr  luarm    -25 x
+decele  9 12 bendby luarm   lelbow  lfarm    -22 x
+decele  9 12 bendby lcnon   lfftlck lfpstrn   +2 x
+decele  9 12 bendby lfpstrn lfcfin  lfhoof   +45 x
+*
+linear  9 12 bendby rthigh  rhip    qrtrs    -11 x
+accele  9 12 bendby rshin   rstifle rthigh   -22 x
+accele  9 12 bendby rbpstrn rbftlck rshnon   +15 x
+*
+linear  9 12 bendby lthigh  lhip    qrtrs    -15 x
+linear  9 12 bendby lshin   lstifle lthigh   +11 x
+decele  9 12 bendby lshnon  lhock   lshin    -60 x
+decele  9 12 bendby lbpstrn lbftlck lshnon    -4 x
+*
+linear  9 12 bendby neck    spine   shldrs    -4 x
+linear  9 12 bendby head    atlas   neck      +6 x
+*
+repeat  4 12 moveto horse   lfhoof  hx hy hz
+*
+*    fifth phase of gallop cycle (Gray phase 1)
+*
+*      all legs off the ground
+*
+accele 12 13 bendby ruarm   rshldr  shldrs   -16 x
+decele 12 13 bendby rfarm   relbow  ruarm    -25 x
+linear 12 13 bendby rcnon   rknee   rfarm     +9 x
+quadra 12 13 bendby rfpstrn rfftlck rcnon    +23 x
+*
+linear 12 13 bendby luarm   lshldr  shldrs    +2 x
+accele 12 13 bendby lfarm   lelbow  luarm    -27 x
+accele 12 13 bendby lcnon   lknee   lfarm    +63 x
+linear 12 13 bendby lfpstrn lfftlck lcnon    +81 x
+*
+decele 12 13 bendby rthigh  rhip    qrtrs    -10 x
+linear 12 13 bendby rshin   rstifle rthigh   -20 x
+accele 12 13 bendby rshnon  rhock   rshin    +20 x
+linear 12 13 bendby rbpstrn rbftlck rshnon   -26 x
+*
+linear 12 13 bendby lthigh  lhip    qrtrs    -34 x
+decele 12 13 bendby lshin   lstifle lthigh   +19 x
+accele 12 13 bendby lshnon  lhock   lshin     +1 x
+decele 12 13 bendby lbpstrn lbftlck lshnon   +22 x
+*
+linear 12 13 bendby head    atlas   neck      -5 x
+*
+quadra 12 14 bendby tail    tailj   dock     -30 x
+*
+*    sixth phase of gallop cycle (Gray phase 2)
+*
+*     all legs still off ground
+*
+linear 13 14 bendby ruarm   rshldr  shldrs   -28 x
+linear 13 14 bendby rfarm   relbow  ruarm     -5 x
+accele 13 14 bendby rcnon   rknee   rfarm    -48 x
+accele 13 14 bendby rfpstrn rfftlck rcnon    -27 x
+*
+quadra 13 14 bendby luarm   lshldr  shldrs   -22 x
+linear 13 14 bendby lfarm   lelbow  luarm    -46 x
+decele 13 14 bendby lcnon   lknee   lfarm    +58 x
+decele 13 14 bendby lfpstrn lfftlck lcnon    +23 x
+*
+linear 13 14 bendby rthigh  rhip    qrtrs     +3 x
+decele 13 14 bendby rshin   rstifle rthigh   -26 x
+decele 13 14 bendby rshnon  rhock   rshin    +34 x
+*
+decele 13 14 bendby lthigh  lhip    qrtrs    -12 x
+quadra 13 14 bendby lshin   lstifle lthigh   -56 x
+accele 13 14 bendby lshnon  lhock   lshin    +50 x
+accele 13 14 bendby lbpstrn lbftlck lshnon   -43 x
+*
+*    seventh phase of gallop cycle (Gray phase 3)
+*
+*      movement made on right hind leg
+*
+repeat 14 15 centre rbhoof  hx hy hz
+linear 14 19 bendby ruarm   rshldr  shldrs    -9 x
+decele 14 19 bendby rcnon   rknee   rfarm    -74 x
+decele 14 19 bendby rfpstrn rfftlck rcnon    -22 x
+*
+decele 14 19 bendby lfarm   lelbow  luarm    -34 x
+accele 14 19 bendby lcnon   lknee   lfarm    -30 x
+accele 14 19 bendby lfpstrn lfftlck lcnon    -55 x
+*
+accele 14 19 bendby qrtrs   rhip    rthigh   -48 x
+accele 14 19 bendby rthigh  rstifle rshin    -17 x
+accele 14 19 bendby rshin   rhock   rshnon   -14 x
+accele 14 19 bendby rshnon  rbftlck rbpstrn  +65 x
+accele 14 19 bendby rbpstrn rbcfin  rbhoof   +14 x
+*
+quadra 14 19 bendby lthigh  lhip    qrtrs     +9 x
+decele 14 19 bendby lshin   lstifle lthigh    -2 x
+decele 14 19 bendby lshnon  lhock   lshin    +44 x
+linear 14 19 bendby lbpstrn lbftlck lshnon   -51 x
+*
+linear 14 19 bendby neck    spine   shldrs   +21 x
+quadra 14 19 bendby head    atlas   neck     -26 x
+*
+repeat 14 19 moveto horse   rbhoof  hx hy hz
+*
+*    eighth phase of gallop cycle (Gray phase 4)
+*
+*      movement made on left hind leg
+*
+repeat 19 20 centre lbhoof  hx hy hz
+decele 19 23 bendby ruarm   rshldr  shldrs    -9 x
+quadra 19 23 bendby rfarm   relbow  ruarm    +69 x
+*
+quadra 19 23 bendby luarm   lshldr  shldrs   -72 x
+quadra 19 23 bendby lfarm   lelbow  luarm    +82 x
+linear 19 23 bendby lcnon   lknee   lfarm    -71 x
+*
+decele 19 23 bendby rthigh  rhip    qrtrs    +10 x
+decele 19 23 bendby rshnon  rhock   rshin     +1 x
+linear 19 23 bendby rbpstrn rbftlck rshnon   +76 x
+quadra 19 23 bendby rbhoof  rbcfin  rbpstrn  +14 x
+*
+decele 19 23 bendby qrtrs   lhip    lthigh   -42 x
+decele 19 23 bendby lthigh  lstifle lshin     -3 x
+decele 19 23 bendby lshin   lhock   lshnon   +20 x
+decele 19 23 bendby lshnon  lbftlck lbpstrn  +25 x
+*
+linear 19 23 bendby neck    spine   shldrs    -5 x
+linear 19 23 bendby head    atlas   neck      +6 x
+*
+repeat 19 23 moveto horse   lbhoof  hx hy hz
+*
+quadra 15 20 bendby tail    tailj   dock     +30 x
+*
+variables 3 xx yy zz
+repeat  1  2 axes   qrtrs  xx yy zz
+repeat  1  9 ground horse
+repeat  1  9 moveby horse  world 0 2 0
+repeat 15 23 ground horse
+repeat 15 23 moveby horse  world 0 2 0
+linear  9 15 moveby horse  qrtrs 0 0 zz
+*
+quadratic  1  9 flex jluarm jlshld +40
+quadratic 10 23 flex jluarm jlshld -40
+quadratic  1  9 flex jllarm jlelbo +40
+quadratic 10 23 flex jllarm jlelbo -40
+*
+end gallop
+*
+*******************************************
+*
+stop

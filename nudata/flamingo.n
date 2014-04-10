@@ -1,0 +1,85 @@
+* funny-bird-thingo
+*   by bruce morgan, university of sydney, 1984
+*   scenery by don herbison-evans, university of waterloo, 1986
+*
+figure lake 4 water wave1 wave2 shore
+ellipsoid water 3000   100 3000
+ellipsoid wave1 3000    30   30
+ellipsoid wave2 3000    30   30
+ellipsoid shore 3200  3200 1000
+joint rippl1 water -200   +100     0 wave1 0 0 0
+joint rippl2 water +200   +100     0 wave2 0 0 0
+joint bank   water  500  -3000 +3000 shore 0 0 0
+*
+repeat 0 1 moveto lake water 500     0   0
+repeat 0 1 colour water        0   255 255
+repeat 0 1 colour wave1        0   255 255
+repeat 0 1 colour wave2        0   255 255
+repeat 0 1 colour shore        0   255   0
+linear 0 1 rotate wave1 rippl1 +45
+linear 0 1 rotate wave2 rippl2 -45
+*
+*************************************
+*
+figure flamingo  15 *
+lfoot rfoot lleg rleg lthigh rthigh leye reye lpupil rpupil
+head beak neck body tail
+*
+ellipsoid    head   10   10   10
+ellipsoid    beak    6    4    8
+ellipsoid    leye    2    2    2
+ellipsoid    reye    2    2    2
+ellipsoid    lpupil   1    1    1
+ellipsoid    rpupil   1    1    1
+ellipsoid    neck    3   40    3
+ellipsoid    body   20   20   30
+ellipsoid    tail   15   15    5
+ellipsoid    lthigh  3   20    3
+ellipsoid    rthigh  3   20    3
+ellipsoid    lleg    3   20    3
+ellipsoid    rleg    3   20    3
+ellipsoid    lfoot   5    2   10
+ellipsoid    rfoot   5    2   10
+*
+joint    jaw    beak    0    0    0    head    0    -4  +12
+joint    lsocke leye    0    0    0    head   -6    +5   +6
+joint    rsocke reye    0    0    0    head   +6    +5   +6
+joint    liris  leye    0    0    2    lpupil  0     0    0
+joint    riris  reye    0    0    2    rpupil  0     0    0
+joint    topnk  neck    0  +35    0    head    0    -5   -5
+joint    btmnk  neck    0  -30    0    body    0     0  +15
+joint    rump   tail    0  -11    0    body    0     0  -23
+joint    lhip   lthigh  0  +20    0    body  -10   -15    0
+joint    rhip   rthigh  0  +20    0    body  +10   -15    0
+joint    lknee  lthigh  0  -18    0    lleg    0    18    0
+joint    rknee  rthigh  0  -18    0    rleg    0    18    0
+joint    lankle lfoot  -2   -1   -5    lleg    0   -20    0
+joint    rankle rfoot  +2   -1   -5    rleg    0   -20    0
+*
+linear 0 1 colour    head   255   0 128
+linear 0 1 colour    leye   255 255 255
+linear 0 1 colour    reye   255 255 255
+linear 0 1 colour    beak   255 255   0
+linear 0 1 colour    neck   255   0 128
+linear 0 1 colour    body   255   0 128
+linear 0 1 colour    tail   255   0 128
+linear 0 1 colour    lthigh 255   0 128
+linear 0 1 colour    rthigh 255   0 128
+linear 0 1 colour    lleg   255   0 128
+linear 0 1 colour    rleg   255   0 128
+linear 0 1 colour    lfoot  255   0 128
+linear 0 1 colour    rfoot  255   0 128
+*
+linear    0    1    flex tail rump +23 
+linear    0    1    grofig flamingo world    2.5    2.5    2.5
+linear    0    1    spinby flamingo rfoot rfoot -130 y
+*
+linear    0    1    flex   lleg   lknee -120
+linear    0    1    flex   lthigh lhip   -60
+linear    0    1    flex   lfoot  lankle -60
+linear    0    1    ground flamingo
+linear    0    1    moveby flamingo world   500   50    500
+linear    0    1 place 0 200 0
+linear    0    1    observe   -10  0  0
+*
+stop

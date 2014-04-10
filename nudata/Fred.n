@@ -1,0 +1,90 @@
+* fred
+*
+figure fred 21 *
+       mlfoot  mrfoot  mlleg   mrleg   mlthigh mrthigh  *
+       mluarm  mruarm  mllarm  mrlarm  mlhand mrhand  mlthumb mrthumb *
+       mhair mhead   mnose   mneck   mshldrs mchest  mpelvis
+*
+ellipsoid mlfoot   40  80  20
+ellipsoid mrfoot   40  80  20
+ellipsoid mlleg    40 200  40
+ellipsoid mrleg    40 200  40
+ellipsoid mlthigh  50 200  60
+ellipsoid mrthigh  50 200  60
+ellipsoid mluarm   40 135  40
+ellipsoid mruarm   40 135  40
+ellipsoid mllarm   35 120  35
+ellipsoid mrlarm   35 120  35
+ellipsoid mlhand   40  70  20
+ellipsoid mrhand   40  70  20
+ellipsoid mlthumb  10  50  10
+ellipsoid mrthumb  10  50  10
+ellipsoid mhead    73 100  80
+ellipsoid mhair    75  97  83
+ellipsoid mnose    20  20  60
+ellipsoid mneck    30  60  30
+ellipsoid mshldrs 155  50  40
+ellipsoid mchest  130 230  75
+ellipsoid mpelvis 120  75  75
+*
+joint mlankle  mlfoot    0  +55    0  mlleg   0 -185   0
+joint mrankle  mrfoot    0  +55    0  mrleg   0 -185   0
+joint mlknee   mlleg     0 +185    0  mlthigh 0 -175   0
+joint mrknee   mrleg     0 +185    0  mrthigh 0 -175   0
+joint mlhip    mlthigh   0 +150    0  mpelvis -60    0   0
+joint mrhip    mrthigh   0 +150    0  mpelvis +60    0   0
+joint mlshldr  mshldrs -145   0    0  mluarm  0 +120   0
+joint mrshldr  mshldrs +145   0    0  mruarm  0 +120   0
+joint mlelbow  mluarm    0 -115    0  mllarm  0 +100   0
+joint mrelbow  mruarm    0 -115    0  mrlarm  0 +100   0
+joint mlwrist  mllarm    0 -115    0  mlhand  0  +50   0
+joint mrwrist  mrlarm    0 -115    0  mrhand  0  +50   0
+joint mlpalm   mlhand  -20  +40  +10  mlthumb 0  +40   0
+joint mrpalm   mrhand  +20  +40  +10  mrthumb 0  +40   0
+joint mscalp   mhead     0    5   -5  mhair   0    0   0
+joint mface    mnose     0    0    0  mhead   0  +30 +55
+joint mthroat  mhead     0 -100    0  mneck   0  +20   0
+joint mspine   mneck     0  -10    0  mshldrs 0  +40   0
+joint mthorax  mshldrs   0    0    0  mchest  0 +155   0
+joint mwaist   mpelvis   0  +25    0  mchest  0 -205   0
+*
+repeat 0 1 colour mhair       64  64   0
+repeat 0 1 colour mrfoot     128 128 255
+repeat 0 1 colour mlfoot     128 128 255
+repeat 0 1 colour mrleg      128 128 255
+repeat 0 1 colour mlleg      128 128 255
+repeat 0 1 colour mrthigh    128 128 255
+repeat 0 1 colour mlthigh    128 128 255
+repeat 0 1 colour mrlarm     128 128 255
+repeat 0 1 colour mllarm     128 128 255
+repeat 0 1 colour mruarm     128 128 255
+repeat 0 1 colour mluarm     128 128 255
+repeat 0 1 colour mpelvis    128 128 255
+repeat 0 1 colour mchest     128 128 255
+repeat 0 1 colour mshldrs    128 128 255
+*
+*   prepare figure
+*   note that figure is facing away from the observer (along z axis)
+*   in anatomical position ( palms facing forward )
+*
+variable 1 man
+repeat 0 1 set man fred
+*
+linear 0 1 flex   mnose   mface    -40
+linear 0 1 flex   mlthumb mlpalm   +10
+linear 0 1 flex   mrthumb mrpalm   +10
+linear 0 1 rotate mlhand  mlwrist  +90
+linear 0 1 rotate mrhand  mrwrist  +90
+linear 0 1 flex   mhair  mscalp      5
+*
+*   stand down on heels -
+*
+linear 0 1 flex   mlfoot mlankle   +90
+linear 0 1 flex   mrfoot mrankle   +90
+*
+linear 0 1 grofig man mpelvis 0.4 0.4 0.4
+linear 0 1 moveto man mpelvis 500 500 500
+linear 0 1 ground man
+*
+****************************************
+*

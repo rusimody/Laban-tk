@@ -1,0 +1,2059 @@
+*            merr.n
+*      (updated 29 July 1996)
+*   a  ballroom couple doing the Merrilyn
+*   with 48 frames per bar and 768 frames per sequence
+*   offset by 1 degree to avoid overflow problems
+*
+*************************************************
+*
+figure room 34
+ bdx00 bdx01 bdx02 bdx03 bdx04 bdx05 bdx06 bdx07 bdx08 bdx09 *
+ bdx10 bdx11 bdx12 bdx13 bdx14 bdx15 bdx16 bdx17 bdx18 bdx19 *
+ brdz0 brdz1 brdz2 brdz3 brdz4 brdz5 brdz6 brdz7 brdz8 brdz9 *
+ joist floor skrtz wallz
+ellipsoid wallz    1 6000 6000
+ellipsoid skrtz    1    1 6000
+ellipsoid floor 6000    1 6000
+ellipsoid bdx00 6000    1  220
+ellipsoid bdx01 6000    1  220
+ellipsoid bdx02 6000    1  220
+ellipsoid bdx03 6000    1  220
+ellipsoid bdx04 6000    1  220
+ellipsoid bdx05 6000    1  220
+ellipsoid bdx06 6000    1  220
+ellipsoid bdx07 6000    1  220
+ellipsoid bdx08 6000    1  220
+ellipsoid bdx09 6000    1  220
+ellipsoid bdx10 6000    1  220
+ellipsoid bdx11 6000    1  220
+ellipsoid bdx12 6000    1  220
+ellipsoid bdx13 6000    1  220
+ellipsoid bdx14 6000    1  220
+ellipsoid bdx15 6000    1  220
+ellipsoid bdx16 6000    1  220
+ellipsoid bdx17 6000    1  220
+ellipsoid bdx18 6000    1  220
+ellipsoid bdx19 6000    1  220
+ellipsoid brdz0  220    1 6000
+ellipsoid brdz1  220    1 6000
+ellipsoid brdz2  220    1 6000
+ellipsoid brdz3  220    1 6000
+ellipsoid brdz4  220    1 6000
+ellipsoid brdz5  220    1 6000
+ellipsoid brdz6  220    1 6000
+ellipsoid brdz7  220    1 6000
+ellipsoid brdz8  220    1 6000
+ellipsoid brdz9  220    1 6000
+ellipsoid joist    1    1    1
+*
+joint nail   floor 0 0 0 joist 0 -5 1800
+*
+joint crkx00 bdx00 0 0 0 joist 500  0    0
+joint crkx01 bdx01 0 0 0 joist 500  0  800
+joint crkx02 bdx02 0 0 0 joist 500  0 1600
+joint crkx03 bdx03 0 0 0 joist 500  0 2400
+joint crkx04 bdx04 0 0 0 joist 500  0 3200
+joint crkx05 bdx05 0 0 0 joist 500  0 4000
+joint crkx06 bdx06 0 0 0 joist 500  0 4800
+joint crkx07 bdx07 0 0 0 joist 500  0 5600
+joint crkx08 bdx08 0 0 0 joist 500  0 6400
+joint crkx09 bdx09 0 0 0 joist 500  0 7200
+joint crkx10 bdx10 0 0 0 joist 500  0 8000
+joint crkx11 bdx11 0 0 0 joist 500  0 8800
+joint crkx12 bdx12 0 0 0 joist 500  0 9600
+joint crkx13 bdx13 0 0 0 joist 500  0 10400
+joint crkx14 bdx14 0 0 0 joist 500  0 11200
+joint crkx15 bdx15 0 0 0 joist 500  0 12000
+joint crkx16 bdx16 0 0 0 joist 500  0 12800
+joint crkx17 bdx17 0 0 0 joist 500  0 13600
+joint crkx18 bdx18 0 0 0 joist 500  0 14400
+joint crkx19 bdx19 0 0 0 joist 500  0 15200
+*
+joint crkz10 brdz0 0 0 0 joist    0 -3 1000
+joint crkz11 brdz1 0 0 0 joist  800 -3 1000
+joint crkz12 brdz2 0 0 0 joist 1600 -3 1000
+joint crkz13 brdz3 0 0 0 joist 2400 -3 1000
+joint crkz14 brdz4 0 0 0 joist 3200 -3 1000
+joint crkz15 brdz5 0 0 0 joist 4000 -3 1000
+joint crkz16 brdz6 0 0 0 joist 4800 -3 1000
+joint crkz17 brdz7 0 0 0 joist 5600 -3 1000
+joint crkz18 brdz8 0 0 0 joist 6400 -3 1000
+joint crkz19 brdz9 0 0 0 joist 7200 -3 1000
+*
+joint joinz  wallz 0 0 0 joist  -402 1  500
+joint edgez  skrtz 0 0 0 joist  -399 2  500
+*
+lin 0 1 colour wallz  64 255  64
+lin 0 1 colour skrtz  64  64   0
+lin 0 1 colour floor  64  64   0
+*
+lin 0 1 colour bdx00 200 200   0
+lin 0 1 colour bdx01 200 200   0
+lin 0 1 colour bdx02 200 200   0
+lin 0 1 colour bdx03 200 200   0
+lin 0 1 colour bdx04 200 200   0
+lin 0 1 colour bdx05 200 200   0
+lin 0 1 colour bdx06 200 200   0
+lin 0 1 colour bdx07 200 200   0
+lin 0 1 colour bdx08 200 200   0
+lin 0 1 colour bdx09 200 200   0
+lin 0 1 colour bdx10 200 200   0
+lin 0 1 colour bdx11 200 200   0
+lin 0 1 colour bdx12 200 200   0
+lin 0 1 colour bdx13 200 200   0
+lin 0 1 colour bdx14 200 200   0
+lin 0 1 colour bdx15 200 200   0
+lin 0 1 colour bdx16 200 200   0
+lin 0 1 colour bdx17 200 200   0
+lin 0 1 colour bdx18 200 200   0
+lin 0 1 colour bdx19 200 200   0
+*
+lin 0 1 colour brdz0 255 255   0
+lin 0 1 colour brdz1 255 255   0
+lin 0 1 colour brdz2 255 255   0
+lin 0 1 colour brdz3 255 255   0
+lin 0 1 colour brdz4 255 255   0
+lin 0 1 colour brdz5 255 255   0
+lin 0 1 colour brdz6 255 255   0
+lin 0 1 colour brdz7 255 255   0
+lin 0 1 colour brdz8 255 255   0
+lin 0 1 colour brdz9 255 255   0
+*
+*************************************************
+*
+*   wltz.pair.n
+* gloria and frank - figures used for wltz system
+*
+*      gloria
+*             Don Herbison-Evans  5 January 1996
+*
+figure gloria 94
+    wlball wrball wlbtoe  wrbtoe  wltoe2  wrtoe2 wltoe3  wrtoe3
+    wltoe4 wrtoe4 wltoe5  wrtoe5  wltoes  wrtoes wlnkle  wrnkle
+    wlfoot wrfoot wlleg   wrleg   wlnee   wrnee  wlthigh wrthigh
+    wluarm wruarm wlhumrs wrhumrs wllarm  wrlarm wlhand  wrhand
+    wlf4t  wrf4t  wlf4m   wrf4m   wlf4b   wrf4b  wlf4n   wrf4n
+    wlf3t  wrf3t  wlf3m   wrf3m   wlf3b   wrf3b  wlf3n   wrf3n
+    wlf2t  wrf2t  wlf2m   wrf2m   wlf2b   wrf2b  wlf2n   wrf2n
+    wlf1t  wrf1t  wlf1m   wrf1m   wlf1b   wrf1b  wlf1n   wrf1n
+    wltht  wrtht  wlthm   wrthm   wlthb   wrthb  wlthn   wrthn
+    wlcar  wrcar  wlbh    wrbh    wloh    wroh   wlih    wrih
+    wlbrst wrbrst wpelvis wchest  wlshd   wrshd  wshldrs wstomach
+    wneck  whead  wnose   wbun    whair   wlheel wrheel
+*
+ellipsoid wlheel   12   25  12
+ellipsoid wrheel   12   25  12
+ellipsoid wlball   22   35  12
+ellipsoid wrball   22   15  12
+ellipsoid wlbtoe    8   12   6
+ellipsoid wrbtoe    8   12   6
+ellipsoid wltoe2    8   10   6
+ellipsoid wrtoe2    8   10   6
+ellipsoid wltoe3    8    8   6
+ellipsoid wrtoe3    8    8   6
+ellipsoid wltoe4    8    6   6
+ellipsoid wrtoe4    8    6   6
+ellipsoid wltoe5    8    4   6
+ellipsoid wrtoe5    8    4   6
+ellipsoid wltoes   22   12   8
+ellipsoid wrtoes   22   12   8
+ellipsoid wlnkle   18   18  18
+ellipsoid wrnkle   18   18  18
+ellipsoid wlfoot   24   35  12
+ellipsoid wrfoot   24   35  12
+ellipsoid wlleg    24  120  24
+ellipsoid wrleg    24  120  24
+ellipsoid wlnee    25   30  25
+ellipsoid wrnee    25   30  25
+ellipsoid wlthigh  30  120  36
+ellipsoid wrthigh  30  120  36
+ellipsoid wluarm   24   81  24
+ellipsoid wruarm   24   81  24
+ellipsoid wlhumrs  18   18  18
+ellipsoid wrhumrs  18   18  18
+ellipsoid wllarm   17   72  17
+ellipsoid wrlarm   17   72  17
+ellipsoid wlbrst   25   24  36
+ellipsoid wrbrst   25   24  36
+ellipsoid wneck    18   36  18
+ellipsoid whead    44   60  48
+ellipsoid wnose    12   12  36
+ellipsoid whair    46   59  50
+ellipsoid wbun     30   15  30
+ellipsoid wlf4n   1.9  2.8   1 * nail wlittle finger
+ellipsoid wrf4n   1.9  2.8   1
+ellipsoid wlf4t   2.9  4.0 2.9 * tip wlittle finger
+ellipsoid wrf4t   2.9  4.0 2.9
+ellipsoid wlf4m   3.4  4.2 3.4 * middle of wlittle finger
+ellipsoid wrf4m   3.4  4.2 3.4
+ellipsoid wlf4b   3.4  6.9 3.4 * base of wlittle finger
+ellipsoid wrf4b   3.4  6.9 3.4
+ellipsoid wlf3n   2.6  3.0   1 * wring finger
+ellipsoid wrf3n   2.6  3.0   1
+ellipsoid wlf3t   3.4  5.7 3.4
+ellipsoid wrf3t   3.4  5.7 3.4
+ellipsoid wlf3m   3.8  6.6 3.8
+ellipsoid wrf3m   3.8  6.6 3.8
+ellipsoid wlf3b   4.3 10.0 4.3
+ellipsoid wrf3b   4.3 10.0 4.3
+ellipsoid wlf2n   2.4  3.4   1 * middle finger
+ellipsoid wrf2n   2.4  3.4   1
+ellipsoid wlf2t   3.6  5.9 3.4
+ellipsoid wrf2t   3.6  5.9 3.4
+ellipsoid wlf2m   4.3  7.1 3.8
+ellipsoid wrf2m   4.3  7.1 3.8
+ellipsoid wlf2b   4.8 10.5 4.3
+ellipsoid wrf2b   4.8 10.5 4.3
+ellipsoid wlf1n   2.4  2.8   1 * index finger
+ellipsoid wrf1n   2.4  2.8   1
+ellipsoid wlf1t   3.4  5.7 3.4
+ellipsoid wrf1t   3.4  5.7 3.4
+ellipsoid wlf1m   3.8  6.9 3.8
+ellipsoid wrf1m   3.8  6.9 3.8
+ellipsoid wlf1b   4.3 10.0 4.3
+ellipsoid wrf1b   4.3 10.0 4.3
+ellipsoid wlthn   2.6  2.8   1 *thumb
+ellipsoid wrthn   2.6  2.8   1
+ellipsoid wltht   3.6  4.5 3.4
+ellipsoid wrtht   3.6  4.5 3.4
+ellipsoid wlthm   4.8  8.3 4.3
+ellipsoid wrthm   4.8  8.3 4.3
+ellipsoid wlthb   7.2 14.1 7.2
+ellipsoid wrthb   7.2 14.1 7.2
+ellipsoid wlcar  16.1  7.6 4.8
+ellipsoid wrcar  16.1  7.6 4.8
+ellipsoid wlbh   16.1  6.9 7.2
+ellipsoid wrbh   16.1  6.9 7.2
+ellipsoid wloh      6 17.2   6
+ellipsoid wroh      6 17.2   6
+ellipsoid wlih      6 17.2   6
+ellipsoid wrih      6 17.2   6
+ellipsoid wlhand 16.1 15.4   6
+ellipsoid wrhand 16.1 15.4   6
+ellipsoid wpelvis  75   45  45
+ellipsoid wchest   75  110  45
+ellipsoid wstomach 65   80  40
+ellipsoid wshldrs  93   30  24
+ellipsoid wlshd    28   58  18
+ellipsoid wrshd    28   58  18
+*
+joint wljshd   wshldrs -87    0    0  wlshd      0    40    0
+joint wrjshd   wshldrs +87    0    0  wrshd      0    40    0
+joint wthorax  wshldrs   0    0    0  wchest     0    75    0
+joint wribs    wchest    0  -40    0  wstomach   0    50    0
+joint wwaist   wstomach  0  -50    0  wpelvis    0    22    0
+joint wlwchest wchest  -30   35   30  wlbrst     0     0    0
+joint wrwchest wchest   30   35   30  wrbrst     0     0    0
+joint wljball  wlball    0    0    0  wlfoot     0   -20    0
+joint wrjball  wrball    0    0    0  wrfoot     0   -20    0
+joint wltarsl  wltoes    0    0    0  wlball     0   -10   -2
+joint wrtarsl  wrtoes    0    0    0  wrball     0   -10   -2
+joint wlmetab  wlbtoe    0   10    0  wltoes    14    -4   -2
+joint wrmetab  wrbtoe    0   10    0  wrtoes   -14    -4   -2
+joint wlmeta2  wltoe2    0    8    0  wltoes     7    -4   -2
+joint wrmeta2  wrtoe2    0    8    0  wrtoes    -7    -4   -2
+joint wlmeta3  wltoe3    0    6    0  wltoes     0    -4   -2
+joint wrmeta3  wrtoe3    0    6    0  wrtoes     0    -4   -2
+joint wlmeta4  wltoe4    0    4    0  wltoes    -7    -4   -2
+joint wrmeta4  wrtoe4    0    4    0  wrtoes     7    -4   -2
+joint wlmeta5  wltoe5    0    2    0  wltoes   -14    -4   -2
+joint wrmeta5  wrtoe5    0    2    0  wrtoes    14    -4   -2
+joint wlshoe   wlheel    0   23    0  wlfoot     0    23    0
+joint wrshoe   wrheel    0   23    0  wrfoot     0    23    0
+joint wlankle  wlfoot    0   23    0  wlleg      0  -111    0
+joint wrankle  wrfoot    0   23    0  wrleg      0  -111    0
+joint wlkle    wlleg     0 -111    0  wlnkle     0     0    0
+joint wrkle    wrleg     0 -111    0  wrnkle     0     0    0
+joint wlknee   wlleg     0  111    0  wlthigh    0  -105    0
+joint wrknee   wrleg     0  111    0  wrthigh    0  -105    0
+joint wlee     wlleg     0  111    0  wlnee      0     0    0
+joint wree     wrleg     0  111    0  wrnee      0     0    0
+joint wlhip    wlthigh   0   90    0  wpelvis  -36     0    0
+joint wrhip    wrthigh   0   90    0  wpelvis   36     0    0
+joint wlshldr  wshldrs -87    0    0  wluarm     0    72    0
+joint wrshldr  wshldrs +87    0    0  wruarm     0    72    0
+joint wlelbow  wluarm    0  -69    0  wllarm     0    58    0
+joint wrelbow  wruarm    0  -69    0  wrlarm     0    58    0
+joint wlbow    wluarm    0  -69    0  wlhumrs    0     0    0
+joint wrbow    wruarm    0  -69    0  wrhumrs    0     0    0
+joint wlwrist  wlhand    0   12    0  wllarm     0   -62    0
+joint wrwrist  wrhand    0   12    0  wrlarm     0   -62    0
+joint wscalp   whead     0  3.6 -3.6  whair      0     0    0
+joint wface    whead     0    0   33  wnose      0     0    0
+joint wthroat  whead     0  -60    0  wneck      0    12    0
+joint wspine   wneck     0   -6    0  wshldrs    0    24    0
+joint wribbon  whair     0   48  -36  wbun       0     0    0
+joint wljf4n   wlf4t     0    0 -2.6  wlf4n      0   2.6    0
+joint wrjf4n   wrf4t     0    0 -2.6  wrf4n      0   2.6    0
+joint wljf3n   wlf3t     0  0.8 -3.1  wlf3n      0   2.6    0
+joint wrjf3n   wrf3t     0  0.8 -3.1  wrf3n      0   2.6    0
+joint wljf2n   wlf2t     0  0.8 -3.1  wlf2n      0   2.8    0
+joint wrjf2n   wrf2t     0  0.8 -3.1  wrf2n      0   2.8    0
+joint wljf1n   wlf1t     0  0.8 -3.1  wlf1n      0   2.6    0
+joint wrjf1n   wrf1t     0  0.8 -3.1  wrf1n      0   2.6    0
+joint wljthn   wltht     0    0 -3.1  wlthn      0   2.6    0
+joint wrjthn   wrtht     0    0 -3.1  wrthn      0   2.6    0
+joint wljf4t   wlf4t     0  3.0    0  wlf4m      0  -4.2    0
+joint wrjf4t   wrf4t     0  3.0    0  wrf4m      0  -4.2    0
+joint wljf3t   wlf3t     0  5.0    0  wlf3m      0  -5.5    0
+joint wrjf3t   wrf3t     0  5.0    0  wrf3m      0  -5.5    0
+joint wljf2t   wlf2t     0  5.3    0  wlf2m      0  -5.9    0
+joint wrjf2t   wrf2t     0  5.3    0  wrf2m      0  -5.9    0
+joint wljf1t   wlf1t     0  5.0    0  wlf1m      0  -5.4    0
+joint wrjf1t   wrf1t     0  5.0    0  wrf1m      0  -5.4    0
+joint wljtht   wltht     0  3.8    0  wlthm      0  -5.0    0
+joint wrjtht   wrtht     0  3.8    0  wrthm      0  -5.0    0
+joint wljf4m   wlf4m     0  3.8    0  wlf4b      0  -3.8    0
+joint wrjf4m   wrf4m     0  3.8    0  wrf4b      0  -3.8    0
+joint wljf3m   wlf3m     0  5.7    0  wlf3b      0  -7.2    0
+joint wrjf3m   wrf3m     0  5.7    0  wrf3b      0  -7.2    0
+joint wljf2m   wlf2m     0  6.1    0  wlf2b      0  -7.9    0
+joint wrjf2m   wrf2m     0  6.1    0  wrf2b      0  -7.9    0
+joint wljf1m   wlf1m     0  5.8    0  wlf1b      0  -7.1    0
+joint wrjf1m   wrf1m     0  5.8    0  wrf1b      0  -7.1    0
+joint wljthm   wlthm     0  6.2    0  wlthb   -4.5  -7.6  0.2
+joint wrjthm   wrthm     0  6.2    0  wrthb   +4.5  -7.6  0.2
+joint wljf4b   wlf4b     0  4.0    0  wlcar  +12.7  -4.5    0
+joint wrjf4b   wrf4b     0  4.0    0  wrcar  -12.7  -4.5    0
+joint wljf3b   wlf3b     0  6.9    0  wlcar   +4.3  -6.1    0
+joint wrjf3b   wrf3b     0  6.9    0  wrcar   -4.3  -6.1    0
+joint wljf2b   wlf2b     0  7.6    0  wlcar     -5  -6.1    0
+joint wrjf2b   wrf2b     0  7.6    0  wrcar     +5  -6.1    0
+joint wljf1b   wlf1b     0  7.1    0  wlcar  -13.9  -4.4    0
+joint wrjf1b   wrf1b     0  7.1    0  wrcar  +13.9  -4.4    0
+joint wlpalm   wlthb   2.8  9.4    0  wlih    -3.6  11.0 -0.2
+joint wrpalm   wrthb  -2.8  9.4    0  wrih    +3.6  11.0 -0.2
+joint wljftm   wlcar     0    0    0  wlhand     0 -13.9  0.2
+joint wrjftm   wrcar     0    0    0  wrhand     0 -13.9  0.2
+joint wljhbm   wlbh      0    0    0  wlhand  -1.2  12.7 -0.2
+joint wrjhbm   wrbh      0    0    0  wrhand  +1.2  12.7 -0.2
+joint wljhom   wloh      0    0    0  wlhand +10.8     0    0
+joint wrjhom   wroh      0    0    0  wrhand -10.8     0    0
+joint wljhim   wlih      0    0    0  wlhand -10.8     0    0
+joint wrjhim   wrih      0    0    0  wrhand +10.8     0    0
+*
+repeat 0 1 colour whair    64  64   0
+repeat 0 1 colour wbun     64  64   0
+*
+repeat 0 1 colour wlshd    255  64  64
+repeat 0 1 colour wrshd    255  64  64
+repeat 0 1 colour wshldrs  255  64  64
+repeat 0 1 colour wlbrst   255  64  64
+repeat 0 1 colour wrbrst   255  64  64
+repeat 0 1 colour wstomach 255  64  64
+repeat 0 1 colour wchest   255  64  64
+repeat 0 1 colour wpelvis  255  64  64
+*
+repeat 0 1 colour wlheel   255  64  64
+repeat 0 1 colour wrheel   255  64  64
+repeat 0 1 colour wlball   255  64  64
+repeat 0 1 colour wrball   255  64  64
+repeat 0 1 colour wlbtoe   255  64  64
+repeat 0 1 colour wrbtoe   255  64  64
+repeat 0 1 colour wltoe2   255  64  64
+repeat 0 1 colour wrtoe2   255  64  64
+repeat 0 1 colour wltoe3   255  64  64
+repeat 0 1 colour wrtoe3   255  64  64
+repeat 0 1 colour wltoe4   255  64  64
+repeat 0 1 colour wrtoe4   255  64  64
+repeat 0 1 colour wltoe5   255  64  64
+repeat 0 1 colour wrtoe5   255  64  64
+repeat 0 1 colour wltoes   255  64  64
+repeat 0 1 colour wrtoes   255  64  64
+repeat 0 1 colour wlnkle   255  64  64
+repeat 0 1 colour wrnkle   255  64  64
+repeat 0 1 colour wlfoot   255  64  64
+repeat 0 1 colour wrfoot   255  64  64
+repeat 0 1 colour wlleg    255  64  64
+repeat 0 1 colour wrleg    255  64  64
+repeat 0 1 colour wlnee    255  64  64
+repeat 0 1 colour wrnee    255  64  64
+repeat 0 1 colour wlthigh  255  64  64
+repeat 0 1 colour wrthigh  255  64  64
+repeat 0 1 colour wluarm   255  64  64
+repeat 0 1 colour wruarm   255  64  64
+repeat 0 1 colour wlhumrs  255  64  64
+repeat 0 1 colour wrhumrs  255  64  64
+repeat 0 1 colour wllarm   255  64  64
+repeat 0 1 colour wrlarm   255  64  64
+*
+linear 0 1 abduct wlshd  wljshd   -45
+linear 0 1 abduct wrshd  wrjshd   -45
+linear 0 1 flex   wnose  wface    -30
+linear 0 1 flex   wbun   wribbon   45
+linear 0 1 flex   whair  wscalp     5
+linear 0 1 flex   wlheel wlshoe   -50
+linear 0 1 flex   wrheel wrshoe   -50
+linear 0 1 flex   wlfoot wlankle   50
+linear 0 1 flex   wrfoot wrankle   50
+linear 0 1 grofig gloria wpelvis   1 0.9 1
+*
+*      frank
+*             Don Herbison-Evans  5 January 1996
+*
+figure frank 89
+    mlball  mrball mlbtoe  mrbtoe  mltoe2  mrtoe2 mltoe3  mrtoe3
+    mltoe4  mrtoe4 mltoe5  mrtoe5  mltoes  mrtoes mlnkle  mrnkle
+    mlfoot  mrfoot mlleg   mrleg   mlnee   mrnee  mlthigh mrthigh
+    mluarm  mruarm mlhumrs mrhumrs mllarm  mrlarm mlhand  mrhand
+    mlf4t   mrf4t  mlf4m   mrf4m   mlf4b   mrf4b  mlf4n   mrf4n
+    mlf3t   mrf3t  mlf3m   mrf3m   mlf3b   mrf3b  mlf3n   mrf3n
+    mlf2t   mrf2t  mlf2m   mrf2m   mlf2b   mrf2b  mlf2n   mrf2n
+    mlf1t   mrf1t  mlf1m   mrf1m   mlf1b   mrf1b  mlf1n   mrf1n
+    mltht   mrtht  mlthm   mrthm   mlthb   mrthb  mlthn   mrthn
+    mlcar   mrcar  mlbh    mrbh    mloh    mroh   mlih    mrih
+    mpelvis mchest mlshd   mrshd   mshldrs mstomach
+    mneck   mhead  mnose   mhair
+*
+ellipsoid mlball   22   15  12
+ellipsoid mrball   22   15  12
+ellipsoid mlbtoe    8   12   6
+ellipsoid mrbtoe    8   12   6
+ellipsoid mltoe2    8   10   6
+ellipsoid mrtoe2    8   10   6
+ellipsoid mltoe3    8    8   6
+ellipsoid mrtoe3    8    8   6
+ellipsoid mltoe4    8    6   6
+ellipsoid mrtoe4    8    6   6
+ellipsoid mltoe5    8    4   6
+ellipsoid mrtoe5    8    4   6
+ellipsoid mltoes   22   12   8
+ellipsoid mrtoes   22   12   8
+ellipsoid mlnkle   18   18  18
+ellipsoid mrnkle   18   18  18
+ellipsoid mlfoot   24   35  12
+ellipsoid mrfoot   24   35  12
+ellipsoid mlleg    24  120  24
+ellipsoid mrleg    24  120  24
+ellipsoid mlnee    25   30  25
+ellipsoid mrnee    25   30  25
+ellipsoid mlthigh  30  120  36
+ellipsoid mrthigh  30  120  36
+ellipsoid mluarm   24   81  24
+ellipsoid mruarm   24   81  24
+ellipsoid mlhumrs  18   18  18
+ellipsoid mrhumrs  18   18  18
+ellipsoid mllarm   17   72  17
+ellipsoid mrlarm   17   72  17
+ellipsoid mneck    18   36  18
+ellipsoid mhead    44   60  48
+ellipsoid mnose    12   12  36
+ellipsoid mhair    46   59  50
+ellipsoid mlf4n   1.9  2.8   1 * nail mlittle finger
+ellipsoid mrf4n   1.9  2.8   1
+ellipsoid mlf4t   2.9  4.0 2.9 * tip mlittle finger
+ellipsoid mrf4t   2.9  4.0 2.9
+ellipsoid mlf4m   3.4  4.2 3.4 * middle of mlittle finger
+ellipsoid mrf4m   3.4  4.2 3.4
+ellipsoid mlf4b   3.4  6.9 3.4 * base of mlittle finger
+ellipsoid mrf4b   3.4  6.9 3.4
+ellipsoid mlf3n   2.6  3.0   1 * mring finger
+ellipsoid mrf3n   2.6  3.0   1
+ellipsoid mlf3t   3.4  5.7 3.4
+ellipsoid mrf3t   3.4  5.7 3.4
+ellipsoid mlf3m   3.8  6.6 3.8
+ellipsoid mrf3m   3.8  6.6 3.8
+ellipsoid mlf3b   4.3 10.0 4.3
+ellipsoid mrf3b   4.3 10.0 4.3
+ellipsoid mlf2n   2.4  3.4   1 * middle finger
+ellipsoid mrf2n   2.4  3.4   1
+ellipsoid mlf2t   3.6  5.9 3.4
+ellipsoid mrf2t   3.6  5.9 3.4
+ellipsoid mlf2m   4.3  7.1 3.8
+ellipsoid mrf2m   4.3  7.1 3.8
+ellipsoid mlf2b   4.8 10.5 4.3
+ellipsoid mrf2b   4.8 10.5 4.3
+ellipsoid mlf1n   2.4  2.8   1 * index finger
+ellipsoid mrf1n   2.4  2.8   1
+ellipsoid mlf1t   3.4  5.7 3.4
+ellipsoid mrf1t   3.4  5.7 3.4
+ellipsoid mlf1m   3.8  6.9 3.8
+ellipsoid mrf1m   3.8  6.9 3.8
+ellipsoid mlf1b   4.3 10.0 4.3
+ellipsoid mrf1b   4.3 10.0 4.3
+ellipsoid mlthn   2.6  2.8   1 *thumb
+ellipsoid mrthn   2.6  2.8   1
+ellipsoid mltht   3.6  4.5 3.4
+ellipsoid mrtht   3.6  4.5 3.4
+ellipsoid mlthm   4.8  8.3 4.3
+ellipsoid mrthm   4.8  8.3 4.3
+ellipsoid mlthb   7.2 14.1 7.2
+ellipsoid mrthb   7.2 14.1 7.2
+ellipsoid mlcar  16.1  7.6 4.8
+ellipsoid mrcar  16.1  7.6 4.8
+ellipsoid mlbh   16.1  6.9 7.2
+ellipsoid mrbh   16.1  6.9 7.2
+ellipsoid mloh      6 17.2   6
+ellipsoid mroh      6 17.2   6
+ellipsoid mlih      6 17.2   6
+ellipsoid mrih      6 17.2   6
+ellipsoid mlhand 16.1 15.4   6
+ellipsoid mrhand 16.1 15.4   6
+ellipsoid mpelvis  70   45  45
+ellipsoid mchest   75  110  45
+ellipsoid mstomach 65   80  40
+ellipsoid mshldrs  93   30  24
+ellipsoid mlshd    28   58  18
+ellipsoid mrshd    28   58  18
+*
+joint mljshd   mshldrs -87    0    0  mlshd      0    40    0
+joint mrjshd   mshldrs +87    0    0  mrshd      0    40    0
+joint mthorax  mshldrs   0    0    0  mchest     0    75    0
+joint mribs    mchest    0  -40    0  mstomach   0    50    0
+joint mwaist   mstomach  0  -50    0  mpelvis    0    22    0
+joint mljball  mlball    0    0    0  mlfoot     0   -20    0
+joint mrjball  mrball    0    0    0  mrfoot     0   -20    0
+joint mltarsl  mltoes    0    0    0  mlball     0   -10   -2
+joint mrtarsl  mrtoes    0    0    0  mrball     0   -10   -2
+joint mlmetab  mlbtoe    0   10    0  mltoes    14    -4   -2
+joint mrmetab  mrbtoe    0   10    0  mrtoes   -14    -4   -2
+joint mlmeta2  mltoe2    0    8    0  mltoes     7    -4   -2
+joint mrmeta2  mrtoe2    0    8    0  mrtoes    -7    -4   -2
+joint mlmeta3  mltoe3    0    6    0  mltoes     0    -4   -2
+joint mrmeta3  mrtoe3    0    6    0  mrtoes     0    -4   -2
+joint mlmeta4  mltoe4    0    4    0  mltoes    -7    -4   -2
+joint mrmeta4  mrtoe4    0    4    0  mrtoes     7    -4   -2
+joint mlmeta5  mltoe5    0    2    0  mltoes   -14    -4   -2
+joint mrmeta5  mrtoe5    0    2    0  mrtoes    14    -4   -2
+joint mlankle  mlfoot    0   23    0  mlleg      0  -111    0
+joint mrankle  mrfoot    0   23    0  mrleg      0  -111    0
+joint mlkle    mlleg     0 -111    0  mlnkle     0     0    0
+joint mrkle    mrleg     0 -111    0  mrnkle     0     0    0
+joint mlknee   mlleg     0  111    0  mlthigh    0  -105    0
+joint mrknee   mrleg     0  111    0  mrthigh    0  -105    0
+joint mlee     mlleg     0  111    0  mlnee      0     0    0
+joint mree     mrleg     0  111    0  mrnee      0     0    0
+joint mlhip    mlthigh   0   90    0  mpelvis  -36     0    0
+joint mrhip    mrthigh   0   90    0  mpelvis   36     0    0
+joint mlshldr  mshldrs -87    0    0  mluarm     0    72    0
+joint mrshldr  mshldrs +87    0    0  mruarm     0    72    0
+joint mlelbow  mluarm    0  -69    0  mllarm     0    58    0
+joint mrelbow  mruarm    0  -69    0  mrlarm     0    58    0
+joint mlbow    mluarm    0  -69    0  mlhumrs    0     0    0
+joint mrbow    mruarm    0  -69    0  mrhumrs    0     0    0
+joint mlwrist  mlhand    0   12    0  mllarm     0   -62    0
+joint mrwrist  mrhand    0   12    0  mrlarm     0   -62    0
+joint mscalp   mhead     0  3.6 -3.6  mhair      0     0    0
+joint mface    mhead     0    0   33  mnose      0     0    0
+joint mthroat  mhead     0  -60    0  mneck      0    12    0
+joint mspine   mneck     0   -6    0  mshldrs    0    24    0
+joint mljf4n   mlf4t     0    0 -2.6  mlf4n      0   2.6    0
+joint mrjf4n   mrf4t     0    0 -2.6  mrf4n      0   2.6    0
+joint mljf3n   mlf3t     0  0.8 -3.1  mlf3n      0   2.6    0
+joint mrjf3n   mrf3t     0  0.8 -3.1  mrf3n      0   2.6    0
+joint mljf2n   mlf2t     0  0.8 -3.1  mlf2n      0   2.8    0
+joint mrjf2n   mrf2t     0  0.8 -3.1  mrf2n      0   2.8    0
+joint mljf1n   mlf1t     0  0.8 -3.1  mlf1n      0   2.6    0
+joint mrjf1n   mrf1t     0  0.8 -3.1  mrf1n      0   2.6    0
+joint mljthn   mltht     0    0 -3.1  mlthn      0   2.6    0
+joint mrjthn   mrtht     0    0 -3.1  mrthn      0   2.6    0
+joint mljf4t   mlf4t     0  3.0    0  mlf4m      0  -4.2    0
+joint mrjf4t   mrf4t     0  3.0    0  mrf4m      0  -4.2    0
+joint mljf3t   mlf3t     0  5.0    0  mlf3m      0  -5.5    0
+joint mrjf3t   mrf3t     0  5.0    0  mrf3m      0  -5.5    0
+joint mljf2t   mlf2t     0  5.3    0  mlf2m      0  -5.9    0
+joint mrjf2t   mrf2t     0  5.3    0  mrf2m      0  -5.9    0
+joint mljf1t   mlf1t     0  5.0    0  mlf1m      0  -5.4    0
+joint mrjf1t   mrf1t     0  5.0    0  mrf1m      0  -5.4    0
+joint mljtht   mltht     0  3.8    0  mlthm      0  -5.0    0
+joint mrjtht   mrtht     0  3.8    0  mrthm      0  -5.0    0
+joint mljf4m   mlf4m     0  3.8    0  mlf4b      0  -3.8    0
+joint mrjf4m   mrf4m     0  3.8    0  mrf4b      0  -3.8    0
+joint mljf3m   mlf3m     0  5.7    0  mlf3b      0  -7.2    0
+joint mrjf3m   mrf3m     0  5.7    0  mrf3b      0  -7.2    0
+joint mljf2m   mlf2m     0  6.1    0  mlf2b      0  -7.9    0
+joint mrjf2m   mrf2m     0  6.1    0  mrf2b      0  -7.9    0
+joint mljf1m   mlf1m     0  5.8    0  mlf1b      0  -7.1    0
+joint mrjf1m   mrf1m     0  5.8    0  mrf1b      0  -7.1    0
+joint mljthm   mlthm     0  6.2    0  mlthb   -4.5  -7.6  0.2
+joint mrjthm   mrthm     0  6.2    0  mrthb   +4.5  -7.6  0.2
+joint mljf4b   mlf4b     0  4.0    0  mlcar  +12.7  -4.5    0
+joint mrjf4b   mrf4b     0  4.0    0  mrcar  -12.7  -4.5    0
+joint mljf3b   mlf3b     0  6.9    0  mlcar   +4.3  -6.1    0
+joint mrjf3b   mrf3b     0  6.9    0  mrcar   -4.3  -6.1    0
+joint mljf2b   mlf2b     0  7.6    0  mlcar     -5  -6.1    0
+joint mrjf2b   mrf2b     0  7.6    0  mrcar     +5  -6.1    0
+joint mljf1b   mlf1b     0  7.1    0  mlcar  -13.9  -4.4    0
+joint mrjf1b   mrf1b     0  7.1    0  mrcar  +13.9  -4.4    0
+joint mlpalm   mlthb   2.8  9.4    0  mlih    -3.6  11.0 -0.2
+joint mrpalm   mrthb  -2.8  9.4    0  mrih    +3.6  11.0 -0.2
+joint mljftm   mlcar     0    0    0  mlhand     0 -13.9  0.2
+joint mrjftm   mrcar     0    0    0  mrhand     0 -13.9  0.2
+joint mljhbm   mlbh      0    0    0  mlhand  -1.2  12.7 -0.2
+joint mrjhbm   mrbh      0    0    0  mrhand  +1.2  12.7 -0.2
+joint mljhom   mloh      0    0    0  mlhand +10.8     0    0
+joint mrjhom   mroh      0    0    0  mrhand -10.8     0    0
+joint mljhim   mlih      0    0    0  mlhand -10.8     0    0
+joint mrjhim   mrih      0    0    0  mrhand +10.8     0    0
+*
+repeat 0 1 colour mhair    64  64   0
+*
+repeat 0 1 colour mlshd    128 128 255
+repeat 0 1 colour mrshd    128 128 255
+repeat 0 1 colour mshldrs  128 128 255
+repeat 0 1 colour mstomach 128 128 255
+repeat 0 1 colour mchest   128 128 255
+repeat 0 1 colour mpelvis  128 128 255
+*
+repeat 0 1 colour mlball   128 128 255
+repeat 0 1 colour mrball   128 128 255
+repeat 0 1 colour mlbtoe   128 128 255
+repeat 0 1 colour mrbtoe   128 128 255
+repeat 0 1 colour mltoe2   128 128 255
+repeat 0 1 colour mrtoe2   128 128 255
+repeat 0 1 colour mltoe3   128 128 255
+repeat 0 1 colour mrtoe3   128 128 255
+repeat 0 1 colour mltoe4   128 128 255
+repeat 0 1 colour mrtoe4   128 128 255
+repeat 0 1 colour mltoe5   128 128 255
+repeat 0 1 colour mrtoe5   128 128 255
+repeat 0 1 colour mltoes   128 128 255
+repeat 0 1 colour mrtoes   128 128 255
+repeat 0 1 colour mlnkle   128 128 255
+repeat 0 1 colour mrnkle   128 128 255
+repeat 0 1 colour mlfoot   128 128 255
+repeat 0 1 colour mrfoot   128 128 255
+repeat 0 1 colour mlleg    128 128 255
+repeat 0 1 colour mrleg    128 128 255
+repeat 0 1 colour mlnee    128 128 255
+repeat 0 1 colour mrnee    128 128 255
+repeat 0 1 colour mlthigh  128 128 255
+repeat 0 1 colour mrthigh  128 128 255
+repeat 0 1 colour mluarm   128 128 255
+repeat 0 1 colour mruarm   128 128 255
+repeat 0 1 colour mlhumrs  128 128 255
+repeat 0 1 colour mrhumrs  128 128 255
+repeat 0 1 colour mllarm   128 128 255
+repeat 0 1 colour mrlarm   128 128 255
+*
+linear 0 1 abduct mlshd  mljshd   -45
+linear 0 1 abduct mrshd  mrjshd   -45
+linear 0 1 flex   mnose  mface    -30
+linear 0 1 flex   mhair  mscalp     5
+linear 0 1 flex   mlfoot mlankle   90
+linear 0 1 flex   mrfoot mrankle   90
+*
+*
+*
+variable 4 frelax dshado eshado fshado
+variable 6 tx ty tz wx wy wz
+variable 6 jx jy jz mx my mz
+*
+*   main program -
+*
+quadra   0    1 spinby  room   joist   world  90 y
+repeat   0    1 moveto  room   joist   -500  -1  500
+*
+quadra   0    1 spinby  every  joist   world  -1 y
+quadra   0    1 spinby  every  joist   world  -1 x
+*
+call     0    1 setup
+call     0    1 setfig
+repeat   0    1 moveto  frank  mpelvis  500   0  100
+quadra   0    1 spinby  frank  mlfoot  world 135 y
+quadra   0    1 spinby  gloria wlfoot  world 135 y
+*
+call     0  769 merrilyn
+*
+repeat   0  771 call    doplace
+*
+*end main program
+***************************************
+
+subroutine setfig
+*
+*  set up figures
+*
+linear   0   1 flex   mrthb mrpalm   +10
+linear   0   1 flex   mlthb mlpalm   +10
+linear   0   1 flex   wrthb wrpalm   +10
+linear   0   1 flex   wlthb wlpalm   +10
+*
+end setfig
+**************************************
+*
+subroutine merrilyn
+repeat   0    1 set     dshado 1
+repeat   0    1 set     eshado 0
+repeat   0    1 set     fshado 1
+call     0    1 sshadow
+call     0  768 mmerln
+call     0  768 wmerln
+repeat   0  600 call    msshadow
+repeat 600  601 set     frelax 12
+call   600  610 relax
+call   636  648 single
+repeat 648  649 set     frelax 12
+call   648  660 relax 
+call   660  672 closed
+repeat 672  756 call    mclosed
+repeat 756  757 set     frelax 4
+call   756  761 relax 
+repeat 765  766 set     dshado 2
+repeat 765  766 set     eshado 2
+repeat 765  766 set     fshado 3
+call   765  768 sshadow
+end merrilyn
+****************************************
+*
+subroutine setup
+*
+*   set up values of variables
+*
+variables 2 ptwist ntwist
+variables 6 afoot  aleg   athigh  aankle aknee ahip
+variables 6 bfoot  bleg   bthigh  bankle bknee bhip
+variables 4 achest aribs  apelvis afig
+*
+variables 4 mpang  mnang  mhpang  mhnang
+variables 4 wpang  wnang  whpang  whnang
+variables 2 dpang  dnang
+variables 2 pang   nang
+variables 1 half
+variables 4 apang  anang  hpang  hnang
+variables 6 fcro1  fcro2  fcro3  bcro1  bcro2  bcro3
+variables 6 hrabd1 hrabd2 hrabd3 hlabd1 hlabd2 hlabd3
+variables 6 hfflx1 hfflx2 hfflx3 hbflx1 hbflx2 hbflx3
+variables 3 blcro1 blcro2 blcro3
+variables 6 aabd1  aabd2  aabd3  babd1  babd2  babd3
+variables 3 flx1   flx2   flx3
+variables 3 bflx1  bflx2  bflx3
+variables 6 pabd1  pabd2  pabd3  nabd1  nabd2  nabd3
+variables 2 a2pang a2nang
+variables 3 flab1  flab2  flab3
+*
+variables 3 ax     ay     az
+variables 3 bx     by     bz
+variables 4 px     py     pz     sepn
+*
+repeat 0 1 axes   mpelvis mx my mz
+repeat 0 1 axes   mlthigh tx ty tz
+linear 0 1 add    wx      mx tx
+repeat 0 1 set    wy      0
+linear 0 1 add    wz      mz mz
+repeat 0 1 axes   wpelvis px py pz
+linear 0 1 add    sepn    mz pz
+linear 0 1 negate sepn
+*
+repeat  0  1 set ptwist +20
+repeat  0  1 set ntwist -20
+*
+repeat  0  1 set mpang +20
+repeat  0  1 set mnang mpang
+repeat  0  1 neg mnang
+repeat  0  1 set wpang +22
+repeat  0  1 set wnang wpang
+repeat  0  1 neg wnang
+*
+repeat  0  1 set dpang +10
+repeat  0  1 set dnang dpang
+repeat  0  1 neg dnang
+*
+repeat  0  1 set half 2
+repeat  0  1 inv half
+repeat  0  1 mul mhpang mpang half
+repeat  0  1 mul mhnang mnang half
+repeat  0  1 mul whpang wpang half
+repeat  0  1 mul whnang wnang half
+*
+linear  0  1 abduct mlthigh mlhip   +30
+repeat  0  1 angles mlthigh mpelvis pabd1 pabd2 pabd3
+repeat  0  1 bendto mlthigh mlhip   mpelvis 0 0 0
+*
+linear  0  1 abduct mlthigh mlhip   -30
+repeat  0  1 angles mlthigh mpelvis nabd1 nabd2 nabd3
+repeat  0  1 bendto mlthigh mlhip   mpelvis 0 0 0
+*
+linear  0  1 abduct mrthigh mrhip   -30
+linear  0  1 flex   mrthigh mrhip   dnang
+repeat  0  1 angles mrthigh mpelvis bcro1 bcro2 bcro3
+repeat  0  1 bendto mrthigh mrhip   mpelvis 0 0 0
+*
+linear  0  1 flex   mlthigh mlhip   dpang
+linear  0  1 flex   mlthigh mlhip   mpang
+linear  0  1 abduct mlthigh mlhip   -20
+repeat  0  1 angles mlthigh mpelvis fcro1 fcro2 fcro3
+repeat  0  1 bendto mlthigh mlhip   mpelvis 0 0 0
+*
+linear  0  1 abduct mlthigh mlhip   -20
+linear  0  1 flex   mlthigh mlhip   mpang
+repeat  0  1 angles mlthigh mpelvis hlabd1 hlabd2 hlabd3
+repeat  0  1 bendto mlthigh mlhip   mpelvis 0 0 0
+*
+linear  0  1 abduct mrthigh mrhip   -20
+repeat  0  1 angles mrthigh mpelvis hrabd1 hrabd2 hrabd3
+repeat  0  1 bendto mrthigh mrhip   mpelvis 0 0 0
+*
+linear  0  1 abduct mlthigh mlhip   -20
+linear  0  1 flex   mlthigh mlhip   mnang
+repeat  0  1 angles mlthigh mpelvis blcro1 blcro2 blcro3
+repeat  0  1 bendto mlthigh mlhip   mpelvis 0 0 0
+*
+linear  0  1 flex   mrthigh mrhip   dpang
+repeat  0  1 angles mrthigh mpelvis hfflx1 hfflx2 hfflx3
+repeat  0  1 bendto mrthigh mrhip   mpelvis 0 0 0
+*
+linear  0  1 flex   mrthigh mrhip   dnang
+repeat  0  1 angles mrthigh mpelvis hbflx1 hbflx2 hbflx3
+repeat  0  1 bendto mrthigh mrhip   mpelvis 0 0 0
+*
+linear  0  1 flex   mlthigh mlhip   mnang
+repeat  0  1 angles mlthigh mpelvis bflx1 bflx2 bflx3
+repeat  0  1 bendto mlthigh mlhip   mpelvis 0 0 0
+*
+linear  0  1 flex   mlthigh mlhip   mpang
+repeat  0  1 angles mlthigh mpelvis flx1 flx2 flx3
+repeat  0  1 bendto mlthigh mlhip   mpelvis 0 0 0
+*
+linear  0  1 flex   mruarm  mrshldr mpang
+linear  0  1 abduct mruarm  mrshldr mnang
+repeat  0  1 angles mruarm  mshldrs flab1 flab2 flab3
+repeat  0  1 bendto mruarm  mrshldr mshldrs 0 0 0
+*
+end setup
+********************************************
+*
+subroutine mmerln
+*
+*   man doing the Merrilyn
+*
+*   in 768 frames
+*
+repeat   0  24 call setaml
+call     0  24             start
+repeat  24  48 call setamr
+call    24  48             forward
+repeat  48  60 call setaml
+call    48  60             chasse
+repeat  60  72 call setamr
+call    60  72             close
+repeat  72  96 call setaml
+call    72  96             bacche
+repeat  96 120 call setamr
+call    96 120             replace
+repeat 120 144 call setaml
+call   120 144             forward
+repeat 144 156 call setamr
+call   144 156             chasse
+repeat 156 168 call setaml
+call   156 168             close
+repeat 168 192 call setamr
+call   168 192             bacche
+repeat 192 216 call setaml
+call   192 216             replace
+quadra 204 216 spinby frank mlfoot world -45 y
+repeat 216 240 call setamr
+call   216 240             forward
+quadra 228 240 spinby frank mrfoot world +45 y
+repeat 240 252 call setaml
+call   240 252             chasse
+repeat 252 264 call setamr
+call   252 264             close
+repeat 264 288 call setaml
+call   264 288             side
+repeat 288 312 call setamr
+call   288 312             forward
+quadra 300 312 spinby frank mrfoot world +45 y
+repeat 312 336 call setaml
+call   312 336             forward
+quadra 324 336 spinby frank mlfoot world -45 y
+repeat 336 348 call setamr
+call   336 348             chasse
+repeat 348 360 call setaml
+call   348 360             close
+repeat 360 384 call setamr
+call   360 384             side
+repeat 384 408 call setaml
+call   384 408             forward
+repeat 408 432 call setamr
+call   408 432             forward
+repeat 432 444 call setaml
+call   432 444             crsfor
+repeat 444 456 call setamr
+call   444 456             lckfor
+repeat 456 480 call setaml
+call   456 480             arlfor
+repeat 480 504 call setamr
+call   480 504             swgbck
+repeat 504 528 call setaml
+call   504 528             back
+repeat 528 540 call setamr
+call   528 540             crsbck
+repeat 540 552 call setaml
+call   540 552             lckbck
+repeat 552 576 call setamr
+call   552 576             check
+repeat 576 600 call setaml
+call   576 600             replace
+repeat 600 624 call setamr
+call   600 624             forward
+quadra 612 630 spinby frank mrfoot world 90 y
+repeat 624 648 call setaml
+call   624 648             separate
+repeat 648 672 call setamr
+call   648 672             breplace
+repeat 672 696 call setaml
+call   672 696             rotary
+repeat 696 720 call setamr
+call   696 720             rotary
+repeat 720 744 call setaml
+call   720 744             rotary
+repeat 744 768 call setamr
+call   744 768             mrotend
+end mmerln
+****************************************
+*
+subroutine wmerln
+*
+*   woman doing the Merrilyn
+*
+*   in 768 frames
+*
+repeat   0  24 call setawl
+call     0  24             start
+repeat  24  48 call setawr
+call    24  48             forward
+repeat  48  60 call setawl
+call    48  60             chasse
+repeat  60  72 call setawr
+call    60  72             close
+repeat  72  96 call setawl
+call    72  96             bacche
+repeat  96 120 call setawr
+call    96 120             replace
+repeat 120 144 call setawl
+call   120 144             forward
+repeat 144 156 call setawr
+call   144 156             chasse
+repeat 156 168 call setawl
+call   156 168             close
+repeat 168 192 call setawr
+call   168 192             bacche
+repeat 192 216 call setawl
+call   192 216             replace
+quadra 204 216 spinby gloria wlfoot world -45 y
+repeat 216 240 call setawr
+call   216 240             forward
+quadra 228 240 spinby gloria wrfoot world +45 y
+repeat 240 252 call setawl
+call   240 252             chasse
+repeat 252 264 call setawr
+call   252 264             close
+repeat 264 288 call setawl
+call   264 288             side
+repeat 288 312 call setawr
+call   288 312             forward
+quadra 300 312 spinby gloria wrfoot world +45 y
+repeat 312 336 call setawl
+call   312 336             forward
+quadra 324 336 spinby gloria wlfoot world -45 y
+repeat 336 348 call setawr
+call   336 348             chasse
+repeat 348 360 call setawl
+call   348 360             close
+repeat 360 384 call setawr
+call   360 384             side
+repeat 384 408 call setawl
+call   384 408             forward
+repeat 408 432 call setawr
+call   408 432             forward
+repeat 432 444 call setawl
+call   432 444             crsfor
+repeat 444 456 call setawr
+call   444 456             lckfor
+repeat 456 480 call setawl
+call   456 480             arlfor
+repeat 480 504 call setawr
+call   480 504             swgbck
+repeat 504 528 call setawl
+call   504 528             back
+repeat 528 540 call setawr
+call   528 540             crsbck
+repeat 540 552 call setawl
+call   540 552             lckbck
+repeat 552 576 call setawr
+call   552 576             check
+repeat 576 600 call setawl
+call   576 600             replace
+repeat 600 624 call setawr
+call   600 624             forward
+quadra 612 630 spinby gloria wrfoot world 270 y
+repeat 624 648 call setawl
+call   624 648             separate
+repeat 648 672 call setawr
+call   648 672             breplace
+repeat 672 696 call setawl
+call   672 696             rotary
+repeat 696 720 call setawr
+call   696 720             rotary
+repeat 720 744 call setawl
+call   720 744             rotary
+repeat 744 768 call setawr
+call   744 768             wrotend
+*
+end wmerln
+********************************************
+*
+subroutine setaml
+*
+*   set a for man's left and b for his right
+*
+lin 0 1 set afig    frank
+lin 0 1 set achest  mchest
+lin 0 1 set aribs   mribs 
+lin 0 1 set apelvis mpelvis
+lin 0 1 set afoot   mlfoot
+lin 0 1 set bfoot   mrfoot
+lin 0 1 set aleg    mlleg
+lin 0 1 set bleg    mrleg
+lin 0 1 set athigh  mlthigh
+lin 0 1 set bthigh  mrthigh
+*
+lin 0 1 set aankle   mlankle
+lin 0 1 set bankle   mrankle
+lin 0 1 set aknee   mlknee
+lin 0 1 set bknee   mrknee
+lin 0 1 set ahip    mlhip
+lin 0 1 set bhip    mrhip
+*
+lin 0 1 set pang    mpang
+lin 0 1 set nang    mnang
+lin 0 1 set apang   mpang
+lin 0 1 set anang   mnang
+lin 0 1 set hpang   mhpang
+lin 0 1 set hnang   mhnang
+lin 0 1 set a2pang  apang
+lin 0 1 add a2pang  a2pang a2pang
+lin 0 1 set a2nang  anang
+lin 0 1 add a2nang  a2nang a2nang
+lin 0 1 set aabd1    pabd1
+lin 0 1 set aabd2    pabd2
+lin 0 1 set aabd3    pabd3
+lin 0 1 set babd1    nabd1
+lin 0 1 set babd2    nabd2
+lin 0 1 set babd3    nabd3
+*
+end setaml
+******************************************
+*
+subroutine setamr
+*
+*   set a for man's right and b for his left
+*
+lin 0 1 set afig    frank
+lin 0 1 set achest  mchest
+lin 0 1 set aribs   mribs 
+lin 0 1 set apelvis mpelvis
+lin 0 1 set afoot   mrfoot
+lin 0 1 set bfoot   mlfoot
+lin 0 1 set aleg    mrleg
+lin 0 1 set bleg    mlleg
+lin 0 1 set athigh  mrthigh
+lin 0 1 set bthigh  mlthigh
+*
+lin 0 1 set aankle   mrankle
+lin 0 1 set bankle   mlankle
+lin 0 1 set aknee   mrknee
+lin 0 1 set bknee   mlknee
+lin 0 1 set ahip    mrhip
+lin 0 1 set bhip    mlhip
+*
+lin 0 1 set pang    mnang
+lin 0 1 set nang    mpang
+lin 0 1 set apang   mpang
+lin 0 1 set anang   mnang
+lin 0 1 set hpang   mhnang
+lin 0 1 set hnang   mhpang
+lin 0 1 set a2pang  apang
+lin 0 1 add a2pang  a2pang a2pang
+lin 0 1 set a2nang  anang
+lin 0 1 add a2nang  a2nang a2nang
+lin 0 1 set aabd1    nabd1
+lin 0 1 set aabd2    nabd2
+lin 0 1 set aabd3    nabd3
+lin 0 1 set babd1    pabd1
+lin 0 1 set babd2    pabd2
+lin 0 1 set babd3    pabd3
+*
+end setamr
+*******************************************
+*
+subroutine setawl
+*
+*   set a for woman's left and b her right
+*
+lin 0 1 set afig    gloria
+lin 0 1 set achest  wchest
+lin 0 1 set aribs   wribs 
+lin 0 1 set apelvis wpelvis
+lin 0 1 set afoot   wlfoot
+lin 0 1 set bfoot   wrfoot
+lin 0 1 set aleg    wlleg
+lin 0 1 set bleg    wrleg
+lin 0 1 set athigh  wlthigh
+lin 0 1 set bthigh  wrthigh
+*
+lin 0 1 set aankle   wlankle
+lin 0 1 set bankle   wrankle
+lin 0 1 set aknee   wlknee
+lin 0 1 set bknee   wrknee
+lin 0 1 set ahip    wlhip
+lin 0 1 set bhip    wrhip
+*
+lin 0 1 set pang    wpang
+lin 0 1 set nang    wnang
+lin 0 1 set apang   wpang
+lin 0 1 set anang   wnang
+lin 0 1 set hpang   whpang
+lin 0 1 set hnang   whnang
+lin 0 1 set aabd1    pabd1
+lin 0 1 set aabd2    pabd2
+lin 0 1 set aabd3    pabd3
+lin 0 1 set babd1    nabd1
+lin 0 1 set babd2    nabd2
+lin 0 1 set babd3    nabd3
+*
+end setawl
+*******************************************
+*
+subroutine setawr
+*
+*   set a for woman's right and b her left
+*
+lin 0 1 set afig    gloria
+lin 0 1 set achest  wchest
+lin 0 1 set aribs   wribs 
+lin 0 1 set apelvis wpelvis
+lin 0 1 set afoot   wrfoot
+lin 0 1 set bfoot   wlfoot
+lin 0 1 set aleg    wrleg
+lin 0 1 set bleg    wlleg
+lin 0 1 set athigh  wrthigh
+lin 0 1 set bthigh  wlthigh
+*
+lin 0 1 set aankle   wrankle
+lin 0 1 set bankle   wlankle
+lin 0 1 set aknee   wrknee
+lin 0 1 set bknee   wlknee
+lin 0 1 set ahip    wrhip
+lin 0 1 set bhip    wlhip
+*
+lin 0 1 set pang    wnang
+lin 0 1 set nang    wpang
+lin 0 1 set apang   wpang
+lin 0 1 set anang   wnang
+lin 0 1 set hpang   whnang
+lin 0 1 set hnang   whpang
+lin 0 1 set aabd1   nabd1
+lin 0 1 set aabd2   nabd2
+lin 0 1 set aabd3   nabd3
+lin 0 1 set babd1   pabd1
+lin 0 1 set babd2   pabd2
+lin 0 1 set babd3   pabd3
+*
+end setawr
+**********************************************
+*
+subroutine sshadow
+*
+*   put into semi-shadow position
+*   from anatomical position
+*   over  fshado frames
+*
+repeat  0 fshado ground frank
+repeat  0 fshado ground gloria
+*
+quadra  0 dshado flex   mruarm mrshldr  -20
+quadra  0 dshado abduct mruarm mrshldr   60
+quadra  0 dshado flex   mrlarm mrelbow  +60
+quadra  0 dshado rotate mruarm mrshldr   60
+quadra  0 dshado flex   mrhand mrwrist   30
+*
+quadra  0 dshado rotate mluarm mlshldr  -40
+quadra  0 dshado flex   mluarm mlshldr   20
+quadra  0 dshado abduct mluarm mlshldr   50
+quadra  0 dshado flex   mllarm mlelbow  110
+quadra  0 dshado rotate mllarm mlelbow  +60
+quadra  0 dshado abduct mlhand mlwrist  -20
+*
+quadra  0 dshado abduct wruarm wrshldr   55
+quadra  0 dshado rotate wruarm wrshldr   90
+quadra  0 dshado flex   wrlarm wrelbow  +90
+quadra  0 dshado rotate wrlarm wrelbow  +90
+quadra  0 dshado abduct wrhand wrwrist  +20
+*
+quadra  0 dshado rotate wluarm wlshldr  -80
+quadra  0 dshado abduct wluarm wlshldr   90
+quadra  0 dshado flex   wllarm wlelbow   30
+quadra  0 dshado abduct wlhand wlwrist  +20
+quadra  0 dshado rotate wlhand wlwrist  +80
+*
+repeat  eshado fshado link   mrhip   jx jy jz
+quadra  eshado fshado moveto gloria  wpelvis jx jy jz
+quadra  eshado fshado moveby gloria  wpelvis wx wy wz
+quadra  eshado fshado abut   wpelvis mpelvis wpelvis z
+*
+repeat  eshado fshado bendby mruarm  mrshldr mshldrs -20 x
+repeat  eshado fshado touch  mrhand  wpelvis mruarm mshldrs mrshldr x
+repeat  eshado fshado bendby wruarm  wrshldr wshldrs -20 x
+repeat  eshado fshado touch  wrthb mrhand  wruarm wshldrs wrshldr x
+repeat  eshado fshado bendby wluarm  wlshldr wshldrs +40 y
+repeat  eshado fshado touch  wlhand  mlhand  wluarm wshldrs wlshldr y
+*
+end sshadow
+**********************************************
+*
+subroutine msshadow
+*
+*  maintain semi-shadow hold
+*
+repeat 0 1 ground frank
+repeat 0 1 link   mrhip   jx jy jz
+repeat 0 1 moveto gloria  wpelvis jx jy jz
+repeat 0 1 moveby gloria  mpelvis wx wy wz
+repeat 0 1 abut   wpelvis mpelvis wpelvis z
+repeat 0 1 ground gloria
+*
+quadra 0 1 bendby mruarm  mrshldr mshldrs -20 x
+repeat 0 1 touch  mrhand  wpelvis mruarm mshldrs mrshldr x
+quadra 0 1 bendby wruarm  wrshldr wshldrs -20 x
+repeat 0 1 touch  wrthb mrhand  wruarm wshldrs wrshldr x
+quadra 0 1 bendby wluarm  wlshldr wshldrs +20 y
+repeat 0 1 touch  wlhand  mlhand  wluarm wshldrs wlshldr y
+*
+end msshadow
+**************************************************
+*
+subroutine single
+*
+*   put into single hold
+*   over 12 frames
+*
+quadra 0   6 flex   mruarm mrshldr   45
+*
+quadra 0  12 flex   mluarm mlshldr   20
+quadra 0  12 abduct mluarm mlshldr   80
+quadra 0  12 flex   mllarm mlelbow   20
+quadra 0  12 rotate mluarm mlshldr  -40
+*
+quadra 0  12 flex   wruarm wrshldr   45
+quadra 0  12 rotate wrlarm wrelbow  180
+*
+quadra 0  12 flex   wluarm wlshldr   20
+quadra 0  12 abduct wluarm wlshldr   80
+quadra 0  12 flex   wllarm wlelbow   20
+quadra 0  12 rotate wluarm wlshldr  -40
+*
+quadra 6  12 touch  mrhand wrhand  mruarm mruarm  mrshldr x
+*
+end single
+**************************************************
+*
+subroutine relax
+*
+*   put into anatomical position -
+*   over frelax frames
+*   starting at frames 600, 648 and 756
+*
+linear 0 frelax bendto mluarm mlshldr mshldrs 0 0 0
+linear 0 frelax bendto mllarm mlelbow mluarm  0 0 0
+linear 0 frelax bendto mlhand mlwrist mllarm  0 0 0
+*
+linear 0 frelax bendto mruarm mrshldr mshldrs 0 0 0
+linear 0 frelax bendto mrlarm mrelbow mruarm  0 0 0
+linear 0 frelax bendto mrhand mrwrist mrlarm  0 0 0
+*
+linear 0 frelax bendto wluarm wlshldr wshldrs 0 0 0
+linear 0 frelax bendto wllarm wlelbow wluarm  0 0 0
+linear 0 frelax bendto wlhand wlwrist wllarm  0 0 0
+*
+linear 0 frelax bendto wruarm wrshldr wshldrs 0 0 0
+linear 0 frelax bendto wrlarm wrelbow wruarm  0 0 0
+linear 0 frelax bendto wrhand wrwrist wrlarm  0 0 0
+*
+repeat 0 frelax ground frank
+repeat 0 frelax ground gloria
+*
+end relax
+**************************************************
+*
+subroutine closed
+*
+*   put into closed hold from anatomical position -
+*   over 12 frames
+*   starting at frame 684
+*
+linear 0 12 abduct mlthigh mlhip    -2
+linear 0 12 abduct mrthigh mrhip    -2
+*
+linear 0 12 abduct mluarm mlshldr   80
+linear 0 12 flex   mllarm mlelbow   55
+linear 0 12 abduct mlhand mlwrist  +20
+linear 0 12 rotate mlhand mlwrist  +20
+linear 0 12 flex   mlhand mlwrist  -20
+*
+linear 0 12 abduct mruarm mrshldr   60
+linear 0 12 bendby mruarm mrshldr mshldrs -40 y
+linear 0 12 flex   mrlarm mrelbow  +90
+linear 0 12 rotate mruarm mrshldr  +30
+linear 0 12 flex   mrhand mrwrist  +20
+*
+linear 0 12 abduct mneck  mspine   +10
+linear 0 12 rotate mneck  mspine   -10
+linear 0 12 flex   mhead  mthroat  +10
+linear 0 12 flex   mchest mribs    +10
+*
+linear 0  6 abduct wlthigh wlhip    -2
+linear 0  6 abduct wrthigh wrhip    -2
+*
+linear 0  6 abduct wruarm wrshldr   90
+linear 0  6 rotate wruarm wrshldr  -55
+linear 0  6 flex   wrlarm wrelbow   20
+linear 0  6 abduct wrhand wrwrist  +20
+linear 0  6 flex   wrhand wrwrist  -14
+linear 0  6 rotate wrhand wrwrist  +55
+*
+linear 0  6 abduct wluarm wlshldr  110
+linear 0  6 rotate wluarm wlshldr  -30
+linear 0  6 flex   wllarm wlelbow  130
+linear 0  6 abduct wlhand wlwrist  -20
+linear 0  6 rotate wlhand wlwrist   70
+*
+linear 0  6 abduct wneck  wspine   +20
+linear 0  6 rotate wneck  wspine   +20
+linear 0  6 flex   whead  wthroat  +10
+linear 0  6 flex   wchest wribs    +10
+linear 0  6 rotate wchest wribs    -10
+*
+linear 6 12 touch  mrhand  wchest  mrlarm mruarm  mrelbow x
+linear 6 12 touch  wrhand  mlhand  wruarm wshldrs wrshldr z
+linear 6 12 touch  wrhand  mlhand  wruarm wshldrs wrshldr y
+linear 6 12 touch  wluarm  mrlarm  wluarm wshldrs wlshldr z
+linear 6 12 touch  wlhand  mruarm  wluarm wluarm  wlshldr y
+*
+linear 0 12 abut   wpelvis mpelvis wpelvis z
+repeat 0 12 ground frank
+repeat 0 12 ground gloria
+*
+end closed
+**********************************************
+*
+subroutine mclosed
+*
+*  maintain closed hold
+*
+repeat 0 1 link   mrhip   jx jy jz
+repeat 0 1 moveto gloria  wpelvis jx jy jz
+repeat 0 1 moveby gloria  wpelvis  0  0 sepn
+repeat 0 1 abut   wpelvis mpelvis wpelvis z
+repeat 0 1 ground frank
+repeat 0 1 ground gloria
+*
+repeat 0 1 touch  mrhand  wchest  mrlarm mruarm  mrelbow x
+repeat 0 1 touch  wrhand  mlhand  wruarm wshldrs wrshldr z
+repeat 0 1 touch  wrhand  mlhand  wruarm wshldrs wrshldr y
+repeat 0 1 touch  wluarm  mrlarm  wluarm wshldrs wlshldr z
+*
+end mclosed
+**************************************************
+*
+subroutine start
+*
+*  a forward step with the 'a' foot
+*  starting straight legs together
+*  ending compressed
+*  starting at frames 408,410
+*
+*  in 24 frames
+*
+*  reach forward -
+*
+quadra  0 12 flex   bleg     bankle  anang
+quadra  0 12 flex   bfoot    bankle  anang
+quadra  0 12 flex   apelvis  bhip    apang
+quadra  0 12 flex   athigh   ahip    apang
+*
+*  allow for length of standing foot -
+*
+quadra  0 12 flex   bleg     bankle  dnang
+quadra  0 12 flex   bfoot    bankle  dnang
+quadra  0 12 flex   apelvis  bhip    dpang
+*
+*  transfer weight forward -
+*
+quadra 12 24 flex   aleg     aankle  anang
+quadra 12 24 flex   afoot    aankle  anang
+quadra 12 24 flex   apelvis  ahip    apang
+quadra 12 24 flex   bthigh   bhip    apang
+quadra 12 24 flex   bthigh   bhip    dpang
+*
+*  compress -
+*
+quadra 12 24 flex   afoot    aankle  apang
+quadra 12 24 flex   aleg     aknee   a2pang
+quadra 12 24 flex   athigh   ahip    apang
+*
+*  bend closing leg -
+*
+quadra 12 24 flex   bfoot    bankle  apang
+quadra 12 24 flex   bleg     bknee   a2pang
+quadra 12 24 flex   bthigh   bhip    apang
+*
+end start
+******************************************
+*
+subroutine forward
+*
+*  a forward step with the 'a' foot
+*  starting  compressed, after 'start','replace' 
+*  ending on compressed legs together
+*  starting at frames 24,120,216,288,312,384,408,600
+*  in 24 frames
+*
+*  reach forward -
+*
+quadra  0 12 flex   bleg     bankle anang
+quadra  0 12 flex   bfoot    bankle anang
+quadra  0 12 flex   apelvis  bhip   apang
+quadra  0 12 flex   athigh   ahip   apang
+*
+*  allow for length of standing foot -
+*
+quadra  0 12 flex   bleg     bankle dnang
+quadra  0 12 flex   bfoot    bankle dnang
+quadra  0 12 flex   apelvis  bhip   dpang
+*
+*  and uncompress -
+*
+quadra  0 12 flex   bfoot    bankle anang
+quadra  0 12 flex   bleg     bknee  a2nang
+quadra  0 12 flex   bthigh   bhip   anang
+*
+quadra  0 12 flex   afoot    aankle anang
+quadra  0 12 flex   aleg     aknee  a2nang
+quadra  0 12 flex   athigh   ahip   anang
+*
+*  transfer weight forward -
+*
+quadra 12 24 flex   aleg     aankle anang
+quadra 12 24 flex   afoot    aankle anang
+quadra 12 24 flex   apelvis  ahip   apang
+quadra 12 24 flex   bthigh   bhip   apang
+quadra 12 24 flex   bthigh   bhip   dpang
+*
+*  compress -
+*
+quadra 12 24 flex   afoot    aankle apang
+quadra 12 24 flex   aleg     aknee  a2pang
+quadra 12 24 flex   athigh   ahip   apang
+*
+*  bend closing leg -
+*
+quadra 12 24 flex   bfoot    bankle apang
+quadra 12 24 flex   bleg     bknee  a2pang
+quadra 12 24 flex   bthigh   bhip   apang
+*
+end forward
+******************************************
+*
+subroutine chasse
+*
+*  step sideways with 'a' foot away from 'b' foot,
+*  starting compressed, after 'forward', 'replace'
+*  ending on straight legs, each leg to side, on toes
+*  starting on frames 48, 144, 240, 336
+*  in 12 frames
+*
+*   straighten and extend 'a' leg to side -
+*
+repeat  0 12 centre bfoot   bx by bz
+quadra  0 12 bendto athigh  ahip    apelvis aabd1 aabd2 aabd3
+quadra  0 12 flex   afoot   aankle  a2nang
+quadra  0 12 flex   aleg    aknee   a2nang
+*
+*   straighten and move away from supporting 'b' leg -
+*
+quadra  0 12 bendto bthigh  bhip    apelvis babd1 babd2 babd3
+quadra  0 12 flex   bfoot   bankle  a2nang
+quadra  0 12 flex   bleg    bknee   a2nang
+quadra  0 12 flex   bthigh  bhip    anang
+repeat  0 12 moveto afig    bfoot   bx by bz
+*
+end chasse
+******************************************
+*
+subroutine close
+*
+*  close 'a' foot to 'b'
+*  starting on 'a' leg, both legs straight on toes,
+*  legs apart,
+*  after 'chasse',
+*  ending on straight legs together on toes
+*  starting on frames 60, 156, 252, 348
+*  in 12 frames
+*
+repeat  0  6 centre bfoot   bx by bz
+quadra  0  6 bendto athigh  ahip    apelvis 0 0 0
+quadra  0  6 bendto bthigh  bhip    apelvis 0 0 0
+repeat  0  6 moveto afig    bfoot   bx by bz
+*
+end close
+******************************************
+*
+subroutine side
+*
+*  step sideways with 'a' foot
+*  starting from straight legs on toes, after 'close'
+*  ending compressed 
+*  starting on frames 264, 360
+*  in 24 frames
+*
+repeat  0 12 centre bfoot   bx by bz
+quadra  0 12 abduct bthigh  bhip    apang
+quadra  0 12 abduct athigh  ahip    apang
+repeat  0 12 moveto afig    bfoot   bx by bz
+*
+repeat 12 16 centre afoot   ax ay az
+quadra 12 16 abduct athigh  ahip    anang
+quadra 12 16 abduct bthigh  bhip    anang
+repeat 12 16 moveto afig    afoot   ax ay az
+*
+*  compress -
+*
+quadra 16 24 flex   afoot    aankle a2pang
+quadra 16 24 flex   aleg     aknee  a2pang
+quadra 16 24 flex   athigh   ahip   apang
+*
+*  bend closing -
+*
+quadra 16 24 flex   bfoot    bankle a2pang
+quadra 16 24 flex   bleg     bknee  a2pang
+quadra 16 24 flex   bthigh   bhip   apang
+*
+end side
+******************************************
+*
+subroutine separate
+*
+*  check back on 'a'
+*    starting compressed, after 'forward'
+*    ending on straight 'a' leg,
+*      'b' leg in front
+*  starting at frame 624
+*  in 24 frames
+*
+*  uncompress -
+*
+quadra  1  6 flex   afoot    aankle anang
+quadra  1  6 flex   aleg     aknee  a2nang
+quadra  1  6 flex   athigh   ahip   anang
+quadra  1  6 flex   bfoot    bankle anang
+quadra  1  6 flex   bleg     bknee  a2nang
+quadra  1  6 flex   bthigh   bhip   anang
+*
+*  reach 'a' back -
+*
+quadra  6 12 flex   athigh   ahip   anang
+*
+*  transfer weight back -
+*
+repeat 12 24 centre bfoot    bx by bz
+quadra 12 24 flex   athigh   ahip   apang
+quadra 12 24 flex   bthigh   bhip   apang
+repeat 12 24 moveto afig     bfoot  bx by bz
+*
+end separate
+******************************************
+*
+subroutine bacche
+*
+*  check back on 'a'
+*    starting on straight legs on toes, after 'close'
+*    ending on straight 'a' leg,
+*      'b' leg in front
+*  starting at frames 72, 168 
+*  in 24 frames
+*
+*   lower and compress -
+*
+quadra  0  6 flex   afoot   aankle a2pang
+quadra  0  6 flex   bfoot   bankle a2pang
+quadra  0  6 flex   aleg     aknee  a2pang
+quadra  0  6 flex   athigh   ahip   apang
+quadra  0  6 flex   bleg     bknee  a2pang
+quadra  0  6 flex   bthigh   bhip   apang
+*
+*  reach 'a' back -
+*
+quadra  6 12 flex   bfoot    bankle apang
+quadra  6 12 flex   bleg     bankle a2pang
+quadra  6 12 flex   bthigh   bknee  a2pang
+quadra  6 12 flex   athigh   ahip   a2nang
+quadra  6 12 flex   aleg     aknee  a2nang
+quadra  6 12 flex   afoot    aankle anang
+*
+*  transfer weight back -
+*
+quadra 12 24 flex   afoot    aankle apang
+quadra 12 24 flex   aleg     aankle apang
+quadra 12 24 flex   apelvis  ahip   anang
+*
+end bacche
+**********************************
+*
+subroutine replace
+*
+*  replace forward onto 'a' leg
+*  starting on straight 'b' leg,
+*     'a' leg straight in front,
+*      after 'bacche'
+*  ending compressed legs
+*  starting at frames 96, 192, 576
+*  in 24 frames
+*
+*   transfer weight forward -
+*
+quadra  0 12 flex   afoot   aankle anang
+quadra  0 12 flex   aleg    aankle anang
+quadra  0 12 flex   apelvis ahip   apang
+quadra  0 12 flex   bthigh  bhip   anang
+*
+*   close 'b' leg and compress -
+*
+quadra 12 24 flex   afoot   aankle apang
+quadra 12 24 flex   aleg    aknee  a2pang
+quadra 12 24 flex   athigh  ahip   apang
+quadra 12 24 flex   bfoot   bankle apang
+quadra 12 24 flex   bleg    bknee  a2pang
+quadra 12 24 flex   bthigh  bhip   a2pang
+*
+end replace
+**********************************
+*
+subroutine breplace
+*
+*  replace forward onto 'a' leg
+*  starting on straight 'b' leg,
+*     'a' leg straight in front,
+*      after 'bacche'
+*  ending straight legs
+*  starting at frames 648
+*  in 24 frames
+*
+*   transfer weight forward -
+*
+quadra  0 12 flex   afoot   aankle anang
+quadra  0 12 flex   aleg    aankle anang
+quadra  0 12 flex   apelvis ahip   apang
+quadra  0 12 flex   bthigh  bhip   anang
+*
+*   close 'b' leg =
+*
+quadra 12 24 flex   bthigh  bhip   apang
+*
+end breplace
+******************************************
+*
+subroutine crsfor
+*
+*   step diagonally forward onto 'a' leg
+*      starting  after 'forward'
+*      compressed
+*      ending with 'b' leg bent behind,
+*      on crossed straight 'a' leg on toes
+*   starting at frame 432
+*   in 12 frames
+*
+*   straighten legs, leaving 'b' leg behind -
+*
+repeat  0  6 centre bfoot   bx by bz
+quadra  0  6 flex   afoot   aankle anang
+quadra  0  6 flex   aleg    aknee  a2nang
+quadra  0  6 flex   bfoot   bankle anang
+quadra  0  6 flex   bleg    bknee  a2nang
+quadra  0  6 flex   bthigh  bhip   a2nang
+repeat  0  6 moveto afig    bfoot  bx by bz
+*
+*   reach 'a' leg forward diagonally -
+*
+quadra  0  6 bendto athigh  ahip   apelvis  fcro1 fcro2 fcro3
+*
+*   transfer weight to 'a' leg, and rise -
+*
+repeat  6 12 centre afoot   ax ay az
+quadra  6 12 flex   afoot   aankle anang
+quadra  6 12 flex   bfoot   bankle anang
+quadra  6 12 flex   bleg    bknee  apang
+quadra  6 12 bendto athigh  ahip   apelvis  hlabd1 hlabd2 hlabd3
+quadra  6 12 bendto bthigh  bhip   apelvis  hbflx1 hbflx2 hbflx3
+repeat  6 12 moveto afig    afoot  ax ay az
+*
+end crsfor
+*****************************************
+*
+subroutine lckfor
+*
+*   transfer weight onto back 'a' foot straight behind
+*      starting after 'crsfor'
+*      on 'b' leg crossed straight in front on toes,
+*      'a' leg bent behind
+*      ending on flexed 'a' leg,
+*      'b' leg straight diagonally in front
+*   starting at frame 444
+*   in 12 frames
+*
+repeat  0 12 centre bfoot   ax ay az
+*
+quadra  0  6 bendto bthigh  bhip   apelvis  fcro1 fcro2 fcro3
+quadra  0  6 bendto athigh  ahip   apelvis  0     0     0    
+*
+quadra  6 12 flex   athigh  ahip   apang
+quadra  6 12 flex   afoot   aankle apang
+quadra  6 12 flex   aleg    aknee  apang
+*
+repeat  0 12 moveto afig    bfoot  ax ay az
+*
+end lckfor
+********************************************
+*
+subroutine arlfor
+*
+*   step forward onto 'a' foot and do aerial
+*      starting after 'lckfor'
+*      compressed on  'b' leg,
+*      'a' leg straight diagonally forward
+*      ending on 'a' leg straight  on toes,
+*      'b' leg bent in aerial
+*   starting at frame 456
+*   in 24 frames
+*
+*   push off back 'b' leg -
+*
+quadra  0 12 flex   bfoot   bankle anang
+quadra  0 12 flex   bleg    bankle anang
+quadra  0 12 flex   apelvis bhip   apang
+*
+*   extend front 'a' leg directly forward -
+*
+quadra  0 12 flex   aleg    aknee  apang
+quadra  0 12 flex   afoot   aankle apang
+quadra  0 12 bendto athigh  ahip   apelvis flx1 flx1 flx3
+*
+*   transfer weight to and rise on front leg -
+*
+repeat 12 24 centre afoot   ax ay az
+quadra 12 24 flex   afoot   aankle anang
+quadra 12 24 flex   aleg    aknee  anang
+quadra 12 24 bendto athigh  ahip   apelvis  0 0 0
+repeat 12 24 moveto afig    afoot  ax ay az
+*
+*   do aerial -
+*
+quadra 12 24 flex   bthigh  bhip   apang
+quadra 12 24 flex   bthigh  bhip   a2pang
+quadra 12 24 flex   bleg    bknee  anang
+quadra 12 24 flex   afoot   aankle anang
+quadra 12 24 flex   bfoot   bankle anang
+*
+end arlfor
+********************************************
+*
+subroutine swgbck
+*
+*   swing aerial 'a' leg back
+*   starting after 'arlfor'
+*      on straight 'b' leg on toes,
+*     'a' leg bent in aerial,
+*      ending compressed
+*   starting at frame 480
+*   in 24 frames
+*
+*   swing aerial 'a' leg back and lower 'b' -
+*
+repeat  0  1 centre bfoot   bx by bz
+quadra  0 12 flex   athigh  ahip    anang
+quadra  0 12 flex   athigh  ahip    a2nang
+quadra  0 12 flex   athigh  ahip    anang
+quadra  0 12 flex   bfoot   bankle  apang
+*
+*   push back off 'b' -
+*
+quadra  0 12 flex   bthigh  bhip    apang
+repeat  0 12 moveto afig    bfoot   bx by bz
+*
+*   transfer weight back -
+*
+repeat 12 13 centre afoot   ax ay az
+quadra 12 18 flex   aleg    aknee   anang
+quadra 12 18 bendto athigh  ahip   apelvis  0 0 0
+*
+*   compress -
+*
+quadra 18 24 flex   afoot   aankle apang
+quadra 18 24 flex   aleg    aknee  a2pang
+quadra 18 24 flex   athigh  ahip   apang
+quadra 18 24 flex   bfoot   bankle apang
+quadra 18 24 flex   bleg    bknee  a2pang
+*
+repeat 12 24 moveto afig    afoot   ax ay az
+*
+end swgbck
+******************************************
+*
+subroutine back
+*
+*   step backwards from 'b' leg to 'a' leg
+*   starting after 'swgbck'
+*   compressed,
+*   ending compressed
+*   starting at frame 504
+*
+*   in 24 frames
+*
+*   push back -
+*
+repeat  0  1 centre bfoot   bx by bz
+quadra  0 12 flex   bfoot   bankle anang
+quadra  0 12 flex   bleg    bknee  a2nang
+*
+*   reach back -
+*
+quadra  0 12 flex   afoot   aankle anang
+quadra  0 12 flex   aleg    aknee  a2nang
+quadra  0 12 flex   athigh  ahip   a2nang
+repeat  0 12 moveto afig    bfoot  bx by bz
+*
+*   gather onto 'a' leg and compress -
+*
+repeat 12 13 centre afoot   ax ay az
+quadra 12 24 flex   afoot   aankle apang
+quadra 12 24 flex   aleg    aknee  a2pang
+quadra 12 24 flex   athigh  ahip   a2pang
+quadra 12 24 flex   bfoot   bankle apang
+quadra 12 24 flex   bleg    bknee  a2pang
+repeat 12 24 moveto afig    afoot  ax ay az
+*
+end back
+******************************************
+*
+subroutine crsbck
+*
+*   step diagonally back onto 'a' leg
+*      starting after 'back'
+*      compressed
+*      ending with 'b' leg in front,
+*      on straight crossed sideways 'a' leg
+*      on toes
+*   starting at frame 528
+*   in 12 frames
+*
+*   straighten legs, standing on 'b' leg -
+*
+repeat  0  6 centre bfoot   bx by bz
+quadra  0  6 flex   afoot   aankle anang
+quadra  0  6 flex   aleg    aknee  a2nang
+quadra  0  6 flex   bfoot   bankle anang
+quadra  0  6 flex   bleg    bknee  a2nang
+quadra  0  6 bendto bthigh  bhip   apelvis 0 0 0
+repeat  0  6 moveto afig    bfoot  bx by bz
+*
+*   reach 'a' leg back diagonally -
+*
+quadra  0  6 bendto athigh  ahip   apelvis  bcro1 bcro2 bcro3
+*
+*   transfer weight to 'a' leg and rise -
+*
+repeat  6 12 centre afoot   ax ay az
+quadra  6 12 flex   afoot   aankle anang
+quadra  6 12 flex   bfoot   bankle anang
+quadra  6 12 bendto athigh  ahip   apelvis  hrabd1 hrabd2 hrabd3
+quadra  6 12 bendto bthigh  bhip   apelvis  hfflx1 hfflx2 hfflx3
+repeat  6 12 moveto afig    afoot  ax ay az
+*
+end crsbck
+*****************************************
+*
+subroutine lckbck
+*
+*   transfer weight onto front 'a' foot
+*      starting after 'crsbck'
+*      on toes,
+*      on straight 'b' leg crossed sideways
+*      'a' leg straight in front,
+*      ending on compressed 'a' leg,
+*      'b' leg bent diagonally behind
+*   starting at frame 540
+*   in 12 frames
+*
+repeat  0  1 centre afoot   ax ay az
+*
+quadra  0  6 bendto athigh  ahip   apelvis  0 0 0
+quadra  0  6 bendto bthigh  bhip   apelvis  bcro1 bcro2 bcro3
+*
+quadra  6 12 flex   afoot   aankle a2pang
+quadra  6 12 flex   aleg    aknee  a2pang
+quadra  6 12 flex   bfoot   bankle a2pang
+quadra  6 12 flex   bleg    bknee  a2pang
+*
+repeat  0 12 moveto afig    afoot  ax ay az
+*
+end lckbck
+****************************************
+*
+subroutine check
+*
+*   check back
+*   starting after 'lckbck'
+*   on 'b' leg compressed,
+*      'a' leg bent diagonally behind
+*   ending on straight 'a' leg, 'b' leg in front straight
+*   starting at frame 552
+*   in 24 frames
+*
+*   reach back -
+*
+repeat  0  1 centre bfoot   bx by bz
+quadra  0 12 bendto athigh  ahip   apelvis bflx1 bflx2 bflx3
+quadra  0 12 flex   afoot   aankle anang
+quadra  0 12 flex   aleg    aknee  a2nang
+quadra  0 12 flex   bfoot   bankle anang
+quadra  0 12 flex   bleg    bknee  a2nang
+repeat  0 12 moveto afig    bfoot  bx by bz
+*
+*   transfer weight back -
+*
+repeat 12 13 centre afoot   ax ay az
+quadra 12 24 bendto athigh  ahip   apelvis  0 0 0
+quadra 12 24 bendto bthigh  bhip   apelvis  flx1 flx2 flx3
+repeat 12 24 moveto afig    afoot  ax ay az
+*
+end check
+****************************************
+*
+subroutine rotary
+*
+*   do a rotary chasse
+*   starting on straight legs in closed hold
+*     after 'breplace'
+*   ending on straight legs
+*   starting at frames 672, 696, 720
+*   in 24 frames
+*
+repeat  0  6 centre bfoot   bx by bz
+quadra  0  6 abduct athigh  ahip   apang
+quadra  0  6 abduct bthigh  bhip   apang
+repeat  0  6 moveto afig    bfoot  bx by bz
+linear  0  6 spinby afig    bfoot  world 45 y
+*
+repeat  6 12 centre afoot   ax ay az
+quadra  6 12 abduct athigh  ahip   anang
+quadra  6 12 abduct bthigh  bhip   anang
+repeat  6 12 moveto afig    afoot  ax ay az
+linear  6 12 spinby afig    afoot  world 45 y
+*
+repeat 12 18 centre afoot   ax ay az
+quadra 12 18 flex   athigh  ahip   pang
+quadra 12 18 flex   bthigh  bhip   nang
+repeat 12 18 moveto afig    afoot  ax ay az
+linear 12 18 spinby afig    afoot  world 45 y
+*
+repeat 18 24 centre afoot   bx by bz
+quadra 18 24 flex   athigh  ahip   nang
+quadra 18 24 flex   bthigh  bhip   pang
+repeat 18 24 moveto afig    afoot  bx by bz
+linear 18 24 spinby afig    afoot  world 45 y
+*
+end rotary
+******************************************
+*
+subroutine wrotend
+*
+*   do a rotary chasse
+*   starting on straight legs in closed hold
+*      after 'rotary'
+*   ending on straight legs
+*   starting at frame 744
+*   in 24 frames
+*
+linear  0 12 abduct wneck   wspine   -20
+linear  0 12 rotate wneck   wspine   -20
+linear  0 12 flex   whead   wthroat  -10
+linear  0 12 flex   wchest  wribs    -10
+linear  0 12 rotate wchest  wribs    +10
+*
+*   reach to the side - 
+*
+repeat  0  6 centre bfoot   bx by bz
+quadra  0  6 abduct athigh  ahip   apang
+quadra  0  6 abduct bthigh  bhip   apang
+repeat  0  6 moveto afig    bfoot  bx by bz
+linear  0  6 spinby afig    bfoot  world 45 y
+*
+repeat  6 12 centre afoot   ax ay az
+quadra  6 12 abduct athigh  ahip   anang
+quadra  6 12 abduct bthigh  bhip   anang
+repeat  6 12 moveto afig    afoot  ax ay az
+linear  6 12 spinby afig    afoot  world 45 y
+*
+repeat 12 18 centre afoot   ax ay az
+quadra 12 18 flex   athigh  ahip   apang
+quadra 12 18 flex   bthigh  bhip   anang
+repeat 12 18 moveto afig    afoot  ax ay az
+linear 12 18 spinby afig    afoot  world 45 y
+*
+linear 18 21 spinby afig    bfoot  world 135 y
+*
+quadra 18 24 bendto athigh  ahip   apelvis 0 0 0
+quadra 18 24 bendto bthigh  bhip   apelvis 0 0 0
+*
+end wrotend
+****************************************
+*
+subroutine mrotend
+*
+*   do a rotary chasse ending in a heel pivot
+*   starting on straight legs in closed hold
+*      after 'rotary'
+*   ending on straight legs
+*   starting at frame 768
+*   in 24 frames
+*
+*   reach to the side - 
+*
+repeat  0  6 centre bfoot   bx by bz
+quadra  0  6 abduct athigh  ahip   apang
+quadra  0  6 abduct bthigh  bhip   apang
+repeat  0  6 moveto afig    bfoot  bx by bz
+linear  0  6 spinby afig    bfoot  world 45 y
+*
+repeat  6 12 centre afoot   ax ay az
+quadra  6 12 abduct athigh  ahip   anang
+quadra  6 12 abduct bthigh  bhip   anang
+repeat  6 12 moveto afig    afoot  ax ay az
+linear  6 12 spinby afig    afoot  world 45 y
+*
+linear 18 24 bendto mhead    mthroat mneck    0 0 0
+linear 18 24 bendto mneck    mspine  mshldrs  0 0 0
+linear 18 24 bendto mchest   mribs   mstomach 0 0 0
+linear 18 24 bendto mstomach mwaist  mpelvis  0 0 0
+linear 18 24 bendto mlthigh  mlhip   mpelvis  0 0 0
+linear 18 24 bendto mrthigh  mrhip   mpelvis  0 0 0
+*
+end mrotend
+******************************************
+*
+subroutine doplace
+*
+*  chase frank with the camera
+*
+variable 3 px py pz
+repeat   0 1 ground  frank
+repeat   0 1 ground  gloria
+repeat   0 1 centre  mpelvis px py pz
+repeat   0 1 place   px py pz
+repeat   0 1 observe -10 0 0
+*
+end doplace
+*****************************************
+*
+stop

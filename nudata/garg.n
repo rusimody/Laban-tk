@@ -1,0 +1,254 @@
+*	garg.n:  GARGOYLE FOR SYDNEY UNIVERSITY OPEN DAY
+*
+*	       Andrew Jenkins - 1988
+*       modified  Don Herbison-Evans  29 July 1993
+*
+*       peering about and sticking his tongue out
+*               in 36 frames
+*
+figure garg 75
+	gworld 
+	body head lhead rhead cowl tailbase
+	bmouth brmouth blmouth tmouth rmouth lmouth bridge nose
+	tongue xtongue
+	wrapa
+	wrap1b wrap2b
+	wrap1c wrap2c
+	wrap1d wrap2d
+	wrap1e wrap2e
+	wrap1f wrap2f
+	wrap1g wrap2g
+	wrap1h wrap2h
+	wrap1i wrap2i
+	wrap1j wrap2j
+	wrap1k wrap2k
+	wrap1l wrap2l
+	wrap1m wrap2m
+	reye r0eye r1eye r2eye r3eye r4eye r5eye r6eye r7eye r8eye
+	leye l0eye l1eye l2eye l3eye l4eye l5eye l6eye l7eye l8eye
+	rpivot lpivot
+	tail0 tail1 tail2 tail3 tail4 tail5 tail6 tail7 tail8 tail9 tailA
+*
+ellipsoid camel 20 20 200
+ellipsoid gworld 10 10 10
+ellipsoid body 100 300 150
+ellipsoid head 20 20 30
+ellipsoid rhead 125 125 125
+ellipsoid lhead 125 125 125
+ellipsoid cowl 170 170 50
+ellipsoid tailbase 100 100 50
+ellipsoid bmouth 200 40 50
+ellipsoid brmouth 200 40 50
+ellipsoid blmouth 200 40 50
+ellipsoid tmouth 200 40 40
+ellipsoid rmouth 250 40 60
+ellipsoid lmouth 250 40 60
+ellipsoid bridge 200 90 60
+ellipsoid nose 60 60 60
+ellipsoid tongue 200 20 60
+ellipsoid xtongue 100 20 60
+ellipsoid wrapa 100 100 100
+ellipsoid wrap1b 100 100 100
+ellipsoid wrap1c 100 100 100
+ellipsoid wrap1d 100 100 100
+ellipsoid wrap1e 100 100 100
+ellipsoid wrap1f 98 98 98
+ellipsoid wrap1g 95 95 95
+ellipsoid wrap1h 93 93 93
+ellipsoid wrap1i 90 90 90
+ellipsoid wrap1j 88 88 88
+ellipsoid wrap1k 85 85 85
+ellipsoid wrap1l 83 83 83
+ellipsoid wrap1m 80 80 80
+ellipsoid wrap2b 100 100 100
+ellipsoid wrap2c 100 100 100
+ellipsoid wrap2d 100 100 100
+ellipsoid wrap2e 100 100 100
+ellipsoid wrap2f 98 98 98
+ellipsoid wrap2g 95 95 95
+ellipsoid wrap2h 93 93 93
+ellipsoid wrap2i 90 90 90
+ellipsoid wrap2j 88 88 88
+ellipsoid wrap2k 85 85 85
+ellipsoid wrap2l 83 83 83
+ellipsoid wrap2m 80 80 80
+ellipsoid reye 60 60 2
+ellipsoid r0eye 20 20 20
+ellipsoid r1eye 20 20 20
+ellipsoid r2eye 20 20 20
+ellipsoid r3eye 20 20 20
+ellipsoid r4eye 20 20 20
+ellipsoid r5eye 20 20 20
+ellipsoid r6eye 20 20 20
+ellipsoid r7eye 20 20 20
+ellipsoid r8eye 30 30 30
+ellipsoid leye 60 60 2
+ellipsoid l0eye 20 20 20
+ellipsoid l1eye 20 20 20
+ellipsoid l2eye 20 20 20
+ellipsoid l3eye 20 20 20
+ellipsoid l4eye 20 20 20
+ellipsoid l5eye 20 20 20
+ellipsoid l6eye 20 20 20
+ellipsoid l7eye 20 20 20
+ellipsoid l8eye 30 30 30
+ellipsoid rpivot 2 2 2
+ellipsoid lpivot 2 2 2
+ellipsoid tail0 50 50 240
+ellipsoid tail1 50 50 240
+ellipsoid tail2 50 50 240
+ellipsoid tail3 50 50 240
+ellipsoid tail4 50 50 240
+ellipsoid tail5 50 50 240
+ellipsoid tail6 50 50 240
+ellipsoid tail7 50 50 240
+ellipsoid tail8 50 50 240
+ellipsoid tail9 50 50 240
+ellipsoid tailA 50 50 240
+*
+joint jgwbo gworld 0 0 0 body 0 0 0
+joint jbohe body -60 250 0 head 0 -50 0
+joint jbota body -150 -200 0 tailbase 0 0 0
+joint jherh head 0 0 -50 rhead 0 0 0
+joint jhelh head 0 0 50 lhead 0 0 0
+joint jheco head 0 0 0 cowl 0 0 0
+joint jhebm head 0 -50 0 bmouth -250 0 0
+joint jbmbr bmouth 0 0 0 brmouth 0 0 50
+joint jbmbl bmouth 0 0 0 blmouth 0 0 -50
+joint jhetm head 0 -50 0 tmouth -200 0 0
+joint jtmbr tmouth 0 40 0 bridge 0 0 0
+joint jtmno tmouth 180 130 0 nose 0 0 0
+joint jtmrm tmouth 0 0 0 rmouth 0 0 50
+joint jtmlm tmouth 0 0 0 lmouth 0 0 -50
+joint jheto head 50 -50 0 tongue -100 0 0
+joint jtoxt tongue 50 0 0 xtongue -50 0 0
+joint jboa body -125 200 0 wrapa 0 0 0
+joint jbo1b body -115 120 -60 wrap1b 0 0 0
+joint jbo1c body -90 105 -125 wrap1c 0 0 0
+joint jbo1d body -50 80 -175 wrap1d 0 0 0
+joint jbo1e body 0 25 -200 wrap1e 0 0 0
+joint jbo1f body 25 -40 -175 wrap1f 0 0 0
+joint jbo1g body 45 -90 -125 wrap1g 0 0 0
+joint jbo1h body 57 -120 -60 wrap1h 0 0 0
+joint jbo1i body 60 -160 0 wrap1i 0 0 0
+joint jbo1j body 57 -185 60 wrap1j 0 0 0
+joint jbo1k body 45 -220 125 wrap1k 0 0 0
+joint jbo1l body 25 -285 175 wrap1l 0 0 0
+joint jbo1m body 0 -360 200 wrap1m 0 0 0
+joint jbo2b body -115 120 60 wrap2b 0 0 0
+joint jbo2c body -90 105 125 wrap2c 0 0 0
+joint jbo2d body -50 80 175 wrap2d 0 0 0
+joint jbo2e body 0 25 200 wrap2e 0 0 0
+joint jbo2f body 50 -40 175 wrap2f 0 0 0
+joint jbo2g body 90 -90 125 wrap2g 0 0 0
+joint jbo2h body 115 -120 60 wrap2h 0 0 0
+joint jbo2i body 125 -160 0 wrap2i 0 0 0
+joint jbo2j body 115 -185 -60 wrap2j 0 0 0
+joint jbo2k body 90 -220 -125 wrap2k 0 0 0
+joint jbo2l body 50 -285 -175 wrap2l 0 0 0
+joint jbo2m body 0 -360 -200 wrap2m 0 0 0
+joint jrhrp rhead 81 81 -50 rpivot 0 0 0
+joint jrpre rpivot 0 25 0 reye 0 0 0
+joint jr0ey reye 60 0 0 r0eye 0 0 0
+joint jr1ey reye 42 42 0 r1eye 0 0 0
+joint jr2ey reye 0 60 0 r2eye 0 0 0
+joint jr3ey reye -42 42 0 r3eye 0 0 0
+joint jr4ey reye -60 0 0 r4eye 0 0 0
+joint jr5ey reye -42 -42 0 r5eye 0 0 0
+joint jr6ey reye 0 -60 0 r6eye 0 0 0
+joint jr7ey reye 42 -42 0 r7eye 0 0 0
+joint jr8ey reye 0 0 0 r8eye 0 0 0
+joint jlhlp lhead 81 81 50 lpivot 0 0 0
+joint jlple lpivot 0 25 0 leye 0 0 0
+joint jl0ey leye 60 0 0 l0eye 0 0 0
+joint jl1ey leye 42 42 0 l1eye 0 0 0
+joint jl2ey leye 0 60 0 l2eye 0 0 0
+joint jl3ey leye -42 42 0 l3eye 0 0 0
+joint jl4ey leye -60 0 0 l4eye 0 0 0
+joint jl5ey leye -42 -42 0 l5eye 0 0 0
+joint jl6ey leye 0 -60 0 l6eye 0 0 0
+joint jl7ey leye 42 -42 0 l7eye 0 0 0
+joint jl8ey leye 0 0 0 l8eye 0 0 0
+joint jtat0 tailbase 0 0 0 tail0 0 0 0
+joint jtat1 tailbase 0 -60 0 tail1 0 0 0
+joint jtat2 tailbase 60 -60 0 tail2 0 0 0
+joint jtat3 tailbase 96 -18 0 tail3 0 0 0
+joint jtat4 tailbase 96 48 0 tail4 0 0 0
+joint jtat5 tailbase 72 102 0 tail5 0 0 0 
+joint jtat6 tailbase 0 120 0 tail6 0 0 0
+joint jtat7 tailbase -60 102 0 tail7 0 0 0
+joint jtat8 tailbase -96 60 0 tail8 0 0 0
+joint jtat9 tailbase -120 0 0 tail9 0 0 0
+joint jtatA tailbase -120 -60 0 tailA 0 0 0
+*
+repeat 0 1 colour body 120 120 120
+repeat 0 1 colour nose 200 200 200
+repeat 0 1 colour tongue 200 0 0
+repeat 0 1 colour xtongue 200 0 0
+repeat 0 1 colour bmouth 100 100 100
+repeat 0 1 colour brmouth 100 100 100
+repeat 0 1 colour blmouth 100 100 100
+repeat 0 1 colour rhead 100 100 100
+repeat 0 1 colour lhead 100 100 100
+repeat 0 1 colour reye 100 100 100
+repeat 0 1 colour r0eye 200 200 200
+repeat 0 1 colour r1eye 200 200 200
+repeat 0 1 colour r2eye 200 200 200
+repeat 0 1 colour r3eye 200 200 200
+repeat 0 1 colour r4eye 200 200 200
+repeat 0 1 colour r5eye 200 200 200
+repeat 0 1 colour r6eye 200 200 200
+repeat 0 1 colour r7eye 200 200 200
+repeat 0 1 colour r8eye 255 255 255
+repeat 0 1 colour leye 100 100 100
+repeat 0 1 colour l0eye 200 200 200
+repeat 0 1 colour l1eye 200 200 200
+repeat 0 1 colour l2eye 200 200 200
+repeat 0 1 colour l3eye 200 200 200
+repeat 0 1 colour l4eye 200 200 200
+repeat 0 1 colour l5eye 200 200 200
+repeat 0 1 colour l6eye 200 200 200
+repeat 0 1 colour l7eye 200 200 200
+repeat 0 1 colour l8eye 255 255 255
+repeat 0 1 colour tail0 120 120 120
+repeat 0 1 colour tail1 120 120 120
+repeat 0 1 colour tail2 120 120 120
+repeat 0 1 colour tail3 120 120 120
+repeat 0 1 colour tail4 120 120 120
+repeat 0 1 colour tail5 120 120 120
+repeat 0 1 colour tail6 120 120 120
+repeat 0 1 colour tail7 120 120 120
+repeat 0 1 colour tail8 120 120 120
+repeat 0 1 colour tail9 120 120 120
+repeat 0 1 colour tailA 120 120 120
+*
+linear 0 1 grofig garg body 0.8 0.8 0.8
+linear 0 1 bendby tailbase jbota tailbase 90 z
+linear 0 1 bendby rpivot jrhrp rhead 50 x
+linear 0 1 bendby rpivot jrhrp rhead -35 y
+linear 0 1 bendby lpivot jlhlp lhead -50 x
+linear 0 1 bendby lpivot jlhlp leye 35 y
+linear 0 1 bendby tmouth jhetm head 0 z
+linear 0 1 bendby tongue jheto head -5 z
+linear 0 1 bendby bmouth jhebm head -10 z
+*
+linear 0 1 moveto garg tailbase 500 300 500
+linear 0 1 spinby garg tailbase world -20 z
+linear 0 1 spinby garg tailbase world  90 y
+*
+quadra  9 15 abduct bmouth jhebm -20
+quadra  9 15 abduct tongue jheto -10
+quadra 15 18 grojnt xtongue jtoxt 5 1 1
+quadra 18 27 grojnt xtongue jtoxt 0.2 1 1
+quadra 27 36 abduct bmouth jhebm  20
+quadra 27 36 abduct tongue jheto  10
+*
+quadra  1  9 spinby garg tailbase world   90 y
+quadra  9 27 spinby garg tailbase world -180 y
+quadra 27 36 spinby garg tailbase world   90 y
+****************************************
+lin 0 1 place 500 500 0
+*
+stop
+
+

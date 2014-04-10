@@ -1,0 +1,769 @@
+*  metab.n
+*
+* Cathy the caterpillar crawling for 600 frames,
+* then turning into chrysalis,
+* then into Bertha the butterfly,
+* in 1075 frames total.
+* (nice picture at frame 453)
+*
+* written, Duncan Kim, Nov 25 '82 Thur 11:45:54
+* improved, Don Herbison-Evans,  Feb 5 '83
+* caterpillar reoriented, Don Herbison-Evans,  Mar 23 '89
+* modified to start off-screen, Don Herbisonm-Evans, Nov 8 '91
+*
+***********************************************************
+*
+figure branch 7 stem vein1 vein2 bud1 bud2  leaf1 leaf2
+ellipsoid stem 30 30 700
+ellipsoid bud1 30 50 30
+ellipsoid bud2 30 50 30
+ellipsoid vein1 30 50 30
+ellipsoid vein2 30 50 30
+ellipsoid leaf1 1 1 1
+ellipsoid leaf2 1 1 1
+joint node1 stem  0 0 -200  bud1 0 40 0
+joint node2 stem  0 0 +200  bud2 0 40 0
+joint axil1 bud1  0 -40 0  vein1 0 45 0
+joint axil2 bud2  0 -40 0  vein2 0 45 0
+joint base1 vein1 0 0 0  leaf1 0 1 0
+joint base2 vein2 0 0 0  leaf2 0 1 0
+repeat    0 1 colour stem   64  64   0
+repeat    0 1 colour bud1   64 255   0
+repeat    0 1 colour bud2   64 255   0
+repeat    0 1 colour leaf1   0 255  64
+repeat    0 1 colour leaf2   0 255  64
+repeat    0 1 colour vein1  64 128   0
+repeat    0 1 colour vein2  64 128   0
+quadratic 0 1 abduct bud1  node1 25
+quadratic 0 1 flex   bud1  node1 35
+quadratic 0 1 flex   bud2  node2 45
+*
+***********************************************************
+*
+figure cathy 31  *
+   leg0l leg0r leg1l leg1r leg2l leg2r  *
+   prl3l prl3r prl4l prl4r prl5l prl5r prl6l prl6r  *
+   clsprl clsprr *
+   chrysalis head prot meso meta  *
+   abd1 abd2 abd3 abd4 abd5 abd6 abd7 abd8 abd9 abda
+*
+ellipsoid head   50 50 30
+ellipsoid prot   50 50 50
+ellipsoid meso   50 50 50
+ellipsoid meta   50 50 50
+ellipsoid abd1   50 50 50
+ellipsoid abd2   50 50 50
+ellipsoid abd3   50 50 50
+ellipsoid abd4   50 50 50
+ellipsoid abd5   50 50 50
+ellipsoid abd6   50 50 50
+ellipsoid abd7   50 50 50
+ellipsoid abd8   50 50 50
+ellipsoid abd9   50 50 50
+ellipsoid abda   50 50 50
+ellipsoid chrysalis    1  1  1
+ellipsoid leg0l  10 40 10
+ellipsoid leg0r  10 40 10
+ellipsoid leg1l  10 40 10
+ellipsoid leg1r  10 40 10
+ellipsoid leg2l  10 40 10
+ellipsoid leg2r  10 40 10
+ellipsoid prl3l  20 40 20
+ellipsoid prl3r  20 40 20
+ellipsoid prl4l  20 40 20
+ellipsoid prl4r  20 40 20
+ellipsoid prl5l  20 40 20
+ellipsoid prl5r  20 40 20
+ellipsoid prl6l  20 40 20
+ellipsoid prl6r  20 40 20
+ellipsoid clsprl 20 50 20
+ellipsoid clsprr 20 50 20
+*
+joint jprot  head  0 0 -25  prot 0 0 40
+joint jmeso  prot  0 0 -25  meso 0 0 25
+joint jmeta  meso  0 0 -25  meta 0 0 25
+joint jabd1  meta  0 0 -25  abd1 0 0 25
+joint jabd2  abd1  0 0 -25  abd2 0 0 25
+joint jabd3  abd2  0 0 -25  abd3 0 0 25
+joint jabd4  abd3  0 0 -25  abd4 0 0 25
+joint jabd5  abd4  0 0 -25  abd5 0 0 25
+joint jabd6  abd5  0 0 -25  abd6 0 0 25
+joint jabd7  abd6  0 0 -25  abd7 0 0 25
+joint jabd8  abd7  0 0 -25  abd8 0 0 25
+joint jabd9  abd8  0 0 -25  abd9 0 0 25
+joint jabda  abd9  0 0 -25  abda 0 0 25
+*
+joint knee0l prot  -30 -10 0  leg0l 0 30 0
+joint knee0r prot  +30 -10 0  leg0r 0 30 0
+joint knee1l meso  -30 -10 0  leg1l 0 30 0
+joint knee1r meso  +30 -10 0  leg1r 0 30 0
+joint knee2l meta  -30 -10 0  leg2l 0 30 0
+joint knee2r meta  +30 -10 0  leg2r 0 30 0
+joint knee3l abd3  -30 -10 0  prl3l 0 30 0
+joint knee3r abd3  +30 -10 0  prl3r 0 30 0
+joint knee4l abd4  -30 -10 0  prl4l 0 30 0
+joint knee4r abd4  +30 -10 0  prl4r 0 30 0
+joint knee5l abd5  -30 -10 0  prl5l 0 30 0
+joint knee5r abd5  +30 -10 0  prl5r 0 30 0
+joint knee6l abd6  -30 -10 0  prl6l 0 30 0
+joint knee6r abd6  +30 -10 0  prl6r 0 35 0
+joint knee7l abda  -30 -10 -20 clsprl 0 35  0
+joint knee7r abda  +30 -10 -20 clsprr 0 35  0
+joint link   clsprl  0  35   0 chrysalis   0 -1  0
+*
+repeat 0 1 colour head     150 150  30
+repeat 0 1 colour prot     250 250  50
+repeat 0 1 colour meso     250 250  50
+repeat 0 1 colour meta     250 250  50
+repeat 0 1 colour abd1     250  50 250
+repeat 0 1 colour abd2      50 250 250
+repeat 0 1 colour abd3     250  50 250
+repeat 0 1 colour abd4      50 250 250
+repeat 0 1 colour abd5     250  50 250
+repeat 0 1 colour abd6      50 250 250
+repeat 0 1 colour abd7     250  50 250
+repeat 0 1 colour abd8      50 250 250
+repeat 0 1 colour abd9     250  50 250
+repeat 0 1 colour abda      50 250 250
+repeat 0 1 colour chrysalis 51  51   1
+*
+***********************************************************
+*
+* butterfly by Linda Shoolman 6-8-81
+*
+figure bertha 23 *
+lfore rfore lhind rhind *
+      bhead thorax abdomen lanten ranten ltip rtip *
+      lfemr1 rfemr1 lfemr2 rfemr2 lfemr3 rfemr3 *
+      ltbia1 rtbia1  ltbia2 rtbia2 ltbia3 rtbia3
+*
+ellipsoid lfore 100  2 70
+ellipsoid rfore 100  2 70
+ellipsoid lhind  80  2 70
+ellipsoid rhind  80  2 70
+ellipsoid bhead  10 10  5
+ellipsoid thorax 10 10 15
+ellipsoid abdomen  10 10 60
+ellipsoid lanten  2  2 50
+ellipsoid ranten  2  2 50
+ellipsoid ltip    4  4  6
+ellipsoid rtip    4  4  6
+ellipsoid lfemr1  2  2 10
+ellipsoid rfemr1  2  2 10
+ellipsoid lfemr2  2  2 10
+ellipsoid rfemr2  2  2 10
+ellipsoid lfemr3  2  2 10
+ellipsoid rfemr3  2  2 10
+ellipsoid ltbia1  2  2 20
+ellipsoid rtbia1  2  2 20
+ellipsoid ltbia2  2  2 20
+ellipsoid rtbia2  2  2 20
+ellipsoid ltbia3  2  2 20
+ellipsoid rtbia3  2  2 20
+*
+joint lfroot lfore +100 0 0 thorax -10 +3 +5
+joint rfroot rfore -100 0 0 thorax +10 +3 +5
+joint lhroot lhind  +80 0 0 thorax -10 +3 -5
+joint rhroot rhind  -80 0 0 thorax +10 +3 -5
+joint neck   bhead   0 0 -3 thorax   0 0 +15
+joint waist  abdomen  0 0 +55 thorax   0 0 -15
+joint rhip1  rfemr1 0 0 -10 thorax  +5 -5 +5
+joint lhip1  lfemr1 0 0 -10 thorax  -5 -5 +5
+joint rhip2  rfemr2 0 0 -10 thorax  +5 -5  0
+joint lhip2  lfemr2 0 0 -10 thorax  -5 -5  0
+joint rhip3  rfemr3 0 0 -10 thorax  +5 -5 -5
+joint lhip3  lfemr3 0 0 -10 thorax  -5 -5 -5
+joint lknee1 lfemr1 0 0 +10 ltbia1   0 0 +20
+joint rknee1 rfemr1 0 0 +10 rtbia1   0 0 +20
+joint lknee2 lfemr2 0 0 +10 ltbia2   0 0 +20
+joint rknee2 rfemr2 0 0 +10 rtbia2   0 0 +20
+joint lknee3 lfemr3 0 0 +10 ltbia3   0 0 +20
+joint rknee3 rfemr3 0 0 +10 rtbia3   0 0 +20
+joint lbrow  bhead  0 0   0 lanten   0 0 -46
+joint rbrow  bhead  0 0   0 ranten   0 0 -46
+joint lend   lanten 0 0 +50 ltip     0 0  -5
+joint rend   ranten 0 0 +50 rtip     0 0  -5
+*
+repeat 0 1 colour lfore 200  2 70
+repeat 0 1 colour rfore 200  2 70
+repeat 0 1 colour lhind  80  2 170
+repeat 0 1 colour rhind  80  2 170
+repeat 0 1 colour bhead  10 10  5
+repeat 0 1 colour thorax 10 10 15
+repeat 0 1 colour abdomen  10 10 60
+repeat 0 1 colour lanten  2  2 50
+repeat 0 1 colour ranten  2  2 50
+repeat 0 1 colour ltip    4  4  6
+repeat 0 1 colour rtip    4  4  6
+repeat 0 1 colour lfemr1  2  2 10
+repeat 0 1 colour rfemr1  2  2 10
+repeat 0 1 colour lfemr2  2  2 10
+repeat 0 1 colour rfemr2  2  2 10
+repeat 0 1 colour lfemr3  2  2 10
+repeat 0 1 colour rfemr3  2  2 10
+repeat 0 1 colour ltbia1  2  2 20
+repeat 0 1 colour rtbia1  2  2 20
+repeat 0 1 colour ltbia2  2  2 20
+repeat 0 1 colour rtbia2  2  2 20
+repeat 0 1 colour ltbia3  2  2 20
+repeat 0 1 colour rtbia3  2  2 20
+*
+quadratic 0 1 bendby lfore lfroot thorax +20 y
+quadratic 0 1 bendby rfore rfroot thorax -20 y
+quadratic 0 1 bendby lhind lhroot thorax -20 y
+quadratic 0 1 bendby rhind rhroot thorax +20 y
+quadratic 0 1 bendby lanten lbrow bhead -10 x
+quadratic 0 1 bendby ranten rbrow bhead -10 x
+quadratic 0 1 bendby lfemr1 lhip1 thorax +20 x
+quadratic 0 1 bendby rfemr1 rhip1 thorax +20 x
+quadratic 0 1 bendby lfemr2 lhip2 thorax +30 x
+quadratic 0 1 bendby rfemr2 rhip2 thorax +30 x
+quadratic 0 1 bendby lfemr3 lhip3 thorax +40 x
+quadratic 0 1 bendby rfemr3 rhip3 thorax +40 x
+quadratic 0 1 bendby lfore lfroot thorax -2 z
+quadratic 0 1 bendby rfore rfroot thorax +2 z
+quadratic 0 1 bendby ltbia1 lknee1 lfemr1 -40 x
+quadratic 0 1 bendby rtbia1 rknee1 rfemr1 -40 x
+quadratic 0 1 bendby ltbia2 lknee2 lfemr2 -40 x
+quadratic 0 1 bendby rtbia2 rknee2 rfemr2 -40 x
+quadratic 0 1 bendby ltbia3 lknee3 lfemr3 -40 x
+quadratic 0 1 bendby rtbia3 rknee3 rfemr3 -40 x
+quadratic 0 1 bendby lanten lbrow bhead -20 y
+quadratic 0 1 bendby ranten rbrow bhead +20 y
+*
+variab 2 ang nang
+variab 5 jja jjb jjc jjd jje
+variab 6 eea eeb eec eed eee ee0
+variab 3 cx cy cz
+*
+rep 0 1 set ang  -40
+rep 0 1 set nang +40
+*
+quadratic 0 1 moveto cathy   head  500  0 0
+quadratic 0 1 ground cathy
+quadratic 0 1 moveto branch    stem  500   0 500
+quadratic 0 1 moveby branch    world   0   5   0
+quadratic 0 1 spinby every     stem world 180 x
+quadratic 0 1 spinby every     stem world +90 y
+quadratic 0 1 spinby every     stem world +10 z
+quadratic 0 1 flex   clsprl  knee7l +30
+quadratic 0 1 flex   clsprr  knee7r +30
+quadratic 0 1 moveto every     stem  500 800 2000
+quadratic 0 1 spinby bertha  thorax world -10 z
+quadratic 0 1 spinby bertha  thorax world -90 z
+quadratic 0 1 grofig bertha  world 0.5 0.5 0.5
+quadratic 0 1 moveto bertha  thorax -1000 0 0
+*
+call        1   98 8crawl
+call      101  198 8crawl
+call      201  298 8crawl
+call      301  398 8crawl
+call      401  498 8crawl
+call      501  598 8crawl
+call      601  675 pupate
+call      701  750 spring
+call      800  930 emerge
+call      890 1010 f8lap
+call     1000 1075 autumn
+*
+* end main program
+*
+********************************************
+*
+subroutine 8crawl
+*
+* take 8 overlapping crawl steps in 1-84 frames
+*
+call  1 14 crawl
+call 15 28 crawl
+call 29 42 crawl
+call 43 56 crawl
+call 57 70 crawl
+call 71 84 crawl
+call 85 98 crawl
+end 8crawl
+*
+********************************
+*
+subroutine crawl
+*
+*  in 1-14 frames
+*  calls lpstrt, loopv, loopw, loopx, loopy, loopz,
+*        loop0, loop1, loop2, loop3, loop4, loop5, loop6.
+*
+call  1  2 lpstrt
+call  2  3 loop6
+call  3  4 loop5
+call  4  5 loop4
+call  5  6 loop3
+call  6  7 loop2
+call  7  8 loop1
+call  8  9 loop0
+call  9 10 loopz
+call 10 11 loopy
+call 11 12 loopx
+call 12 13 loopw
+call 13 14 loopv
+*
+end crawl
+*
+***********************************
+*
+subroutine lpstrt
+*
+*  start a loop in last segment of abdomen
+*  called by crawl
+*
+quad 1 2 flex   abda jabda ang
+quad 1 2 flex   abd9 jabd9 nang
+quad 1 2 flex   abd8 jabd8 nang
+quad 1 2 flex   abd7 jabd7 ang
+*
+end lpstrt
+*
+*************************************
+*
+*
+subroutine loop6
+*
+*  called by crawl
+*
+rep 1 2 set jja jabd6
+rep 1 2 set jjb jabd7
+rep 1 2 set jjc jabd8
+rep 1 2 set jjd jabd9
+rep 1 2 set jje jabda
+*
+rep 1 2 set ee0 abd5
+rep 1 2 set eea abd6
+rep 1 2 set eeb abd7
+rep 1 2 set eec abd8
+rep 1 2 set eed abd9
+rep 1 2 set eee abda
+quad 1 2 abduct prl6l knee6l +70
+quad 1 2 abduct prl6r knee6r +70
+*
+call 1 2 loopa
+*
+end loop6
+*
+**************************************
+subroutine loop5
+*
+*  called by crawl
+*
+rep 1 2 set jja jabd5
+rep 1 2 set jjb jabd6
+rep 1 2 set jjc jabd7
+rep 1 2 set jjd jabd8
+rep 1 2 set jje jabd9
+*
+rep 1 2 set ee0 abd4
+rep 1 2 set eea abd5
+rep 1 2 set eeb abd6
+rep 1 2 set eec abd7
+rep 1 2 set eed abd8
+rep 1 2 set eee abd9
+quad 1 2 abduct prl5l knee5l +70
+quad 1 2 abduct prl5r knee5r +70
+*
+call 1 2 loopa
+*
+end loop5
+*
+*************************************
+*
+subroutine loop4
+*
+*  called by crawl
+*
+rep 1 2 set jja jabd4
+rep 1 2 set jjb jabd5
+rep 1 2 set jjc jabd6
+rep 1 2 set jjd jabd7
+rep 1 2 set jje jabd8
+*
+rep 1 2 set ee0 abd3
+rep 1 2 set eea abd4
+rep 1 2 set eeb abd5
+rep 1 2 set eec abd6
+rep 1 2 set eed abd7
+rep 1 2 set eee abd8
+quad 1 2 abduct prl4l knee4l +70
+quad 1 2 abduct prl4r knee4r +70
+*
+call 1 2 loopa
+*
+end loop4
+*
+*****************************************
+*
+subroutine loop3
+*
+*  called by crawl
+*
+rep 1 2 set jja jabd3
+rep 1 2 set jjb jabd4
+rep 1 2 set jjc jabd5
+rep 1 2 set jjd jabd6
+rep 1 2 set jje jabd7
+*
+rep 1 2 set ee0 abd2
+rep 1 2 set eea abd3
+rep 1 2 set eeb abd4
+rep 1 2 set eec abd5
+rep 1 2 set eed abd6
+rep 1 2 set eee abd7
+quad 1 2 abduct prl3l knee3l +70
+quad 1 2 abduct prl3r knee3r +70
+quad 1 2 abduct prl6l knee6l -70
+quad 1 2 abduct prl6r knee6r -70
+*
+call 1 2 loopa
+*
+end loop3
+*
+*************************************
+*
+subroutine loop2
+*
+*  called by crawl
+*
+rep 1 2 set jja jabd2
+rep 1 2 set jjb jabd3
+rep 1 2 set jjc jabd4
+rep 1 2 set jjd jabd5
+rep 1 2 set jje jabd6
+*
+rep 1 2 set ee0 abd1
+rep 1 2 set eea abd2
+rep 1 2 set eeb abd3
+rep 1 2 set eec abd4
+rep 1 2 set eed abd5
+rep 1 2 set eee abd6
+quad 1 2 abduct prl5l knee5l -70
+quad 1 2 abduct prl5r knee5r -70
+*
+call 1 2 loopa
+*
+end loop2
+*
+************************************
+*
+subroutine loop1
+*
+*  called by crawl
+*
+rep 1 2 set jja jabd1
+rep 1 2 set jjb jabd2
+rep 1 2 set jjc jabd3
+rep 1 2 set jjd jabd4
+rep 1 2 set jje jabd5
+*
+rep 1 2 set ee0 meta
+rep 1 2 set eea abd1
+rep 1 2 set eeb abd2
+rep 1 2 set eec abd3
+rep 1 2 set eed abd4
+rep 1 2 set eee abd5
+quad 1 2 abduct prl4l knee4l -70
+quad 1 2 abduct prl4r knee4r -70
+*
+call 1 2 loopa
+*
+end loop1
+************************************
+*
+subroutine loop0
+*
+*  called by crawl
+*
+rep 1 2 set jja jmeta
+rep 1 2 set jjb jabd1
+rep 1 2 set jjc jabd2
+rep 1 2 set jjd jabd3
+rep 1 2 set jje jabd4
+*
+rep 1 2 set ee0 meso
+rep 1 2 set eea meta
+rep 1 2 set eeb abd1
+rep 1 2 set eec abd2
+rep 1 2 set eed abd3
+rep 1 2 set eee abd4
+quad 1 2 abduct leg2l knee2l +70
+quad 1 2 abduct leg2r knee2r +70
+quad 1 2 abduct prl3l knee3l -70
+quad 1 2 abduct prl3r knee3r -70
+*
+call 1 2 loopa
+*
+end loop0
+*
+***********************************
+*
+subroutine loopz
+*
+*  called by crawl
+*
+rep 1 2 set jja jmeso
+rep 1 2 set jjb jmeta
+rep 1 2 set jjc jabd1
+rep 1 2 set jjd jabd2
+rep 1 2 set jje jabd3
+*
+rep 1 2 set ee0 prot
+rep 1 2 set eea meso
+rep 1 2 set eeb  meta
+rep 1 2 set eec abd1
+rep 1 2 set eed abd2
+rep 1 2 set eee abd3
+quad 1 2 abduct leg1l knee1l +70
+quad 1 2 abduct leg1r knee1r +70
+*
+call 1 2 loopa
+*
+end loopz
+*
+************************************
+*
+*  called by crawl
+*
+subroutine loopy
+*
+rep 1 2 set jja jprot
+rep 1 2 set jjb jmeso
+rep 1 2 set jjc jmeta
+rep 1 2 set jjd jabd1
+rep 1 2 set jje jabd2
+*
+rep 1 2 set ee0 head
+rep 1 2 set eea prot
+rep 1 2 set eeb meso
+rep 1 2 set eec meta
+rep 1 2 set eed abd1
+rep 1 2 set eee abd2
+quad 1 2 abduct leg0l knee0l +70
+quad 1 2 abduct leg0r knee0r +70
+call 1 2 loopa
+*
+end loopy
+*
+***********************************
+*
+subroutine loopx
+*
+*  called by crawl
+*
+quad 1 2 flex   head jprot ang
+quad 1 2 flex   meso jmeta nang
+quad 1 2 flex   meso jmeta nang
+quad 1 2 flex   meta jabd1 ang
+quad 1 2 abduct leg2l knee2l -70
+quad 1 2 abduct leg2r knee2r -70
+*
+end loopx
+*
+************************************
+*
+subroutine loopw
+*
+*  called by crawl
+*
+quad 1 2 flex   prot jmeso nang
+quad 1 2 flex   meso jmeta ang
+quad 1 2 abduct leg1l knee1l -70
+quad 1 2 abduct leg1r knee1r -70
+*
+end loopw
+*************************************
+*
+subroutine loopv
+*
+*  called by crawl
+*
+quad 1 2 abduct leg0l knee0l -70
+quad 1 2 abduct leg0r knee0r -70
+*
+end loopv
+******************************************
+*
+subroutine loopa
+*
+*  called by loop0, loop1, loop2, loop3, loop4, loop5, loop6,
+*            loopy, loopz.
+*
+quad 1 2 flex   ee0 jja nang
+quad 1 2 flex   eea jjb ang
+quad 1 2 flex   eea jjb ang
+quad 1 2 flex   eec jjd nang
+quad 1 2 flex   eec jjd nang
+quad 1 2 flex   eed jje ang
+*
+end loopa
+*
+**************************************
+*
+subroutine pupate
+*
+* in frames 101 - 175
+*  called by main
+*
+quadratic 101 125 flex   abda knee7l -80
+quadratic 124 125 flex   chrysalis link   +20
+quadratic 125 150 grojnt chrysalis link 60 200 60
+*
+quadratic 151 175 grojnt head jprot 0.02 0.02 0.02
+quadratic 151 175 grojnt prot jmeso 0.02 0.02 0.02
+quadratic 151 175 grojnt meso jmeta 0.02 0.02 0.02
+quadratic 151 175 grojnt meta jabd1 0.02 0.02 0.02
+quadratic 151 175 grojnt abd1 jabd2 0.02 0.02 0.02
+quadratic 151 175 grojnt abd2 jabd3 0.02 0.02 0.02
+quadratic 151 175 grojnt abd3 jabd4 0.02 0.02 0.02
+quadratic 151 175 grojnt abd4 jabd5 0.02 0.02 0.02
+quadratic 151 175 grojnt abd5 jabd6 0.02 0.02 0.02
+quadratic 151 175 grojnt abd6 jabd7 0.02 0.02 0.02
+quadratic 151 175 grojnt abd7 jabd8 0.02 0.02 0.02
+quadratic 151 175 grojnt abd8 jabd9 0.02 0.02 0.02
+*
+quadratic 151 175 grojnt abd9   jabda  0.02 0.02 0.02
+quadratic 151 175 grojnt abda   knee7l 0.02 0.02 0.02
+quadratic 151 175 grojnt leg0l  knee0l 0.02 0.02 0.02
+quadratic 151 175 grojnt leg0r  knee0r 0.02 0.02 0.02
+quadratic 151 175 grojnt leg1l  knee1l 0.02 0.02 0.02
+quadratic 151 175 grojnt leg1r  knee1r 0.02 0.02 0.02
+quadratic 151 175 grojnt leg2l  knee2l 0.02 0.02 0.02
+quadratic 151 175 grojnt leg2r  knee2r 0.02 0.02 0.02
+quadratic 151 175 grojnt prl3l  knee3l 0.02 0.02 0.02
+quadratic 151 175 grojnt prl3r  knee3r 0.02 0.02 0.02
+quadratic 151 175 grojnt prl4l  knee4l 0.02 0.02 0.02
+quadratic 151 175 grojnt prl4r  knee4r 0.02 0.02 0.02
+quadratic 151 175 grojnt prl5l  knee5l 0.02 0.02 0.02
+quadratic 151 175 grojnt prl5r  knee5r 0.02 0.02 0.02
+quadratic 151 175 grojnt prl6l  knee6l 0.02 0.02 0.02
+quadratic 151 175 grojnt prl6r  knee6r 0.02 0.02 0.02
+quadratic 151 175 grojnt clsprr knee7r 0.02 0.02 0.02
+end pupate
+*********************************************
+*
+subroutine spring
+*
+* grow leaves
+* in 50 frames
+*   called by main
+*
+quadratic 176 201 grojnt vein1 axil1 0.2 2 0.2
+quadratic 176 201 grojnt leaf1 base1 1 200 100
+quadratic 176 226 grojnt vein2 axil2 0.2 2 0.2
+quadratic 176 226 grojnt leaf2 base2 1 200 100
+end spring
+*********************************************
+*
+subroutine emerge
+*
+* in 130 frames (200 - 330)
+* called by main
+*
+repeat    200 201 centre chrysalis cx cy cz
+variable 1 factor
+variable 7 abch abx aby abz chx chy chz
+repeat    200 201 set    factor 3
+repeat    200 201 axes   abdomen abx aby abz
+repeat    200 201 axes   chrysalis chx chy chz
+repeat    200 201 multip aby aby factor
+repeat    200 201 add    abch    chy aby
+quadratic 200 201 moveto bertha  abdomen cx cy cz
+quadratic 200 201 spinby bertha  abdomen abdomen 180 x
+quadratic 200 201 grojnt rfore   rfroot 0.1 1 0.2
+quadratic 200 201 grojnt lfore   lfroot 0.1 1 0.2
+quadratic 200 201 grojnt rhind   rhroot 0.1 1 0.2
+quadratic 200 201 grojnt lhind   lhroot 0.1 1 0.2
+quadratic 200 201 bendby lanten  lbrow bhead -170 y
+quadratic 200 201 bendby ranten  rbrow bhead +170 y
+*
+quadratic 210 250 grofig bertha  abdomen factor factor factor
+quadratic 236 260 moveby bertha  chrysalis 0 abch 0
+*
+quadratic 250 270 bendby lanten  lbrow bhead +170 y
+quadratic 250 270 bendby ranten  rbrow bhead -170 y
+*
+quadratic 260 285 spinby bertha  thorax world  -100 z
+quadratic 260 285 spinby bertha  thorax world   -10 y
+quadratic 260 285 spinby bertha  thorax world   -10 x
+quadratic 260 285 grojnt lfore   lfroot 10 1 5
+quadratic 260 285 grojnt rfore   rfroot 10 1 5
+quadratic 260 285 grojnt rhind   rhroot 10 1 5
+quadratic 260 285 grojnt lhind   lhroot 10 1 5
+*
+quadratic 285 300 moveby bertha  world    -180  -200 0
+quadratic 295 330 spinby bertha  abdomen abdomen  -180 z
+end emerge
+**********************************
+*
+subroutine f8lap
+*
+*   8 flaps in 119 frames
+call   1  15 flap
+call  15  30 flap
+call  30  45 flap
+call  45  60 flap
+call  60  75 flap
+call  75  90 flap
+call  90 105 flap
+call 105 120 flap
+linear   1 120 moveby bertha  world -900 +500 -1000
+end f8lap
+********************************************
+*
+subroutine flap
+*
+* in 12 frames
+* called by f8lap
+* calls stroke
+*
+repeat   1  5 set ang -60
+repeat   1  5 set nang +60
+call     1  5 stroke
+quadrat  1  5 moveby bertha   world 0 -50 0
+*
+repeat   5  9 set ang +120
+repeat   5  9 set nang -120
+call     5  9 stroke
+quadrat  5  9 moveby bertha   world   0 120 0
+quadrat  5  9 moveby bertha   abdomen 20  0 0
+*
+repeat   9 13 set ang -60
+repeat   9 13 set nang +60
+call     9 13 stroke
+quadrat  9 13 moveby bertha   world 0 -50 0
+*
+end flap
+********************************************
+*
+subroutine stroke
+*
+* called by flap
+*
+quad 1 5 bendby lfore lfroot thorax ang z
+quad 1 5 bendby rfore rfroot thorax nang z
+quad 1 5 bendby lhind lhroot thorax ang z
+quad 1 5 bendby rhind rhroot thorax nang z
+*
+end stroke
+********************************************
+*
+subroutine autumn
+*
+*   leaves fall
+*   in 75 frames
+* called by main
+*
+accelerate  1 25 moveby cathy   world  0 -1000 0
+quadratic  25 26 detach vein1 axil1 l1
+accelerate 26 50 moveby l1   world  0 -1000 0
+quadratic  26 50 spinby l1   vein1 leaf1 180 x
+quadratic  50 51 detach vein2 axil2 l2
+accelerate 50 75 moveby l2   world  0 -1000 0
+quadratic  50 75 spinby l2   vein2 leaf2 180 x
+end autumn
+*
+stop
