@@ -239,10 +239,10 @@
       t_main            - organises everything
 */
 #include <iostream>
-#include "stdafx.h"
 #include "glut.h" 
-//#include <stdlib.h> 
-//#include <stdio.h> 
+#include <stdlib.h> 
+#include <stdio.h> 
+#include <string.h>
 
 #define WINDOW_WIDTH 700 
 #define WINDOW_HEIGHT 650 
@@ -4068,7 +4068,7 @@ void lbnread(void)
          } /* not comment */
       } /* while not eof */
    } /* openin true */
-   fclose(INFILE);
+   //if (INFILE) fclose(INFILE);
    openin = FALSE;
    scoretop = s;
    newtop = s;
@@ -4081,7 +4081,7 @@ void lbnread(void)
    drawbars();
    fixscore();
    sprintf(foutname,finname);
-   fclose(INFILE);
+   if (INFILE) fclose(INFILE);
    createopen();
 } /* lbnread */
 /**************************************/
@@ -5074,7 +5074,7 @@ void initgraphics(void)
 } /* initgraphics */
 /***************************************/ 
 
-int _tmain(int argc, char* argv[])
+int main(int argc, char* argv[])
 /*
     calls setup, setoutfile, initgraphics, createmenus,
 	      displayscore, mouseclick, mousetrack,

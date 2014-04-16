@@ -1,0 +1,10 @@
+* TCHAR typedef to char
+* fmax renamed to f_max
+* string.h included
+* ctype.h included
+* glut linkage -lglut
+* math linkage -lm
+* tmain renamed to main
+* removed stdafx.h (the windows version of unicode)
+* Added trivial Makefile
+* Added this file
