@@ -1,6 +1,7 @@
 CFLAGS = -g
+executables = led lintel compln prfrm viewc frad3c split3e hideo plotelg shadoq raselr nudes 
 
-all:	led lintel compln prfrm viewc frad3c split3e hideo plotelg shadoq raselr nudes
+all: ${executables}
 
 led: led.cpp
 	g++ -I /usr/include/GL led.cpp -o led -lm -lglut -lGL
@@ -20,7 +21,7 @@ viewc:  viewc.c
 frad3c:  frad3c.c
 	gcc frad3c.c -o frad3c
 
-split3e:  split3e.c
+split3e: split3e.c
 	gcc split3e.c -o split3e
 
 hideo:  hideo.c
@@ -39,4 +40,4 @@ nudes:  nudes.c
 	gcc $(CFLAGS) nudes.c -o nudes
         #nudes walk -h -j -l 1 -b 4 -G
 clean:
-	rm -rf led lintel compln prfrm viewc frad3c split3e hideo plotelg shadoq raselr *.tmp nudes
+	rm -rf $(executables) *.tmp 
