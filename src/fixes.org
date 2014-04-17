@@ -50,3 +50,9 @@ I attach one that might work with walk.lbn.
 * got hideo.c up and running, hard paths
 
 * plotelg and raselr...
+* got missing mpeg headers from Don, added
+* formats have changed... so mpeg not being made... crashing
+- change to tmp
+- convert -delay 20 *ppm movie2.gif
+(convert is part of imagemagick)
+* Need to write a script to do this and close the pipeline
