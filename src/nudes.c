@@ -1467,7 +1467,7 @@ char f[BMAX];
       }
       sprintf(outfile,"%sb.3",f);
    }
-   sprintf(command,"%s/%s/viewc  < %s > %sc.3\n",home,bin,outfile,f);
+   sprintf(command,"%s/viewc  < %s > %sc.3\n",wd,outfile,f);
    exec(TRUE);
    if (keep == FALSE)
    {
@@ -1477,8 +1477,8 @@ char f[BMAX];
    sprintf(outfile,"%sc.3",f);
    if (dofr == TRUE)
    {
-      sprintf(command,"%s/%s/frad3c -g %d < %s > %sd.3 \n",
-           home,bin,grey,outfile,f);
+      sprintf(command,"%s/frad3c -g %d < %s > %sd.3 \n",
+	      wd,grey,outfile,f);
       exec(TRUE);
       sprintf(outfile,"%sd.3",f);
    }
@@ -1516,7 +1516,7 @@ char f[BMAX];
    }
    else
    {
-      sprintf(command,"%s/%s/split3e %s %d < %s\n",home,bin,f,start,file3);
+     sprintf(command,"%s/split3e %s %d < %s\n",wd,f,start,file3);
       exec(TRUE);
       sprintf(endin,".3");
       countin(f);
@@ -1549,8 +1549,8 @@ char f[BMAX];
       if ((output == 's') || (output == 'w'))
          sprintf(command,"%s/%s/visig < %s > %s.2 \n",home,bin,file3,f);
       else if ((output == '2') || (output == 'h'))
-            sprintf(command,"%s/%s/hideo < %s > %s.2 \n",
-               home,bin,file3,f);
+            sprintf(command,"%s/hideo < %s > %s.2 \n",
+		    wd,file3,f);
       else
       {
          sprintf(err,"dovector output = %c\n",output);
@@ -1563,7 +1563,7 @@ char f[BMAX];
       sprintf(outfile,"%s.2",f);
    else
    {
-      sprintf(command,"%s/%s/plotelg %d %s\n",home,bin,nsteps,f);
+      sprintf(command,"%s/plotelg %d %s\n",wd,nsteps,f);
       exec(nfr == start);
       sprintf(outfile,"%s.ps",f);
    }

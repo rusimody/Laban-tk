@@ -44,3 +44,8 @@ It will also take a .n file as input.
 
 Some versions of LINTEL need a lintel.ini file.
 I attach one that might work with walk.lbn.
+* Got viewc running, fixed hard paths in nudes.c
+* Got frad3.c up, fixing hard paths in nudes.c
+* got split3e.c up and running, hard paths
+* got hideo.c up and running, hard paths
+
