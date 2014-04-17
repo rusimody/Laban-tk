@@ -602,11 +602,14 @@
 *************************************************************/
 
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h> 
 #include <math.h>
-#include "stdafx.h"
 #include <math.h>
+#include <ctype.h>
 #include "glut.h" 
+
+typedef char TCHAR;
 
 #define TRUE      0
 #define FALSE     1
@@ -615,7 +618,7 @@
 #define MAN       0
 #define WOMAN     1
 #define MAXINT 1073741824
-#define WINDOW_MODE 
+#define WINDOW_MODE  1
 #define GLUT_KEY_ESCAPE 27 
 #define BMAX    256         // size of character buffer
 #define EMAX   1024         // maximum number of ellipsoids
@@ -676,6 +679,8 @@
                             // man's R hand on lady's R hip, lady's R hand free.
 
 // ini file variables-
+
+int x;
 char ini_title[256][32];
 char ini_value[256][128];
 int max_ini = 256;
@@ -848,7 +853,7 @@ int facess;          // facing score of semishadow position
 int fbegin,ffin,flen;// start,end, and length of a position
 int fend;            // frame number of end of current movement
 int fhalf;           // frame halfway through a movement
-int fmax;            // maximum frame number
+int f_max;            // maximum frame number
 int fps;             // frames/second
 int frange;          // number of frames in an action
 int frperbar;        // frames per bar;
@@ -1064,7 +1069,7 @@ FILE *infile;
 FILE *nudesfile;
 FILE *figsfile;
 
-_TCHAR* junk[BMAX];
+char* junk[BMAX];
 
 char buf[BMAX];            // input buffer
 char line[BMAX];           // compl input buffer 
@@ -1535,7 +1540,7 @@ int   abnt[3][12][3]  /* quaternion angles of 11 direction symbols */
 
 /************************************************/
 
-int _tmain(int argc, _TCHAR* argv[]);
+int main(int argc, char* argv[]);
 
 void lgetout(int allok)
 /*
@@ -1627,7 +1632,7 @@ void initialise(void)
    fstop = 0;
    pstart = 0;
    pend = 0;
-   fmax = 0;
+   f_max = 0;
    vstart = 0;
    vstop = FMAX;
    inmain = TRUE;
@@ -1841,7 +1846,7 @@ void lsetframes(void)
    fhalf = fstart + frange/2;
    if (fend <= fstart) fend = fhalf+1;
    if (fhalf > fend) fend = fhalf+1;
-   if (fend > fmax) fmax = fend;
+   if (fend > f_max) f_max = fend;
 } /* lsetframes */
 /************************************************/
 
@@ -3190,8 +3195,8 @@ void lstart(void)
 		 }
       }
    }
-   fmax = 2 + int(lbn_fpp*double(ymax));
-	printf("\n   lsetrange: pixels %d, frames %d\n",ymax,fmax);
+   f_max = 2 + int(lbn_fpp*double(ymax));
+	printf("\n   lsetrange: pixels %d, frames %d\n",ymax,f_max);
 } /* lsetrange */
 /****************************************************/
 
@@ -3225,50 +3230,50 @@ void lfinish(void)
    calls lgetout,
 */
 {
-   fmax += 2;
+   f_max += 2;
    fprintf(nudesfile,"*\n");
    fprintf(nudesfile,"**************************\n");
    fprintf(nudesfile,"*\n");
    if (nm > 0)
       fprintf(nudesfile,
-         "repeat      0 %3d ground man\n",fmax);
+         "repeat      0 %3d ground man\n",f_max);
    else
       fprintf(nudesfile,
          "repeat      0   1 moveto man    mlfoot  10000 10000 10000\n");
    if (nw > 0)
       fprintf(nudesfile,
-         "repeat      0 %3d ground woman\n",fmax);
+         "repeat      0 %3d ground woman\n",f_max);
    else
       fprintf(nudesfile,
          "repeat      0   1 moveto woman  wlfoot  10000 10000 10000\n");
    if (nm > 0)
       fprintf(nudesfile,
-         "repeat      0 %3d centre mpelvis fx fy fz\n",fmax);
+         "repeat      0 %3d centre mpelvis fx fy fz\n",f_max);
    else
       fprintf(nudesfile,
-         "repeat      0 %3d centre wpelvis fx fy fz\n",fmax);
+         "repeat      0 %3d centre wpelvis fx fy fz\n",f_max);
    if (track == TRUE)
    {
 	   fprintf(nudesfile,
-         "repeat      0 %3d add     fy -900 fz\n",fmax);
+         "repeat      0 %3d add     fy -900 fz\n",f_max);
        fprintf(nudesfile,
-         "repeat      0 %3d place   fx  500 fy\n",fmax);
+         "repeat      0 %3d place   fx  500 fy\n",f_max);
    }
    fprintf(nudesfile,
-       "repeat      0 %3d observe -9    0  0\n*\n",fmax);
+       "repeat      0 %3d observe -9    0  0\n*\n",f_max);
    fprintf(nudesfile,
       "end dance\n****************************\n");
    fprintf(nudesfile,
-      "*\nsubroutine setfmax\n");
+      "*\nsubroutine setf_max\n");
    fprintf(nudesfile,
-      "*\nrepeat 0 1 set fmax %d\n",fmax);
+      "*\nrepeat 0 1 set f_max %d\n",f_max);
    fprintf(nudesfile,
-      "*\nend setfmax\n");
+      "*\nend setf_max\n");
    fprintf(nudesfile,
       "****************************\n*\nstop\n");
    fclose(nudesfile);
    if (nbar > 0)
-         frperbar = fmax/nbar;
+         frperbar = f_max/nbar;
    else
          frperbar = 0;
 } /* lfinish */
@@ -4148,9 +4153,9 @@ Relevant symbols:-
 	fprintf ( nudesfile, "*\n************************************\n" );
 	oriented = FALSE;
 	if ( dofig == MAN )
-		fprintf ( nudesfile, "*\nrepeat      0 %3d call   doman\n", fmax );
+		fprintf ( nudesfile, "*\nrepeat      0 %3d call   doman\n", f_max );
 	else
-		fprintf ( nudesfile, "*\nrepeat      0 %3d call   dowoman\n", fmax );
+		fprintf ( nudesfile, "*\nrepeat      0 %3d call   dowoman\n", f_max );
 	for ( j = 0; j < NCOLM; ++j )
 		colm[j] = ARM;
 	for ( j = 0; j < ssend; ++j )
@@ -5978,7 +5983,7 @@ dead: goto dead;
 } /* inperf */
 /***************************************/
 
-void compl()
+void compl1(void)
 /*
    calls    inperf, getout, dojoin, checkin,
    called by main,
@@ -9528,7 +9533,7 @@ void checkeys(unsigned char key, int x, int y)
    if ((key == GLUT_KEY_ESCAPE) || (key == 'q'))
    {
          getout(0);
-         if (ok == 1) _tmain(0,junk);
+         if (ok == 1) main(0,junk);
    }
    if (key == 'h') help();
    if (key == 'j')
@@ -9537,7 +9542,7 @@ void checkeys(unsigned char key, int x, int y)
          printf("'j' more facets %d (opp. 'k')\n", nsph);
 			printf("checkeysa %c\n",key);
          initsphere();
-         if (ok == 1) _tmain(0,junk);
+         if (ok == 1) main(0,junk);
    }
    if (key == 'k')
    {
@@ -9545,7 +9550,7 @@ void checkeys(unsigned char key, int x, int y)
          printf("'k' fewer facets %d (opp. 'j')\n", nsph);
 			printf("checkeysb %c\n",key);
          initsphere();
-         if (ok == 1)  _tmain(0,junk);
+         if (ok == 1)  main(0,junk);
    }
    if (key == 'a') 
    {
@@ -10378,7 +10383,7 @@ void initgraphics(void)
 } /* initgraphics */
 /***************************************/ 
 
-int _tmain(int argc, _TCHAR* argv[])
+int main(int argc, char* argv[])
 /*
    calls initialise, lgetfiles, linter, openfile, compl,
          doframes, initsphere, initgraphics,
@@ -10409,7 +10414,7 @@ more:
 	   else 
 	      if (ok != 1) getout(1);
 	         else goto more;
-	compl();
+	compl1();
 	if (ok == 0) doframes();
        else 
           if (ok != 1) getout(1);

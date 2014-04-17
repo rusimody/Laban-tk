@@ -771,7 +771,7 @@ setup()
    sprintf(dimess," ");
    sprintf(imess," ");
    sprintf(kmess," ");
-   sprintf(stem,"/usr/tmp");
+   sprintf(stem,".");
    sprintf(fbase,"f");
 } /* setup */
 /************************************************/
@@ -784,12 +784,13 @@ dodname()
 */
 {
    int k;
-/*
+
    char *answer;
    char *getwd();
    answer = getwd(wd);
-   sprintf(wd," %s",home);
-*/
+   sprintf(wd,"%s",getwd(wd));
+   
+/*
    sprintf(command,"pwd > pwdfile\n");
    exec(FALSE);
    PWDFILE = fopen("pwdfile","r");
@@ -797,7 +798,7 @@ dodname()
    for (k = 0; k < BMAX; ++k)
       if (wd[k] == '\n') wd[k] = '\0';
    sprintf(command,"rm pwdfile\n");
-   exec(FALSE);
+   exec(FALSE);*/
 } /* dodname */
 /***********************************************/
 
@@ -863,15 +864,15 @@ char f[BMAX];
       fclose(SPEED);
       sprintf(command,"cat speed %s > aug%s\n",fin,fin);
       exec(FALSE);
-      sprintf(command,"%s/%s/complm -d %d < aug%s > %s.4\n",
-         home,bin,compldebug,fin,f);
+      sprintf(command,"%s/compln -d %d < aug%s > %s.4\n",
+	      wd,compldebug,fin,f); /* fixed path, complm to compln */
       exec(FALSE);
       sprintf(outfile,"%s.4",f);
    }
 
    if (((input =='n') || (input == '4')) && (device != '4'))
    {
-      sprintf(command,"%s/%s/prfrm < %s.4 > %sa.3\n",home,bin,f,f);
+     sprintf(command,"%s/prfrm < %s.4 > %sa.3\n",wd,f,f); /* fixed path */
       if (debug <= 2) printf("%s",command);
       system(command);
       if (NULL != (PRFRMMESS = fopen("prfrm.mess","r")))
@@ -1605,7 +1606,7 @@ dodir()
 /*
    remove old versions of output file and temporary directory -
 */
-   sprintf(td,"%s/%s.tmp",stem,fbase);
+   sprintf(td,"%s/%s.tmp",wd,fbase);
    sprintf(command,"rm -rf %s \n",td);
    if (debug < 2) printf("%s",command);
    system(command);
@@ -1626,10 +1627,10 @@ dodir()
 /*
    copy or link input file(s) to new directory -
 */
-   sprintf(command,"cp %s/prfrmerr %s/. 2>%s/cp0.mess\n",wd,td,td);
+   sprintf(command,"cp %s/prfrmerr %s 2>%s/cp0.mess\n",wd,td,td);
    if (debug <= 2) printf("%s",command);
    system(command);
-   sprintf(command,"mv %s/rm1.mess %s/. 2>%s/mv1.mess\n",wd,td,td);
+   sprintf(command,"mv %s/rm1.mess %s/ 2>%s/mv1.mess\n",wd,td,td);
    if (debug < 2) printf("%s",command);
    system(command);
 

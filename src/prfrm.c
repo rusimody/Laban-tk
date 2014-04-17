@@ -156,7 +156,7 @@ char    sname[EMAX][BMAX];
 char    vname[EMAX][BMAX];
 
 double  fabs(),sqrt(),log(),exp();
-double  sin(),cos(),acos(),atan(),atan2();
+double  surf(),sin(),cos(),acos(),atan(),atan2();
 
 double  ang[3];
 double  ax3[EMAX][3];
@@ -3808,7 +3808,7 @@ double angsepn()
    dsep = minax[ell1] + minax[ell2];
    sqdist1 = sqr(x[0]-cen[ell1][0])+sqr(x[1]-cen[ell1][1])+sqr(x[2]-cen[ell1][2]);
    sqdist2 = sqr(x[0]-cen[ell2][0])+sqr(x[1]-cen[ell2][1])+sqr(x[2]-cen[ell2][2]);
-   asep = doub2*dsep/sqrt(sqdist1) + sqrt(sqdist2));
+   asep = doub2*dsep/sqrt(sqdist1) + sqrt(sqdist2);
    if (debug <= 0)
       printf("angsepnb %9g %9g %9g %9g %9g\n",
          dsep,sqrt(sqdist1),sqrt(sqdist2),asep);
