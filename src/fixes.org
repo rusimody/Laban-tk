@@ -49,3 +49,4 @@ I attach one that might work with walk.lbn.
 * got split3e.c up and running, hard paths
 * got hideo.c up and running, hard paths
 
+* plotelg and raselr...

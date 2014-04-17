@@ -1458,7 +1458,7 @@ char f[BMAX];
    if (input == '3') sprintf(outfile,fin);
    if (shadow == TRUE)
    {
-      sprintf(command,"%s/%s/shadoq < %s.3 > %sb.3\n",home,bin,f,f);
+      sprintf(command,"%s/shadoq < %s.3 > %sb.3\n",wd,f,f);
       exec(TRUE);
       if ((input != '3') && (keep == FALSE))
       {
@@ -1715,8 +1715,8 @@ int nfr;
       else
          sprintf(command,"mv %s %s 2>%s/mv9.mess\n",infile,file3,td);
       exec(nfr == start);
-   sprintf(command,"%s/%s/raselr %s %s %s %s -x %d < %s\n",
-         home,bin,f,usez,blmess,colmess,size,file3);
+   sprintf(command,"%s/raselr %s %s %s %s -x %d < %s\n",
+         wd,f,usez,blmess,colmess,size,file3);
    sprintf(infile,"%s.0000.ppm",f);
    sprintf(outfile,"%s.0000.ppm",f);
    exec(nfr == start);
