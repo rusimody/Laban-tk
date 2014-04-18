@@ -605,6 +605,7 @@
 #include <string.h>
 #include <stdlib.h> 
 #include <math.h>
+#include "stdafx.h"
 #include <math.h>
 #include <ctype.h>
 #include "glut.h" 
@@ -3264,11 +3265,11 @@ void lfinish(void)
    fprintf(nudesfile,
       "end dance\n****************************\n");
    fprintf(nudesfile,
-      "*\nsubroutine setf_max\n");
+      "*\nsubroutine setfmax\n");
    fprintf(nudesfile,
-      "*\nrepeat 0 1 set f_max %d\n",f_max);
+      "*\nrepeat 0 1 set fmax %d\n",f_max);
    fprintf(nudesfile,
-      "*\nend setf_max\n");
+      "*\nend setfmax\n");
    fprintf(nudesfile,
       "****************************\n*\nstop\n");
    fclose(nudesfile);
