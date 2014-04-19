@@ -605,7 +605,7 @@
 #include <string.h>
 #include <stdlib.h> 
 #include <math.h>
-#include "stdafx.h"
+// #include "stdafx.h"
 #include <math.h>
 #include <ctype.h>
 #include "glut.h" 
