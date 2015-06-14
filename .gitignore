@@ -10,3 +10,15 @@ plotelg
 shadoq
 raselr
 nudes
+
+*.o
+*.obj
+
+.a
+.la
+.lo
+.lib
+
+*.so
+*.so.*
+*.dll
