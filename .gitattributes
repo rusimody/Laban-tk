@@ -1,0 +1,14 @@
+*.c		text
+*.h		text
+*.sh		text
+*.org		text
+*.sh		text
+
+ChangeLog	text
+Makefile*	text
+makefile*	text
+
+*.n		text
+*.lbn		text
+
+*.pdf		binary
