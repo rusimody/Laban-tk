@@ -3,6 +3,7 @@
 *.sh		text
 *.org		text
 *.sh		text
+*.pov		text
 
 ChangeLog	text
 Makefile*	text
