@@ -1,0 +1,100 @@
+* Description of the lintel working.
+
+* Start reading code from linter for better understanding.
+* Function 1 : void lbnread(void)
+** Checks if *file exists*, if not hangs the program. (hence a : goto a)
+** Standard function used : fgets
+   Reads at most count - 1 characters from the given file stream and stores them in str. 
+   syntax : char* fgets( char* str, int count, std::FILE* stream );
+** Constants Used : 
+   LMAX : maxmimum laban score (can some one explain what a score is) it also means number of lines allowed in lbn file.
+   BMAx : 255 ie. maxmimum length of a char string.
+** So it reads the input file linewise in buffer : buff
+** Then the function copies it in a array of lines  : lbnline. 
+   j is the looping variable.
+** Standard function used : sscanf()
+   int sscanf( const char* buffer, const char* format, ... );
+** reads the following data from the buffer : buff
+   1.first 4 letter word and then 6 numbers and then a character
+      as : m0m1m2m3,i,x,y,s,w,h,d.
+   2.Ignore the comments ie ignore lines starting with #
+   3.A structure Symbol is created as follows:
+      struct Symbol {
+        int i;       // item in menu
+	int x;       // horizontal position of left side
+	int y;       // vertical position of bottom
+	int s;       // drawing step size
+	int w;       // width
+	int h;       // height
+	int d;       // height indicator //0,1,2,3 : low,mid,high,blank
+	char m;      // menu
+	//below data not present in .lbn file , so hardcoded or derived from available data
+	int x2;      // horizontal position of right side  = x+w
+	int y2;      // vertical position of top = y+h
+	int a;       // TRUE = 0 if already done
+	int b;       // bent indicator // not implemented as given -1 value
+	int c;       // column position relative to right support column
+	int l;       // lbn file line number
+	};
+	Extra variables set :
+	xmin = min(x)
+	xmax = max(x+w)
+    4. number of lines read stored in nlabs. 
+* Function 2 : void lassign(void)
+** assigns global variables from Symbol structure instance.
+   global variable nomenclature : prefixed by 'j'
+   Eg . lbn[j].a is stored in ja and so on.
+* Function 3 : void lsorty(void)
+** what does it do:
+   sort score symbols into ascending order of 'y'
+   (bubble sort)
+   find maxy, and fill yj table
+** Bubble sorts symbols as per y parameter.
+   calls lassign(); // they act as temporary variables for bubble sort.
+   performs algorithm.
+   lbnline array is also sorted .
+   Condition to find ymax : lbn.y2>ymax and the symbol is not a staff.
+   Makes all entries of negative y to zero and keep a track of those symbols.
+   
+* Function 4 : lfindstaff(void)
+** Description:
+   find the centres of the staves.
+** Constants : 
+   TMAX : max number of staves : 30
+** If a symbol is a staff : 'Stav'
+   1. save its number 'j' and 'x' coordinate in an array of staves : 'stff[TMAX][2]'
+   2. 'staffstart' stores the largest y coordinate of a staff // never used or use ambiguous
+   3. nstaffstart stores the index of the last staff.
+   4. all lbn.a of staves are set to done as they are parsed.
+
+** number of staff 'k' range :
+   3-30.
+   if out of range call lgetout(1).
+   
+** call lsortx(stff,nstff) 
+** Then staffs are grouped in group of 3.
+   staff[TMAX][6].
+   staff[k][0] = stff[j][0]; // current staff index
+   staff[k][1] = stff[j-1][1];// left staff x coordinate
+   staff[k][2] = stff[j][1]; // current staff x cooridnate
+   staff[k][3] = stff[j+1][1]; // right staff x coordinate
+   staff[k][4] = -1;   // decides if staff represents a 'MAN' or'Woman'
+   staff[k][5] = TODO; 
+
+
+
+
+** Centre staff is found and its x coordinate is stored in 'stmiddle'
+** NOT DONE : understand how he seeks pins and decides the gender.
+
+* Function 5 : void lgetout(int allok)
+  description: closes input and output files if 0 is given as a parameter.
+  else hangs the program specifying the symbol and the symbol number which caused error.
+
+
+                
+
+* Function 6 : void lsortx(staffarray,staffnumber)
+  Sorts array in ascending order of x coordinate, using bubble sort.
+
+
