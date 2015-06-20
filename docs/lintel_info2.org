@@ -1,0 +1,35 @@
+* initgraph()
+Initializes the opengl graphics mode.
+Copies the program title and filename in the variable named title.
+Creates the window for display with its size, position.
+* led_opena()
+Returns true or false to the led_param() function.
+Checks whether the fps and bpm of lbn file are in the specified limits.
+* get_ini()
+** opens, reads and checks whether the .ini file exists
+Firstly stores the locations of comma and semi colon line by line.
+Then stores the title name in the ini_title array till comma.
+And stores the value of corresponding title in the ini_value till semi colon.
+The value of number_ini is incremented for every entry in ini_value array.
+If '**DUMP' is encountered then it calls the get_ini_dump function.
+** could not understand the meaning of ini_diag
+when it is greater than 1 it usually prints some info about the line number, length of line etc.
+ 
+* get_ini_dump()
+Displays the info such as line number, title and value of each entry from the .ini file.
+
+* led_param()
+** This is to initialize or set some particular parameters from the .ini file.
+** Calls get_if_ini()
+Checks whether there exist entries from the .ini file (number_ini!=0).
+** To get number of figures in .lbn calls get_ini_int("")
+Firstly gets the line number of the required title and then returns the particular value of the corresponding title from the ini_value array
+To get the line number find_ini_title function is used. (strcmp() could be used to compare strings here).
+This function is also used to get the values of lbn_fps and lbn_bpm.
+** Calls get_ini_bool("lbn_default")
+Checks whether lbn_default in .ini file is true or false.
+If true it uses the lintel.ini default values and if false it asks user to input the values.
+
+** Checks whether the fps and bpm of file are in required range and if not sets the lbn_default to false so it can accept new values from user.
+** If user inputted info is invalid then it sets the info to some particular value.
+** Then prints the fpp, fps, bpm and ppb and no. of figures.
