@@ -4,6 +4,8 @@
 *.org		text
 *.sh		text
 *.pov		text
+.gitattributes	text
+.gitignore	text
 
 ChangeLog	text
 Makefile*	text
