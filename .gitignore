@@ -23,3 +23,6 @@ TAGS
 *.so
 *.so.*
 *.dll
+*.tmp
+
+*~*
