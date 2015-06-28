@@ -11,11 +11,7 @@
    written in C++ for 
        Microsoft Visual Studio .NET 2003, Opengl, and Glut32.
 
-   lintel.exe needs
-			glut32.dll,
-			a *.lbn type file,
-			lintel.n,
-			and optionally	lintel.ini
+  		and optionally	lintel.ini
 
     7 Nov 2008 lintel084- added 'limit' to declaration comments
    27 Nov 2007 lintel084- oriented, laction, lsethold, ldochest
@@ -4235,6 +4231,7 @@ void linter(void)
       holdoe = 0;
       holdpr = 0;
       holdsh = 0;
+
       holdss = 0;
       facecl = 0;
       facepr = 0;
