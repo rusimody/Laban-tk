@@ -30,9 +30,13 @@ currentpath = os.getcwd()
 path = currentpath+"/"+folder
 os.chdir(path)
 initials = userinput[:5]
-animate = "convert -delay 10 -loop 0 "+initials+"*.ppm animation.gif"
-print (animate)
-p = subprocess.Popen(animate,shell=True)
+command = "convert -delay 10 -loop 0 "+initials+"*.ppm animation.gif"
+print (command)
+print ("GIF is being generated .......")
+p = subprocess.Popen(command,shell=True)
+p.wait()
+command = "rm *.ppm"
+p = subprocess.Popen(command,shell=True)
 p.wait()
 print("All done!!!! find animation.gif in "+folder+" folder")
 
