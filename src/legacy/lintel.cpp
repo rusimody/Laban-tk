@@ -601,8 +601,10 @@
 #include <string.h>
 #include <stdlib.h> 
 #include <math.h>
+// #include "stdafx.h"
 #include <math.h>
-#include <ctype.h> 
+#include <ctype.h>
+#include "glut.h" 
 
 typedef char TCHAR;
 
@@ -4258,6 +4260,617 @@ void linter(void)
 } /* linter */
 /****************************************/
 
+void shift(double x, double y, double z)
+/*
+   this adds 'x,y,z' to all centres and joints in lists
+   'elist' and 'jlist'.
+
+   called by  action, dogrofig, dogrojt, domovjnt,
+              twirl, dodrag,
+*/
+{
+   int e,j,n ;
+
+
+   for (  n = 0 ; n < ecount ; ++ n )
+   {
+      e = elist[n] ;
+      cen[e][0] += x ;
+      cen[e][1] += y ;
+      cen[e][2] += z ;
+   }
+   for (  n = 0 ; n < jcount ; ++ n )
+   {
+      j = jlist[n] ;
+      jnt[j][0] += x ;
+      jnt[j][1] += y ;
+      jnt[j][2] += z ;
+   }
+}  /* shift */
+/*****************************/
+
+void rset(double r[3][3], double angl, int axis)
+/*
+   set up the rotation matrix 'r' for a rotation of
+   'angl' radians about 'axis'.
+
+   called by  input, setobs, dobalanc, dospinby,
+*/
+{
+      double v[5] ;
+      int i,j,k;
+
+      v[0] = doub0 ;
+      v[1] = doub1 ;
+
+/*   fill out values vector with sin and cos- */
+
+      v[2] = cos(angl) ;
+      v[3] = sin(angl) ;
+      v[4] = -v[3] ;
+
+/*   choose appropriate permutation of values for rotation axis- */
+
+      for (  i = 0 ; i < 3 ; ++ i )
+      {
+         for (  j = 0 ; j < 3 ; ++ j )
+         {
+            k = perm[axis][j][i] ;
+            r[i][j] = v[k-1] ;
+         }
+      }
+}  /* rset */
+/************************************/
+
+void matmul(double a[3][3], double b[3][3], double c[3][3])
+/*
+     this multiplies matrix 'b' by 'a' and puts the product
+     in 'ans'.
+
+     called by  dobalanc, matrot, dospinto, dospinby, getwist.
+                getaxes, sepn,  getmat,
+
+	  21 Sep 2006  unrolled loops
+*/
+{
+	double ans00,ans01,ans02,ans10,ans11,ans12,ans20,ans21,ans22;
+//
+	ans00 = a[0][0] * b[0][0] + a[0][1] * b[1][0] + a[0][2] * b[2][0];
+	ans01 = a[0][0] * b[0][1] + a[0][1] * b[1][1] + a[0][2] * b[2][1];
+	ans02 = a[0][0] * b[0][2] + a[0][1] * b[1][2] + a[0][2] * b[2][2];
+	ans10 = a[1][0] * b[0][0] + a[1][1] * b[1][0] + a[1][2] * b[2][0];
+	ans11 = a[1][0] * b[0][1] + a[1][1] * b[1][1] + a[1][2] * b[2][1];
+	ans12 = a[1][0] * b[0][2] + a[1][1] * b[1][2] + a[1][2] * b[2][2];
+	ans20 = a[2][0] * b[0][0] + a[2][1] * b[1][0] + a[2][2] * b[2][0];
+	ans21 = a[2][0] * b[0][1] + a[2][1] * b[1][1] + a[2][2] * b[2][1];
+	ans22 = a[2][0] * b[0][2] + a[2][1] * b[1][2] + a[2][2] * b[2][2];
+//
+	c[0][0] = ans00;
+	c[0][1] = ans01;
+	c[0][2] = ans02;
+	c[1][0] = ans10;
+	c[1][1] = ans11;
+	c[1][2] = ans12;
+	c[2][0] = ans20;
+	c[2][1] = ans21;
+	c[2][2] = ans22;
+}  /* matmul */
+/**********************************************************/
+
+void vecmul(double v[EMAX][3], double m[3][3], int n)
+/*
+   multiply the 'n'th vector from array 'v'
+   by matrix 'm'.
+
+   called by touch, dogrojnt, domovjnt, domoveby, doabut,
+             twirl,
+*/
+{
+      int i,j ;
+      double vv[3],x ;
+
+      for (  i = 0 ; i < 3 ; ++ i )
+      {
+         x = doub0 ;
+         for (  j = 0 ; j < 3 ; ++ j )
+         {
+            x = x+m[i][j]*v[n][j] ;
+         }
+         vv[i] = x ;
+      }
+      
+      for (  i = 0 ; i < 3 ; ++ i )
+      {
+         v[n][i] = vv[i] ;
+      }
+}  /* vecmul */
+/**********************************************/
+
+void rotget(double r[3][3], double unr[3][3], int n)
+/*
+   form a rotation matrix r and its inverse unr
+   from the nth entries in quat
+
+   called by  dobalanc, matrot, dospinto, dospinby,
+              dogrojnt, domovjnt, doabut, doground,
+*/
+{
+      int i,j ;
+      double cp,sp,x,y,z,m,xsp,ysp,zsp,xm,ym,zm,xym,xzm,yzm ;
+
+      x = quat[n][0] ;
+      y = quat[n][1] ;
+      z = quat[n][2] ;
+      sp = quat[n][3] ;
+      cp = quat[n][4] ;
+      m = doub1-cp ;
+      xm = x*m ;
+      ym = y*m ;
+      zm = z*m ;
+      xsp = x*sp ;
+      ysp = y*sp ;
+      zsp = z*sp ;
+      xym = x*ym ;
+      xzm = x*zm ;
+      yzm = y*zm ;
+      r[0][0] = x*xm+cp ;
+      r[0][1] = xym+zsp ;
+      r[0][2] = xzm-ysp ;
+      r[1][0] = xym-zsp ;
+      r[1][1] = y*ym+cp ;
+      r[1][2] = yzm+xsp ;
+      r[2][0] = xzm+ysp ;
+      r[2][1] = yzm-xsp ;
+      r[2][2] = z*zm+cp ;
+
+      for (  i = 0 ; i < 3 ; ++ i )
+      {
+         for (  j = 0 ; j < 3 ; ++ j )
+         {
+            if ((r[j][i] > -tolr) && (r[j][i] < tolr)) r[j][i] = 0;
+            unr[i][j] = r[j][i] ;
+         }
+      }
+}  /* rotget */
+/**************************************/
+
+void rotput(double r[3][3], int n)
+/*
+   interpret rotation matrix 'r' as direction cosines of a
+   rotation axis, and the sine and cosine of a rotation about
+   that axis, and store in array 'quat'.
+
+   uses the fact that any rotation matrix can be written as -
+
+   ( x.x.m+c    x.y.m-z.s  x.z.m+y.s )
+   ( x.y.m+z.s  y.y.m+c    y.z.m-x.s )
+   ( x.z.m-y.s  y.z.m+x.s  z.z.m+c   )
+
+   where
+     x,y,z-components of unit vector along rotation axis
+             x=cos(a1)cos(a2)  y=cos(a1)sin(a2)  z=sin(a1)
+             a1,a2-azimuth and elevation of axis from x axis
+     s,c  -sine and cosine of rotation about that axis
+     m     = 1-c
+
+     x,y,z are stored in quat[n,0], quat[n,1], quat[n,2]
+     s,c   are stored in quat[n,3], quat[n,4]
+
+   see 'Control of round-off propagation in articulating the
+        human figure', D.Herbison-Evans and D.S.Richardson,
+        Computer Graphics and Image Processing,
+        vol 17, pp. 386-393 (1981)
+
+   called by matrot, dospinto, doangles, dolimb,
+             getwist, store3,
+*/
+{
+      int j,k ;
+      double a[3][3],b[3],d[3],e,f,g,c,s,trace ;
+      double csq;
+
+      b[0] = r[1][2]-r[2][1] ;
+      b[1] = r[2][0]-r[0][2] ;
+      b[2] = r[0][1]-r[1][0] ;
+      e = b[0]*b[0]+b[1]*b[1]+b[2]*b[2] ;
+      trace = r[0][0]+r[1][1]+r[2][2] ;
+      if (e > doub0) g = sqrt(e); else g = doub0;
+      if (e > tolr)
+      {
+         f = doub1/g ;
+         quat[n][0] = f*b[0] ;
+         quat[n][1] = f*b[1] ;
+         quat[n][2] = f*b[2] ;
+/*
+     use g=2s, and trace=1+2c to find s and c -
+*/
+         s = inv2*g;
+         csq = doub1-s*s;
+         if (csq > doub0) c = sqrt(csq); else c = doub0;
+         if (trace < doub1) c = -c;
+         quat[n][3] = s ;
+         quat[n][4] = c ;
+      }
+      else
+/*
+   symmetric matrix (180 or 360 degree rotation) -
+*/
+      {
+         c = inv2*(trace-doub1);
+         for (  j = 0 ; j < 3 ; ++ j )
+         {
+            d[j] = doub0 ;
+
+/*   run across a row- */
+
+            for (  k = 0 ; k < 3 ; ++ k )
+            {
+               a[j][k] = r[j][k]+r[k][j] ;
+               if (j == k) a[j][j] = doub2*(r[j][j]-c) ;
+               d[j] = d[j]+a[j][k]*a[j][k] ;
+            }
+         }
+
+/*   choose most stable row- */
+
+         j = 0 ;
+         if (d[1] > d[0]) j = 1 ;
+         if (d[2] > d[j]) j = 2 ;
+         if (d[j] > doub0) f = doub1/sqrt(d[j]) ;
+         else
+         {
+            f = doub1;
+            a[j][0] = doub1;
+         }
+         quat[n][0] = f*a[j][0] ;
+         quat[n][1] = f*a[j][1] ;
+         quat[n][2] = f*a[j][2] ;
+         quat[n][3] = inv2*g ;
+         quat[n][4] = c ;
+      }
+      for (k = 0; k < 5; ++k)
+      {
+         if ((quat[n][k] > -tolr) && (quat[n][k] < tolr))
+            quat[n][k] = 0;
+         if (quat[n][k] >  doub1) quat[n][k] =  doub1;
+         if (quat[n][k] < -doub1) quat[n][k] = -doub1;
+      }
+}  /* rotput */
+/********************************************/
+
+void mkquat(int n, double a1, double a2, double a3)
+/*
+   convert angles a1,a2,a3 (in radians) into quat entries
+
+   called by dospinto, inframe, 
+*/
+{
+      int j;
+      double s1,c1,s2,c2,s3,c3 ;
+
+      s1 = sin(a1) ;
+      c1 = cos(a1) ;
+      s2 = sin(a2) ;
+      c2 = cos(a2) ;
+      s3 = sin(a3) ;
+      c3 = cos(a3) ;
+      quat[n][0] = c1*c2 ;
+      quat[n][1] = s1*c2 ;
+      quat[n][2] = s2 ;
+      quat[n][3] = s3 ;
+      quat[n][4] = c3 ;
+      for (j = 0; j < 5; ++j)
+         if ((quat[n][j] > -tolr) && (quat[n][j] < tolr)) quat[n][j] = 0;
+}  /* mkquat */
+/**********************************************************/
+
+
+void matrot(double r[3][3], int n)
+/*
+      this rotates the 'n'th ellipsoid by rotation matrix 'r'.
+
+      called by twirl.
+      calls     rotget, matmul, rotput,
+*/
+{
+      double ro[3][3],unro[3][3] ;
+
+      rotget(ro,unro,n) ;
+      matmul(r,ro,ro) ;
+      rotput(ro,n) ;
+}  /* matrot */
+/**********************************************/
+
+void twirl(double x, double y, double z, double r[3][3])
+/*
+   rotates all the rotation matrices 'quat', centres 'cen',
+   and joint vectors 'jnt', of ellipsoids and joints in lists
+   'elist' and 'jlist' about a point 'x,y,z' using rotation
+   matrix 'r'.
+
+   called by  dospinto, dospinby, store3,
+   calls      shift, matrot, vecmul, setels,
+*/
+{
+      int e,j,k ;
+
+      shift(-x,-y,-z) ;
+      if (ecount >= 0)
+      {
+
+/*   rotate the ellipsoids and their centres- */
+
+         for (  e = 0 ; e < ecount ; ++e )
+         {
+            k = elist[e];
+/*  don't rotate world ! :- */
+            if (k != 0)
+            {
+               matrot(r,k) ;
+               vecmul(cen,r,k) ;
+            }
+         }
+      }
+
+/*   now for the joints- */
+
+      if (jcount >= 0)
+      {
+         for (  j = 0 ; j < jcount ; ++j )
+         {
+            k = jlist[j];
+            vecmul(jnt,r,k) ;
+         }
+      }
+
+/*   put body part back where it came from- */
+      shift(x,y,z) ;
+}  /* twirl */
+/*****************************/
+
+void dospinto(double xx[3], int refell, double ang[3], double pro)
+/*
+     spins all ellipsoids in 'elist' and joints in 'jlist'
+     so that 'ellpsd' is proportion 'pro' of the way to the
+     orientation specified as a rotation 'ang' radians
+     about axes of the reference ellipsoid 'refell'
+     about point 'xx'.
+
+   called by  action, dodrag,
+   calls      rotget, rotput, mkquat, matmul, twirl,
+*/
+{
+      double alfa,nualfa;
+      double mv[3][3],unmv[3][3];
+      double rf[3][3],unrf[3][3];
+      double tg[3][3],untg[3][3];
+      double mt[3][3],nu[3][3];
+/*
+   set rotation matrices of moving and reference ellipsoids -
+*/
+      rotget(mv,unmv,ellpsd);
+      rotget(rf,unrf,refell);
+
+/*   find target rotation matrix, and refer to refell- */
+
+      mkquat(EMAX+1,ang[0],ang[1],ang[2]);
+      rotget(tg,untg,EMAX+1);
+      matmul(rf,tg,tg);
+
+/*   find increment rotation matrix to reach target- */
+
+      matmul(tg,unmv,mt);
+      rotput(mt,EMAX+1);
+      if (( quat[EMAX+1][3] == doub0 ) 
+		  && ( quat[EMAX+1][4] == doub0 ))
+      {
+         ok = 53;
+		 printf("dospinto no sine and cosine");
+         alfa = doub0;
+      }
+      else alfa = atan2(quat[EMAX+1][3],quat[EMAX+1][4]) ;
+      nualfa = pro*alfa ;
+      if (alfa > pi ) nualfa = pro*(alfa - twopi);
+      if (alfa < -pi) nualfa = pro*(alfa + twopi);
+      quat[EMAX+1][3] = sin(nualfa);
+      quat[EMAX+1][4] = cos(nualfa);
+      rotget(nu,mt,EMAX+1);
+      twirl(xx[0],xx[1],xx[2],nu);
+}  /* dospinto */
+/*************************************/
+
+void dospinby(double xx[3], int refell, double angl, int axis)
+/*
+   spins all ellipsoids and joints in 'elist' and 'jlist'
+   about a point 'x', by an angle 'angl' radians relative to
+   an 'axis' of reference ellipsoid 'refell'.
+
+   called by dobalanc, action, dobend, dotouch, fun, dodrag,
+   calls     rset, rotget, matmul, twirl,
+*/
+{
+      int j,k;
+      double r[3][3],ro[3][3],unro[3][3];
+/*
+        do transformation on required coordinates
+        aligned with axes of the reference ellipsoid-
+*/
+      rset(r,angl,axis);
+      rotget(ro,unro,refell);
+      matmul(r,unro,r);
+      matmul(ro,r,r);
+      for (j = 0; j < 3; ++j)
+         for (k = 0; k < 3; ++k)
+            if ((r[j][k] > -tolr) && (r[j][k] < tolr)) r[j][k] = 0;
+      twirl(xx[0],xx[1],xx[2],r);
+}  /* dospinby */
+/**********************************************************/
+
+void mkang(int n)
+/*
+   get angles in radians from 'n'th entry in 'quat' into 
+   array 'ang'.
+
+   called by  doangles, store3, storeang,
+*/
+{
+      double x,y,z,s1,c1,m1 ;
+      int j;
+
+      x = quat[n][0] ;
+      y = quat[n][1] ;
+      z = quat[n][2] ;
+      s1 = z ;
+      m1 = doub1-z*z ;
+      if (m1 > doub0) c1 = sqrt(m1) ;
+         else c1 = doub0 ;
+      if ((x == doub0 ) && ( y == doub0))
+          ang[0] = doub0;
+      else
+          ang[0] = atan2(y,x) ;
+      if ((s1 == doub0 ) && ( c1 == doub0))
+      {
+          ok = 54;
+          printf("mkang: n %d, s1 %f, c1 %f",            
+              n,s1,c1);
+          ang[1] = doub0;
+      }
+      else ang[1] = atan2(s1,c1) ;
+      if ((quat[n][3] == doub0 ) && ( quat[n][4] == doub0))
+      {
+          ok = 52;
+          printf("mkang: n %d, quat[n][3] %f, quat[n][4] %f",            
+              n,quat[n][3],quat[n][4]);
+          ang[2] = doub0;
+      }
+      else 
+	  ang[2] = atan2(quat[n][3],quat[n][4]) ;
+      for (j = 0; j < 3; ++j)
+      {
+         if (ang[j] < doub0) ang[j] += twopi;
+         if (ang[j] > twopi) ang[j] -= twopi;
+      }
+}  /* mkang */
+/*****************************************/
+
+void storeang(int f, int e, double a1, double a2, double a3)
+/*
+   convert angles a1,a2,a3 in degrees into quaternions
+   and find direction vector of y axis
+   for frame f and ellipsoid e
+
+   called by store3,
+*/
+{
+      double s1,c1,s2,c2,s3,c3;
+
+      s1 = sin(a1) ;
+      c1 = cos(a1) ;
+      s2 = sin(a2) ;
+      c2 = cos(a2) ;
+      s3 = sin(a3) ;
+      c3 = cos(a3) ;
+
+      qu3[f][e][0] = a3*degree ;
+      qu3[f][e][1] = c2*c1 ;
+      qu3[f][e][2] = c2*s1 ;
+      qu3[f][e][3] = -s2 ;
+
+}  /* storeang */
+/**********************************************************/
+
+void doangles(int el, int re, double val[EMAX], int var0, int var1, int var2)
+/*
+  store the angles of 'el' relative to 're' in 'val' array.
+  in degrees.
+
+  called by action, dodrag,
+  calls  matmul, rotget, rotput, mkang,
+*/
+{
+   double mvro[3][3],mvunro[3][3];
+   double stro[3][3],stunro[3][3];
+   double r[3][3];
+
+   rotget(stro,stunro,re) ;
+   rotget(mvro,mvunro,el) ;
+   matmul(stunro,mvro,r) ;
+   rotput(r,EMAX) ;
+   mkang(EMAX) ;
+   val[var0] = ang[0]*degree ;
+   val[var1] = ang[1]*degree ;
+   val[var2] = ang[2]*degree ;
+   if ((val[var0] > doub179)&&(val[var0] < doub181))
+   {
+	   val[var0] -= doub180;
+	   val[var2] = -val[var2];
+   }
+   if (val[var1] > doub180) val[var1] -= doub360;
+}  /* doangles */
+/*********************************/
+
+void dobend(double angle, int axis)
+/*
+  implements flex(38), rotate(39), abduct(40).
+
+  called by action,
+  calls     dospinby,
+*/
+{
+   int refell ;
+   int left ;
+
+   refell = ellpsd ;
+   if (t == rotate_keyword_code) goto lab1 ;
+   if (ellpsd == coel[join][0]) refell = coel[join][1] ;
+   if (ellpsd == coel[join][1]) refell = coel[join][0] ;
+/*
+  assume odd-numbered ellipsoids are on left side of figure-
+*/
+lab1: if (((ellpsd-figell[fig])%2) == 0)
+          left = TRUE; else left = FALSE;
+/*
+  flex-
+*/
+   if ((t == flex_keyword_code)&&(knee[join])) angle = -angle ;
+/*
+  rotate-
+*/
+   if ((t == rotate_keyword_code)&&( left == FALSE)) angle = -angle ;
+/*
+  abduct-
+*/
+   if ((t == abduct_keyword_code)&&(left == TRUE)) angle = -angle ;
+   dospinby(xx,refell,angle,axis) ;
+}  /* dobend */
+/****************************************************/
+
+/*   compl42.h - based on complu
+
+     This translates a NUDES script into a compact
+     form for use by 'perfrm'.
+
+   subroutines-
+      getout
+      llength
+      nexts
+      match
+      value
+      addname
+      getint
+      inells
+      injts
+      inlims
+      inname
+      dojoin
+      checkin
+      valadd
+      parset
+      inperf
+      compl
+*/
+
+/***************************************/
 
 void getout(int v)
 /*
@@ -4277,6 +4890,3833 @@ void getout(int v)
    ok = 1;
 } /* getout */
 /********************************************/
+
+int llength(void)
+/*
+   find length of line
+
+   called by nexts,
+*/
+{
+   int j,sp;
+
+   sp = 0;
+   for ( j = 0; line[j] != null; ++j);
+   {
+      if (line[j] != blank) sp = j;
+   }
+   return(sp);
+} /* llength */
+/*******************************************/
+
+int nexts_a ( char c )
+{
+		char astk = '*';
+		char tab = '	';
+		int code;
+
+		code = 0;
+		if ( c == astk ) code = 1;
+		if ( c == '\n' ) code = 2; 
+		if ( c == blank
+				|| c == tab
+				|| c == null ) code = 3;
+		if ( c == '.'
+				|| ( c == '+' ) 
+				|| ( c == '-' )
+				|| ( c == '_' )
+				|| ( c >= '0' ) && ( c <= '9' )
+				|| ( c >= 'a' ) && ( c <= 'z' )
+				|| ( c >= 'A' ) && ( c <= 'Z' ) ) code = 4;
+		return code;
+} /* nexts_a */
+/*****************************************/
+
+void nexts(void)
+/*
+     this picks the next continuous string of non-blank integers
+     from 'line', starting at 'start'.
+
+     if an asterisk is read, the data is assumed to continue onto
+     the next line.
+
+  input -
+     line - an image of the current line being scanned.
+     start - the start of the scan.
+
+  output -
+     line - an image of the current line being scanned.
+     start - the start of the next non-blank string in line.
+     string - a copy of the first 6 characters of the next
+              non-blank string
+     length - the length of the string.
+
+     called by inperf, inname, inells, injts, inlims, parset,
+     calls     llength, getout,
+*/
+{
+   int j;
+   int llength() ;
+   char astk = '*';
+   char tab = '	';
+
+   length = 0;
+
+   for (  j = 0 ; j < BMAX ; ++ j )
+      string[j] = null ;
+/*
+     get a new line if required-
+*/
+   if ((start < lline) && (start > 0)) goto lab17 ;
+lab10:
+   start = 0 ;
+   if (fgets(line,BMAX,infile) == NULL)
+   {
+      printf("\nOOPS in nexts: unexpected end of file\n");
+      printf("missing STOP command?\n");
+	   ok = 3;
+      getout(ok);
+      goto rtrn;
+   }
+   ++nline ;
+   lline = llength();
+/*
+     find start of next string-
+*/
+lab17:
+   for ( j = start ; j < lline ; ++ j )
+   {
+      if (line[j] == astk) goto lab10 ;
+      if (line[j] == blank) goto lab1 ;
+      if (line[j] == tab) goto lab1 ;
+      if (line[j] == null) goto lab1 ;
+      if (line[j] == '.') goto lab3;
+      if ((line[j] == '+') || (line[j] == '-')) goto lab3;
+      if ((line[j] >= '0') && (line[j] <= '9')) goto lab3;
+      if ((line[j] >= 'a') && (line[j] <= 'z')) goto lab3;
+      if ((line[j] >= 'A') && (line[j] <= 'Z')) goto lab3;
+	  if (line[j] == '_') goto lab3;
+      goto lab10;
+lab1: ;
+   }
+/*
+     rest of line empty, so look at next -
+*/
+   j = 0;
+   goto lab10 ;
+/*
+     copy up to the characters of the string,
+     then move start to next blank-
+*/
+lab3:
+   for ( start = j ; start < lline ; ++start )
+   {
+      if (line[start] == '\n') goto rtrn ;
+      if (line[start] == blank) goto rtrn ;
+      if (line[start] == tab) goto rtrn ;
+      if (line[start] == null) goto rtrn ;
+      if (line[start] == '.') goto lab5;
+      if ((line[start] == '+') || (line[start] == '-')) goto lab5;
+      if ((line[start] >= '0') && (line[start] <= '9')) goto lab5;
+      if ((line[start] >= 'a') && (line[start] <= 'z')) goto lab5;
+      if ((line[start] >= 'A') && (line[start] <= 'Z')) goto lab5;
+      if (line[start] == '_') goto lab5;
+      goto rtrn;
+lab5:
+      string[length] = line[start] ;
+      ++length ;
+   }
+   start = -1 ;
+
+rtrn:;
+} /* nexts */
+/***************************************/
+
+int match(int nnames, int lengths[EMAX], char names[EMAX][BMAX])
+/*
+     find which of 'names' fits 'string'.
+
+ input
+   string - array of a1 characters to be matched.
+   nnames - number of names actually stored in array names.
+   names - list of possible strings for which to search.
+   lengths - lengths of each of the existing names
+   length - length of 'string'
+
+     output
+   which of the names that string matches, -1 if none.
+
+     called by inperf, innames, inells, injts, inlims,
+               parset, addnam,
+*/
+{
+   int j,k ;
+   int found;
+   int no;
+   char sp = null;
+
+   no = -1 ;
+   for (k = 0; k <= nnames; ++k)
+   {
+      found = TRUE;
+      if ((lengths[k] == 0) || (lengths[k] == length))
+      {
+         for (j = 0; j < length; ++j)
+         {
+            if (string[j] != names[k][j]) found = FALSE;
+         }
+         if (found == TRUE)
+         {
+            no = k ;
+            break;
+         }
+      }
+   }
+   return(no);
+} /* match */
+/***************************************/
+
+double value(void)
+/*
+     find the value of the number which is encoded as
+     'length' characters in array 'string' and put it into 'v'.
+     set ok false if string is not a number.
+
+     called by inperf, inells, injts, parset,
+*/
+{
+	double v;
+	double nsign;
+	double expon;
+	int k;
+	int frac;
+	int d;
+	char point = '.';
+	char minus = '-';
+	char plus = '+';
+
+	pok = TRUE;
+	v = doub0;
+	nsign = doub1;
+	expon = doub1;
+	frac = FALSE;
+	if ( ( length < 0 ) || ( length > BMAX ) )
+	{
+		pok = FALSE;
+		return( v );
+	}
+	for ( k = 0; k < length; ++ k )
+	{
+		//	if a decimal point encountered, start decimal place counter
+		if (string[k] == point )
+		{
+			frac = TRUE;
+			goto lab3;
+		}
+		if ( string[k] == plus ) goto lab3;
+		if ( string[k] == minus )
+		{
+			nsign = -nsign;
+			goto lab3;
+		}
+		for ( d = 0; d < 10; ++ d )
+		{
+			if ( string[k] == dig[d] ) goto lab5;
+		}
+		pok = FALSE;
+		return ( v );
+lab5:
+		v = v * doub10 + double(d);
+		if ( frac == TRUE ) expon = expon / double(10);
+lab3:;
+	}
+	v = v * expon * nsign;
+	return( v );
+} /* value */
+/***************************************/
+
+int addnam(int n, char names[EMAX][BMAX], int isvar, int lengths[EMAX])
+/*
+     add a name to a list of names.
+	 return the number of names in the list.
+
+     called by inperf, inname, inells, injts, parset,
+     calls     match,
+*/
+{
+   int k;
+   int no ;
+   int nnames;
+
+   nnames = n;
+/*
+     see if name already exists-
+*/
+   no = match(nnames,lengths,names);
+   if (no >= 0)
+   {
+      printf("addnam: string  %s confusable with ",string);
+      for (k = 0; names[no][k] != null; ++k)
+         printf("%c",names[no][k]);
+      printf("\n");
+   }
+   if (isvar == FALSE)
+/*
+     non-variables must first check variable list-
+*/
+   {
+      no = match(nvars,varlen,vname) ;
+      if (no > 0)
+      {
+         printf(
+            "name  %s  confusable with variable ",string);
+         for ( k = 0; vname[no][k] != null ; ++ k)
+            printf("%c",vname[no][k]);
+         printf("\n");
+      }
+   }
+   else
+/*
+     variables must check all name lists-
+*/
+   {
+      no = match(nfigs,figlen,fname) ;
+      if (no > 0)
+      {
+         printf("variable  %s  confusable with figure ",
+            string);
+         for ( k = 0; fname[no][k] != null; ++ k)
+            printf("%c",fname[no][k]);
+         printf("\n");
+      }
+      no = match(ne,ellen,ename) ;
+      if (no > 0)
+      {
+         printf("variable  %s  confusable with ellipsoid ",
+            string);
+         for ( k = 0; ename[no][k] != null; ++ k)
+            printf("%c",ename[no][k]);
+         printf("\n");
+      }
+      no = match(njts,jntlen,jname) ;
+      if (no > 0)
+      {
+         printf("variable  %s  confusable with joint ",
+            string);
+         for ( k = 0; jname[no][k] != null; ++ k)
+            printf("%c",jname[no][k]);
+         printf("\n");
+      }
+      no = match(nsubs,sublen,sname) ;
+      if (no > 0)
+      {
+         printf("variable  %s  confusable with subroutine ",
+            string);
+         for ( k = 0; sname[no][k] != null; ++ k)
+            printf("%c",sname[no][k]);
+         printf("\n");
+      }
+      no = match(nfiles,fillen,tname) ;
+      if (no > 0)
+      {
+         printf("variable  %s  confusable with file name ",
+            string);
+         for ( k = 0; tname[no][k] != null; ++ k)
+            printf("%c",tname[no][k]);
+         printf("\n");
+      }
+   }
+/*
+     add name to list-
+*/
+   if (nnames > EMAX)
+   {
+      printf("\nOOPS addnam: %s makes more than max of %d names\n",
+         string,EMAX);
+      ok = 84 ;
+   }
+   else
+   {
+      for (  k = 0 ; k < length ; ++ k )
+         names[nnames][k] = string[k] ;
+      for ( k = length ; k < BMAX; ++ k )
+         names[nnames][k] = null;
+      lengths[nnames] = length;
+   }
+   ++nnames ;
+   return(nnames);
+} /* addnam */
+/***************************************/
+
+int getint(void)
+/*
+     find value of positive integer which is encoded as 'length'
+     characters in array 'string', and put its value into 'k'.
+     set 'pok' false if string not a positive integer.
+
+     called by parset, inname,
+*/
+{
+	int j, k, m, ths;
+	char plus = '+';
+
+	if ( length <= 0 )
+	{
+		k = 0;
+		pok = FALSE;
+	}
+	else
+	{
+		pok = TRUE;
+		k = 0;
+		for( j = 0; j < length; ++j )
+		{
+			if ( string[j] != plus )
+			{
+				ths = -1;
+				for( m = 0; m < 10; ++m )
+					if ( string[j] == dig[m] ) ths = m;
+
+				if ( ths < 0 )
+				{
+					pok = FALSE;
+					return( k );
+				}
+				k = 10 * k + ths;
+			}
+		}
+	}
+	return( k );
+} /* getint */
+/***************************************/
+
+int inells(void)
+/*
+     read in next ellipsoid and its axis lengths.
+
+     called by inperf, injts,
+     calls     nexts, match, addnam, value,
+*/
+{
+	int el, k;
+
+	nexts();
+	el = match ( ne, ellen, ename );
+	if ( el < 0 )
+	{
+		ne = addnam ( ne, ename, 0, ellen );
+		el = ne - 1;
+	}
+	for ( k = 0; k < 3; ++ k )
+	{
+		nexts ();
+		semiax[k] = value ();
+		if ( pok == FALSE )
+		{
+			printf("\nOOPS inells: ellipsoid snag with  %s\n",
+				string );
+			ok = 83;
+			return ( el );
+		}
+	}
+	return ( el );
+} /* inells */
+/***************************************/
+
+void injts(void)
+/*
+     read in the next joint, the ellipsoids it connects, and the
+     position of the joint relative to each ellipsoid centre.
+
+     called by inperf,
+     calls     nexts, addnam, inells,
+*/
+{
+   int el,jt,k,e ;
+   char klet = 'k';
+   char nlet = 'n';
+   char elet = 'e';
+
+   nexts();
+   njts = addnam(njts,jname,0,jntlen);
+   jt = njts-1;
+   if ( ok > 0 ) goto lab4 ;
+/*
+     is it a knee -
+*/
+   knee[jt] = FALSE;
+   for (  k = 0 ; k < (length-1) ; ++ k )
+   {
+      if ((string[k] == klet)
+       && (string[k+1] == nlet)
+       && (string[k+2] == elet)) knee[jt] = TRUE;
+   }
+/*
+  do the two ellipsoids
+*/
+   for (  e = 0 ; e <= 1 ; ++ e )
+   {
+      el = inells();
+      if ( ok > 0 ) goto lab5 ;
+
+      dcon[jt][e][0] = semiax[0] ;
+      dcon[jt][e][1] = semiax[1] ;
+      dcon[jt][e][2] = semiax[2] ;
+      coel[jt][e] = el ;
+   }
+   goto rtrn ;
+/*
+     snags-
+*/
+lab5: printf("\nOOPS injts with %s \n",string);
+   njts = njts-1 ;
+   goto rtrn ;
+
+lab4: printf("\nOOPS : injts more joints than max %d\n",EMAX );
+   ok = 82 ;
+rtrn:;
+} /* injnts */
+/***************************************/
+
+void inlims(void)
+/*
+     read in limits for a joint.
+
+     called by main,
+     calls     nexts, match, value,
+
+*/
+{
+   int k,m,n;
+
+   nexts();
+   n = match(njts,jntlen,jname);
+   if (n < 0)
+   {
+      printf("limits given for nonexistent joint: %s\n",
+         string);
+      getout(1);
+      if (ok == 1) goto rtrn;
+   }
+   for (k = 0; k < 3; ++k)
+   {
+      for (m = 0; m < 2; ++m)
+      {
+         nexts();
+         lim[n][k][m] = value();
+      }
+   }
+rtrn: ;
+} /* inlims */
+/***************************************/
+
+int inname(int n, int isvar, int lengths[EMAX], char names[EMAX][BMAX])
+/*
+     read in a number and then that many names.
+
+     called by inperf,
+     calls     nexts, getint, match, addnam,
+*/
+{
+   int e;
+   int nitems;
+   int nnames;
+   int no;
+
+   nnames = n;
+/*
+     get number of names in list
+*/
+   nexts();
+   nitems = getint();
+   if ( ok > 0 )
+   {
+	   printf("inname problem- number of names not stated on\n");
+	   printf("%s\n",line);
+	   goto rtrn;
+   }
+/*
+     get names in list
+*/
+   if (nitems <= 0) goto rtrn ;
+   for (  e = 0 ; e < nitems ; ++ e )
+   {
+      nexts();
+      if (length < 1) goto rtrn ;
+      no = match(nnames,lengths,names);
+      if (no <= 0)
+         nnames = addnam(nnames,names,isvar,lengths);
+   }
+rtrn:
+   return(nnames);
+} /* inname */
+/***************************************/
+
+void dojoin(void)
+/*
+   this works out the positions of the centres of each ellipsoid
+   'cen' and the joints 'jnt', using the data 'dcon'
+
+   called by  compl,
+*/
+{
+      int e,ecount,newc,old,newel,oldel,j,k;
+      int jfound[EMAX];
+      int efound[EMAX];
+      int elist[EMAX];
+/*
+     clear found and put all ellipsoids at origin -
+*/
+      for (  e = 0 ; e < ne ; ++ e )
+      {
+         cen[e][0] = 0; cen[e][1] = 0; cen[e][2] = 0;
+         jfound[e] = FALSE ;
+         efound[e] = FALSE ;
+      }
+      if (njts >= 0)
+      {
+         ecount=0 ;
+         elist[ecount]=0 ;
+         efound[ecount] = TRUE;
+/*
+     run through the ellipsoids of current figure -
+*/
+lab2:    for (  e = ecount ; e <= ecount ;  e ++ )
+         {
+
+/*   run through joints, adding to figure's ellipsoids - */
+
+            for (  j = 0 ; j <= njts ; ++ j )
+            {
+               if ((jfound[j] == FALSE)
+                   && ((coel[j][0] == elist[e])
+                     ||(coel[j][1] == elist[e])))
+               {
+
+/*   found a joint- */
+
+                  oldel = elist[e] ;
+                  if (coel[j][1] == oldel) newc = 0 ;
+                  if (coel[j][0] == oldel) newc = 1 ;
+                  jfound[j] = TRUE ;
+                  old = 1-newc ;
+                  newel = coel[j][newc] ;
+
+/*   check for legality- */
+
+                  for (  k = 0 ; k < ecount ; ++ k )
+                  {
+                     if (newel == elist[k])
+                     {
+                        printf(
+   "cyclic joint structure - perhaps delete doub1 of the joints \n");
+                        printf(
+                           " %d %d %d %d %d %d %d %d %d %d\n",
+                        ecount,ne,njts,e,j,newc,old,k,oldel,newel);
+                        goto lab10 ;
+                     }
+                  }
+                  ecount = ecount+1 ;
+                  elist[ecount] = newel ;
+                  efound[newel] = TRUE;
+
+/*   locate the new joint and ellipsoid- */
+   
+                  for (  k = 0 ; k < 3 ; ++ k )
+                  {
+                      jnt[j][k] = cen[oldel][k]+dcon[j][old][k] ;
+                      cen[newel][k] = jnt[j][k]-dcon[j][newc][k] ;
+                  }
+                }
+            }
+        }
+
+/* locate an ellipsoid in some other figure - */
+
+        for (newel = 0; newel < ne; ++ newel)
+        {
+            if (efound[newel] == FALSE)
+            {
+               ++ ecount;
+               elist[ecount] = newel;
+               efound[newel] = TRUE;
+               goto lab2;
+            }
+        }
+     }
+lab10: ;
+} /* dojoin */
+/*******************************************/
+
+void checkin(void)
+/*
+     check the specifications of the actions
+     to be performed.
+
+     called by  compl,
+*/
+{
+   int newa;
+   int j;
+   int subfirst;
+
+   newa = TRUE;
+   subfirst = TRUE;
+/*
+     check for snags-
+*/
+   for (  j = 0 ; j <= ne ; ++ j )
+   {
+      if (ellfig[j] < 0)
+      {
+         printf("\nOOPS checkin: ellipsoid %d %s defined but not in a figure\n",
+      		  j,ename[j]);
+	     ok = 79 ;
+      }
+      if (ax[j][0]*ax[j][1]*ax[j][2] <= doub0)
+      {
+         printf("\nOOPS checkin: ellipsoid %d %s not dimensioned\n",
+		     j,ename[j]);
+	     ok = 80 ;
+      }
+   }
+   if (fstop < fstart)
+   {
+      printf("\nOOPS  checkin: view %d %d - produces no frames\n",
+          fstart,fstop );
+      ok = 81;
+   }
+   for (  j = 1 ; j <= nsubs ; ++ j )
+   {
+      if ((ok == 0) && (called[j] == FALSE))
+      {
+	     if (subfirst == TRUE)
+	     {
+	        subfirst = FALSE;
+	        newa = FALSE;
+	     }
+      }
+   }
+   if ((nvals+nvars) > EMAX)
+   {
+      printf("\nOOPS  checkin %d  non-integer values + %d variables\n",
+             nvals,nvars);
+      printf(" give more than max of %d \n",EMAX);
+		ok = 82;
+   }
+} /* checkin */
+/***************************************/
+
+int valadd(double v)
+/*
+     if 'v' is not in array 'val', then put it at the end.
+     wherever it is, put its index into 'j'.
+
+     called by parset,
+*/
+{
+   int j ;
+
+   for (  j = 1 ; j <= nvals ; ++ j )
+      if (val[j] == v) goto lab2 ;
+
+   nvals = nvals+1 ;
+   if (nvals > EMAX) goto lab10 ;
+   j = nvals ;
+   val[j] = v ;
+
+lab2: ;
+   goto rtrn ;
+/*
+     snag-
+*/
+lab10: printf("\nOOPS in valadd: no. of constants %d > max %d\n",
+          nvals,EMAX );
+   ok = 90 ;
+
+rtrn: return(j);
+} /* valadd */
+/***************************************/
+
+
+int parset(int contrl)
+/*
+     decode the parameters of the jth action using:
+             0  none expected
+             1  numeric value or variable name
+             2  ellipsoid name
+             3  joint name
+             4  figure name
+             5  axis name
+             6  subroutine name
+             7  variable name
+             8  anything
+             9  image file name
+
+     called by inperf,
+     calls  nexts, getint, value, valadd, match, addnam,
+*/
+{
+	int k;
+	int nax = 2;
+	int attach = 8;
+	int detach = 9;
+	double v;
+
+	k = 0;
+	if ( contrl == 0 ) return( k );
+	nexts();
+
+	//pick an integer constant-
+	if ( ( contrl != 1 ) && ( contrl != 8 ) ) goto lab1;
+	k = getint();
+	if ( pok == TRUE ) return( k );
+
+	//pick a double constant-
+	pok =  TRUE;
+	v = value();
+	if ( pok == FALSE ) goto lab1;
+
+	k = valadd(v);
+	if ( pok == FALSE ) goto lab1;
+
+	k = -k;
+	return( k );
+
+lab1://pick an axis-
+	if ( ( contrl != 5 ) && ( contrl != 8 ) ) goto lab2;
+
+	k = match ( nax, axlen, axnam );
+	if ( k >= 0 ) return( k );
+
+lab2://try for a variable-
+	k = match ( nvars, varlen, vname );
+	if ( k < 0 ) goto lab3;
+	usevar[k] = 1;
+	if ( contrl != 7 ) k = k - EMAX + 1;
+	return( k );
+
+lab3://pick an ellipsoid-
+	if ( ( contrl != 2 ) && ( contrl != 8 ) ) goto lab4;
+	k = match ( ne, ellen, ename );
+	if ( k < 0 ) goto lab4;
+	return( k );
+
+lab4://pick a joint-
+	if ( ( contrl != 3 ) && ( contrl != 8 ) ) goto lab5;
+	k = match ( njts, jntlen, jname );
+	if ( k >= 0 ) return( k );
+	if ( ptype != attach ) goto lab5;
+
+	njts = addnam ( njts, jname, 0, jntlen );
+	k = njts - 1;
+	return( k );
+
+lab5://pick a figure-
+	if ( ( contrl != 4 ) && ( contrl != 8 ) ) goto lab7;
+	k = match ( nfigs, figlen, fname );
+	if ( ptype == detach ) goto lab6;
+	if ( k < 0 ) goto lab7;
+	return( k );
+
+lab6://action detach- accept any figure but "all"-
+	if ( k == 0 ) goto lab7;
+	if ( k > 0 ) return( k );
+	nfigs = addnam ( nfigs, fname, 0, figlen );
+	k = nfigs - 1;
+	return( k );
+
+lab7://pick a subroutine call-
+	if ( ( contrl != 6 ) && ( contrl != 8 ) ) goto lab8;
+	k = match ( nsubs, sublen, sname );
+	if ( k <= 0 )
+	{
+		nsubs = addnam ( nsubs, sname, 0, sublen );
+		k = nsubs - 1;
+	}
+	called[k] = TRUE;
+	return( k );
+
+lab8://pick a file name-
+	if ( ( contrl != 9 ) && ( contrl != 8 ) ) goto lab9;
+	k = match ( nfiles, fillen, tname );
+	if ( k > 0 ) return( k );
+	nfiles = addnam ( nfiles, tname, 0, fillen );
+	k = nfiles - 1;
+	return( k );
+
+lab9://snag-
+	printf ( "\nOOPS parset : contrl %d\n", contrl );
+	bell ( 1, 1 );
+	ok = 89;
+
+	//lab11:
+	return( k );
+} /* parset */
+/***************************************/
+
+void inperf(void)
+/*
+     this decodes the input text defining the required actions.
+
+  global  variables
+     main     -true if in main program.
+     nmax     -max number of commands possible.
+     ptype    -type of action being read.
+
+     called by compl,
+     calls     nexts, match, addnam, inname, inells, injts,
+               value, parset, nlims,
+
+	30 Jul 2006 d072 put infinite loop if error
+*/
+{
+	int nells;
+	int how;     // type number of current action keyname.
+	int j;
+	int k;
+	int linel;   // length of string 'line'
+	int nmax;	  // max number of commands possible
+	int s;	     // counter thru subs and along a string
+	int thisub; // number of current subroutine
+	double v;
+
+	p = 0;
+	thisub = 0;
+	subact[0][0] = 0;
+	nmax = 4 * EMAX + PMAX;
+
+	// run through statements
+
+	for ( comand = 1; ( ( ok == 0 ) && ( comand <= nmax ) ); ++comand )
+	{
+		start = -1;
+		nexts ();
+		linel = (int)strlen ( line );
+		for ( s = 0; s < linel; ++s )
+			aline[comand][s] = line[s];
+		how = match ( NKEYS, keylen, keynam );
+		ptype = how;
+		if ( ( how <= 0 ) || ( how >= NKEYS ) )
+		{
+			printf ( "\nOOPS inperf: how %d outside range 0 to %d\n", how, NKEYS );
+			bell ( 1, 1 );
+			ok = 88;
+		}
+		else if ( how == stop_keyword_code )
+		{
+			subact[thisub][1] = p - 1;
+			break;
+		}
+		else if ( how == figure_keyword_code  )
+		{
+			nexts ();
+			nfigs = addnam ( nfigs, fname, FALSE, figlen );
+			nells = ne;
+			figell[nfigs-1] = ne;
+			ne = inname ( nells, 0, ellen, ename );
+		}
+		else if ( how == ellips_keyword_code  )
+		{
+			j = inells ();
+			ax[j][0] = semiax[0];
+			ax[j][1] = semiax[1];
+			ax[j][2] = semiax[2];
+		}
+		else if ( how == joint_keyword_code )
+		{
+			injts ();
+		}
+		else if ( how  == limits_keyword_code )
+		{
+			inlims ();
+		}
+		else if ( how == variable_keyword_code )
+		{
+			nvars = inname ( nvars, 1, varlen, vname );
+			if ( ( nvars + nvals ) > EMAX )
+			{
+				printf ( "\nOOPS inperf nvars %d + nvals %d > EMAX %d\n", nvars, nvals, EMAX );
+				bell ( 1, 1 );
+				ok = 87;
+			}
+		}
+		else if ( how == speed_keyword_code )
+		{
+			nexts ();
+			v = value ();
+			if ( v < doub0 ) slow = int ( -v + inv2 );
+			if ( v > doub0 ) fast = int ( v + inv2 );
+		}
+		else if ( how == view_keyword_code )
+		{
+			nexts ();
+			v = value ();
+			if ( pok == TRUE )
+			{
+				vstart = int ( v ) - 1;
+				if ( vstart < 0 ) vstart = 0;
+				nexts ();
+				v = value ();
+				if ( pok == TRUE ) vstop = int ( v );
+			}
+			if ( pok == FALSE )
+			{
+				printf ( "\nOOPS inperf: view %f\n", v );
+				bell ( 1, 1 );
+				ok = 70;
+			}
+		}
+		else if ( how == subrou_keyword_code  ) // start a subroutine
+		{
+			inmain = FALSE;
+			if ( thisub == 0 ) subact[0][1] = p - 1;
+			nexts ();
+			thisub = match ( nsubs, sublen, sname );
+			if ( thisub <= 0 )
+			{
+				nsubs = addnam ( nsubs, sname, 0, sublen );
+				if ( ok == 0 ) thisub = nsubs - 1;
+			}
+			defined[thisub] = TRUE;
+			subact[thisub][0] = p;
+		}
+		else if ( how == endsub_keyword_code )  //  end of a subroutine
+		{
+			nexts ();
+			k = match ( nsubs, sublen, sname );
+			if ( k == thisub )
+			{
+				subact[k][1] = p - 1;
+			}
+			else
+			{
+				printf ( "\nOOPS inperf: k %d != thisub %d\n", k, thisub );
+				bell ( 1, 1 );
+				ok = 86;
+			}
+		}
+		else if ( p >= PMAX )//  read an action -
+		{
+			p = PMAX - 1;
+			printf ( "beware- more than %d action specs\n", PMAX );
+			printf ( "actions deleted after line  %d\n%s\n", nline, line );
+		}
+		else
+		{
+			distrn[p] = how;
+			cline[p] = comand;
+
+			// read frames to which this action refers -
+
+			frstart[p] = parset(1);
+			if ( ok == TRUE ) frstop[p] = parset ( 1 );
+			if ( inmain == TRUE )
+			{
+				if ( frstart[p] < fstart )
+					fstart = frstart[p];
+				if ( frstop[p] > fstop )
+					fstop = frstop[p];
+			}
+			if ( ok == TRUE ) //call of a subroutine
+			{
+				if ( how == call_keyword_code )
+				{
+					distrn[p] = call_keyword_code;
+					ptype = call_keyword_code;
+					type[p] = call_keyword_code;
+					nexts ();
+					k = match ( nvars, varlen, vname );
+					if ( k < 0 )
+					{
+						k = match ( nsubs, sublen, sname );
+						if ( k < 0 )
+						{
+							nsubs = addnam ( nsubs, sname, 0, sublen );
+							k = nsubs - 1;
+						}
+						called[k] = TRUE;
+						pf[p][0] = k;
+					}
+					else
+					{
+						pf[p][0] = k - EMAX + 1;
+					}
+				}
+				else // read action done in these frames
+				{
+					nexts ();
+					ptype = match ( NKEYS, keylen, keynam );
+					type[p] = ptype;
+					if ( ( ptype < 1 ) || ( ptype >= NKEYS ) )
+					{
+						printf ( "\nOOPS inperf: ptype %d\n", ptype );
+						bell ( 1, 1 );
+						ok = 85;
+					}
+					else // run through parameters of pth action
+					{
+						for ( j = 0; ( ( ok <= 0 ) && ( j < 6 ) ); ++j )
+						{
+							pf[p][j] = parset ( par[ptype][j] );
+							if ( ok > 0 )
+							{
+								printf( "\nOOPS in inperf: problem parameter %d %d %d %d %d\n", j, p, pf[p][j], ptype, par[ptype][j] );
+								bell ( 1, 1 );
+							}
+						}
+					}
+				}
+			}
+		}
+		if ( ok > 0 )
+		{
+			printf ( 	"\nOOPS in inperf: problem near line %d\n %s\n\n",	nline, line );
+			bell ( 1, 1 );
+dead: goto dead;
+		}
+		if ( distrn[p] > 0 ) ++p;
+		npfs = p;
+	}
+} /* inperf */
+/***************************************/
+
+void compl1(void)
+/*
+   calls    inperf, getout, dojoin, checkin,
+   called by main,
+*/
+{ 
+   nline = 0;
+   inperf();
+   if (ok > 0) getout(1);
+   if (ok == 1) goto rtrn;
+   dojoin();
+   if (ok > 0) getout(1);
+   if (ok == 1) goto rtrn;
+   checkin();
+   if (ok > 1) getout(1);
+rtrn: ;
+} /* compl */
+/***************************************/
+/*
+          actions39.h
+
+      setels      - finds ellipsoids and joints connected to given ellipsoid
+      save        - store positions and orientations
+      restore     - restore positions and orientations
+      store3      - writes data about given frame to arrays
+      getvalu     - gets a value from constants or variables
+      vecmat      - multiplies a vector by a matrix
+      doground    - moves a set of ellipsoids to rest on y = 0
+      setjnt      - finds ellipsoids and joints connected to a given joint
+      setfrc      - sets proportion of action for current frame
+      doscale     - scale a value by some proportion
+      findfg      - finds which figure includes a given ellipsoid
+      checkpr     - checks parameters for legality
+      setper      - decodes the parameters of the current action
+      sqr         - square a value
+      docolour    - sets colours of an ellipsoid
+      doplace     - sets viewing point (array 'pplace')
+      setobs      - sets 3*3 matrix for viewing rotation and place
+      enquir      - stores values of centres, joints or axis lengths
+      doattach    - joins 2 figures into 1
+      dodetach    - breaks 1 figure into 2
+      domoveby    - moves a set of ellipsoids relative to refell
+      dogroell    - scales axes of an ellipsoid
+      dogrofig    - scales a set of ellipsoids in size
+      dogrojnt    - scales set of ellipsoids keeping a joint fixed
+      domovjnt    - moves a joint
+      balanc      - balances part of a figure
+      dodrag      - keeps an ellipsoid touching ground
+      dcen        - find separation of ellipsoid centres
+      newton      - solve a polynomial
+      getmat      - generate matrix of an ellipsoid
+      getaxes     - find axis lengths of an ellipsoid
+      surf        - find separation of ellipsoid surfaces
+      sepn        - find distance between 2 ellipsoid surfaces
+      fun         - used by 'solve' for abut
+      solve       - find zero of 'fun'
+      angsepn     - find approx angular separation of ell1 and ell2 from x
+      dotouch     - bends a figure to make 2 ellipsoids touch
+      trying      - 'domoveby' then 'sepn'
+      fndmin      - find minimum of function 'trying'.
+      doabut      - slide figure to touch another
+
+
+***************************************/
+
+void setels(int ellpsd, int jthis)
+/*
+     puts into 'elist' and 'jlist' those ellipsoids and joints
+     (if any) connected to 'ellpsd'
+     (including 'ellpsd' and 'jthis')
+     except those connected through joint 'jthis'
+
+     if 'jthis' is negative, puts all joints and ellipsoids
+     connected to 'ellpsd' into lists.
+     if 'ellpsd' is zero, puts all joints and ellipsoids into lists,
+     except ellipsoid zero (world).
+
+     'ecount' is the number of ellipsoids in the list 'elist'.
+     'jcount' is the number of joints in the list 'jlist'.
+
+     called by  setper, findfg, dodetach, dogrojnt, dodrag,
+                store3, fun,
+*/
+{
+      int change;
+      int ell;
+      int e,ee,j,jj ;
+
+
+      if (ellpsd >= ne)
+      {
+          ok = 79;
+          printf("\nOOPS setels: ellpsd %d %s >= ne %d\n",
+			  ellpsd,ename[ellpsd],ne);
+          goto rtrn;
+      }
+      if (ellpsd <= 0) goto lab6;
+      ecount = 1;
+      elist[0] = ellpsd;
+      if (njts <= 0) goto rtrn;
+      jcount = 0;
+      if (jthis < 0) goto again;
+      if (jthis >= njts)
+      {
+          ok = 78;
+          printf("\nOOPS setels: jthis %d  %s > njts %d\n",
+			  jthis,jname[jthis],njts);
+          goto rtrn;
+      }
+      if ((coel[jthis][0] != ellpsd) && (coel[jthis][1] != ellpsd))
+      {
+          ok = 50;
+          printf("\nOOPS setels: joint %d %s connected to %d %s and %d %s, not %d %s\n",            
+              jthis,jname[jthis],
+			  coel[jthis][0],ename[coel[jthis][0]],
+			  coel[jthis][1],ename[coel[jthis][1]],ellpsd,ename[ellpsd]);
+          goto rtrn;
+      }
+      jcount = 1;
+      jlist[0] = jthis;
+
+again: change = FALSE;
+      for ( e=0; e < ecount; ++e )
+      {
+/*   seek joint not in jlist connected to ellipsoid elist[e]- */
+
+         for ( j=0; j < njts; ++j )
+         {
+            if ((j == jthis) && (jthis > 0)) goto lab3;
+            for (  jj=0; jj < jcount; ++jj )
+               if (j == jlist[jj]) goto lab3;
+/*   
+    j not in list yet-
+*/
+            ell = -1;
+            if (coel[j][0] == elist[e]) ell = coel[j][1];
+            if (coel[j][1] == elist[e]) ell = coel[j][0];
+            if (ell < 0) goto lab3;
+
+/*   store new joint and ellipsoid- */
+
+            jlist[jcount] = j;
+            ++jcount;
+            change = TRUE;
+            for (  ee=0; ee < ecount; ++ee )
+               if (ell == elist[ee]) goto lab3;
+            elist[ecount] = ell;
+            ++ecount;
+            change = TRUE;
+            
+lab3: ;
+         } /* j */
+     } /* e */
+     if (change == TRUE) goto again;
+	 goto rtrn;
+
+/*   set all ellipsoids and joints- */
+
+lab6: jcount = 0 ;
+
+/*   all joints with non-null connections- */
+
+      jcount = 0;
+      for (  j = 0 ; j <= njts ; ++ j )
+      {
+         if (coel[j][0] >= 0)
+         {
+            ++jcount;
+            jlist[jcount-1] = j ;
+         }
+      }
+
+/*   all ellipsoids except world- */
+
+      ecount = ne ;
+      for (  e = 1 ; e <= ne ; ++ e )
+         elist[e-1] = e ;
+rtrn: ;
+}  /* setels */
+/*************************************************/
+
+/*****************************************************/
+/*
+         shado41.h
+
+     based on shadoq.c
+
+     to add shadows to figures
+
+     26 Apr  2005  adapt to include in drawel
+     16 Jan  2003  remove the shadows below ground
+     15 Aug  2001  move the shadows below ground
+     18 Aug  1993  to accommodate joints
+     23 Oct  1992  D.Herbison-Evans  written
+
+***************************************************
+
+   subroutines-
+        setcof
+        setaxe
+        setpro
+        setmat
+        setnup
+        ground
+        doshadow
+
+***********************************************/
+
+void setcof(double coef[7], double el[3][3] )
+/* 
+     set up coeffs of outline ellipse of an ellipsoid about 
+     its own centre in the form -  
+   
+     coef(1)*x**2 + coef[2]*z**2 + coef[3]*x*z 
+         + coef(4)*x + coef[5]*z + coef[6] = 0 
+   
+     called by setnup,
+*/
+{
+   double den ;
+
+   if (el[1][1] == doub0) goto lab1 ;
+   den = doub1/el[1][1] ;
+   coef[1] = el[0][0] - el[0][1]*el[0][1]*den ;
+   coef[2] = el[2][2] - el[1][2]*el[1][2]*den ;
+   coef[3] = doub2*(el[0][2] - el[0][1]*el[1][2]*den) ;
+   coef[4] = doub0 ;
+   coef[5] = doub0 ;
+   coef[6] =  -doub1 ;
+   goto rtrn ;
+/* 
+     snags -  
+*/
+lab1:  
+   printf("setcof %f %f %f\n",
+              el[1][0],el[1][1],el[1][2]);
+   ok = 99 ;
+rtrn:;
+} /* setcof */
+/************************************************/
+
+void setaxe(int n, double axe[3], double coef[7])
+/* 
+     find semiminor axis, axe[0], and semimajor 
+     axis, axe[2], of ellipse described by coef. 
+   
+     called by setnup, 
+*/
+{
+   double discrt,lamx,lamz,c12,rtdis ;
+
+   lamx = doub1 ;
+   lamz = doub1 ;
+   discrt = (coef[1] - coef[2])*(coef[1] - coef[2])+ coef[3]*coef[3];
+   if (discrt < doub0) goto lab1 ;
+   c12 = inv2*(coef[1]+coef[2]) ;
+   rtdis = inv2*sqrt(discrt) ;
+   lamx = c12 + rtdis ;
+   lamz = c12 - rtdis ;
+   if (lamx <= doub0) goto lab1 ;
+   if (lamz <= doub0) goto lab1 ;
+   axe[0] = doub1/sqrt(lamx) ;
+   axe[2] = doub1/sqrt(lamz) ;
+   goto rtrn ;
+/* 
+     snags -  
+*/
+lab1: printf("setaxe snag %f %f %f\n",
+         lamx,lamz,discrt);
+   ok = 98 ;
+rtrn:;
+} /* setaxe */
+/******************************************/
+
+double setpro(double coef[7])
+/*
+     for the outline of nth ellipsoid, find 'phi'
+     angle between axx axis and scene x axis.
+   
+     called by setnup, 
+*/
+{
+   double phi ;
+
+   phi = pi-inv2*atan2(coef[3], coef[1]-coef[2]) ;
+   if (phi < doub0) phi = phi+twopi ;
+   return(phi);
+} /* setpro */
+/******************************************/
+
+void setmat ( int n, double el[3][3], double el1[3][3], double unel1[3][3] )
+/*
+
+	finds the matrix "el" of the quadratic form of the "n"th
+	ellipsoid by taking the diagonal matrix of inverse square
+	semiaxes, and doing on it a similarity transform
+	for its own rotation.
+
+	called by setnup, cutting,
+	calls matmul, rotget,
+
+	12 Aug 2006  returning el1 and unel1
+*/
+{
+	int ii, j;
+	double el0[3][3],el2[3][3],el3[3][3];
+	double r[3][3], unr[3][3];
+
+	// initialise diagonal matrix -
+
+	for ( ii = 0; ii < 3; ++ ii )
+	{
+		for ( j = 0; j < 3; ++ j )
+		{
+			el0[ii][j] = doub0;
+			el3[ii][j] = doub0;
+		}
+		if ( ax[n][ii] ==  doub0 )
+		{
+			printf ( "setmat  ax[%d][%d] = 0\n", n, ii );
+			ok = 97;
+			return;
+		}
+		el0[ii][ii] = doub1 / ax[n][ii];
+		el3[ii][ii] = ax[n][ii];
+	}
+	rotget ( r, unr, n );
+
+	// do similarity transform -
+
+	matmul ( el0, unr, el1 );
+	matmul ( r, el0, el2 );
+	matmul ( el2, el1, el);
+	matmul ( r, el3, unel1);
+} /* setmat */
+/**********************************************/
+
+double setnup(int n, double axe[3])
+/* 
+     set up parameters of nth ellipsoid relative 
+     to own centre. 
+   
+     called by shadow, 
+     calls     setmat, setcof, setaxe, setpro, 
+*/
+{
+   double el[3][3],el0[3][3],el1[3][3];
+	double con[7];
+   double phi;
+
+   phi = doub0;
+   setmat(n,el,el0,el1) ;
+   if ( ok > 0 ) goto lab1 ;
+   setcof(con,el) ;
+   if ( ok > 0 ) goto lab1 ;
+   setaxe(n,axe,con) ;
+   if ( ok > 0 ) goto lab1 ;
+   phi = setpro(con) ;
+   if ( ok > 0 ) goto lab1 ;
+   goto rtrn ;
+/* 
+     snag -  
+*/
+lab1: ok = 96;
+   printf(
+      "setnup snag in ellipsoid %d\n",n );
+
+rtrn:
+   return(phi);
+} /* setnup */
+/******************************************/
+
+double elground(int i)
+/*
+   find distance of lowest point above the ground
+   of the ellipsoid 'i'.
+
+   called by  shadow,
+   calls      rotget,
+*/
+{
+   double x,y,z,r[3][3],unr[3][3] ;
+   double val;
+   double sumsq;
+   double sqt;
+
+   val = cen[i][1];
+
+/*   find lowest point- */
+
+   rotget(r,unr,i) ;
+   x = unr[0][1]*ax[i][0] ;
+   y = unr[1][1]*ax[i][1] ;
+   z = unr[2][1]*ax[i][2] ;
+   sumsq = x*x+y*y+z*z;
+   if (sumsq > doub0)
+      sqt = sqrt(sumsq); else sqt = doub0;
+   val = cen[i][1] - sqt ;
+   return(val);
+}  /* elground */
+/**********************************************************/
+
+void doshadow()
+/* 
+  find the shadow ellipsoids of each ellsoid in the scene
+
+     called by store3,
+     calls     setnup, rset, rotput, ground,
+*/
+{
+   int k,n;
+   double y, phi;
+   double r[3][3];
+   double axe[3];
+/* 
+     run thru ellipsoids to shadow each in turn -  
+*/
+    k = ne;
+    for (  n = 1 ; n < ne ; ++n )
+    {
+         phi = setnup(n,axe);
+         y = elground(n);
+         if (y > doub0)
+         {
+            cen[k][0] = cen[n][0];
+            cen[k][1] = -inv5;
+            cen[k][2] = cen[n][2];
+            ax[k][0] = axe[0];
+            ax[k][1] = inv5;
+            ax[k][2] = axe[2];
+            rset(r,phi,1);
+            rotput(r,k);
+            col[k][0] = doub1;
+            col[k][1] = doub1;
+            col[k][2] = doub1;
+			++k;
+         } /* y > 0 */
+    } /* end n loop */
+    ne = k;
+} /* doshadow */
+/******************************************/
+
+void save(void)
+/*
+   save positions and orientations
+
+   called by  store3, doabut, dodrag, dotouch,
+*/
+{
+   int j,n;
+
+   nesave = ne;
+   for (n = 0; n <= ne; ++n)
+   {
+      for ( j = 0; j < 3; ++j)
+      {
+         censav[n][j] = cen[n][j];
+         jntsav[n][j] = jnt[n][j];
+      }
+      for ( j = 0; j < 5; ++j)
+         quasav[n][j] = quat[n][j];
+   }
+} /* save */
+/***********************************************/
+
+void restore(void)
+/*
+   restore positions and orientations
+
+   called by  store3, doabut, try, dodrag, fun, dotouch,
+*/
+{
+   int j,n;
+
+   ne = nesave;
+   for (n = 0; n <= ne; ++n)
+   {
+      for (j = 0; j < 3; ++j)
+      {
+         cen[n][j] = censav[n][j];
+         jnt[n][j] = jntsav[n][j];
+      }
+      for ( j = 0; j < 5; ++j)
+         quat[n][j] = quasav[n][j];
+   }
+} /* restore */
+/***********************************************/
+
+void store3(int f)
+/*
+    store axes, centres, orientations and colours
+    of  nels ellipsoids starting at 1 (avoiding  0 = world),
+
+    called by doframes,
+    calls     save, doshadow, setels, shift, twirl, rotput,
+	          mkang, storeang, mkquat, rotgrt, restore,
+*/
+{
+   int   e,j;
+   double invobs[3][3];
+
+   save();
+   if (shadow == TRUE) doshadow();
+   setels(0,-1);
+   twirl(pplace[0],pplace[1],pplace[2],obs);
+   shift(-pplace[0],-pplace[1],-pplace[2]);
+   nels[f] = ne;
+   for (e = 0; e < ne; ++e)
+   {
+      for (j = 0; j < 3; ++j)
+      {
+         qu3[f][e][j+1] = quat[e][j];
+         ax3[f][e][j] = ax[e][j]*inv1000;
+         ce3[f][e][j] = cen[e][j]*inv1000;
+         co3[f][e][j] = col[e][j]*inv256;
+      } /* j*/
+      qu3[f][e][3] = -qu3[f][e][3];
+      qu3[f][e][0] = degree*atan2(quat[e][3], quat[e][4]);
+      ce3[f][e][2] = doub1 - ce3[f][e][2];
+      if (col[e][0] < 0)
+            sprintf(tn3[f][e],"%s",tname[int(inv2-col[e][0])]);
+   } /* e */
+   rotput(obs,ne);
+   mkang(ne);
+   storeang(f,ne,ang[0],ang[1],ang[2]);
+   mkquat(ne,ang[0],ang[1],ang[2]);
+   rotget(obs,invobs,ne);
+   restore();
+}  /* store3 */
+/***********************************************/
+
+int getvalu(int p)
+/*
+  get value possibly from array val and put it into v and k.
+  if p is negative, get value of variable val(abs(p)),
+  if p is positive get p directly.
+
+  called by  doperfrm, setper,
+*/
+{
+   int k;
+   int ref ;
+
+   ref = 0 ;
+/*
+  is the parameter a variable or direct reference
+*/
+   if (p < 0)
+   {
+/*
+  parameter is index into array val-
+*/
+      ref = -p ;
+      if ((ref < 0) || (ref >= EMAX))
+      {
+         ok = 15 ;
+         printf("val index %d outside range 0 - %d\n",
+		     ref,EMAX);
+      }
+      else
+      {
+         v = val[ref] ;
+         k = int(v + inv2) ;
+         if (v < doub0) k = int(v -inv2) ;
+      }
+   }
+   else
+/*
+  parameter is direct reference, use it-
+*/
+   {
+      k = p ;
+      v = k ;
+   }
+   return(k);
+}  /* getvalu */
+/**************************************/
+
+void vecmat(double v[3], double m[3][3], double w[3])
+/*
+   multiply vector 'v' by matrix 'm',
+   putting result in 'w'.
+
+   called by  sepn, dobalanc,
+*/
+{
+      int i,j;
+      double vv[3],x;
+
+      for (  i = 0 ; i < 3 ; ++ i )
+      {
+         x = doub0 ;
+         for (  j = 0 ; j < 3 ; ++ j )
+         {
+            x = x+m[i][j]*v[j];
+         }
+         vv[i] = x ;
+      }
+      for (  i = 0 ; i < 3 ; ++ i )
+      {
+         w[i] = vv[i];
+      }
+}  /* vecmat */
+/**********************************************************/
+
+double elow(int i)
+/*
+   find height of lowest point of ellipsoid i
+   
+   called by doground,
+   call rotget,
+  */
+{
+   double r[3][3],unr[3][3];
+   double x,y,z;
+   double sq,sqt;
+   double toty;
+
+   rotget(r,unr,i);
+   x = unr[0][1]*ax[i][0];
+   y = unr[1][1]*ax[i][1];
+   z = unr[2][1]*ax[i][2];
+   sq = x*x+y*y+z*z;
+   if (sq > doub0) 
+      sqt = sqrt(sq); 
+   else 
+      sqt = doub0;
+   toty = cen[i][1] - sqt;
+   return(toty);
+} /* elow */
+/******************************************************/
+
+double doground(void)
+/*
+   find distance of lowest point above the ground
+   of the ellipsoids contained in 'elist'.
+
+   called by  action, dodrag, fun, doshadow,
+   calls      rotget,
+*/
+{
+   int n ;
+   double toty;
+   double val;
+
+   if ((ecount < 1) || (ecount > ne))
+   {
+      ok = 38 ;
+      printf("\nOOPS doground: ecount %d out of range\n",            
+            ecount);
+   }
+   else
+   {
+      val = cen[elist[0]][1];
+/*  run through affected ellipsoids finding lowest point- */
+      for (  n = 0 ; n < ecount ; ++ n )
+      {
+         toty = elow(elist[n]);
+         if (toty < val) val = toty;
+      } /* n */
+   } /* if ecount */
+   return(val);
+}  /* doground */
+/**********************************************************/
+
+void setjnt(int ellpsd, int jthis)
+/*
+     puts into 'elist' and 'jlist' those ellipsoids and joints
+     (if any) connected to 'ellpsd'
+     (including 'ellpsd' and excluding 'jthis')
+     except those connected through joint 'jthis'
+
+     'ecount' is the number of ellipsoids in the list elist.
+     'jcount' is the number of joints in the list jlist.
+
+     called by  domovjnt,
+*/
+{
+      int done;
+      int e,j,i,jt ;
+
+      ecount = 1 ;
+      elist[0] = ellpsd ;
+      jcount = 0 ;
+      if ((coel[jthis][0] != ellpsd) && (coel[jthis][1] != ellpsd))
+      {
+          ok = 64;
+          printf("\nOOPS setjnts: coel %d  %d out of range %d %d\n",            
+              coel[jthis][0],coel[jthis][1],ellpsd,jthis);
+          goto rtrn;
+      }
+
+again:  for (  e = 0 ; e < ecount ; ++ e )
+      {
+         done = TRUE;
+
+/*   seek joint not in jlist but connected to ellipsoid elist[e]- */
+
+         for (  jt = 0 ; jt < njts ; ++ jt )
+         {
+            if (jt == jthis) goto lab3;
+            if (jcount > 0)
+            {
+               for (  j = 0 ; j < jcount ; ++ j )
+               {
+                  if (jt == jlist[j]) goto lab3 ;
+               }
+            }
+/*
+   jt not in list yet-
+*/
+            i =  -1 ;
+            if (coel[jt][0] == elist[e]) i = 1 ;
+            if (coel[jt][1] == elist[e]) i = 0 ;
+            if (i < 0) goto lab3 ;
+
+/*   store new joint and ellipsoid- */
+
+            jlist[jcount] = jt ;
+            jcount ++;
+            elist[ecount] = coel[jt][i] ;
+            ecount ++;
+            done = FALSE;
+lab3: ;
+         }
+         if (done == FALSE) goto again;
+     }
+rtrn:;
+}  /* setjnt */
+/*************************************************/
+
+void setfrc(int frame, int start, int stp)
+/*
+  set up prop and frac -  proportion of current action time
+  to be done for current frame.
+
+  variables -
+     a - number of frames done of current action
+     aa - number of increments of current action done
+     b - number of frames to be done
+     bb - number of increments of current action to be done
+     even  - 0 if n is even, 1 if n is odd
+     nn - total number of increments in current action
+
+  called by  prfrm,
+*/
+{
+   double a,aa,b,bb,h,n,nn,even;
+   int distrp ;
+
+   distrp = distrn[pp];
+   n = stp-start ;
+   nn = n*(n+doub1)*inv2 ;
+   a = frame-start ;
+   aa = a*(a+doub1)*inv2 ;
+   b = stp-frame+1 ;
+   bb = b*(b+doub1)*inv2 ;
+   even = ((int)n)%2 ;
+   h = ((int)n)/2 ;
+/*
+  repeat command-
+*/
+   if (distrp == repeat_keyword_code)
+   {
+      prop = doub1 ;
+      frac = doub1 ;
+   }
+   else
+/*
+  linear command-
+*/
+   if (distrp == linear_keyword_code)
+   {
+      if ((b  == doub0) || (n == doub0))
+      {
+         ok = 10 ;
+         printf("\nOOPS setfrc: linear b %d,  n %d, start %d\n",            
+              b,n,start);
+      }
+      else
+      {
+         frac = doub1/n;
+         prop = doub1/b;
+      }
+   }
+   else
+/*
+  acceleration command-
+*/
+   if (distrp == accele_keyword_code)
+   {
+      if ((nn == doub0) || ((nn-aa+a) == doub0))
+      {
+         ok = 11 ;
+         printf("\nOOPS setfrc: accel bb %d,  nn %d, start %d\n",            
+              bb,nn,start);
+      }
+      else
+      {
+         frac = a/nn ;
+         prop = a/(nn-aa+a) ;
+      }
+   }
+   else
+/*
+  deceleration command-
+*/
+   if (distrp == decele_keyword_code)
+   {
+      if ((nn == doub0) || (bb == doub0))
+      {
+         ok = 12 ;
+         printf("\nOOPS setfrc: decele bb %d,  nn %d, start %d\n",            
+              bb,nn,start);
+      }
+      else
+      {
+         frac = b/nn ;
+         prop = b/bb ;
+      }
+   }
+   else
+/*
+  quadratic command-
+*/
+   if (distrp == quadra_keyword_code)
+   {
+      nn = (n*(n+doub2)+even)/doub4 ;
+      if (nn == doub0)
+      {
+         ok = 13 ;
+         printf("\nOOPS setfrc: quadra nn %d, start %d\n",            
+              nn,start);
+      }
+      else
+      {
+         frac = a/nn;
+         if (a >= b) frac = b/nn ;
+      }
+      if (bb == doub0)
+      {
+         ok = 13 ;
+         printf("\nOOPS setfrc: quadra bb %d, start %d\n",            
+              bb,start);
+      }
+      prop = b/bb ;
+      if (a < b)
+      {
+         if ((nn-aa+a) == doub0)
+         {
+            ok = 13 ;
+         printf("\nOOPS setfrc: quadra nn-aa+a %d, start %d\n",            
+              nn-aa+a,start);
+         }
+         prop = a/(nn-aa+a) ;
+      }
+   }
+   else
+/*
+   cubic command-
+*/
+   if (distrp == cubic_keyword_code)
+   {
+      nn = h*(h+doub1)*(doub2*h+doub1)*inv3 + even*(h+doub1)*(h+doub1);
+      aa = a*(a+doub1)*(doub2*a+doub1)*inv6;
+      bb = b*(b+doub1)*(doub2*b+doub1)*inv6;
+      if ( a < b )
+      {
+         if (nn > doub0) frac = a*a/nn; else frac = doub1;
+         if ((nn-aa+a*a) > doub0) prop = a*a/(nn-aa+a*a); else prop = doub1;
+      }
+      else
+      {
+         if (nn > doub0) frac = b*b/nn; else frac = doub1;
+         if (bb > doub0) prop = b*b/bb; else prop = doub1;
+      }
+   }
+} /* setfrc */
+/************************************************************/
+
+double doscale(double x)
+/*
+   scale x by proportion frac
+
+   called by setper,
+*/
+{
+   double v1,v2,v3,v4,v5;
+
+   if (x == doub0)
+   {
+      ok = 51;
+      printf("\nOOPS scale: scale factor 0\n");
+      v5 = doub0;
+   }
+   else
+   {
+      if (x > doub0) v1= x; else v1 = -x;
+      if ( v1 > doub0) v2 = log(v1); else v2 = doub0;
+      v3 = frac*v2;
+      v4 = exp(v3);
+      if (x > doub0) v5 = v4; else v5 = -v4;
+   }
+   return(v5);
+}  /* doscale */
+/***************************************/
+
+int findfg(int ell)
+/*
+  find the figure (excluding 'every')
+  that includes the ellipsoid 'ell'.
+
+  called by setper, doattach, dodetach,
+  calls     setels,
+*/
+{
+   int e,f;
+
+   setels(ell,-1) ;
+   for (  f = 1 ; f <= nfigs ; ++ f )
+   {
+      for (  e = 0 ; e < ecount ; ++ e )
+         if (figell[f] == elist[e]) return(f);
+   }
+/*
+  snag-
+*/
+   ok = 35 ;
+   printf("\nOOPS findfg: ecount %d, ell %d %s\n",
+	   ecount,ell,ename[ell]);
+   return(-1);
+}  /* findfg */
+/************************************************/
+
+void checkpr(void)
+/*
+  check parameters for legality
+
+  called by  setper,
+*/
+{
+   if ((njts > 0)&&((join < 0) || (join > njts))) goto lab12 ;
+   if ((axis < 0) || (axis > 2)) goto lab13 ;
+   if ((ellpsd < 0) || (ellpsd > ne)) goto lab14 ;
+   if ((refell < 0) || (refell > ne)) goto lab15 ;
+   if ((ell1 < 0) || (ell1 > ne)) goto lab20 ;
+   if ((ell2 < 0) || (ell2 > ne)) goto lab21 ;
+   if ((fig < 0) || (fig > nfigs)) goto lab16 ;
+   if (nvars <= 0) goto lab10 ;
+   if ((var0 < 0) || (var0 >= EMAX)) goto lab17 ;
+   if ((var1 < 0) || (var1 >= EMAX)) goto lab18 ;
+   if ((var2 < 0) || (var2 >= EMAX)) goto lab19 ;
+   if (newcol[0] < -nfiles) goto lab45 ;
+   if (newcol[0] <= 0)
+   {
+      if (newcol[1] < 0) goto lab48 ;
+      if (newcol[2] < 0) goto lab49 ;
+   }
+   goto lab10 ;
+/*
+  data snag-
+*/
+lab12: ok = 16 ;
+   printf("\nOOPS checkpr: joint %d out of range 0 to  %d\n",            
+      join,njts);
+   goto lab10 ;
+
+lab13: ok = 17 ;
+   printf("\nOOPS checkpr: axis %d out of range 0 to 2\n",            
+      axis);
+   goto lab10 ;
+
+lab14: ok = 18 ;
+   printf("\nOOPS checkpr: ellpsd %d out of range 0 to %d\n",            
+      ellpsd,ne);
+   goto lab10 ;
+
+lab15: ok = 19 ;
+   printf("\nOOPS checkpr: refell %d out of range 0 to %d\n",            
+      refell,ne);
+   goto lab10 ;
+
+lab16: ok = 20 ;
+   printf("\nOOPS checkpr: fig %d out of range 0 to %d\n",            
+      fig,nfigs);
+   goto lab10 ;
+
+lab17: ok = 21 ;
+   printf("\nOOPS checkpr: var0 %d out of range 0 to %d\n",            
+      var0,nvars);
+   goto lab10 ;
+
+lab18: ok = 22 ;
+   printf("\nOOPS checkpr: var1 %d out of range 0 to %d\n",            
+      var1,nvars);
+   goto lab10 ;
+
+lab19: ok = 23 ;
+   printf("\nOOPS checkpr: var2 %d out of range 0 to %d\n",            
+      var2,nvars);
+   goto lab10 ;
+
+lab20: ok = 36 ;
+   printf("\nOOPS checkpr: ell1 %d out of range 0 to %d\n",            
+      ell1,ne);
+   goto lab10 ;
+
+lab21: ok = 37 ;
+   printf("\nOOPS checkpr: ell2 %d out of range 0 to %d\n",            
+      ell2,ne);
+   goto lab10 ;
+
+lab45: ok = 45 ;
+   printf("\nOOPS checkpr: newcol[0] %d out of range\n",            
+      newcol[0]);
+   goto lab10 ;
+
+lab48: ok = 48 ;
+   printf("\nOOPS checkpr: newcol[1] %d out of range\n",            
+      newcol[1]);
+   goto lab10 ;
+
+lab49: ok = 49 ;
+   printf("\nOOPS checkpr: newcol[2] %d out of range\n",            
+      newcol[2]);
+
+lab10:
+   ;
+
+}  /* checkpr */
+/***************************************/
+
+void setper ( int keyword_code )
+/*
+  decodes the parameters of the 'pp'th action using -
+
+     0 - none
+     1 - x
+     2 - y
+     3 - z
+     4 - ang1
+     5 - ang2
+     6 - ang3
+     7 - x scaling factor
+     8 - y scaling factor
+     9 - z scaling factor
+    10 - value for a variable
+    11,12,13 - red, green and blue colour coords
+    14 - the debug parameter
+    15 - reference to a file name in list 'fname'
+    21 - axis
+    22 - joint
+    23 - reference ellipsoid
+    24 - ellpsd (moving or central ellipsoid)
+    25 - fig  (figure)
+    27,28,29 - var0,var1,var2 (references to variables)
+    30 - ell1 (ellipsoid to touch)
+    31 - ell2 (ellipsoid to be touched)
+
+  called by doperfrm,
+  calls     getvalu, checkpr, findfg, setels,
+*/
+{
+	int c;
+	int j;
+
+	if ( ( keyword_code < 1 ) || ( keyword_code > NKEYS ) )
+	{
+		ok = 14;
+		printf ( "\nOOPS setper: keyword_code %d\n", keyword_code );
+		bell ( 1, 1 );
+		return;
+	}
+
+	for (  j = 0; j < 6; ++ j )//run thru parameters of 'p'th action
+	{
+		c = code[keyword_code][j];
+		if ( c != 0 )
+		{
+			k = getvalu ( pf[pp][j] );
+			if ( ok != 0 ) return;
+
+			//			set real parameters -
+
+			if ( c ==  1 ) xx[0] = v;
+			if ( c ==  2 ) xx[1] = v;
+			if ( c ==  3 ) xx[2] = v;
+			if ( c ==  4 ) ang[0] = v * radian;
+			if ( c ==  5 ) ang[1] = v * radian;
+			if ( c ==  6 ) ang[2] = v * radian;
+			if ( keyword_code != growto_keyword_code )
+			{
+				if ( c ==  7 ) factor[0] = doscale ( v );
+				if ( c ==  8 ) factor[1] = doscale ( v );
+				if ( c ==  9 ) factor[2] = doscale ( v );
+			}
+			if ( keyword_code == growto_keyword_code )
+			{
+				if ( c ==  7 ) factor[0] = v;
+				if ( c ==  8 ) factor[1] = v;
+				if ( c ==  9 ) factor[2] = v;
+			}
+			if ( c == 10 ) varval = v;
+
+			//			set int parameters-
+
+			if ( c == 11 ) newcol[0] = k;
+			if ( c == 12 ) newcol[1] = k;
+			if ( c == 13 ) newcol[2] = k;
+			if ( c == 21 ) axis = k;
+			if ( c == 22 ) join = k;
+			if ( c == 23 ) refell = k;
+			if ( c == 24 ) ellpsd = k;
+			if ( c == 25 ) fig = k;
+			if ( c == 27 ) var0 = EMAX - k - 1;
+			if ( c == 28 ) var1 = EMAX - k - 1;
+			if ( c == 29 ) var2 = EMAX - k - 1;
+			if ( c == 30 )
+			{
+				ell1 = k;
+				ellpsd = k;
+			}
+			if ( c == 31 ) ell2 = k;
+		} /* c != 0 */
+	}	/* j */
+
+	//	check for errors-
+
+	checkpr ( );
+	if ( ok != 0 ) return;
+
+	/*
+	if appropriate, set up lists of ellipsoids and joints
+	in affected figures ( NB figell[every] is -1)  -
+	*/
+	if ( keyword_code == drag_keyword_code )
+	{
+		if ( ellpsd == coel[join][0] )
+			refell = coel[join][1];
+		else
+			refell = coel[join][0];
+	}
+
+	if ( code[keyword_code][0] == linear_keyword_code )
+	{
+		setels ( figell[fig], -1 );
+		if ( ok != 0 ) return;
+	}
+
+	if ( ( keyword_code == rotate_keyword_code )
+		|| ( keyword_code == abduct_keyword_code )
+		|| ( keyword_code == drag_keyword_code )
+		|| ( keyword_code == abut_keyword_code ) )
+	{
+		fig = findfg ( ellpsd );
+		if ( ok != 0 ) return;
+	}
+
+	if ( keyword_code == abut_keyword_code )
+	{
+		setels ( ellpsd, -1 );
+		if ( ok != 0 ) return;
+	}
+	else if ( ( keyword_code == balanc_keyword_code )
+		|| ( keyword_code == touch_keyword_code )
+		|| ( keyword_code == bendby_keyword_code )
+		|| ( keyword_code == bendto_keyword_code )
+		|| ( keyword_code == flex_keyword_code )
+		|| ( keyword_code == rotate_keyword_code )
+		|| ( keyword_code == abduct_keyword_code )
+		|| ( keyword_code == drag_keyword_code )
+		|| ( keyword_code == linkx_keyword_code ) )
+	{
+		if ( keyword_code != linkx_keyword_code ) setels ( ellpsd, join );
+		if ( ok != 0 ) return;
+		xx[0] = jnt[join][0];
+		xx[1] = jnt[join][1];
+		xx[2] = jnt[join][2];
+	}
+
+	if ( ( keyword_code == grofig_keyword_code )
+		|| ( keyword_code == spinto_keyword_code )
+		|| ( keyword_code == spinby_keyword_code )
+		|| ( keyword_code == center_keyword_code )
+		|| ( keyword_code == centre_keyword_code ) )
+	{
+		xx[0] = cen[ellpsd][0];
+		xx[1] = cen[ellpsd][1];
+		xx[2] = cen[ellpsd][2];
+	}
+	else if ( keyword_code == moveto_keyword_code )
+	{
+		xx[0] = xx[0] - cen[ellpsd][0];
+		xx[1] = xx[1] - cen[ellpsd][1];
+		xx[2] = xx[2] - cen[ellpsd][2];
+	}
+
+	if ( ( keyword_code == growto_keyword_code ) )
+	{
+		xx[0] = cen[ellpsd][0];
+		xx[1] = cen[ellpsd][1];
+		xx[2] = cen[ellpsd][2];
+		return;
+	}
+
+	if ( ( keyword_code == opacty_keyword_code ) )
+	{
+		xx[0] = cen[ellpsd][0];
+		xx[1] = cen[ellpsd][1];
+		xx[2] = cen[ellpsd][2];
+		return;
+	}
+	if ( ( keyword_code == lghtng_keyword_code ) )
+	{
+		xx[0] = cen[ellpsd][0];
+		xx[1] = cen[ellpsd][1];
+		xx[2] = cen[ellpsd][2];
+		return;
+	}
+   for (j = 0; j < ne; ++j)
+	{
+		minax[j] = ax[j][0];
+		if (ax[j][1] < minax[j]) minax[j] = ax[j][1];
+		if (ax[j][2] < minax[j]) minax[j] = ax[j][2];
+		maxax[j] = ax[j][0];
+		if (ax[j][1] > maxax[j]) maxax[j] = ax[j][1];
+		if (ax[j][2] > maxax[j]) maxax[j] = ax[j][2];
+	}
+}  /* setper */
+/****************************************************/
+
+double sqr(double x)
+/*
+
+  called by   surf, angsepn, dotouch,
+
+  16 Sep 2006 called by totouch
+*/
+{
+   return(x*x);
+}  /* sqr */
+/*******************************************************/
+
+void docolour(double prop)
+/*
+  sets ellipsoid colour proportionately to the appropriate rgb.
+
+  called by  action,
+*/
+{
+   col[ellpsd][0] += prop*(newcol[0]-col[ellpsd][0]) ;
+   col[ellpsd][1] += prop*(newcol[1]-col[ellpsd][1]) ;
+   col[ellpsd][2] += prop*(newcol[2]-col[ellpsd][2]) ;
+   if (t == 52) col[ellpsd][0] = -newcol[0] ;
+}  /* docolour */
+/***************************************/
+
+void doplace(void)
+/*
+  set observers viewing point to new values.
+
+  called by  action,
+*/
+{
+   pplace[0] += prop*(xx[0]-pplace[0]);
+   pplace[1] += prop*(xx[1]-pplace[1]);
+   pplace[2] += prop*(xx[2]-pplace[2]);
+}  /* doplace */
+/***************************************/
+
+void setobs(void)
+/*
+  set up matrix 'obs' for eulerian angles in 'ang'.
+
+  called by action,
+  calls     rset, matmul,
+*/
+{
+   double newang[3];
+   double r1[3][3],r2[3][3],r3[3][3] ;
+
+   newang[0] = oldang[0] + prop*(ang[0]-oldang[0]);
+   newang[1] = oldang[1] + prop*(ang[1]-oldang[1]);
+   newang[2] = oldang[2] + prop*(ang[2]-oldang[2]);
+   rset(r1,newang[0],0) ;
+   rset(r2,newang[1],1) ;
+   rset(r3,newang[2],2) ;
+   matmul(r1,r2,obs) ;
+   matmul(obs,r3,obs) ;
+   oldang[0] = newang[0];
+   oldang[1] = newang[1];
+   oldang[2] = newang[2];
+}  /* setobs */
+/************************************************************/
+
+void enquir(int thisp, double array[EMAX][3])
+/*
+  store values from 'array' into variables.
+
+  called by  action,
+*/
+{
+   val[var0] = array[thisp][0] ;
+   val[var1] = array[thisp][1] ;
+   val[var2] = array[thisp][2] ;
+}  /* enquir */
+/************************************************************/
+
+
+void doattach(void)
+/*
+  create a joint 'join' at point 'x,y,z'
+  relative to centre of refell.
+
+  called by action,
+  calls     findfg,
+*/
+{
+   int fig1,fig2,low,high ;
+
+   if ((coel[join][1] != -1) || (coel[join][0] != -1))
+   {
+      ok = 42 ;
+      printf("doattach: join %d, coel[join][0] %d,  coel[join][1] %d\n",            
+              join,coel[join][0],coel[join][1]);
+   }
+   else
+   {
+/*
+  find lowest ellipsoid of the figures being connected-
+*/
+      fig1 = findfg(ellpsd);
+      fig2 = findfg(refell);
+      if (ok == 0)
+      {
+         high = fig2 ;
+         low = fig1 ;
+         if (figell[low] > figell[high])
+         {
+            low = fig2 ;
+            high = fig1 ;
+         }
+         figell[high] = figell[low] ;
+         coel[join][0] = ellpsd ;
+         coel[join][1] = refell ;
+         jnt[join][0] = xx[0]+cen[ellpsd][0] ;
+         jnt[join][1] = xx[1]+cen[ellpsd][1] ;
+         jnt[join][2] = xx[2]+cen[ellpsd][2] ;
+      }
+   }
+}  /* doattach */
+/*************************************/
+
+void dodetach(void)
+/*
+  split 1 figure into 2.
+
+  called by action,
+  calls     findfg, setels,
+*/
+{
+   int othere,otherf;
+   int j,k;
+   int fgk ;
+   int fg[2],el[2] ;
+/*
+  check if the new figure 'fig' is already being used -
+*/
+   j = figell[fig] ;
+   if (j != 0)
+   {
+      ok = 43 ;
+      printf("\nOOPS dodetach:  fig %d %s,  figell[fig] %d %s\n",            
+              fig,fname[fig],figell[fig],ename[figell[fig]]);
+      goto rtrn ;
+   }
+/*
+   fig ok, so start detaching-
+*/
+   othere = 0 ;
+   if (coel[join][0] == ellpsd) othere = coel[join][1] ;
+   if (coel[join][1] == ellpsd) othere = coel[join][0] ;
+   if (othere == 0)
+   {
+      ok = 44 ;
+      printf("\nOOPS dodetach:  join %d %s,  ellpsd %d %s, othere %d %s\n",            
+              join,jname[join],ellpsd,ename[ellpsd],othere,ename[othere]);
+      goto rtrn;
+   }
+   otherf = findfg(othere);
+   if (ok != 0) goto rtrn ;
+/*
+   move all the joints down one -
+*/
+   for (j = join; j < njts; ++j)
+   {
+      coel[j][0] = coel[j+1][0] ;
+      coel[j][1] = coel[j+1][1] ;
+      jnt[j][0] = jnt[j+1][0];
+      jnt[j][1] = jnt[j+1][1];
+      jnt[j][2] = jnt[j+1][2];
+   }
+   --njts;
+/*
+   find representative ellipsoid of each figure -
+*/
+   el[0] = ellpsd ;
+   el[1] = othere ;
+   fg[0] = fig ;
+   fg[1] = otherf ;
+   for (  k = 0 ; k < 2 ; ++ k )
+   {
+      setels(el[k],-1);
+      fgk = fg[k] ;
+      figell[fgk] = EMAX ;
+      for (  j = 0 ; j < ecount ; ++ j )
+         if (elist[j] < figell[fgk]) figell[fgk] = elist[j] ;
+   }
+rtrn: ;
+}  /* dodetach */
+/*******************************/
+
+void domoveby( double x, double y, double z, int refell)
+/*
+  moves ellipsoids and joints in lists 'elist' and 'jlist'
+  by vector 'x,y,z' relative to the axes of 'refell'.
+
+  called by  try, action, abut, fun,
+  calls      rotget, vecmul, shift,
+*/
+{
+   double v[EMAX][3];
+   double r[3][3];
+   double unr[3][3] ;
+
+   v[0][0] = x ;
+   v[0][1] = y ;
+   v[0][2] = z ;
+   rotget(r,unr,refell) ;
+   vecmul(v,r,0) ;
+   shift(v[0][0],v[0][1],v[0][2]);
+}  /* domoveby */
+/************************************************************/
+
+void dogroell( double f[3], int j, double a[EMAX][3])
+/*
+  scales jth member of array by factor 'f'.
+
+  called by  action, dogrofig,
+*/
+{
+   a[j][0] *= f[0] ;
+   a[j][1] *= f[1] ;
+   a[j][2] *= f[2] ;
+}  /* dogroell */
+/***************************************/
+
+void dogrofig( double x0, double x1, double x2)
+/*
+  scale parts in 'elist' and 'jlist' about the point 'x0,x1,x2',
+  multiplying all semi-axes and coords of centres and joints
+  by factor[0],factor[1],factor[2] in x,y, and z directions 
+  respectively
+
+  called by  action, dogrojnt,
+  calls      shift, dogroell,
+*/
+{
+   int e,j,n ;
+
+   shift(-x0,-x1,-x2);
+   for (  n = 0 ; n < ecount ; ++ n )
+   {
+      e = elist[n];
+      dogroell(factor,e,cen) ;
+      dogroell(factor,e,ax) ;
+      maxax[e] = ax[e][0];
+      minax[e] = ax[e][0];
+      for (j = 1; j < 3; ++j)
+      {
+         if (ax[e][j] > maxax[e]) maxax[e] = ax[e][j];
+         if (ax[e][j] < minax[e]) minax[e] = ax[e][j];
+      }
+   }
+   for (  n = 0 ; n < jcount ; ++ n )
+      dogroell(factor,jlist[n],jnt) ;
+   shift(x0,x1,x2);
+}  /* dogrofig */
+/********************************************/
+
+void dogrojnt(void)
+/*
+  scales ellipsoid 'ellpsd' by factors 'f', keeping position
+  of joint 'join' fixed and moving all other joints and
+  ellipsoids connected to 'ellpsd' appropriately.
+
+  called by  action,
+  calls      rotget, twirl, dogrofig, setels, vecmul, shift,
+*/
+{
+   double d[EMAX][3],r[3][3],unr[3][3] ;
+   double x0,x1,x2;
+   int jscan,othere,dim ;
+
+   if ((njts <= 0) || (njts > EMAX)) goto lab11 ;
+   if ((coel[join][0] != ellpsd)&&(coel[join][1] != ellpsd))
+      goto lab12 ;
+
+   rotget(r,unr,ellpsd) ;
+/*
+  scale and shift the growing ellipsoid-
+*/
+   x0 = jnt[join][0] ;
+   x1 = jnt[join][1] ;
+   x2 = jnt[join][2] ;
+   elist[0] = ellpsd ;
+   ecount = 1;
+   jcount = 0;
+   twirl(x0,x1,x2,unr) ;
+   dogrofig(x0,x1,x2) ;
+   twirl(x0,x1,x2,r) ;
+/*
+  now shift everything connected to ellpsd-
+*/
+   for ( jscan = 0 ; jscan < njts ; ++ jscan )
+   {
+      if (jscan != join)
+      {
+         othere = 0 ;
+         if (coel[jscan][0] == ellpsd) othere = coel[jscan][1] ;
+         if (coel[jscan][1] == ellpsd) othere = coel[jscan][0] ;
+         if (othere != 0)
+         {
+/*
+  find parts connected to jscan through othere-
+*/
+            setels(othere,jscan);
+            if (ok != 0) goto lab10 ;
+/*
+  find out how much to shift things hanging here-
+*/
+            for ( dim = 0 ; dim < 3 ; ++ dim )
+               d[0][dim] = jnt[jscan][dim]-jnt[join][dim] ;
+            vecmul(d,unr,0) ;
+            for ( dim = 0 ; dim < 3 ; ++ dim )
+               d[0][dim] = d[0][dim]*(factor[dim]-doub1) ;
+            vecmul(d,r,0) ;
+            shift(d[0][0],d[0][1],d[0][2]);
+         } /* othere != 0 */
+      } /* jscan != join */
+   } /* jscan */
+   goto lab10 ;
+/*
+  snags-
+*/
+lab11: ok = 40 ;
+   printf("\nOOPS dogrojnt:  njts %d\n",njts);
+   goto lab10 ;
+
+lab12: ok = 41 ;
+   printf("\nOOPS dogrojnt:  ellpsd %d\n",ellpsd);
+
+lab10: ;
+}  /* dogrojnt */
+/************************************************************/
+
+void domovjnt(void)
+/*
+  moves joint 'join' by amounts 'x', keeping the position
+  of ellipsoid 'ellpsd' fixed and moving all other joints
+  and ellipsoids connected to 'join' appropriately.
+
+  called by  action,
+  calls      rotget, setjnt, vecmul, shift,
+*/
+{
+   double d[EMAX][3],r[3][3],unr[3][3] ;
+   int othere,dim ;
+
+   if ((njts <= 0) || (njts > EMAX)) goto lab11 ;
+   othere = 0 ;
+   if (coel[join][0] == ellpsd) othere = coel[join][1] ;
+   if (coel[join][1] == ellpsd) othere = coel[join][0] ;
+   if (othere == 0) goto lab11 ;
+
+   rotget(r,unr,ellpsd) ;
+/*
+  shift the joint -
+*/
+   for (dim = 0; dim <3; ++dim)
+       d[0][dim] = frac*xx[dim];
+   setjnt(ellpsd,join);
+   vecmul(d,unr,0);
+   shift(d[0][0],d[0][1],d[0][2]);
+   goto lab10 ;
+/*
+  snags-
+*/
+lab11: ok = 63 ;
+   printf("\nOOPS domovjnt:  join %d,  ellpsd %d\n",            
+              join,ellpsd);
+
+lab10: ;
+}  /* domovjnt */
+/************************************************************/
+
+void dobalanc(void)
+/*
+  balance part of a figure by bending ellipsoid 'ellpsd' at
+  the joint at point 'x' about 'axis' of ellipsoid 'refell'.
+
+  called by  action,
+  calls      rotget, rset, matmul, vecmat, dospinby,
+*/
+{
+   double wsum,wmod,uw,vw,alpha,beta,phi,mass;
+   double dx[3],u[3],u1[3],u2[3],v[3],w[3],w1[3],ww[3];
+   double ro[3][3],unro[3][3],rph[3][3],ralph[3][3],rb[3][3];
+   double usq;
+   int j,k,thise ;
+
+   rotget(ro,unro,refell) ;
+/*
+  form unit vector along rotation axis
+*/
+   for (  k = 0 ; k < 3 ; ++ k )
+   {
+      ww[k] = doub0;
+      u[k] = ro[k][axis] ;
+   }
+/*
+  run through moving ellipsoids-
+*/
+   for (  j = 0 ; j < ecount ; ++ j )
+   {
+      thise = elist[j] ;
+      mass = ax[thise][0]*ax[thise][1]*ax[thise][2] ;
+/*
+  find vector to jth moving ellipsoid centre-
+*/
+      for (  k = 0 ; k < 3 ; ++ k )
+      {
+         dx[k] = cen[thise][k]-xx[k];
+         ww[k] += mass*dx[k];
+      }
+   }
+/*
+  find vector 'w' to centre of mass of moving parts -
+*/
+   wsum = doub0;
+   for (k = 0; k < 3; ++k)
+      wsum += ww[k]*ww[k];
+   if (wsum > doub0) wmod = sqrt(wsum); else wmod = doub0;
+   for (k = 0; k < 3; ++k)
+      if (wmod > doub0) w[k] = ww[k]/wmod; else w[k] = doub0;
+/*
+   find vector 'v' at point on meridien through u
+   equal in distance from u as w is from u -
+*/
+   uw = doub0;
+   for (k = 0; k < 3; ++k)
+      uw += u[k]*w[k];
+   usq = u[0]*u[0] + u[2]*u[2];
+   if (usq > doub0) u1[0] = sqrt(usq); else u1[0] = doub0;
+   u1[1] = u[1];
+   u1[2] = doub0;
+   if ((uw < -doub1) || (uw > doub1)) 
+	   alpha = doub0; 
+   else 
+	   alpha = acos(uw);
+   rset(ralph,alpha,2);
+   vecmat(u1,ralph,u2);
+   phi = -atan2(u[2],u[0]);
+   rset(rph,phi,1);
+   vecmat(u2,rph,v);
+   vw = v[0]*w[0] + v[1]*w[1] + v[2]*w[2];
+   if ((vw > -doub1) && (vw < doub1)) 
+	   beta = acos(vw); 
+   else 
+	   beta = doub0;
+   rset(rb,beta,axis);
+   matmul(rb,unro,rb);
+   matmul(ro,rb,rb);
+   vecmat(w,rb,w1);
+   if (w[1] > w1[1]) beta = -beta;
+   dospinby(xx,refell,beta,axis) ;
+}  /* dobalanc */
+/************************************************************/
+
+void dodrag(void)
+/*
+   bend 'ellpsd' at joint 'join' with coordinates 'x'
+   about 'axis' of 'refell' to make 'ell1' touch the ground
+
+   called by  action,
+   calls      dospinby, save, restore, shift, doground,
+              setels, doangles,
+*/
+{
+	int jb,jc,jd;
+	int fixde;
+	int quadrant,qa,qb,qd;
+	double gap;
+	double yj;
+	double proptemp;
+	double xa,xb,xd;
+	double dx;
+	double y,ya,yb,yd;
+
+	proptemp = prop;
+	prop = doub1;
+/*
+	set rest of figure section, excluding ellpsd-ell1, 
+	to touch the ground -
+*/
+	fixde = 0;
+	if ( coel[join][0] == ellpsd ) fixde = coel[join][1];
+	if ( coel[join][1] == ellpsd ) fixde = coel[join][0];
+	if ( fixde == 0)
+	{
+		ok = 65;
+		printf(
+			"\nOOPS dodrag: %s not connected to joint %s\n",
+			ename[ellpsd],jname[join]);
+		printf("which joins  %s and %s\n",
+			ename[coel[join][0]], ename[coel[join][1]]);
+		bell ( 1, 1 );
+		prop = proptemp;
+	} /* joint does not connect specified ellipsoid */
+	else
+	{
+		setels(fixde,join);
+		gap = doground();
+		setels(fixde,-1);
+		shift ( doub0, -gap, doub0 );
+		yj = jnt[join][1] + minax[ell1];
+		if (yj <= minax[ellpsd])
+			printf("dodrag snag : joint too low\n");
+		else
+		if ( yj > minax[ellpsd] )
+		{
+/*
+	which quadrant is centre of ell1 in wrt join -
+*/
+			quadrant = 0;
+			if ( jnt[join][0] > cen[ell1][0] ) quadrant += 1;
+			if ( jnt[join][2] > cen[ell1][2] ) quadrant += 2;
+			save ( );
+			xx[0] = jnt[join][0];
+			xx[1] = jnt[join][1];
+			xx[2] = jnt[join][2];
+			setels(ellpsd,join);
+			y = doground ( );
+//printf("dodrag  %d %f %s   %f %f %f\n",
+//f,y,ename[ell1],cen[ell1][0],cen[ell1][1],cen[ell1][2]);
+//printf("            %s   %f %f %f\n",
+//ename[fixde],cen[fixde][0],cen[fixde][1],cen[fixde][2]);
+//
+			setels(ellpsd,join);
+			xa = doub0;
+			qa = quadrant;
+			ya = y;
+//
+			xb = doub2;
+			qb = -1;
+			for (jb = 0; ((jb < 8)&&(qb != quadrant)); ++jb)
+			{
+				xb *= inv2;
+				restore(); 
+				dospinby ( xx, refell, xb, axis );
+				yb = doground ( );
+				qb = 0;
+				if ( jnt[join][0] > cen[ell1][0] ) qb += 1;
+				if ( jnt[join][2] > cen[ell1][2] ) qb += 2;
+//printf("dodragb %d %f %f %d\n",jb,xb,yb,qb);
+			}
+			xd = doub0;
+			if (ya*yb < doub0)
+			{
+				for (jc = 1; jc < 9; ++jc)
+				{
+					dx = (xb - xa)*inv2;
+					if ((ya*yb < doub0)||(ya*ya < yb*yb))
+						xb = xb - dx;
+					else 
+					{
+						xa = xb;
+						ya = yb;
+						xb = xb + dx;
+					}
+					restore();
+					dospinby ( xx, refell, xb, axis );
+					yb = doground ( );
+					qb = 0;
+					if ( jnt[join][0] > cen[ell1][0] ) qb += 1;
+					if ( jnt[join][2] > cen[ell1][2] ) qb += 2;
+//printf("dodragc %d %f %f %d\n",jc,xb,yb,qb);
+				} /* jc loop */
+//printf("dodragd %d %f %s   %f %f %f\n",
+//f,xb,ename[ell1],cen[ell1][0],cen[ell1][1],cen[ell1][2]);
+				qd = -1;
+				xd = xb*doub2;
+				for (jd = 0; ((jd < 8)&&(qd != quadrant)); ++jd)
+				{
+					xd *= inv2;
+					restore();
+					dospinby ( xx, refell, xd, axis );
+					yd = doground ( );
+					qd = 0;
+					if ( jnt[join][0] > cen[ell1][0] ) qd += 1;
+					if ( jnt[join][2] > cen[ell1][2] ) qd += 2;
+//printf("dodrage %d %f %f %d\n",jd,xd,yd,qd);
+				} /* jd */
+			} /* ya*yb < 0 */
+			restore();
+			prop = proptemp;
+//printf("dodragf %d %f %s   %f %f %f\n",
+//f,xd,ename[ell1],cen[ell1][0],cen[ell1][1],cen[ell1][2]);
+			dospinby ( xx, refell, prop*xd, axis );
+//printf("dodragg %d %f %s  %f %f %f\n\n",
+//f,prop*xd,ename[ell1],cen[ell1][0],cen[ell1][1],cen[ell1][2]);
+//printf("            %s   %f %f %f\n\n",
+//ename[fixde],cen[fixde][0],cen[fixde][1],cen[fixde][2]);
+			prdone = TRUE;
+		} /* joint OK */
+	}  /* connections  OK */
+} /* dodrag */
+/************************************************************/
+
+double dcen(double d[3])
+/*
+  find separation between ellipsoid centres
+
+  called by  doabut, sepn,
+*/
+{
+   int j;
+   double ans,dsq;
+
+   dsq = doub0 ;
+   for (j = 0; j < 3; ++ j)
+   {
+      d[j] = cen[ell1][j]-cen[ell2][j];
+      dsq += d[j]*d[j];
+   }
+   if (dsq > doub0) ans = sqrt(dsq); else ans = doub0;
+   return(ans);
+}  /* dcen */
+/************************************************************/
+
+double newton(int n, double start, double a[])
+/*
+   solve the polynomial of degree (n-1):
+
+           n-1           n-2
+   a[n-1]*x    + a[n-2]*x    + ... a[1]*x + a[0] = 0
+
+   using 48 Newton-Raphson iterations starting at 'start'.
+
+   called by  surf,
+*/
+{
+   double x,xold,num,den;
+   int j,k;
+
+   x = start;
+   xold = doub2*start+doub1;
+   num = doub1;
+   for (j = 0;
+      ((j < 48) && (num != doub0) && (x != xold)); ++j)
+   {
+      num = doub0;
+      den = doub0;
+      for (k = n-1; k >= 0; --k)
+      {
+         num = x*num + a[k];
+         if (k > 0) den = x*den + a[k]*double(k);
+      }
+      if (den == doub0)
+      {
+         ok = 57;
+         printf("\nOOPS newton: ell2 %d, den %f\n",            
+              join,ell1,coel[join][0],coel[join][1]);
+         x = -doub1;
+         xold = -doub1;
+      }
+      else
+      {
+         xold = x;
+         if (den != doub0) x -= num/den;
+      }
+   }
+   return(x);
+}  /* newton */
+/*******************************************************/
+
+void getmat(double mat[3][3], double tr[3][3], double untr[3][3],
+			double trtr[3][3], double untrtr[3][3], int ell)
+/*
+   for ellipsoid 'ell', find its matrix 'mat',
+   also: its transformation matrix 'tr' and
+   its transpose 'trtr', and its inverse 'untr'
+   and its inverse transpose 'untrtr'.
+
+   called by  surf,
+   calls      rotget, matmul,
+*/
+{
+   double r[3][3],unr[3][3];
+   double diag[3][3];
+   double undiag[3][3];
+   int j,k;
+/*
+   make the matrix -
+*/
+   rotget(r,unr,ell);
+   for (j = 0; j < 3; ++j)
+   {
+      for (k = 0; k < 3; ++k)
+      {
+         undiag[j][k] = doub0;
+         diag[j][k] = doub0;
+      }
+      if (ax[ell][j] == doub0)
+      {
+         ok = 60;
+         printf("\nOOPS getmat: ell %d, j %d,  ax[ell][j] %f\n",            
+              ell,j,ax[ell][j]);
+         goto done;
+      }
+      if (ax[ell][j] > doub0) 
+         undiag[j][j] = doub1/ax[ell][j];
+      else 
+         undiag[j][j] = doub0;
+      diag[j][j] = ax[ell][j];
+   }
+   matmul(undiag,unr,trtr);
+   matmul(r,undiag,untrtr);
+   matmul(untrtr,trtr,mat);
+/*
+  make the transformation matrices-
+*/
+   matmul(diag,unr,untr);
+   matmul(r,diag,tr);
+done: ;
+} /* getmat */
+/***********************************************/
+
+void getaxes(double m[3][3], double axes[3], double r[3][3])
+/*
+   from its matrix 'm', find the 3 semiaxes of an ellipsoid
+   and corresponding rotation matrix 'r'.
+
+   called by  surf,
+   calls      matmul,
+*/
+{
+   double lambda,mu,nu,nusq,numu;
+   double s[3][3],t[3][3];
+   double st[3][3],tmp[3][3];
+   double sn,cs,sig;
+   double a,b,c,abc;
+   int p,q;
+   int j,k,n;
+
+   for (j = 0; j < 3; ++j)
+   {
+      for (k = 0; k < 3; ++k)
+      {
+         r[j][k] = doub0;
+         t[j][k] = m[j][k];
+      }
+      r[j][j] = doub1;
+   }
+/*
+   iterate 3 times -
+*/
+   for (n = 0; n < 3; ++n)
+   {
+/*
+   find largest off-diagonal element -
+*/
+      a =  t[0][1]; if (a < doub0) a = -a;
+      b =  t[0][2]; if (b < doub0) b = -b;
+      c =  t[1][2]; if (c < doub0) c = -c;
+      abc = a; p = 0; q = 1;
+      if (b > abc)
+      {
+         abc = b;
+         q = 2;
+      }
+      if (c > abc)
+      {
+         abc = c;
+         p = 1;
+         q = 2;
+      }
+      if (abc != doub0)
+      {
+         lambda = -t[p][q];
+         mu = inv2*(t[p][p] - t[q][q]);
+         nusq = lambda*lambda + mu*mu;
+         if (nusq > doub0) 
+            nu = sqrt(nusq); 
+         else 
+            nu = doub0;
+         if (mu > doub0) 
+            sig = doub1; 
+         else 
+            sig = -doub1;
+         numu = nu + mu*sig;
+         if ((nu > doub0) && (numu > doub0)) 
+            cs = sqrt((numu)/(doub2*nu));
+         else 
+            cs = doub0;
+         if ((cs > doub0) && (nu > doub0)) 
+            sn = sig*lambda/(cs*doub2*nu);
+         else 
+            sn = doub0;
+         for (j = 0; j < 3; ++j)
+         {
+            for (k = 0; k < 3; ++k)
+            {
+               s[j][k] = doub0;
+            }
+            s[j][j] = doub1;
+         }
+         s[p][p] = cs;
+         s[q][q] = cs;
+         s[p][q] = sn;
+         s[q][p] = -sn;
+         for (j = 0; j < 3; ++j)
+         {
+            for (k = 0; k < 3; ++k)
+            {
+               st[j][k] = s[k][j];
+            }
+         }
+         matmul(st,t,tmp);
+         matmul(tmp,s,t);
+         matmul(st,r,r);
+      }
+   }
+   for (j = 0; j < 3; ++j)
+   {
+      if (t[j][j] == doub0)
+      {
+         ok = 60;
+         printf("\nOOPS getaxes: ell1 %d,  ell2 %d,  j %d,  t[j][j] %f\n",            
+              ell1,ell2,j,t[j][j]);
+      }
+      else
+      if (t[j][j] > doub0)
+         axes[j] = doub1/sqrt(t[j][j]);
+      else
+         axes[j] = doub0;
+   }
+}  /* getaxes */
+/******************************************************/
+
+static void initsphere(void)
+/*
+    set up a unit sphere centred on the origin
+
+    called by  main, checkeys,
+*/
+{
+   int i,j,k,m,n;
+   int nlat,nlong;
+   double longi,lat;
+   double dlat,dlong;
+   double xval,yval,zval;
+   double ssmall;
+
+   if (nsph >= SMAX)
+   {
+      printf("initsphere oops %d > max, reset to %d\n",nsph,SMAX);
+	  nsph = SMAX-2;
+   }
+   if (nsph < SMIN)
+   {
+      printf("initsphere oops %d < min, reset to %d\n",nsph,SMIN);
+		nsph = SMIN;
+   }
+   dlat = pi/(double)nsph;
+   dlong = dlat;
+   nlong = nsph+nsph;
+   nlat = nsph;
+   lat = -piby2;
+/*
+   set up vertices -
+*/
+   for (i = 0; i <= nlat; i++)
+   {
+      ssmall = cosf(lat);
+      yval = sinf(lat);
+      longi = 0;
+      for ( j = 0; j <= nlong; ++ j)
+      {
+         xval = ssmall*cosf(longi);
+         point[i][j][0] = xval;
+         zval = ssmall*sinf(longi);
+         point[i][j][1] = yval;
+         point[i][j][2] = zval;
+         longi += dlong;
+      }
+      lat += dlat;
+   }
+/*
+   set up faces and their normals -
+*/
+   m = 0;
+   for (i = 0; i < nlat; ++i)
+   {
+      for (j = 0; j < nlong; ++j)
+      {
+         for (k = 0; k < 3; ++k)
+         {
+            sph[m][0][k] = point[i][j+1][k];
+            sph[m][1][k] = point[i+1][j+1][k];
+            sph[m][2][k] = point[i+1][j][k];
+            sph[m][3][k] = point[i][j][k];
+            norm[m][k] = doub0;
+            for (n = 0; n < 4; ++n)
+                norm[m][k] += inv4*sph[m][n][k];
+         }
+         ++m;
+         if (m >= 4*SMAX*SMAX)
+         {
+            printf("initsphere faces (%d)  %d > %d\n",
+				nsph,m,4*SMAX*SMAX);
+            getout(1);
+            if (ok == 1) goto rtrn;
+         }
+      }
+   }
+   nfaces = m;
+rtrn: ;
+}   /* initsphere */
+/*************************************************/
+
+double surf(int ell1, int ell2)
+/*
+  return 0 if ell1 touches ell2
+  return -ve if they intersect
+  return +ve if they do not intersect
+
+    5 May 2007 skip if touch found
+   15 Sep 2006 return 0 if they touch
+   10 Sep 2006 use polyhedral vertices of ell1 
+               instead of ellipsoid
+   10 Sep 2006 surf() uses 2 parameters
+   17 Feb 1993 find distance between surfaces of ell1 and ell2
+               using Buckdales algorithm (giving answer in
+               transformed coordinates).
+    1 Oct 1981 using polyhedral vertices of ell1 and ell2
+               written: Don Herbison-Evans
+
+   called by  dotouch, cutting,
+   calls      sqr, setmat, vecmul, getout, initsphere
+*/
+{
+	int j;
+	double d12, dax, dmin;
+	double c1[3],c2[3];
+
+	dax = minax[ell1] + minax[ell2];
+	dmin = doub0;
+//
+//   check separation of centres -
+//
+	for (j = 0; j < 3; ++j)
+	{
+		c1[j] = cen[ell1][j];
+		c2[j] = cen[ell2][j];
+		d12 = c1[j]-c2[j];
+		dmin += d12*d12;
+	}
+	dmin = sqrt(dmin);
+	return( dmin - dax);
+} /* surf */
+/***********************************/
+
+void cutting ( void )
+/*
+  find if any ellipsoids intersect that shouldnt.
+
+  called by  doframes,
+  calls setmat, vecmul, getout, initsphere, surf
+
+   15 Sep 2006 use surf() = 0 if ellipsoids touch
+   10 Sep 2006 moved innards to surf()
+   12 Aug 2006 fixed initsphere and setmat
+    8 Aug 2006 Don Herbison-Evans
+*/
+{
+	int j,k;
+	int s,smin,smax;
+	int ncut,ntemp;
+	int el1,el2;
+	double dmin;
+	double m[3][3],m1[3][3],unm1[3][3];
+	double e1c[EMAX][3];
+	double c1[3];
+	char key;
+
+	ncut = 5;
+	ntemp = nsph;
+	nsph = ncut;
+	if (2*nsph*nsph > EMAX)
+		nsph = int(sqrt(double(EMAX-1)*inv2));
+	printf("cuttinga %d %d\n",ntemp,ncut);
+	initsphere ( );
+	for (el1 = 1; el1 < (ne-1); ++el1)
+	{
+		setmat ( el1, m, m1, unm1 );
+		for (j = 0; j < 3; ++j)
+			c1[j] = cen[el1][j];
+		s = 0;
+		for (j = 0; j <= nsph; ++j)
+		{
+			for ( k = 0;  k <= (nsph+nsph); ++k)
+			{
+				e1c[s][0] = point[j][k][0];
+				e1c[s][1] = point[j][k][1];
+				e1c[s][2] = point[j][k][2];
+				vecmul ( e1c, unm1, s);
+				e1c[s][0] += c1[0];
+				e1c[s][1] += c1[1];
+				e1c[s][2] += c1[2];
+				++s;
+				if (s >= EMAX)
+				{
+					printf("snag in 'cutting'\n");
+					printf(" no. vertices %d, max %d\n",
+						2*nsph*nsph,EMAX);
+					ok = 66;
+					getout(ok);
+				}
+			} /* k loop */
+		} /* j loop */
+		smax = s;
+		smin = -1;
+		for (el2 = el1+1; el2 < ne; ++el2)
+		{
+			if (forbid[el1][el2] == true)
+			{
+				dmin = surf(el1, el2);
+				if (dmin < doub0)
+				{
+					printf("frame %d: ellipsoid %s cuts ellpsoid %s\n",
+						f,ename[el1],ename[el2]);
+					printf ( "\n carry on regardless? Hit 'enter' for Yes, 'no' then 'enter' for No: " );
+					key = getchar();
+					if ( key == '\n' )
+					{
+						for (j = 0; j < ne; ++j)
+							for (k = 0; k < ne; ++k)
+								forbid[j][k] = false;
+					}
+					else
+					{
+						pause = true;
+						fstop = f-1;
+					}
+				} // dmin
+			} /* ell2 forbidden */
+		} /* el2 */
+	} /* el1 */
+	nsph = ntemp;
+	printf("cuttingb %d %d\n",el1,el2);
+	initsphere ( );
+} /* cutting */
+/******************************************************/
+
+double sepn(void)
+/*
+   find distance between surfaces of ell1 and ell2.
+
+   called by  dotouch, fun, fndmin, doabut, try,
+   calls      dcen, surf,
+*/
+{
+   double dmid;
+   double ans,minsep;
+   double d[3];
+/*
+   find bounds on separation -
+*/
+   dmid = dcen(d);
+   minsep = dmid-minax[ell1]-minax[ell2];
+   if (minsep <= doub0)
+   {
+      ans = -doub1;
+   }
+   else
+   {
+      ans = surf(ell1,ell2);
+      if (ans < doub0) ans = -doub1;
+   }
+   return(ans);
+} /* sepn */
+/**********************************************/
+
+double fun(double xarg)
+/*
+   called by  solve,
+   calls      setels, dospinby, doground, restore, sepn,
+              domoveby,
+*/
+{
+   double ans;
+   double dx[3];
+
+   ans = doub0;
+   if (t == drag_keyword_code)
+   {
+      setels(ellpsd,join);
+      restore();
+      dospinby(xx,refell,xarg,axis);
+      ecount = 1; elist[0] = ell1;
+      ans = doground();
+      return(ans);
+   }
+   else
+   if (t == abut_keyword_code)
+   {
+      dx[0]=doub0;
+      dx[1]=doub0;
+      dx[2]=doub0;
+      dx[axis] = xarg;
+      domoveby(dx[0],dx[1],dx[2],refell);
+      ans = sepn();
+      if (ok != 0) 
+	     return(doub0);
+      restore();
+      return(ans);
+   }
+   else
+   {
+      ok = 59;
+      return(doub0);
+   }
+} /* fun */
+/*******************************************/
+
+double solve(double a, double b, int n)
+/*
+   find a zero of 'fun()' in the range 'a' to 'b'
+   to an accuracy of 1.0 on fun, using at most 'n' iterations.
+
+   called by  doabut,
+   calls      fun,
+*/
+{
+   double valab,vala,valb;
+   double angab,anga,angb;
+   double dval;
+   int k;
+
+   angab = a;
+   anga = a; 
+   vala = fun(a);
+   if ((vala > -doub1) && (vala < doub1)) goto done;
+   if (ok != 0) goto done;
+   angab = b;
+   angb = b; 
+   valb = fun(b);
+   if (ok != 0) goto done;
+   if ((valb > -doub1) && (valb < doub1)) goto done;
+   if (vala*valb > doub0)
+   {
+      if (vala > doub0)
+      {
+         if (vala < valb) angab = a;
+            else angab = b;
+      }
+      else
+      {
+         if (vala < valb) angab = b;
+            else angab = a;
+      }
+      anga = doub0; angb = doub0;
+      valab = doub0; vala = doub0; valb = doub0;
+      goto done;
+   }
+   if (vala > valb)
+   {
+      valab = vala;
+      vala = valb;
+      valb = valab;
+      angab = anga;
+      anga = angb;
+      angb = angab;
+   }
+   for (k = 0; k < n; ++k)
+   {
+      dval = vala-valb;
+      if (dval < doub0) dval = -dval;
+      if (dval < doub1) goto done;
+      angab = inv2*(anga+angb);
+      valab = fun(angab);
+      if (ok != 0) goto done;
+      if (valab < doub0)
+      {
+         anga = angab;
+         vala = valab;
+      }
+      else
+      {
+         angb = angab;
+         valb = valab;
+      }
+   }
+
+done:
+   return(angab);
+} /* solve */
+/*******************************************/
+
+double angsepn ( double xx[3], int ell1, int ell2 )
+/*
+   find approx angular separation in radians at xx
+   of ell1 and ell2 using minax 
+
+   called by  dotouch
+   calls sqr
+
+	 5 May 2007  zero if overlapping well
+   16 Sep 2006  xx,ell1,ell2 parameters instead of global
+*/
+{
+	  double dmin,dsep;
+	  double asep;
+	  double dist1, dist2;
+
+	  dmin = minax[ell1] + minax[ell2];
+	  dsep = sqrt (sqr ( cen[ell1][0] - cen[ell2][0] )
+		  + sqr ( cen[ell1][1] - cen[ell2][1] )
+		  + sqr ( cen[ell1][2] - cen[ell2][2] ) );
+	  if (dsep <= dmin)
+		  asep = doub0;
+	  else
+	  {
+	     dist1 = sqrt( sqr ( xx[0] - cen[ell1][0] )
+		     + sqr ( xx[1] - cen[ell1][1] )
+		     + sqr ( xx[2] - cen[ell1][2] ) );
+
+	     dist2 = sqrt( sqr ( xx[0] - cen[ell2][0] )
+		     + sqr ( xx[1] - cen[ell2][1] )
+		     + sqr ( xx[2] - cen[ell2][2] ) );
+
+	     asep = (dsep + dsep) / (dist1 + dist2);
+	  }
+	  return( asep );
+} /* angsepn */
+/************************************************/
+
+void dotouch(void)
+/*
+  make ellipsoid 'ell1' come as close as possible to 'ell2'
+  by bending ellipsoid 'ellpsd' at the joint at point 'x'
+  about 'axis' of ellipsoid 'refell'.
+
+  called by  action,
+  calls      angsepn, surf, save, restore, dospinby, sqr,
+
+  	5 May 2007  skip if overlapping well already
+  16 Sep 2006  find min of square of surf() penetration
+  10 Sep 2006  surf() uses 2 parameters
+   1 Oct 1981  written Don Herbison-Evans
+*/
+{
+	double angj, angk;
+	double arange;
+	double dang;
+	double gap, g1, gmin;
+	double pro;
+	int samples = 10;
+	int iterations = 5;
+	int j;
+	int jend;
+	int jmin;
+	int jstart;
+	int k;
+
+	save ();
+	pro = prop;
+	prop = doub1;
+	arange = angsepn ( xx, ell1, ell2 );
+	jstart = -samples / 2;
+	jend = jstart + samples;
+	angk = doub0;
+	for ( k = 0; k < iterations; ++k )
+	{
+		restore ();
+		dang = arange / double( samples );
+		angj = angk + dang * double( jstart );
+		dospinby ( xx, refell, angj, axis );
+		gap = sqr ( surf ( ell1, ell2 ) );
+		g1 = gap;
+		gmin = gap;
+		jmin = jstart;
+		/*
+		seek minimum of gap,
+		*/
+		for ( j = jstart + 1; ( j < jend + 1 ); ++j )
+		{
+			restore ();
+			angj = angk + dang * double( j );
+			dospinby ( xx, refell, angj, axis );
+			gap = sqr ( surf ( ell1, ell2 ) );
+			if ( gap < gmin )
+			{
+				jmin = j;
+				gmin = gap;
+			}
+		} /* j */
+		if ( ( jmin != jstart ) && ( jmin != jend ) )
+			arange = dang + dang;
+		angk += dang*double( jmin );
+	} /* k */
+	prop = pro;
+	restore ();
+	angj = angk + dang * double( jmin );
+	dospinby ( xx, refell, prop*angj, axis );
+} /* dotouch */
+/************************************************************/
+
+double trying(double a)
+/*
+     function to be found a minimum of,
+     called from doabut.
+
+     called by  fndmin,
+     calls      domoveby, sepn, restore,
+*/
+{
+   double dx[3],s;
+
+   if (t == abut_keyword_code)
+   {
+      dx[0] = doub0; dx[1] = doub0; dx[2] = doub0;
+      dx[axis] = a;
+      domoveby(dx[0],dx[1],dx[2],refell);
+      s = sepn();
+      restore();
+   }
+   else
+   {
+      ok = 62;
+      s = doub0;
+      printf("\nOOPS trying: doabut not calling it!\n");
+   }
+   return(s);
+} /* trying */
+/***************************************************/
+
+double fndmin(double a, double b, int n)
+/*
+   finds the minimum value of 'try'
+   in the range 'a' to 'b' using at most 'n' iterations.
+
+   called by  dotouch,
+   calls      try,
+*/
+{
+   double trya,tryb,tryab;
+   double olda,oldb;
+   double mina,minb;
+   int k;
+
+   tryab = doub0;
+   olda = a; oldb = b;
+   for (k = 0; k < n; ++k)
+   {
+      trya = olda + (oldb-olda)*inv3;
+      mina = trying(trya);
+      if (ok != 0) goto out;
+      tryb = oldb - (oldb-olda)*inv3;
+      minb = trying(tryb);
+      if (ok != 0) goto out;
+      if (mina < minb) oldb = tryb;
+         else olda = trya;
+   }
+   if (mina < minb) tryab = trya;
+      else tryab = tryb;
+out:
+   return(tryab);
+} /* fndmin */
+/*******************************************/
+
+void doabut(void)
+/*
+   move figure containg ell1 to touch ell1 to ell2
+   along direction parallel to given axis of
+   reference ellipsoid.
+
+   called by  prfrm,
+   calls      save, restore, sepn, dcen,
+              rotget, vecmul, domoveby, solve, fndmin,
+*/
+{
+   int j;
+   int steps;
+   double min,max;
+   double mov;
+   double dold,dnew;
+   double xold,xnew;
+   double forward,back;
+   double shft;
+   double dist;
+   double cdist;
+   double d[3];
+   double dx[3];
+   double v[EMAX][3];
+   double r[3][3],unr[3][3];
+
+   save();
+   min = minax[ell1];
+   if (min < minax[ell2]) min = minax[ell2];
+   max = maxax[ell1];
+   if (max < maxax[ell2]) max = maxax[ell2];
+   if ((max > doub0) && (lg2 != doub0)) steps = int(doub2 + log(max)/lg2);
+      else steps = 2;
+   dist = sepn();
+   if (ok != 0) goto out;
+   for (j = 0; j < 3; ++j)
+          dx[j] = doub0;
+/*
+   do they already just touch -
+*/
+   if (dist == doub0) 
+	   goto out;
+   else
+   if (dist < doub0)
+/*
+   they overlap already, so seek shortest way to separate them -
+*/
+   {
+       mov = doub2*max;
+       dx[axis] = mov;
+       domoveby(dx[0],dx[1],dx[2],refell);
+       forward = sepn();
+       if (ok != 0) goto out;
+       restore();
+       dx[axis] = -mov;
+       domoveby(dx[0],dx[1],dx[2],refell);
+       back = sepn();
+       if (ok != 0) goto out;
+       restore();
+       if ((back < doub0) && (forward < doub0))
+       {
+          ok = 58;
+          printf("doabut: ell1 %d,  ell2 %d,  back %f,  forward %f",            
+              ell1,ell2,back,forward);
+          goto out;
+       }
+       else
+       if (back > forward) mov = -mov;
+       shft = solve(doub0,mov,steps);
+   }
+   else
+/*
+  try to overlap them -
+*/
+   {
+      cdist = dcen(d);
+      for (j = 0; j < 3; ++ j)
+         v[0][j] = d[j] ;
+      rotget(r,unr,refell) ;
+      vecmul(v,unr,0) ;
+      mov = -v[0][axis];
+      dnew = doubmax;
+      xold = mov - max - min;
+      for (xnew = mov-max; xnew < (mov+max+min);
+              xnew += min*inv2)
+      {
+         dx[axis] = xnew;
+         domoveby(dx[0],dx[1],dx[2],refell);
+         dold = dnew;
+         dnew = sepn();
+         if (ok != 0) goto out;
+         restore();
+         if ((mov > doub0) && (dnew < doub0)) goto gotit;
+         if ((mov < doub0) && (dnew > dold)) goto gotit;
+         xold = xnew;
+      }
+      shft = xnew;
+      goto out;
+
+gotit:
+      if ((dold > doub0) && (dnew > doub0)) goto domin;
+/*
+   they will overlap -
+*/
+      shft = solve(xold,xnew,steps);
+      goto done;
+/*
+   they wont overlap so just bring them closest together -
+*/
+domin:
+      shft = fndmin(xold-min,xnew,steps);
+   }
+/*
+   move proportion to abut -
+*/
+done:
+   restore();
+   dx[axis] = prop*shft;
+   domoveby(dx[0],dx[1],dx[2],refell);
+
+out: ;
+} /* doabut */
+/***************************************************/
+/* 
+   drawel.cpp version 42
+
+   subroutines -
+      getout      - exit keeping window open
+      initialise  - initialise variables and constants
+      openfile    - read file root and open input file
+      action      - selects an action to perform
+      doperfrm    - performs each action in turn for a given frame
+      doframes    - simulates and stores each frame in turn
+      help        - list interactive commands
+      initsphere  - set up polyhedral approximation to a sphere
+      dopause     - do nothing for a while
+      donum       - write numbers on the animation window
+      image       - draw the ellipsoids
+      animate     - update interactive variables
+      checkeys    - respond to keyboard commands
+      initgraphics- initialise graphics window
+      main       - run the show
+
+/***********************************************/
 
 void openfile(void)
 /*
@@ -4298,7 +8738,905 @@ rtrn: ;
 } /* openfile */
 /***************************************/
 
+void dolighting ( double x, double y, double z )
+/*
+change of lighting
+*/
+{
+	lighting_rgb[0] = x / 255.0;
+	lighting_rgb[1] = y / 255.0;
+	lighting_rgb[2] = z / 255.0;	
+} /* dolighting */
+/******************************************/
 
+void doopacity ( void )
+/*
+	change of opacity
+
+	calls elground, rotput, rset, setnup
+*/
+{
+	int k,n;
+	double y, phi;
+	double r[3][3];
+	double axe[3];
+
+	// run thru ellipsoids to shadow each in turn -
+
+	k = ne;
+	for ( n = 1; n < ne; ++n )
+	{
+		phi = setnup ( n, axe );
+		y = elground ( n );
+		if ( y > doub0 )
+		{
+			cen[k][0] = cen[n][0];
+			cen[k][1] = -inv5;
+			cen[k][2] = cen[n][2];
+			ax[k][0] = axe[0];
+			ax[k][1] = inv5;
+			ax[k][2] = axe[2];
+			rset ( r, phi, 1 );
+			rotput ( r, k );
+			col[k][0] = doub1;
+			col[k][1] = doub1;
+			col[k][2] = doub1;
+			col[k][3] = 100;  // transparency 0-100 flags 101-255
+			
+			++k;
+		} /* y > 0 */
+	}	  /* end n loop */
+	ne = k;
+} /* doopacity */
+/*****************************************/
+
+void doangles(int el, int re, double v[3])
+/*
+	store the angles of 'el' relative to 're' in 'val' array.
+	in degrees.
+
+	called by action, dodrag
+	calls  matmul, rotget, rotput, mkang,
+
+	14 Aug 2006  answers put in 3 element array
+*/
+{
+	  double mvro[3][3],mvunro[3][3];
+	  double stro[3][3],stunro[3][3];
+	  double r[3][3];
+
+	  rotget(stro,stunro,re);
+	  rotget(mvro,mvunro,el);
+	  matmul(stunro,mvro,r);
+	  rotput(r,EMAX);
+	  mkang(EMAX);
+	  v[0] = ang[0] * degree;
+	  v[1] = ang[1] * degree;
+	  v[2] = ang[2] * degree;
+	  if ((v[0] > doub179) && (v[0] < doub181))
+	  {
+			v[0] -= doub180;
+			v[2] = -v[2];
+	  }
+	  if (v[1] > doub180) v[1] -= doub360;
+}  /* doangles */
+/***********************************************/
+
+void dogrowto ( double x, double y, double z )
+/*
+	find distance between extremal points in each direction 
+	and scale to desired output
+
+	growto  (fname)  (referenceellipsoid) (axis) (size)
+		where size =
+		(variablename)
+		(value)
+	makes the total extent of the nominated figure in its current articulated
+	state equal to the value of size, in the direction parallel to the nominated
+	axis of the reference ellipsoid (tangent plane to tangent plane, normal to
+	this axis direction).
+
+	called by  action
+	calls dogroell, shift, bell,
+*/
+{
+	double cen_min[3];
+	double cen_max[3];
+	double cen_dif[3];
+	double cen_scale[3];
+
+	int e;
+	int j;
+	int n;
+
+	for ( j = 0; j < 3; ++j )
+	{
+		cen_min[j] = doubmax;
+		cen_max[j] = -doubmax;
+	}
+
+	shift( -x, -y, -z );
+	for ( n = 0; n < ecount; ++ n )
+	{
+		e = elist[n];
+		maxax[e] = ax[e][0];
+		minax[e] = ax[e][0];
+		for ( j = 1; j < 3; ++j )
+		{
+			if ( ax[e][j] > maxax[e] ) maxax[e] = ax[e][j];
+			if ( ax[e][j] < minax[e] ) minax[e] = ax[e][j];
+		}
+		for ( j = 0; j < 3; ++j )
+		{
+			if ( cen[e][j] > cen_min[j] ) cen_min[j] = cen[e][j];
+			if ( cen[e][j] < cen_max[j] ) cen_max[j] = cen[e][j];
+		}
+	}
+
+	for ( j = 0; j < 3; ++j )
+	{
+		cen_dif[j] = -( cen_max[j] - cen_min[j] );
+		cen_scale[j] = 1.0;
+		if ( cen_dif[j] > 0.0 ) cen_scale[j] = factor[j] / cen_dif[j];
+		factor[j] = cen_scale[j];
+	}
+
+	for ( n = 0; n < ecount; ++ n )
+	{
+		e = elist[n];
+		dogroell ( factor, e, cen );
+		dogroell ( factor, e, ax );
+		maxax[e] = ax[e][0];
+		minax[e] = ax[e][0];
+		for ( j = 1; j < 3; ++j )
+		{
+			if ( ax[e][j] > maxax[e] ) maxax[e] = ax[e][j];
+			if ( ax[e][j] < minax[e] ) minax[e] = ax[e][j];
+		}
+	}
+
+	for ( n = 0; n < jcount; ++ n )
+		dogroell ( factor, jlist[n], jnt );
+
+	shift ( x, y, z );
+	return;
+} /* dogrowto */
+/******************************************/
+
+void action ( int keyword_code )
+/*
+  decode and do an action keyword_code.
+
+  called by  doperfrm,
+  calls      doabut, doangles, doattach, dobalanc, dobend,
+		docolour, dodetach, dodrag, dogroell, dogrofig, dogrojnt,
+		dogrowto, doground, domoveby, domovjnt, dolighting,
+		doopacity, doplace, dospinby, dospinto, dotouch,
+		enquir, setobs, shift,
+
+	 1 Sep 2006  allow world world means allow any intersection 
+	14 Aug 2006  altered parameters of doangles()
+	13 Aug 2006  added allow and forbid
+
+*/
+{
+	double min;
+	double v[3];
+	int j,k;
+
+	if ( ( keyword_code < 7 ) || ( keyword_code > NKEYS ) )
+	{
+		/*
+		int figure_keyword_code  =  1;
+		int ellips_keyword_code  =  2;
+		int joint_keyword_code   =  3;
+
+		int accele_keyword_code  =  5;
+		int subrou_keyword_code  =  6;
+		*/
+
+		ok = 24;
+		printf ( "action type %d out of range %d %d\n", keyword_code, 7, NKEYS );
+	}
+
+	if ( keyword_code == balanc_keyword_code ) dobalanc();
+
+	if ( keyword_code == attach_keyword_code ) doattach();
+
+	if ( keyword_code == detach_keyword_code ) dodetach();
+
+	if ( keyword_code == grofig_keyword_code ) dogrofig ( xx[0], xx[1], xx[2] );
+
+	if ( keyword_code == spinto_keyword_code ) dospinto ( xx, refell, ang, prop );
+
+	if ( keyword_code == moveby_keyword_code ) domoveby ( frac * xx[0], frac * xx[1], frac * xx[2], refell );
+
+	if ( keyword_code == add_keyword_code ) val[var0] = xx[0] + xx[1];
+
+	if ( keyword_code == touch_keyword_code ) dotouch ();
+
+	if ( keyword_code == spinby_keyword_code ) dospinby ( xx, refell, ang[0] * frac, axis );
+
+	if ( keyword_code == ground_keyword_code )
+	{
+		min = doground ();
+		shift ( doub0, -prop * min, doub0 );
+	}
+	if ( keyword_code == bendby_keyword_code ) dospinby ( xx, refell, ang[0] * frac, axis );
+
+	if ( keyword_code == set_keyword_code ) val[var0] = varval;
+
+	if ( keyword_code == bendto_keyword_code ) dospinto ( xx, refell, ang, prop );
+
+	if ( keyword_code == repeat_keyword_code )
+	{
+		ok = 25;
+		printf ( "non-existent action %d\n", keyword_code );
+	}
+	if ( keyword_code == quadra_keyword_code )
+	{
+		ok = 26;
+		printf ( "non-existent action %d\n", keyword_code );
+	}
+	if ( keyword_code == linear_keyword_code )
+	{
+		ok = 27;
+		printf ( "non-existent action %d\n", keyword_code );
+	}
+	if ( keyword_code == observ_keyword_code ) setobs();
+
+	if ( keyword_code == moveto_keyword_code ) shift ( prop * xx[0], prop * xx[1], prop * xx[2] );
+
+	if ( keyword_code == invert_keyword_code )
+	{
+		if ( val[var0] != doub0 )
+		{
+			val[var0] = doub1 / val[var0];
+		}
+		else
+		{
+			val[var0] = doub0;
+		}
+	}
+	if ( keyword_code == groell_keyword_code ) dogroell ( factor, ellpsd, ax );
+
+	if ( keyword_code == grojnt_keyword_code ) dogrojnt();
+
+	if ( keyword_code == growto_keyword_code ) dogrowto( xx[0], xx[1], xx[2] );
+
+	if ( keyword_code == angles_keyword_code )
+	{
+		doangles ( ellpsd, refell, v );
+		val[var0] = v[0]; val[var1] = v[1]; val[var2] = v[2];
+	}
+
+	if ( keyword_code == centre_keyword_code || keyword_code == center_keyword_code) enquir ( ellpsd, cen );
+
+	if ( keyword_code == flex_keyword_code ) dobend ( ang[0] * frac, 0 );
+
+	if ( keyword_code == rotate_keyword_code ) dobend ( ang[0] * frac, 1 );
+
+	if ( keyword_code == abduct_keyword_code ) dobend ( ang[0] * frac, 2 );
+
+	if ( keyword_code == negate_keyword_code ) val[var0] = -val[var0];
+
+	if ( keyword_code == subtra_keyword_code ) val[var0] = xx[0] - xx[1];
+
+	if ( keyword_code == divide_keyword_code )
+	{
+		if ( xx[1] == doub0 )
+		{
+			ok = 30;
+			printf ( "action: divide, keyword_code %d,  EMAX-var0-1 %d,  xx[1] %f", keyword_code, EMAX-var0-1, xx[1] );
+		}
+		else
+		{
+			val[var0] = xx[0] / xx[1];
+		}
+	}
+	if ( keyword_code == multip_keyword_code ) val[var0] = xx[0] * xx[1];
+
+	if ( keyword_code == 45 )
+	{
+		ok = 28;
+		printf ( "action: non-existent action %d\n", keyword_code );
+	}
+	if ( keyword_code == cubic_keyword_code )
+	{
+		ok = 29;
+		printf ( "action: non-existent action %d\n", keyword_code );
+	}
+	if ( keyword_code == place_keyword_code ) doplace();
+
+	if ( keyword_code == axes_keyword_code ) enquir ( ellpsd, ax );
+
+	if ( keyword_code == linkx_keyword_code ) enquir ( join, jnt );
+
+	if ( keyword_code == colour_keyword_code ||
+		keyword_code == color_keyword_code ) docolour ( prop );
+
+	if ( keyword_code == print_keyword_code ) printf ( "frame %d, %s %9g\n", f, vname[EMAX-var0-1], val[var0] );
+
+	if ( keyword_code == textur_keyword_code ) docolour ( doub1 );
+
+	if ( keyword_code == drag_keyword_code ) dodrag ();
+
+	if ( keyword_code == abut_keyword_code ) doabut ();
+
+	if ( keyword_code == movjnt_keyword_code ) domovjnt ();
+
+	if ( keyword_code == opacty_keyword_code ) doopacity ();
+
+	if ( keyword_code == lghtng_keyword_code ) dolighting ( xx[0], xx[1], xx[2] );
+
+	if ( keyword_code == allow_keyword_code ) 
+	{
+		//printf("actionb allow %s %s\n",ename[ell1],ename[ell2]);
+		forbid[ell1][ell2] = false;
+		forbid[ell2][ell1] = false;
+		if ((ell1+ell2) == 0)
+		{
+			for (j = 0; j < EMAX; ++j)
+				for (k = 0; k < EMAX; ++k)
+					forbid[j][k] = false;
+		}
+	}
+	if ( keyword_code == forbid_keyword_code ) 
+	{
+		forbid[ell1][ell2] = true;
+		forbid[ell2][ell1] = true;
+		//printf("actionc forbid %s %s\n",ename[ell1],ename[ell2]);
+	}
+}  /* action */
+/*********************************************************/
+
+void doperfrm(int sub, int fr, int fstart, int fend)
+/*
+   perform actions of subroutine 'sub' for frame 'fr'
+   between frames 'fstart' and 'fend'
+
+   called by  doframes,
+   calls      getvalu, setfrc, setper, action,
+*/
+{
+   int frame;
+   int newsub;
+   int p;
+   int pstart,pend;
+   int fsstart;
+   int fstrt,fstp;
+   int fsubstart ;
+
+   pstart = subact[sub][0] ;
+   pend = subact[sub][1] ;
+/*
+  find 'subfrm', the earliest formal frame number in 
+  current subroutine ignoring unset variable 
+  frame numbers ( == -1) -
+*/
+   fsubstart = MAXINT ;
+   for (p = pstart ; p <= pend ; ++p )
+   {
+      fsstart = getvalu(frstart[p]) ;
+      if (ok != 0) goto snag ;
+      if (fsstart >= 0)
+      {
+         fsstart *= fast ;
+         if (fsstart < fsubstart) fsubstart = fsstart ;
+      }
+   }
+   frame = fr + fsubstart - fstart;
+   if (fr >= fstop) fstop = fr+1;
+/*
+  run through actions in the subroutine -
+*/
+  for (p = pstart; p <= pend; ++p)
+  {
+      pp = p;
+      t = type[p] ;
+      if ((t != stop_keyword_code)
+			&&(t != subrou_keyword_code)
+			&&(t != endsub_keyword_code))
+      {
+         fstrt = getvalu(frstart[p]) ;
+         if (fstrt < 0)
+         {
+            ok = 46;
+            printf("doperfrm: start %d\n",            
+                start);
+         }
+         if (ok != 0) goto snag ;
+         fstp = getvalu(frstop[p]) ;
+         if (fstp < fstrt)
+         {
+            ok = 47 ;
+            printf("doperfrm: fstrt %d,  fstp %d\n",            
+                fstrt,fstp);
+         }
+         if (ok != 0) goto snag ;
+         if (fstrt == fstp) ++fstp;
+         fstrt *= fast ;
+         fstp *= fast ;
+         if ((fstp > frame) && (fr < fend)) ++more;
+         if ((frame > fstrt) && (frame <= fstp))
+         {
+            if (t == call_keyword_code)
+            {
+               newsub = getvalu(pf[p][0]);
+               if ((newsub <= 0) || (newsub > PMAX))
+               {
+                  ok = 8 ;
+                  printf("doperfrm: newsub %d,  PMAX %d\n",            
+                         newsub,PMAX);
+                  goto snag ;
+               }
+               if (distrn[p] == call_keyword_code)
+                  doperfrm(newsub,frame,fstrt,fstp);
+               else
+                  doperfrm(newsub,frame,frame-1,frame);
+               if (ok != 0) goto rtrn ;
+            }
+/*
+  if not a subroutine call, then do normal action -
+*/
+            else
+            {
+               setfrc(frame,fstrt,fstp) ;
+               if (ok != 0) goto snag ;
+               setper(t);
+               if (ok != 0) goto snag ;
+               action(t);
+               if (ok != 0) goto snag ;
+            } /* t not call */
+         } /* frame f in range of action p */
+      } /* t not start or end of subroutine */
+   } /* p */
+   goto rtrn ;
+/*
+  snag-
+*/
+snag: 
+      printf("error in doperfrm, frame %d, action %d\n",
+	      f,p+1);
+	  getout(ok);
+rtrn: ;
+}  /* doperfrm */
+/*********************************************/
+
+void doframes(void)
+/*
+  calls and performs the actions for each frame in turn.
+
+  called by  main,
+  calls      doperfrm, store3,
+*/
+{
+   int j;
+
+   t = 1;
+   axis = 1;
+   join = 1;
+   var0 = 1;
+   var1 = 1;
+   var2 = 1;
+   fig = 1;
+   ellpsd = 1;
+   refell = 1;
+   ell1 = 1;
+   ell2 = 1;
+   for (j = 0; j < 3; ++j)
+   {
+      newcol[j] = 0;
+      oldang[j] = doub0;
+      ang[j] = doub0;
+      xx[j] = doub0;
+      factor[j] = doub1;
+   }
+   varval = doub0;
+/*
+  simulate and store each frame of movie-
+*/
+   for (f = 1; more > 0; ++f)
+   {
+      more = 0;
+      doperfrm(0,f,0,fstop);
+      if ((fslow == 1) || (f%fslow == 1))
+         store3(f);
+   }
+   if (vstart > fstart) fstart = vstart;
+   if ((vstop > 0) && (vstop < fstop)) fstop = vstop;
+} /* doframes */
+/*********************************************/
+
+void help(void)
+/*
+   list the interactive commands
+ 
+   called by  main, checkeys,
+*/
+{
+  printf("\n\n******* TO ACTIVATE THESE: CLICK IN THE ANIMATION WINDOW FIRST *******\n");
+  printf("\n  Interactive commands :-\n\n");
+ 
+  printf("\n\n   animation parameters\n");
+  printf("    i - freeze (opp. of 'a')\n"); 
+  printf("    a - continue animating (opp. of 'i')\n");
+  printf("    c - continue through restart at full rate (opp. of 'p')\n");
+  printf("    p - pause on first and last frames (opp. of 'c')\n"); 
+  printf("    b - if frozen, go back 1 frame else run backwards (opp. of 'f')\n");
+  printf("    f - if frozen, go forward 1 frame else run forwards (opp.of 'b')\n");
+  printf("    0 - reset parameters to defaults, and freeze at start\n");
+  printf("    - - slow down the animation \n");
+  printf("    = - speed up the animation \n"); 
+ 
+  printf("\n\n   scene movement parameters\n");
+  printf("    d - shift down 10 per cent (opp. of 'u')\n");
+  printf("    u - shift up 10 per cent (opp. of 'd')\n");
+  printf("    l - shift scene left 10 per cent (opp. of 'r')\n");
+  printf("    r - shift scene right 10 per cent (opp. of 'l')\n");
+  printf("    t - shift scene away by 10 per cent(opp. of 't')\n");
+  printf("    v - shift away (opp. of 'w')\n");
+  printf("    w - shift nearer (opp. of 'v')\n");
+ 
+  printf("\n\n   scene rotation parameters\n");
+  printf("    x - rotate 3 degrees about x (left - right) axis (opp. of '1')\n");
+  printf("    y - rotate 3 degrees about y (vertical) axis (opp. of '2')\n");
+  printf("    z - rotate 3 degrees about z (front - back) axis  (opp. of '3')\n");
+  printf("    1 - rotate 10 degrees about x (right - left) axis (opp. of 'x')\n");
+  printf("    2 - rotate 10 degrees about y (vertical) axis (opp. of 'y')\n");
+  printf("    3 - rotate 10 degrees about z (back - front) axis  (opp. of 'z')\n"); 
+ 
+  printf("\n\n   scene size parameters\n");
+  printf("    g - grow scene by 10 per cent (opp. of 's')\n"); 
+  printf("    s - shrink scene by 10 per cent (opp. of 'g')\n");
+ 
+  printf("\n\n   polygon parameters\n");
+  printf("    j - increase the number of polygons per sphere by 1 {opp. of 'k')\n"); 
+  printf("    k - decrease the number of polygons per sphere by 1 {opp. of 'j')\n"); 
+ 
+  printf("\n\n   shading parameters\n");
+  printf("    4 - normal shading/modified shading (toggle)\n"); 
+  printf("    6 - display shadows (toggle) - inoperative at present\n");
+  printf("    8 - display footprints (toggle) - inoperative at present\n");
+ 
+  printf("\n\n   annotation parameters\n");
+  printf("    n - display of frame numbers (toggle)\n");
+  printf("    o - display of bar numbers (toggle)\n");
+  printf("    5 - display of time (toggle) - inoperative at present\n");
+ 
+  printf("\n\n   avi output parameters\n");
+  printf("    7 - save display as AVI file - inoperative at present\n");
+ 
+  printf("\n\n   program usage parameters\n");
+  printf("    h - show these instructions\n");
+  printf("    q - quit\n");
+ 
+  printf(" \n\n******* TO ACTIVATE THESE: CLICK IN THE ANIMATION WINDOW FIRST *******\n");
+} /* help */
+/********************************************/
+
+
+void dopause(int t)
+/*
+   pause for a while
+
+   called by  image, animate,
+*/
+{
+   double a;
+   int j,k;
+
+   a = 1.0;
+   for (j = 1; j < t*1000; ++j)
+   {
+      for (k = 1; k < 1000; ++k)
+      {
+         a += double(j)/double(k);
+      }
+   }
+   if (a < 0.0) printf("%d\n",t);
+} /* dopause */
+/*****************************************/
+
+void donum(int f)
+/*
+   draw bar and/or frame numbers 
+
+   called by image,
+*/
+{
+   char nstr[BMAX];
+   int b,c,nlngth;
+
+   if (bnums == TRUE)
+   {
+      b = int(doub1 + inv2 + double(f)/double(frperbar));
+      sprintf(nstr,"bar %d",b);
+      nlngth = strlen(nstr);
+      glColor3f(0.9, 0.0, 0.9);
+      glRasterPos3f(0.05,0.95,0.999999);
+      for (c = 0; c < nlngth; c++)
+         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, nstr[c]);
+   }
+   if (fnums == TRUE)
+   {
+      sprintf(nstr,"frame %d",f);
+      nlngth = strlen(nstr);
+      glColor3f(0.9, 0.0, 0.9);
+      glRasterPos3f(0.05,0.05,0.999999);
+      for (c = 0; c < nlngth; c++)
+         glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, nstr[c]);
+
+	  //pres_time = clock();
+	  //rate = CLOCKS_PER_SEC/(pres_time - prev_time);
+	  //prev_time = pres_time;
+	  //glRasterPos3f(0.9,0.05,0.999999);
+	  //printf("%d fr/sec  %d %d %d\n",
+		  //rate,pres_time,prev_time,CLOCKS_PER_SEC);
+	  //sprintf(nstr, "%d fr/sec",rate);
+	  //nlngth = strlen(nstr);
+	  //for (c = 0; c < nlngth; c++)
+         //glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, nstr[c]);
+   }
+} /* donum */
+/**********************************************************/
+
+void ellmat(double r[3][3], int e, int f)
+/*
+   for ellipsoid 'e' in frame 'f' find its 
+   rotation matrix 'r',
+
+   called by  image,
+*/
+{
+      double p,cp,sp;
+      double x,y,z,m,xsp,ysp,zsp,xm,ym,zm,xym,xzm,yzm ;
+
+      p = qu3[f][e][0]*radian ;
+      x = qu3[f][e][1] ;
+      y = qu3[f][e][2] ;
+      z = qu3[f][e][3] ;
+      sp = sin(p);
+      cp = cos(p);
+      m = doub1-cp ;
+      xm = x*m ;
+      ym = y*m ;
+      zm = z*m ;
+      xsp = x*sp ;
+      ysp = y*sp ;
+      zsp = z*sp ;
+      xym = x*ym ;
+      xzm = x*zm ;
+      yzm = y*zm ;
+      r[0][0] = x*xm+cp ;
+      r[0][1] = xym+zsp ;
+      r[0][2] = xzm-ysp ;
+      r[1][0] = xym-zsp ;
+      r[1][1] = y*ym+cp ;
+      r[1][2] = yzm+xsp ;
+      r[2][0] = xzm+ysp ;
+      r[2][1] = yzm-xsp ;
+      r[2][2] = z*zm+cp ;
+} /* ellmat */
+/***********************************************/
+
+void image(void) 
+/*
+   called by  main,
+   calls      donum, dopause, ellmat,
+*/
+{ 
+    int e,j,k;
+    double amb,shade,illum;
+    double r[3][3];
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    for (e = 1; e < nels[f]; ++e)
+    {
+         glPushMatrix();
+	  	  
+         // interactive parameters -
+
+         glScalef(doub1,doub1,inv10);
+         glScalef(scale,scale,scale);
+         glTranslatef(tx,ty,tz);
+         glTranslatef(inv2,inv2,inv2);
+         glRotatef(anglez,0,0,1);
+         glRotatef(angley,0,1,0);
+         glRotatef(anglex,1,0,0);
+         
+         // ellipsoid parameters -
+         
+         glTranslatef(ce3[f][e][0], ce3[f][e][1], ce3[f][e][2]);
+         glRotatef(qu3[f][e][0], qu3[f][e][1], qu3[f][e][2], qu3[f][e][3]);
+         glScalef(ax3[f][e][0], ax3[f][e][1], ax3[f][e][2]);
+         ellmat(r,e,f);
+         glPolygonMode(GL_FRONT, GL_FILL);
+         glBegin(GL_QUADS);
+         amb = 0.7;
+         for (j = 0; j < nfaces; ++j)
+         {
+            illum = doub0;
+            for (k = 0; k < 3; ++k)
+                illum += r[k][1]*norm[j][k];
+            shade = amb + (doub1 - amb)*illum;
+            glColor3f(shade*co3[f][e][0], shade*co3[f][e][1], shade*co3[f][e][2]);
+            for (k = 0; k < 4; ++k)
+            {
+               glVertex3f(sph[j][k][0],sph[j][k][1],sph[j][k][2]);
+            } /* k  vertices */
+         } /* j faces */
+         glEnd();
+         glPopMatrix();
+    } /* e ellipsoids */
+    if ((fnums == TRUE)||(bnums == TRUE)) donum(f);
+    glutSwapBuffers();
+    glFlush();
+    if (slow < 0) slow = 0;
+    if (slow > 0) dopause(slow);
+} /* image */
+/***************************************/
+
+void animate(void) 
+/*
+   called by  main,
+   calls      dopause,
+*/
+{
+    if (freeze == TRUE)
+    {
+         if (single == TODO)
+         {
+            if (forward == TRUE)
+               df = 1;
+            else
+               df = -1;
+         }
+         else
+            df = 0;
+    }
+    else
+    if (forward == TRUE)
+         df = 1;
+    else
+         df = -1;
+    f += df;
+    if (f < 1) f = fstop-1;
+    if (f >= fstop) f = fstart+1;
+    if (((f == (fstart+2)) || (f == (fstart+1))) && (pause == TRUE))
+         dopause(100);
+    anglex += dangx; 
+    angley += dangy;
+    anglez += dangz;
+    if (anglex < -doub180) anglex += doub360;
+    if (anglex > doub180) anglex -= doub360;
+    if (angley < -doub180) angley += doub360;
+    if (angley > doub180) angley -= doub360;
+    if (anglez < -doub180) anglez += doub360;
+    if (anglez > doub180) anglez -= doub360;
+    dangx = doub0;
+    dangy = doub0;
+    dangz = doub0;
+    glutPostRedisplay();
+    single = DONE;
+} /* animate */
+/***************************************/
+
+void checkeys(unsigned char key, int x, int y) 
+/*
+   called by  main,
+   calls      initsphere,
+*/
+{ 
+   if ((key == GLUT_KEY_ESCAPE) || (key == 'q'))
+   {
+         getout(0);
+         if (ok == 1) main(0,junk);
+   }
+   if (key == 'h') help();
+   if (key == 'j')
+   {
+         nsph +=1;
+         printf("'j' more facets %d (opp. 'k')\n", nsph);
+			printf("checkeysa %c\n",key);
+         initsphere();
+         if (ok == 1) main(0,junk);
+   }
+   if (key == 'k')
+   {
+         nsph -=1;
+         printf("'k' fewer facets %d (opp. 'j')\n", nsph);
+			printf("checkeysb %c\n",key);
+         initsphere();
+         if (ok == 1)  main(0,junk);
+   }
+   if (key == 'a') 
+   {
+         df = 1;
+         printf("'a' animate (opp. 'i')\n");
+         if (forward == FALSE) df = -1;
+         freeze = FALSE;
+   }
+   if (key == 'i') 
+   { 
+         freeze = TRUE; 
+         printf("'i' freeze (opp. 'a')\n"); 
+   }
+   if (key == 'f')
+   {
+         if (freeze == TRUE) single = TODO;
+         printf("'f' forwards (opp. 'b')\n");
+         forward = TRUE;
+   }
+   if (key == 'b') 
+   {
+         if (freeze == TRUE) single = TODO;
+         printf("'b' backwards (opp. 'f')\n");
+         forward = FALSE; 
+   }
+   if (key == 'p') { pause = TRUE; printf("'p' pause on first and last frames (opp. 'c')\n"); }
+   if (key == 'c') { pause = FALSE; printf("'c' continuous looping (opp. 'p')\n"); }
+   if (key == 'g') { scale *= 1.1; printf("'g' grow %f (opp.'s')\n", scale); }
+   if (key == 's') { scale /= 1.1; printf("'s' shrink %f (opp. 'g')\n", scale); }
+   if (key == 'l') { tx -= 0.1; printf("'l' shift left %f (opp. 'r')\n", tx); }
+   if (key == 'r') { tx += 0.1; printf("'r' shift right %f (opp. 'l')\n", tx); }
+   if (key == 'd') { ty -= 0.1; printf("'d' shift down %f (opp. 'u')\n", ty); }
+   if (key == 'u') { ty += 0.1; printf("'u' shift up %f (opp. 'd')\n", ty); }
+   if (key == 'v') { tz -= 0.1; printf("'v' shift in %f (opp. 'w')\n", tz); }
+   if (key == 'w') { tz += 0.1; printf("'w' shift away %f (opp. 'v')\n", tz); }
+   if (key == 'x') { dangx = alpha; printf("'x' rotate x %f (opp. '1')\n", anglex); }
+   if (key == '1') { dangx = -alpha; printf("'1' rotate x %f (opp. 'x')\n", anglex); }
+   if (key == 'y') { dangy = alpha; printf("'y' rotate y %f (opp. '2')\n", angley); }
+   if (key == '2') { dangy = -alpha; printf("'2' rotate y %f (opp. 'y')\n", angley); }
+   if (key == 'z') { dangz = alpha; printf("'z' rotate z %f (opp. '3')\n", anglez); }
+   if (key == '3') { dangz = -alpha; printf("'3' rotate z %f (opp. 'z')\n", anglez); }
+   if (key == '-') { slow += 2; printf("'-' slower %d (opp. '=')\n", slow); }
+   if (key == '=') { slow -= 2; printf("'=' faster %d (opp. '-')\n", slow); }
+   if (key == 'n')
+   { 
+	   if (fnums == TRUE)
+	   {
+		   fnums = FALSE;
+		   printf("'n' hide frame numbers (toggle)\n");
+	   }
+	   else
+	   {
+		   fnums = TRUE;
+		   printf("'n' show frame numbers (toggle)\n");
+	   }
+   }
+   if (key == 'o')
+   { 
+	   if (bnums == TRUE)
+	   {
+		   bnums = FALSE;
+		   printf("'n' hide bar numbers (toggle)\n");
+	   }
+	   else
+	   {
+		   bnums = TRUE;
+		   printf("'n' show bar numbers (toggle)\n");
+	   }
+   }
+   if (key == '0') 
+   {
+      printf("'0' reset parameters and freeze at frame 1\n");
+      f = fstart+1;
+      freeze = TRUE;
+      forward = TRUE;
+      df = 1;
+      scale = SCALE;
+      tx = doub0;
+      ty = doub0;
+      tz = doub0;
+      anglex = doub0;
+      angley = doub0;
+      anglez = doub0;
+      slow = 1;
+      nsph = SSTART;
+   } /* key = '0' */
+} /* checkeys */
+/***************************************/
 
 void add_id_num ( char name[], char outname[], char ext[] )
 {
@@ -5016,7 +10354,32 @@ void led_param ( void )
 }/* led_param */
 /************************************************/
 
+void initgraphics(void) 
+/*
+   called by  main,
+*/
+{ 
+   char title[BMAX];
 
+   sprintf(title,"%s  -  %s",ptitle,finname);
+   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB); 
+   glutInitWindowSize(width, height); 
+   glutInitWindowPosition(xw,yw); 
+   glutCreateWindow(title);
+/* run in full screen if WINDOW_MODE macro undefined */  
+#ifndef WINDOW_MODE 
+   glutFullScreen(); 
+#endif 
+/* background color */ 
+   glClearColor(1.0, 1.0, 1.0, 0.5); 
+
+/* init viewing matrix */ 
+   glMatrixMode(GL_PROJECTION); 
+   glLoadIdentity(); 
+   glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0); 
+   glEnable(GL_DEPTH_TEST);
+} /* initgraphics */
+/***************************************/ 
 
 int main(int argc, char* argv[])
 /*
