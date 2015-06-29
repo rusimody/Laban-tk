@@ -2,7 +2,7 @@ CFLAGS = -g
 CC = gcc
 #CXX = i686-w64-mingw32-g++
 CXX = g++
-executables = led lintel compln prfrm viewc frad3c split3e hideo plotelg shadoq raselr nudes 
+executables = led lintel compln prfrm viewc frad3c split3e shadoq raselr nudes 
 
 all: ${executables}
 
@@ -27,12 +27,6 @@ frad3c:  frad3c.c
 split3e: split3e.c
 	$(CC) split3e.c -o split3e
 
-hideo:  hideo.c
-	$(CC) hideo.c -o hideo -lm
-
-plotelg:  plotelg.c
-	$(CC) plotelg.c -o plotelg -lm
-
 shadoq:  shadoq.c
 	$(CC) shadoq.c -o shadoq -lm
 
@@ -41,6 +35,5 @@ raselr:  raselr.c
 
 nudes:  nudes.c
 	$(CC) $(CFLAGS) nudes.c -o nudes
-        #nudes walk -h -j -l 1 -b 4 -G
 clean:
 	rm -rf $(executables) *.tmp 
