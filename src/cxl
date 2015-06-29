@@ -1,8 +1,0 @@
-#  cxl - compile a c program for use under Linux
-#   copying binary into unsufficed filename.
-#     13 Apr 2000
-gcc $1.c -o $1.b -lm -L/usr/X11R6/lib  -lX11 
-cp $1.b $1
-rm $1.b
-chmod 775 $1
-

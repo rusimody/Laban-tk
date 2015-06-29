@@ -1,9 +1,0 @@
-#  cxi - compile a c program for use on an Iris
-#   copying binary into unsufficed filename.
-#     Don Herbison-Evans 14 Nov 1990
-cc $1.c -o $1.b -lgl_s -I/usr/include/gl -lm
-# cc $1.c -o $1.b -I/usr/include/gl -lm
-cp $1.b $1
-rm $1.b
-chmod 775 $1
-
