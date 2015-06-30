@@ -18,7 +18,7 @@
       -2     NUDES ellipse specification file
       -3     NUDES ellipsoid specification file
       -4     NUDES numeric command file
-      -a     alphanumeric output images
+      -a     hanumeric output images
       -A     anaglyph output (red: left; green: right)
       -c [n] full shaded colour with 'n' colours allowed
              (default, default n:  10000)
@@ -590,7 +590,7 @@
 #define FALSE 0
 #define NIL '\0'
 
-char home[] = "/home/don";
+char home[] = "/home/laban-experiments";
 char bin[] = "bin";
 char place  = 'u';
 
@@ -1325,8 +1325,7 @@ char *argv[];
    extn = device;
    if ((docol == FALSE) && (extn >= 'a') && (extn <= 'z'))
 	   extn += caps;
-   if (output == 'c')
-      sprintf(comess,"-c %d",colmax);
+   if (output == 'c')      sprintf(comess,"-c %d",colmax);
    if (size <= 1) size = 256;
    compldebug = debug+1;
    if (debug > 2) --debug;
@@ -2191,10 +2190,12 @@ char fbase[BMAX];
       exec(TRUE);
       sprintf(command,"ls *.ppm > n.mid\n");
       exec(TRUE);
-      sprintf(command,"cp  %s/src/nudes.head n.head\n",home);
+ 
+       sprintf(command,"cp  %s/nudes.head n.head\n",wd);
       exec(TRUE);
-      sprintf(command,"cp  %s/src/nudes.tail n.tail\n",home);
+      sprintf(command,"cp  %s/nudes.tail n.tail\n",wd);
       exec(TRUE);
+    
       if (pause < 2)
       {
          sprintf(command,
