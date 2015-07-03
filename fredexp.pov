@@ -6,7 +6,7 @@ global_settings {  assumed_gamma 1.0   }
 
 
 camera{
-            location <3000,2000,-1000>
+            location <3000,000,000>
             look_at <0,0,0 >
     }
     
