@@ -1,0 +1,45 @@
+* Main Function : Linter():
+** Calls lbnread() : 
+   Reads lbn file line by line and parses each thing in structure "lbn".
+   Also each line is stored in "lbnline" array.
+** Calls lsorty():
+   Sorts the lbn and lbnline ie. each score wrt their y coordinate.
+   Also finds ymax and creates cross reference " yj[ycordinate] = symbol " type array 'yj'.
+** Calls lfindstaff():
+   1.finds the number of staff present, sorts them wrt. their x coordinate and store them in
+   pair of three in 'staff' array.
+   2.Also tracks the pins (dont know what is that) and creates array of them 'pins' :containing the staff number it belongs to.
+   Also he magically decides gender, pls tell if their is a pin for gender.
+*** Calls loverlap ():
+    It takes x coordinates of two symbols (mostly one is staff), and return whether the symbol belong to the staff or not
+    
+** Calls setrange():
+   range of y for symbols to be interpreted.
+   so ystart = y cooridnate of second bar of 'double bar'
+   and yend = y coordinate of the last score/symbol.
+   ymax = yend + height of the symbol.
+   also calculates frames required by a formula.
+
+** Calls selectfig():
+   redundant.
+   if two centre staff exists, left is male and right is female.
+   if single figure exists, tracking is on by default.
+   nw : number of female staves.
+   nm : number of males staves.
+
+** Calls copyfig():
+   copies the entire content of lintel.n to newly created .n file
+
+** Calls lstart():
+   seeks pins denoting starting position.
+   though the process is not understood as of now.
+
+** Calls findystart():
+    find y position of first double bar line
+    if none, seek any bar line -
+    if none, seek any supporting direction symbol -
+    in all cases, y coordinate is recorded as ystart.
+    "why again ???" dont know.
+    maybe redundant if doublebars are always included.
+
+
