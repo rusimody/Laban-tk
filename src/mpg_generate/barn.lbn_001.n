@@ -1,0 +1,4089 @@
+*
+* created barn.lbn_001.n from barn.lbn using lintel084
+*
+*
+* lintel.n
+
+*
+*   5 May 2007 - oeposn, oekeep
+*   2 May 2007 - add hands and wrists
+*   3 Apr 2007 - fix wularm misprints
+*   6 Mar 2007 - touch in oeposn oekeep
+*  25 Feb 2007 - touch in shkeep, nbg
+*   6 Dec 2006 - setup, forward, lside, rside, close
+*  28 Nov 2006 - rside and lside dragging afoot
+*  27 Nov 2006 - forward and back improved
+*  28 Aug 2006 - allow more body-parts to intersect, drags asterisked
+*  19 Aug 2006 - allow mlthigh-mstomach mrthigh-mstomach
+*  18 Aug 2006 - allow wcen-wstomach and wcen-wpelvis
+*   5 Aug 2006 - step routines use coords instead of pelvis
+*   5 Aug 2006 - bend man R arm late in clposn
+*  30 Jul 2006 - jamn and jwoman: joints of mspace and wspace to joist 
+*  28 Jul 2006 - offset changed to 0.0001 degrees
+*  25 Jul 2006 - space, mspace, wspace, coords added
+*   9 Jul 2006 - chackras removed, back improved
+*   2 Jul 2006 - chakras added
+*  26 Jun 2006 - improved locate
+*  25 Jun 2006 - back improved again, floor moved, locate added
+*  18 Jun 2006 - back improved
+*  16 Jun 2006 - rfordiag,lfordiag,rbacdiag, lbacdiag improved
+*   8 Jun 2006 - subroutine 'ssset' improved
+*   3 Jun 2006 - subroutine 'zero' extended over fpos frames
+*   9 May 2006 - reduced wfhig, fix rbacdiag, lbacdiag
+*  23 Apr 2006 - wpos moved by 'repeat' in *posn routines
+*  21 Apr 2006 - foot angle in close made relative to leg
+*  15 Apr 2006 - based on Lintel.figs.n & lintel.subs.n for lintel54
+*  14 Mar 2006 - fix forward, close
+*  14 Feb 2006 - added l1,l2,l3, bacang, sepn, shift,
+*   1 Feb 2006 - made compatible with Lintel49
+*  19 Jan 2006 - fix forward, back, flow, fmed, fhigh
+*  14 Jan 2006 - added flow, fmed
+*  13 Jan 2006 - delete g1 etc for clowow
+*  12 Jan 2006 - extended bfoot forward in 'forward', fix clowow
+*  30 Dec 2005 - added various step routines
+*  21 Dec 2005 - altered mrwist in prset
+*  20 Dec 2005 - added touch commands to clkeep, prkeep
+*   6 Dec 2005 - halved mans high foot angle
+*   5 Dec 2005 - included call to zero in set routines
+*   5 Dec 2005 - included set routine calls in setup
+*  11 Nov 2005 - removed redundant declaration of fhig
+*   8 Nov 2005 - added promenade hold
+*   1 Nov 2005 - calculated woman's position in shadow hold
+*  31 Oct 2005 - added shadow hold
+*  31 Oct 2005 - added counter open extended hold
+*  30 Oct 2005 - added open extended hold 
+*   8 Oct 2005 - negated head angles in closed position
+*   4 Oct 2005 - added different strides for man and woman
+*   3 Oct 2005 - minimised wpos, added dx dy dz
+*   1 Oct 2005 - added stomach (Stephanie Kim, Honours Project 1994)
+*  30 Sep 2005 - rearranged variables for easy partial copying
+*  27 Sep 2005 - enlarged wpos, added prints, hunting closed hold bug
+*  21 Sep 2005 - added wcen wpos jx kx to clposn clkeep
+*  13 Sep 2005 - left clshift positive
+*  11 Sep 2005 - changed holds to keeps
+*  11 Sep 2005 - added wcen wpos kx
+*   9 Sep 2005 - adjusted angles in clset ssset
+*   4 Sep 2005 - added clset ssset ssposn sshold
+*   3 Sep 2005 - put Ginger Fred  Decs together
+*  13 Aug 2005 - imported variables for closed hold from rev19.n
+*  31 Jul 2005 - added variables for man's and woman's centres
+*   9 Jul 2005 - added clh
+*  27 Jun 2005 - added variables for hands and wrists
+*  17 Jun 2005 - end 'setup' with ankle flexed
+*  17 Nov 2004 - added variables px,py,pz for positions
+*   2 Jul 2004 - set 'fig' variable in 'setman' and 'setwoman'
+*  29 May 2003 - added angles for high and low closed legs
+*  31 Jan 2003 - raised z boards
+*  18 Jan 2003 - thinned the floor
+*   9 Dec 2002 - reorganised the floor
+*  12 Oct 2001 - added high/low step ankle angles
+*  15 Aug 2001 - floor grounded better
+*  15 Aug 2001 - forward leg smaller angle than back
+*  31 Jan 2001 - made forward swap use of a and b legs
+*  12 Nov 1999 - made forward use bendto
+*   3 May 1999 - setup starts compressed
+*  23 Aug 1998 - wall moved away
+*  31 Jul 1998 - set angles for ankles in relax
+*  24 Jul 1998 - moved call of setup to linter program
+*  15 Jul 1998 - added 'back' routine
+*  12 Apr 1998 - variables simplified
+*   6 Oct 1996 - unisex variables added
+*  13 Sep 1996 - written by Don Herbison-Evans
+*
+* subroutines:
+*
+*   setup,    zero,
+*   clset,    coset,              oeset,    prset,    shset,  ssset,    
+*   clposn,   coposn,   noposn,   oeposn,   prposn,   shposn, ssposn,  
+*   clkeep,   cokeep,   nokeep,   oekeep,   prkeep,   shkeep, sskeep,  
+*   forright, forleft,  doman,    dowoman,  forward,  back,   
+*   lside,    rside,    lfordiag, rfordiag, bacdiag,  rbacdiag,
+*   mclowow,  close,    flow,     fmed,     fhigh,
+*
+*************************************************
+*
+*  Fred -  a male figure
+*
+*   1 Oct 2005 - added stomach (Stephanie Kim, Honours Project 1994)
+*  28 Jun 2005 - fixed 'palm', 'thumb' joint to 'hand'
+*   6 Oct 1996 - Don Herbison-Evans 
+*
+figure fred 22 *
+       mlfoot  mrfoot  mlleg   mrleg   mlthigh mrthigh  *
+       mluarm  mruarm  mllarm  mrlarm  mlhand  mrhand  mlthumb mrthumb *
+       mhair   mhead   mnose   mneck   mshldrs mchest  mpelvis mstomach *
+*
+ellipsoid mlfoot    40  80  20
+ellipsoid mrfoot    40  80  20
+ellipsoid mlleg     40 200  40
+ellipsoid mrleg     40 200  40
+ellipsoid mlthigh   50 200  60
+ellipsoid mrthigh   50 200  60
+ellipsoid mluarm    40 135  40
+ellipsoid mruarm    40 135  40
+ellipsoid mllarm    35 120  35
+ellipsoid mrlarm    35 120  35
+ellipsoid mlhand    40  70  20
+ellipsoid mrhand    40  70  20
+ellipsoid mlthumb   10  50  10
+ellipsoid mrthumb   10  50  10
+ellipsoid mhead     73 100  80
+ellipsoid mhair     75  97  83
+ellipsoid mnose     20  20  60
+ellipsoid mneck     30  60  30
+ellipsoid mshldrs  155  50  40
+ellipsoid mchest   130 230  75
+ellipsoid mpelvis  120  75  75
+ellipsoid mstomach 120 150  75
+*
+joint mlankle  mlfoot    0  +55    0  mlleg    0 -185   0
+joint mrankle  mrfoot    0  +55    0  mrleg    0 -185   0
+joint mlknee   mlleg     0 +185    0  mlthigh  0 -175   0
+joint mrknee   mrleg     0 +185    0  mrthigh  0 -175   0
+joint mlhip    mlthigh   0 +150    0  mpelvis -60   0   0
+joint mrhip    mrthigh   0 +150    0  mpelvis +60   0   0
+joint mlshldr  mshldrs -145   0    0  mluarm   0 +120   0
+joint mrshldr  mshldrs +145   0    0  mruarm   0 +120   0
+joint mlelbow  mluarm    0 -115    0  mllarm   0 +100   0
+joint mrelbow  mruarm    0 -115    0  mrlarm   0 +100   0
+joint mlwrist  mllarm    0 -115    0  mlhand   0  +50   0
+joint mrwrist  mrlarm    0 -115    0  mrhand   0  +50   0
+joint mlpalm   mlhand  -20  +40    0  mlthumb  0  +40   0
+joint mrpalm   mrhand  +20  +40    0  mrthumb  0  +40   0
+joint mscalp   mhead     0    5   -5  mhair    0    0   0
+joint mface    mnose     0    0    0  mhead    0  +30 +55
+joint mthroat  mhead     0 -100    0  mneck    0  +10   0
+joint mspine   mshldrs   0  +50    0  mneck    0  -20   0
+joint mthorax  mshldrs   0    0    0  mchest   0 +155   0
+joint mwaist   mpelvis   0  +25    0  mstomach 0 -100   0
+joint mribs    mstomach  0  +80    0  mchest   0  -80   0 
+*
+repeat 0 1 colour mhair       64  64   0
+repeat 0 1 colour mrfoot     128 128 255
+repeat 0 1 colour mlfoot     128 128 255
+repeat 0 1 colour mrleg      128 128 255
+repeat 0 1 colour mlleg      128 128 255
+repeat 0 1 colour mrthigh    128 128 255
+repeat 0 1 colour mlthigh    128 128 255
+repeat 0 1 colour mrlarm     128 128 255
+repeat 0 1 colour mllarm     128 128 255
+repeat 0 1 colour mruarm     128 128 255
+repeat 0 1 colour mluarm     128 128 255
+repeat 0 1 colour mpelvis    128 128 255
+repeat 0 1 colour mchest     128 128 255
+repeat 0 1 colour mshldrs    128 128 255
+repeat 0 1 colour mstomach   128 128 255
+*
+*   prepare figure
+*   note that figure is facing away from the observer (along z axis)
+*   in anatomical position ( palms facing forward )
+*
+variable 1 man
+repeat 0 1 set man fred
+*
+linear 0 1 flex   mnose   mface    -40
+linear 0 1 abduct mlthumb mlpalm   +20
+linear 0 1 abduct mrthumb mrpalm   +20
+linear 0 1 flex   mlthumb mlpalm   +20
+linear 0 1 flex   mrthumb mrpalm   +20
+linear 0 1 rotate mlhand  mlwrist  +90
+linear 0 1 rotate mrhand  mrwrist  +90
+linear 0 1 flex   mhair   mscalp     5
+*
+*   stand down on heels -
+*
+linear 0 1 flex   mlfoot mlankle   +90
+linear 0 1 flex   mrfoot mrankle   +90
+*
+linear 0 1 grofig man mpelvis 0.5 0.5 0.5
+repeat 0 1 moveto man mpelvis 500 500 500
+repeat 0 1 place  500 500 500
+repeat 0 1 ground man
+*
+****************************************
+*
+* Ginger - a female figure
+*
+*   1 Oct 2005 - added stomach (Stephanie Kim, Honours Project 1994)
+*  28 Jun 2005 - fixed joint thumb to hand (palm)
+*  12 Jun 2005 - scaled to be 10% shorter than Fred
+*   6 Oct 1996 - Don Herbison-Evans 
+*
+figure ginger 29 *
+ wlfoot   wrfoot wlheel  wrheel wlleg  wrleg  wlthigh wrthigh *
+ wluarm   wruarm wllarm  wrlarm wlhand wrhand wlthumb wrthumb *
+ wlbrst   wrbrst wltoe   wrtoe  wpelvis *
+ wstomach wchest wshldrs wneck  whead  wnose  whair *
+ wbun
+*
+ellipsoid wltoe      1   1   1
+ellipsoid wrtoe      1   1   1
+ellipsoid wlfoot    40  80  20
+ellipsoid wrfoot    40  80  20
+ellipsoid wlheel    20  40  20
+ellipsoid wrheel    20  40  20
+ellipsoid wlleg     40 200  40
+ellipsoid wrleg     40 200  40
+ellipsoid wlthigh   50 200  60
+ellipsoid wrthigh   50 200  60
+*
+ellipsoid wluarm    40 135  40
+ellipsoid wruarm    40 135  40
+ellipsoid wllarm    35 120  35
+ellipsoid wrlarm    35 120  35
+ellipsoid wlhand    40  70  20
+ellipsoid wrhand    40  70  20
+ellipsoid wlthumb   10  50  10
+ellipsoid wrthumb   10  50  10
+*
+ellipsoid wlbrst    41  40  60
+ellipsoid wrbrst    41  40  60
+ellipsoid wpelvis  120  75  75
+ellipsoid wstomach 120 150  75 
+ellipsoid wchest   130 230  75 
+ellipsoid wshldrs  155  50  40 
+ellipsoid wneck     30  60  30 
+ellipsoid whead     73 100  80 
+ellipsoid wnose     20  20  60 
+*
+ellipsoid whair     76  98  84 
+ellipsoid wbun      50  25  50 
+*
+joint wlmeta   wltoe     0    0    0  wlfoot   0  -79   0
+joint wrmeta   wrtoe     0    0    0  wrfoot   0  -79   0
+joint wlankle  wlfoot    0  +55    0  wlleg    0 -185   0
+joint wrankle  wrfoot    0  +55    0  wrleg    0 -185   0
+joint wlcuboi  wlheel    0    0    0  wlleg    0 -185   0
+joint wrcuboi  wrheel    0    0    0  wrleg    0 -185   0
+joint wlknee   wlleg     0 +185    0  wlthigh  0 -175   0
+joint wrknee   wrleg     0 +185    0  wrthigh  0 -175   0
+joint wlhip    wlthigh   0 +150    0  wpelvis -60   0   0
+joint wrhip    wrthigh   0 +150    0  wpelvis +60   0   0
+*
+joint wlshldr  wshldrs -145   0    0  wluarm   0 +120   0
+joint wrshldr  wshldrs +145   0    0  wruarm   0 +120   0
+joint wlelbow  wluarm    0 -115    0  wllarm   0 +100   0
+joint wrelbow  wruarm    0 -115    0  wrlarm   0 +100   0
+joint wlwrist  wllarm    0 -115    0  wlhand   0  +50   0
+joint wrwrist  wrlarm    0 -115    0  wrhand   0  +50   0
+joint wlpalm   wlhand  -20  +40    0  wlthumb  0  +40   0
+joint wrpalm   wrhand  +20  +40    0  wrthumb  0  +40   0
+*
+joint wwaist   wpelvis   0  +25    0  wstomach 0 -100   0
+joint wribs    wstomach  0  +80    0  wchest   0  -80   0 
+joint wlchest  wchest  -50 +100  +50  wlbrst   0    0   0
+joint wrchest  wchest  +50 +100  +50  wrbrst   0    0   0
+joint wthorax  wchest    0 +155    0  wshldrs  0    0   0
+joint wspine   wshldrs   0  +40    0  wneck    0  -20   0
+joint wthroat  whead     0 -100    0  wneck    0  +20   0
+*
+joint wface    whead     0    0  +55  wnose    0    0   0
+joint wscalp   whead     0   +6   -6  whair    0    0   0
+joint wribbon  whair     0  +80  -60  wbun     0    0   0
+*
+linear 0 1 colour wlfoot   255 100 100
+linear 0 1 colour wrfoot   255 100 100
+linear 0 1 colour wlheel   255 100 100
+linear 0 1 colour wrheel   255 100 100
+linear 0 1 colour wlleg    255 100 100
+linear 0 1 colour wrleg    255 100 100
+linear 0 1 colour wlthigh  255 100 100
+linear 0 1 colour wrthigh  255 100 100
+linear 0 1 colour wluarm   255 100 100
+linear 0 1 colour wruarm   255 100 100
+linear 0 1 colour wllarm   255 100 100
+linear 0 1 colour wrlarm   255 100 100
+linear 0 1 colour wlhand   255 128  64
+linear 0 1 colour wrhand   255 128  64
+linear 0 1 colour wlthumb  255 128  64
+linear 0 1 colour wrthumb  255 128  64
+linear 0 1 colour wlbrst   255 100 100
+linear 0 1 colour wrbrst   255 100 100
+linear 0 1 colour wpelvis  255 100 100
+linear 0 1 colour wstomach 255 100 100
+linear 0 1 colour wchest   255 100 100
+linear 0 1 colour wshldrs  255 100 100
+linear 0 1 colour wneck    255 128  64
+linear 0 1 colour whead    255 128  64
+linear 0 1 colour wnose    255 128  64
+linear 0 1 colour whair    128  64   0
+linear 0 1 colour wbun     128  64   0
+*
+linear 0 1 flex   wbun    wribbon  +45
+linear 0 1 flex   whair   wscalp    +5
+linear 0 1 flex   wnose   wface    -30
+linear 0 1 abduct wlthumb wlpalm   +20
+linear 0 1 abduct wrthumb wrpalm   +20
+linear 0 1 flex   wlthumb wlpalm   +20
+linear 0 1 flex   wrthumb wrpalm   +20
+linear 0 1 flex   wlfoot  wlankle  +75
+linear 0 1 flex   wrfoot  wrankle  +75
+*
+variable 1 woman
+repeat 0 1 set woman ginger
+*
+linear 0 1 grofig woman wpelvis 0.5  0.45  0.5
+repeat 0 1 moveto woman wpelvis   0 0 0
+repeat 0 1 ground woman
+*
+****************************************
+*
+*  reference for woman's position
+*
+figure wpos 1 wcen
+ellipsoid wcen   1 1 1
+*
+**************************************************
+*            room.n
+*  23 Jun 2006 - moved more along x
+*  24 Apr 2005 - moved along x
+*  23 Aug 1998 - wall moved away
+*  20 Mar 1998 - lowered
+*   1 Feb 1996 - Don Herbison-Evans
+*
+figure room 35 *
+ joist floor mspace wspace wallz * 
+ bdx00 bdx01 bdx02 bdx03 bdx04 bdx05 bdx06 bdx07 bdx08 bdx09 *
+ bdx10 bdx11 bdx12 bdx13 bdx14 bdx15 bdx16 bdx17 bdx18 bdx19 *
+ brdz0 brdz1 brdz2 brdz3 brdz4 brdz5 brdz6 brdz7 brdz8 brdz9 *
+ellipsoid joist    1    1    1
+ellipsoid mspace   1    1    1
+ellipsoid wspace   1    1    1
+ellipsoid wallz    1 6000 6000
+ellipsoid floor 60000    1 6000
+ellipsoid bdx00 60000    1  220
+ellipsoid bdx01 60000    1  220
+ellipsoid bdx02 60000    1  220
+ellipsoid bdx03 60000    1  220
+ellipsoid bdx04 60000    1  220
+ellipsoid bdx05 60000    1  220
+ellipsoid bdx06 60000    1  220
+ellipsoid bdx07 60000    1  220
+ellipsoid bdx08 60000    1  220
+ellipsoid bdx09 60000    1  220
+ellipsoid bdx10 60000    1  220
+ellipsoid bdx11 60000    1  220
+ellipsoid bdx12 60000    1  220
+ellipsoid bdx13 60000    1  220
+ellipsoid bdx14 60000    1  220
+ellipsoid bdx15 60000    1  220
+ellipsoid bdx16 60000    1  220
+ellipsoid bdx17 60000    1  220
+ellipsoid bdx18 60000    1  220
+ellipsoid bdx19 60000    1  220
+ellipsoid brdz0  220    1 6000
+ellipsoid brdz1  220    1 6000
+ellipsoid brdz2  220    1 6000
+ellipsoid brdz3  220    1 6000
+ellipsoid brdz4  220    1 6000
+ellipsoid brdz5  220    1 6000
+ellipsoid brdz6  220    1 6000
+ellipsoid brdz7  220    1 6000
+ellipsoid brdz8  220    1 6000
+ellipsoid brdz9  220    1 6000
+*
+joint nail   floor  0 0 0 joist 0 -5 1800
+joint joinz  wallz  0 0 0 joist -3402 1 3000
+joint jman   mspace 0 0 0 joist 0  0  0
+joint jwoman wspace 0 0 0 joist 0  0  0 
+*
+joint crkx00 bdx00 0 0 0 joist 500  0    0
+joint crkx01 bdx01 0 0 0 joist 500  0  800
+joint crkx02 bdx02 0 0 0 joist 500  0 1600
+joint crkx03 bdx03 0 0 0 joist 500  0 2400
+joint crkx04 bdx04 0 0 0 joist 500  0 3200
+joint crkx05 bdx05 0 0 0 joist 500  0 4000
+joint crkx06 bdx06 0 0 0 joist 500  0 4800
+joint crkx07 bdx07 0 0 0 joist 500  0 5600
+joint crkx08 bdx08 0 0 0 joist 500  0 6400
+joint crkx09 bdx09 0 0 0 joist 500  0 7200
+joint crkx10 bdx10 0 0 0 joist 500  0 8000
+joint crkx11 bdx11 0 0 0 joist 500  0 8800
+joint crkx12 bdx12 0 0 0 joist 500  0 9600
+joint crkx13 bdx13 0 0 0 joist 500  0 10400
+joint crkx14 bdx14 0 0 0 joist 500  0 11200
+joint crkx15 bdx15 0 0 0 joist 500  0 12000
+joint crkx16 bdx16 0 0 0 joist 500  0 12800
+joint crkx17 bdx17 0 0 0 joist 500  0 13600
+joint crkx18 bdx18 0 0 0 joist 500  0 14400
+joint crkx19 bdx19 0 0 0 joist 500  0 15200
+*
+joint crkz10 brdz0 0 0 0 joist -3200 -3 1000
+joint crkz11 brdz1 0 0 0 joist -2400 -3 1000
+joint crkz12 brdz2 0 0 0 joist -1600 -3 1000
+joint crkz13 brdz3 0 0 0 joist  -800 -3 1000
+joint crkz14 brdz4 0 0 0 joist     0 -3 1000
+joint crkz15 brdz5 0 0 0 joist   800 -3 1000
+joint crkz16 brdz6 0 0 0 joist  1600 -3 1000
+joint crkz17 brdz7 0 0 0 joist  2400 -3 1000
+joint crkz18 brdz8 0 0 0 joist  3200 -3 1000
+joint crkz19 brdz9 0 0 0 joist  4000 -3 1000 
+*
+repeat 0 1 colour wallz  64 255  64
+repeat 0 1 colour floor 150 150   0
+*
+repeat 0 1 colour bdx00 200 200   0
+repeat 0 1 colour bdx01 200 200   0
+repeat 0 1 colour bdx02 200 200   0
+repeat 0 1 colour bdx03 200 200   0
+repeat 0 1 colour bdx04 200 200   0
+repeat 0 1 colour bdx05 200 200   0
+repeat 0 1 colour bdx06 200 200   0
+repeat 0 1 colour bdx07 200 200   0
+repeat 0 1 colour bdx08 200 200   0
+repeat 0 1 colour bdx09 200 200   0
+repeat 0 1 colour bdx10 200 200   0
+repeat 0 1 colour bdx11 200 200   0
+repeat 0 1 colour bdx12 200 200   0
+repeat 0 1 colour bdx13 200 200   0
+repeat 0 1 colour bdx14 200 200   0
+repeat 0 1 colour bdx15 200 200   0
+repeat 0 1 colour bdx16 200 200   0
+repeat 0 1 colour bdx17 200 200   0
+repeat 0 1 colour bdx18 200 200   0
+repeat 0 1 colour bdx19 200 200   0
+*
+repeat 0 1 colour brdz0 255 255   0
+repeat 0 1 colour brdz1 255 255   0
+repeat 0 1 colour brdz2 255 255   0
+repeat 0 1 colour brdz3 255 255   0
+repeat 0 1 colour brdz4 255 255   0
+repeat 0 1 colour brdz5 255 255   0
+repeat 0 1 colour brdz6 255 255   0
+repeat 0 1 colour brdz7 255 255   0
+repeat 0 1 colour brdz8 255 255   0
+repeat 0 1 colour brdz9 255 255   0
+*
+repeat 0 1 moveto room joist 0 -2 0
+*
+*************************************************
+*
+* variable declarations
+*
+variables 4 fig     pelvis  track   coords 
+*
+variables 6 rfoot   lfoot   rleg    lleg   rthigh lthigh
+variables 6 ruarm   luarm   rlarm   llarm  rhand  lhand
+variables 5 chest   waist   stomach pelvis ribs 
+variables 5 shldrs  neck    spine   head   throat
+variables 6 rankle  lankle  rknee   lknee  rhip   lhip
+variables 6 rwrist lwrist   relbow  lelbow rshldr lshldr
+*
+variables 6 afoot   bfoot   aleg    bleg   athigh bthigh
+variables 6 aankle  bankle  aknee   bknee  ahip   bhip
+variables 6 apelvis ashldrs auarm   buarm  ashldr bshldr
+variables 6 pang    nang    qang    aang   wang   mang
+variables 6 p2ang   n2ang   hpang   hnang  hf     lopang 
+variables 2 mstride wstride
+*
+variables 3 tlow1  tlow2  tlow3  
+variables 3 trlx1  trlx2  trlx3  
+variables 3 tmed1  tmed2  tmed3 
+variables 3 thig1  thig2  thig3  
+variables 3 tfor1  tfor2  tfor3 
+variables 3 tbac1  tbac2  tbac3  
+variables 3 tcls1  tcls2  tcls3  
+variables 3 tlef1  tlef2  tlef3  
+variables 3 trig1  trig2  trig3  
+*
+variables 3 lvlo1  lvlo2  lvlo3
+variables 3 llow1  llow2  llow3  
+variables 3 lrlx1  lrlx2  lrlx3  
+variables 3 lmed1  lmed2  lmed3  
+variables 3 lhig1  lhig2  lhig3  
+variables 3 lcls1  lcls2  lcls3
+variables 3 lbac1  lbac2  lbac3   
+*
+variables 3 fvlo1  fvlo2  fvlo3  
+variables 3 flow1  flow2  flow3  
+variables 3 frlx1  frlx2  frlx3 
+variables 3 fmed1  fmed2  fmed3  
+variables 3 fhig1  fhig2  fhig3  
+variables 3 fcls1  fcls2  fcls3  
+*
+variables 6 wtlow1  wtlow2  wtlow3  mtlow1  mtlow2  mtlow3
+variables 6 wtrlx1  wtrlx2  wtrlx3  mtrlx1  mtrlx2  mtrlx3 
+variables 6 wtmed1  wtmed2  wtmed3  mtmed1  mtmed2  mtmed3
+variables 6 wthig1  wthig2  wthig3  mthig1  mthig2  mthig3
+variables 6 wtfor1  wtfor2  wtfor3  mtfor1  mtfor2  mtfor3
+variables 6 wtbac1  wtbac2  wtbac3  mtbac1  mtbac2  mtbac3
+variables 6 wtcls1  wtcls2  wtcls3  mtcls1  mtcls2  mtcls3
+variables 6 wtlef1  wtlef2  wtlef3  mtlef1  mtlef2  mtlef3 
+variables 6 wtrig1  wtrig2  wtrig3  mtrig1  mtrig2  mtrig3
+*
+variables 6 wlvlo1  wlvlo2  wlvlo3  mlvlo1  mlvlo2  mlvlo3
+variables 6 wllow1  wllow2  wllow3  mllow1  mllow2  mllow3
+variables 6 wlrlx1  wlrlx2  wlrlx3  mlrlx1  mlrlx2  mlrlx3
+variables 6 wlmed1  wlmed2  wlmed3  mlmed1  mlmed2  mlmed3
+variables 6 wlhig1  wlhig2  wlhig3  mlhig1  mlhig2  mlhig3
+variables 6 wlcls1  wlcls2  wlcls3  mlcls1  mlcls2  mlcls3 
+variables 6 wlbac1  wlbac2  wlbac3  mlbac1  mlbac2  mlbac3 
+*
+variables 6 wfvlo1  wfvlo2  wfvlo3  mfvlo1  mfvlo2  mfvlo3
+variables 6 wfcls1  wfcls2  wfcls3  mfcls1  mfcls2  mfcls3
+variables 6 wfhig1  wfhig2  wfhig3  mfhig1  mfhig2  mfhig3    
+variables 6 wfmed1  wfmed2  wfmed3  mfmed1  mfmed2  mfmed3  
+variables 6 wfrlx1  wfrlx2  wfrlx3  mfrlx1  mfrlx2  mfrlx3  
+variables 6 wflow1  wflow2  wflow3  mflow1  mflow2  mflow3
+*
+variables 6 afhig1  afhig2  afhig3  bfhig1  bfhig2  bfhig3 
+variables 6 afmed1  afmed2  afmed3  bfmed1  bfmed2  bfmed3 
+variables 6 afrlx1  afrlx2  afrlx3  bfrlx1  bfrlx2  bfrlx3   
+variables 6 aflow1  aflow2  aflow3  bflow1  bflow2  bflow3
+*
+variables 3 bacang  fang    mang
+variables 3 ethi1   ethi2   ethi3
+variables 3 cx cy cz
+variables 3 dx dy dz
+variables 6 fx fy fz  f1 f2 f3
+variables 6 gx gy gz  g1 g2 g3
+variables 3 jx jy jz
+variables 3 l1 l2 l3
+variables 3 kx ky kz
+variables 3 mx my mz
+variables 3 wx wy wz
+variables 3 zx zy zz
+*
+variables 6 clxsepn  prxsepn  ssxsepn shxsepn sepn shift
+variables 4 clzsepn  przsepn  sszsepn shzsepn
+*
+variables 4 fr     fpos   fend    fmax
+variables 7 fo2    fo4    fo8     f3o8   f3o4   f5o8    fb1
+*
+variables 9 clmlu1 clmlu2 clmlu3  clmla1 clmla2 clmla3  clmlh1 clmlh2 clmlh3
+variables 9 clmru1 clmru2 clmru3  clmra1 clmra2 clmra3  clmrh1 clmrh2 clmrh3
+variables 6 clmn1  clmn2  clmn3   clms1  clms2  clms3
+variables 9 clwlu1 clwlu2 clwlu3  clwla1 clwla2 clwla3  clwlh1 clwlh2 clwlh3
+variables 9 clwru1 clwru2 clwru3  clwra1 clwra2 clwra3  clwrh1 clwrh2 clwrh3
+variables 6 clwn1  clwn2  clwn3   clws1  clws2  clws3
+*
+variables 9 prmlu1 prmlu2 prmlu3  prmla1 prmla2 prmla3  prmlh1 prmlh2 prmlh3
+variables 9 prmru1 prmru2 prmru3  prmra1 prmra2 prmra3  prmrh1 prmrh2 prmrh3
+variables 6 prmn1  prmn2  prmn3   prms1  prms2  prms3
+variables 9 prwlu1 prwlu2 prwlu3  prwla1 prwla2 prwla3  prwlh1 prwlh2 prwlh3
+variables 9 prwru1 prwru2 prwru3  prwra1 prwra2 prwra3  prwrh1 prwrh2 prwrh3
+variables 6 prwn1  prwn2  prwn3   prws1  prws2  prws3
+*
+variables 9 ssmlu1 ssmlu2 ssmlu3  ssmla1 ssmla2 ssmla3  ssmlh1 ssmlh2 ssmlh3
+variables 9 ssmru1 ssmru2 ssmru3  ssmra1 ssmra2 ssmra3  ssmrh1 ssmrh2 ssmrh3
+variables 9 sswlu1 sswlu2 sswlu3  sswla1 sswla2 sswla3  sswlh1 sswlh2 sswlh3
+variables 9 sswru1 sswru2 sswru3  sswra1 sswra2 sswra3  sswrh1 sswrh2 sswrh3
+*
+variables 9 oemlu1 oemlu2 oemlu3  oemla1 oemla2 oemla3  oemlh1 oemlh2 oemlh3
+variables 9 oemru1 oemru2 oemru3  oemra1 oemra2 oemra3  oemrh1 oemrh2 oemrh3 
+variables 9 oewlu1 oewlu2 oewlu3  oewla1 oewla2 oewla3  oewlh1 oewlh2 oewlh3
+variables 9 oewru1 oewru2 oewru3  oewra1 oewra2 oewra3  oewrh1 oewrh2 oewrh3 
+*
+variables 9 comlu1 comlu2 comlu3  comla1 comla2 comla3  comlh1 comlh2 comlh3
+variables 9 comru1 comru2 comru3  comra1 comra2 comra3  comrh1 comrh2 comrh3 
+variables 9 cowlu1 cowlu2 cowlu3  cowla1 cowla2 cowla3  cowlh1 cowlh2 cowlh3
+variables 9 cowru1 cowru2 cowru3  cowra1 cowra2 cowra3  cowrh1 cowrh2 cowrh3 
+*
+variables 9 shmlu1 shmlu2 shmlu3  shmla1 shmla2 shmla3  shmlh1 shmlh2 shmlh3
+variables 9 shmru1 shmru2 shmru3  shmra1 shmra2 shmra3  shmrh1 shmrh2 shmrh3 
+variables 9 shwlu1 shwlu2 shwlu3  shwla1 shwla2 shwla3  shwlh1 shwlh2 shwlh3
+variables 9 shwru1 shwru2 shwru3  shwra1 shwra2 shwra3  shwrh1 shwrh2 shwrh3 
+*
+*****************************************
+*
+*  main program -
+* turn to face to viewer's diagonally right -
+*
+linear 0     1 spinby every  floor   world  95 y
+*
+* turn slightly to avoid float overflows -
+* 
+linear 0     1 spinby every  floor   world  0.0001 y
+linear 0     1 spinby every  floor   world  0.0001 x
+*
+linear 0     1 moveby every  world 0 -2 -200
+* 
+call   0     1 setup
+repeat 0     1 set pelvis mpelvis
+repeat 0     1 set coords mpelvis
+call   0     1 setfmax
+*
+repeat 0     1 set track 1
+repeat 2  fmax set track 15
+call   0  fmax dance
+repeat 0  fmax call locate
+repeat 0  fmax observe -9  0  0
+* 
+* end main program
+*
+********************************************
+*
+subroutine locate
+*
+variable       6 trx try trz plx ply plz
+repeat   0     1 ground man
+repeat   0     1 ground woman
+repeat   0     1 centre pelvis trx try trz
+repeat   0     1 set    plx trx
+repeat   0     1 set    ply 500
+repeat   0     1 add    plz -900  trz
+repeat   1     2 print  plz
+linear   0 track place  plx  ply  plz
+*
+end locate
+*******************************************
+*
+subroutine setup
+*
+*   set values of hip, leg and foot angle variables
+*
+repeat 0 1 set mstride +50
+repeat 0 1 set wstride +54
+repeat 0 1 set bacang   15
+repeat 0 1 set mang 90
+repeat 0 1 set wang 75
+*
+repeat 0 1 set pang mstride
+repeat 0 1 div hpang pang 2
+repeat 0 1 set nang pang
+repeat 0 1 neg nang
+repeat 0 1 div hnang nang 2
+repeat 0 1 add lopang pang 8
+*
+repeat 0 1 bendto mlthigh mlhip   mpelvis  0 0 0
+linear 0 1 flex   mlthigh mlhip   hpang
+repeat 0 1 angles mlthigh mpelvis mtrlx1 mtrlx2 mtrlx3
+repeat 0 1 bendto mlthigh mlhip   mpelvis  0 0 0
+linear 0 1 flex   mlthigh mlhip   pang
+repeat 0 1 angles mlthigh mpelvis mtlow1 mtlow2 mtlow3
+repeat 0 1 bendto mlthigh mlhip   mpelvis  0 0 0
+linear 0 1 flex   mlthigh mlhip   -19
+repeat 0 1 angles mlthigh mpelvis mtbac1 mtbac2 mtbac3
+repeat 0 1 bendto mlthigh mlhip   mpelvis  0 0 0
+linear 0 1 abduct mlthigh mlhip   pang
+repeat 0 1 angles mlthigh mpelvis mtlef1 mtlef2 mtlef3
+repeat 0 1 bendto mrthigh mrhip   mpelvis  0 0 0
+linear 0 1 abduct mrthigh mrhip   pang
+repeat 0 1 angles mrthigh mpelvis mtrig1 mtrig2 mtrig3
+*
+repeat 0 1 bendto mlleg   mlknee  mlthigh  0 0 0
+linear 0 1 flex   mlleg   mlknee  pang
+repeat 0 1 angles mlleg   mlthigh mlrlx1 mlrlx2 mlrlx3
+linear 0 1 flex   mlleg   mlknee  pang
+repeat 0 1 angles mlleg   mlthigh mllow1 mllow2 mllow3
+repeat 0 1 bendto mlleg   mlknee  mlthigh  0 0 0
+linear 0 1 flex   mlleg   mlknee  lopang
+repeat 0 1 angles mlleg   mlthigh mlvlo1 mlvlo2 mlvlo3
+repeat 0 1 bendto mlleg   mlknee  mlthigh  0 0 0
+linear 0 1 flex   mlleg   mlknee  35
+repeat 0 1 angles mlleg   mlthigh mlbac1 mlbac2 mlbac3
+*
+repeat 0 1 bendto mlfoot  mlankle mlleg  0 0 0
+linear 0 1 flex   mlfoot  mlankle mang
+linear 0 1 flex   mlfoot  mlankle hnang
+repeat 0 1 angles mlfoot  mlleg   mfhig1 mfhig2 mfhig3
+repeat 0 1 bendto mlfoot  mlankle mlleg  0 0 0
+linear 0 1 flex   mlfoot  mlankle mang
+repeat 0 1 angles mlfoot  mlleg   mfmed1 mfmed2 mfmed3
+linear 0 1 flex   mlfoot  mlankle hpang
+repeat 0 1 angles mlfoot  mlleg   mfrlx1 mfrlx2 mfrlx3
+repeat 0 1 bendto mlfoot  mlankle mlleg  0 0 0
+linear 0 1 flex   mlfoot  mlankle mang
+linear 0 1 flex   mlfoot  mlankle pang
+repeat 0 1 angles mlfoot  mlleg   mflow1 mflow2 mflow3
+*
+repeat 0 1 set pang wstride
+repeat 0 1 div hpang pang 2
+repeat 0 1 set nang pang
+repeat 0 1 neg nang
+*
+repeat 0 1 bendto wlthigh wlhip   wpelvis  0 0 0
+linear 0 1 flex   wlthigh wlhip   hpang
+repeat 0 1 angles wlthigh wpelvis wtrlx1 wtrlx2 wtrlx3
+repeat 0 1 bendto wlthigh wlhip   wpelvis  0 0 0
+linear 0 1 flex   wlthigh wlhip   pang
+repeat 0 1 angles wlthigh wpelvis wtlow1 wtlow2 wtlow3
+repeat 0 1 bendto wlthigh wlhip   wpelvis  0 0 0
+linear 0 1 abduct wlthigh wlhip   pang
+repeat 0 1 angles wlthigh wpelvis wtlef1 wtlef2 wtlef3
+repeat 0 1 bendto wrthigh wrhip   wpelvis  0 0 0
+linear 0 1 abduct wrthigh wrhip   pang
+repeat 0 1 angles wrthigh wpelvis wtrig1 wtrig2 wtrig3
+*
+repeat 0 1 bendto wlleg   wlknee  wlthigh  0 0 0
+linear 0 1 flex   wlleg   wlknee  pang
+repeat 0 1 angles wlleg   wlthigh wlrlx1 wlrlx2 wlrlx3
+linear 0 1 flex   wlleg   wlknee  pang
+repeat 0 1 angles wlleg   wlthigh wllow1 wllow2 wllow3
+repeat 0 1 bendto wlleg   wlknee  wlthigh  0 0 0
+linear 0 1 flex   wlleg   wlknee  lopang
+repeat 0 1 angles wlleg   wlthigh wlvlo1 wlvlo2 wlvlo3
+repeat 0 1 bendto wlleg   wlknee  wlthigh  0 0 0
+linear 0 1 flex   wlleg   wlknee  35
+repeat 0 1 angles wlleg   wlthigh wlbac1 wlbac2 wlbac3
+*
+repeat 0 1 bendto wlfoot  wlankle wlleg  0 0 0
+linear 0 1 flex   wlfoot  wlankle wang
+linear 0 1 flex   wlfoot  wlankle hnang
+repeat 0 1 angles wlfoot  wlleg   wfhig1 wfhig2 wfhig3
+repeat 0 1 bendto wlfoot  wlankle wlleg  0 0 0
+linear 0 1 flex   wlfoot  wlankle wang
+repeat 0 1 angles wlfoot  wlleg   wfmed1 wfmed2 wfmed3
+linear 0 1 flex   wlfoot  wlankle hpang
+repeat 0 1 angles wlfoot  wlleg   wfrlx1 wfrlx2 wfrlx3
+repeat 0 1 bendto wlfoot  wlankle wlleg  0 0 0
+linear 0 1 flex   wlfoot  wlankle wang
+linear 0 1 flex   wlfoot  wlankle pang
+repeat 0 1 angles wlfoot  wlleg   wflow1 wflow2 wflow3
+*
+repeat 0 1 bendto wlfoot  wlankle wlleg   wfrlx1 wfrlx2 wfrlx3
+repeat 0 1 bendto wrfoot  wrankle wrleg   wfrlx1 wfrlx2 wfrlx3
+repeat 0 1 bendto wlleg   wlknee  wlthigh wlrlx1 wlrlx2 wlrlx3
+repeat 0 1 bendto wrleg   wrknee  wrthigh wlrlx1 wlrlx2 wlrlx3
+repeat 0 1 bendto wlthigh wlhip   wpelvis wtrlx1 wtrlx2 wtrlx3
+repeat 0 1 bendto wrthigh wrhip   wpelvis wtrlx1 wtrlx2 wtrlx3
+*
+repeat 0 1 bendto mlfoot  mlankle mlleg   mfrlx1 mfrlx2 mfrlx3
+repeat 0 1 bendto mrfoot  mrankle mrleg   mfrlx1 mfrlx2 mfrlx3
+repeat 0 1 bendto mlleg   mlknee  mlthigh mlrlx1 mlrlx2 mlrlx3
+repeat 0 1 bendto mrleg   mrknee  mrthigh mlrlx1 mlrlx2 mlrlx3
+repeat 0 1 bendto mlthigh mlhip   mpelvis mtrlx1 mtrlx2 mtrlx3
+repeat 0 1 bendto mrthigh mrhip   mpelvis mtrlx1 mtrlx2 mtrlx3
+*
+repeat 0 1 set mang 90
+repeat 0 1 set wang 75
+repeat 0 1 set fpos  1
+call   0 1 ssset
+call   0 1 clset 
+call   0 1 prset 
+call   0 1 oeset 
+call   0 1 coset 
+call   0 1 shset
+call   0 1 zero
+*
+end setup
+**********************************************
+*
+subroutine zero
+*
+linear 0 fpos bendto mlfoot   mlankle mlleg   mfmed1 mfmed2 mfmed3
+linear 0 fpos bendto mlleg    mlknee  mlthigh 0 0 0
+linear 0 fpos bendto mlthigh  mlhip   mpelvis 0 0 0
+linear 0 fpos bendto mrfoot   mrankle mrleg   mfmed1 mfmed2 mfmed3
+linear 0 fpos bendto mrleg    mrknee  mrthigh 0 0 0
+linear 0 fpos bendto mrthigh  mrhip   mpelvis 0 0 0
+*
+linear 0 fpos bendto mluarm   mlshldr mshldrs 0 0 0
+linear 0 fpos bendto mllarm   mlelbow mluarm  0 0 0
+linear 0 fpos bendto mlhand   mlwrist mllarm  0 0 0
+*
+linear 0 fpos bendto mruarm   mrshldr mshldrs 0 0 0
+linear 0 fpos bendto mrlarm   mrelbow mruarm  0 0 0
+linear 0 fpos bendto mrhand   mrwrist mrlarm  0 0 0
+*
+linear 0 fpos bendto mneck    mspine  mshldrs 0 0 0
+linear 0 fpos bendto mhead    mthroat mneck   0 0 0
+linear 0 fpos bendto mstomach mwaist  mpelvis 0 0 0
+*
+linear 0 fpos bendto wlfoot   wlankle wlleg   wfmed1 wfmed2 wfmed3
+linear 0 fpos bendto wlleg    wlknee  wlthigh 0 0 0
+linear 0 fpos bendto wlthigh  wlhip   wpelvis 0 0 0
+linear 0 fpos bendto wrfoot   wrankle wrleg   wfmed1 wfmed2 wfmed3
+linear 0 fpos bendto wrleg    wrknee  wrthigh 0 0 0
+linear 0 fpos bendto wrthigh  wrhip   wpelvis 0 0 0
+*
+linear 0 fpos bendto wluarm   wlshldr wshldrs 0 0 0
+linear 0 fpos bendto wllarm   wlelbow wluarm  0 0 0
+linear 0 fpos bendto wlhand   wlwrist wllarm  0 0 0
+*
+linear 0 fpos bendto wruarm   wrshldr wshldrs 0 0 0
+linear 0 fpos bendto wrlarm   wrelbow wruarm  0 0 0
+linear 0 fpos bendto wrhand   wrwrist wrlarm  0 0 0
+*
+linear 0 fpos bendto wneck    wspine  wshldrs 0 0 0
+linear 0 fpos bendto whead    wthroat wneck   0 0 0
+linear 0 fpos bendto wstomach wwaist  wpelvis 0 0 0
+*
+call   0 fpos noposn
+*
+end zero
+********************************************
+*
+subroutine clset
+*
+*   set arm angles for closed hold -
+*
+call   0 1 zero
+repeat 0 1 bendto mluarm  mlshldr mshldrs 0 0 0
+linear 0 1 abduct mluarm  mlshldr   65
+linear 0 1 rotate mluarm  mlshldr  -40
+repeat 0 1 angles mluarm  mshldrs clmlu1 clmlu2 clmlu3
+linear 0 1 bendto mllarm  mlelbow mluarm  0 0 0
+linear 0 1 flex   mllarm  mlelbow   40
+repeat 0 1 angles mllarm  mluarm  clmla1 clmla2 clmla3
+linear 0 1 bendto mlhand  mlwrist mllarm  0 0 0
+linear 0 1 abduct mlhand  mlwrist  -20
+linear 0 1 flex   mlhand  mlwrist   20
+repeat 0 1 angles mlhand  mllarm  clmlh1 clmlh2 clmlh3
+*
+repeat 0 1 bendto mruarm  mrshldr mshldrs 0 0 0
+linear 0 1 abduct mruarm  mrshldr   60
+linear 0 1 rotate mruarm  mrshldr   40
+linear 0 1 bendby mruarm  mrshldr mshldrs -20 y
+repeat 0 1 angles mruarm  mshldrs clmru1 clmru2 clmru3
+linear 0 1 bendto mrlarm  mrelbow mruarm  0 0 0
+linear 0 1 flex   mrlarm  mrelbow   90
+repeat 0 1 angles mrlarm  mruarm  clmra1 clmra2 clmra3
+linear 0 1 bendto mrhand  mrwrist mrlarm  0 0 0
+linear 0 1 flex   mrhand  mrwrist   50 
+linear 0 1 rotate mrhand  mrwrist   10 
+repeat 0 1 angles mrhand  mrlarm  clmrh1 clmrh2 clmrh3
+*
+repeat 0 1 set    clmn1  90
+repeat 0 1 set    clmn2   0
+repeat 0 1 set    clmn3  30
+repeat 0 1 set    clms1   0
+repeat 0 1 set    clms2  86
+repeat 0 1 set    clms3   0
+*
+repeat 0 1 bendto wluarm  wlshldr wshldrs 0 0 0
+linear 0 1 abduct wluarm  wlshldr  100
+linear 0 1 rotate wluarm  wlshldr  -40
+linear 0 1 bendby wluarm  wlshldr wshldrs  20 y
+repeat 0 1 angles wluarm  wshldrs clwlu1 clwlu2 clwlu3
+linear 0 1 bendto wllarm  wlelbow wluarm  0 0 0
+linear 0 1 flex   wllarm  wlelbow  130
+repeat 0 1 angles wllarm  wluarm  clwla1 clwla2 clwla3
+linear 0 1 bendto wlhand  wlwrist wllarm  0 0 0
+linear 0 1 rotate wlhand  wlwrist   40
+repeat 0 1 angles wlhand  wllarm  clwlh1 clwlh2 clwlh3
+*
+repeat 0 1 bendto wruarm  wrshldr wshldrs 0 0 0
+linear 0 1 abduct wruarm  wrshldr   90
+linear 0 1 bendby wruarm  wrshldr wshldrs  -5 y
+repeat 0 1 angles wruarm  wshldrs clwru1 clwru2 clwru3
+linear 0 1 bendto wrlarm  wrelbow wruarm  0 0 0
+linear 0 1 flex   wrlarm  wrelbow    5
+repeat 0 1 angles wrlarm  wruarm  clwra1 clwra2 clwra3
+linear 0 1 bendto wrhand  wrwrist wrlarm  0 0 0
+linear 0 1 abduct wrhand  wrwrist    5
+linear 0 1 rotate wrhand  wrwrist  110
+repeat 0 1 angles wrhand  wrlarm  clwrh1 clwrh2 clwrh3
+*
+repeat 0 1 set    clwn1  45
+repeat 0 1 set    clwn2 335
+repeat 0 1 set    clwn3  41
+repeat 0 1 set    clws1 272
+repeat 0 1 set    clws2 328
+repeat 0 1 set    clws3   9
+*
+repeat 0 1 axes   mpelvis mx my mz
+repeat 0 1 axes   wpelvis wx wy wz
+linear 0 1 add    clzsepn mz wz
+linear 0 1 multip clxsepn wx 0.5
+*
+repeat 0 1 ground man
+repeat 0 1 ground woman
+*
+end clset
+**********************************************
+*
+subroutine coset
+*
+*   set angles for counter open extended hold
+*
+call   0 1 zero
+linear 0 1 abduct mluarm  mlshldr   60
+linear 0 1 rotate mluarm  mlshldr  -70
+linear 0 1 bendby mluarm  mlshldr mshldrs  10 y
+repeat 0 1 angles mluarm  mshldrs comlu1 comlu2 comlu3
+linear 0 1 flex   mllarm  mlelbow   50
+repeat 0 1 angles mllarm  mluarm  comla1 comla2 comla3
+linear 0 1 abduct mlhand  mlwrist  -20
+linear 0 1 flex   mlhand  mlwrist   20
+repeat 0 1 angles mlhand  mllarm  comlh1 comlh2 comlh3
+*
+linear 0 1 abduct mruarm  mrshldr   60
+linear 0 1 rotate mruarm  mrshldr  -70
+linear 0 1 bendby mruarm  mrshldr mshldrs -10 y
+repeat 0 1 angles mruarm  mshldrs comru1 comru2 comru3
+linear 0 1 flex   mrlarm  mrelbow   50
+repeat 0 1 angles mrlarm  mruarm  comra1 comra2 comra3
+linear 0 1 abduct mrhand  mrwrist  -20
+linear 0 1 flex   mrhand  mrwrist   20
+repeat 0 1 angles mrhand  mrlarm  comrh1 comrh2 comrh3
+*
+linear 0 1 abduct wluarm  wlshldr   75
+linear 0 1 rotate wluarm  wlshldr  -70
+linear 0 1 bendby wluarm  wlshldr wshldrs  10 y
+repeat 0 1 angles wluarm  wshldrs cowlu1 cowlu2 cowlu3
+linear 0 1 flex   wllarm  wlelbow   50
+repeat 0 1 angles wllarm  wluarm  cowla1 cowla2 cowla3
+linear 0 1 bendto wlhand  wlwrist wllarm  0 0 0
+linear 0 1 rotate wlhand  wlwrist 180
+repeat 0 1 angles wlhand  wllarm  cowlh1 cowlh2 cowlh3
+*
+linear 0 1 abduct wruarm  wrshldr   75
+linear 0 1 rotate wruarm  wrshldr  -70
+linear 0 1 bendby wruarm  wrshldr wshldrs -10 y
+repeat 0 1 angles wruarm  wshldrs cowru1 cowru2 cowru3
+linear 0 1 flex   wrlarm  wrelbow   50
+repeat 0 1 angles wrlarm  wruarm  cowra1 cowra2 cowra3
+linear 0 1 bendto wrhand  wrwrist wrlarm  0 0 0
+linear 0 1 rotate wrhand  wrwrist 180
+repeat 0 1 angles wrhand  wrlarm  cowrh1 cowrh2 cowrh3
+*
+repeat 0 1 ground man
+repeat 0 1 ground woman
+*
+end coset
+***********************************************
+*
+subroutine oeset
+*
+*   set angles for open extended hold
+*
+call   0 1 zero
+linear 0 1 abduct mluarm  mlshldr   60
+linear 0 1 rotate mluarm  mlshldr  -70
+linear 0 1 bendby mluarm  mlshldr mshldrs  10 y
+repeat 0 1 angles mluarm  mshldrs oemlu1 oemlu2 oemlu3
+linear 0 1 flex   mllarm  mlelbow   50
+repeat 0 1 angles mllarm  mluarm  oemla1 oemla2 oemla3
+linear 0 1 abduct mlhand  mlwrist  -20
+linear 0 1 flex   mlhand  mlwrist   20
+repeat 0 1 angles mlhand  mllarm  oemlh1 oemlh2 oemlh3
+*
+linear 0 1 abduct mruarm  mrshldr   60
+linear 0 1 rotate mruarm  mrshldr  -70
+linear 0 1 bendby mruarm  mrshldr mshldrs -10 y
+repeat 0 1 angles mruarm  mshldrs oemru1 oemru2 oemru3
+linear 0 1 flex   mrlarm  mrelbow   50
+repeat 0 1 angles mrlarm  mruarm  oemra1 oemra2 oemra3
+linear 0 1 abduct mrhand  mrwrist  -20
+linear 0 1 flex   mrhand  mrwrist   20
+repeat 0 1 angles mrhand  mrlarm  oemrh1 oemrh2 oemrh3
+*
+linear 0 1 abduct wluarm  wlshldr   75
+linear 0 1 rotate wluarm  wlshldr  -70
+linear 0 1 bendby wluarm  wlshldr wshldrs  10 y
+repeat 0 1 angles wluarm  wshldrs oewlu1 oewlu2 oewlu3
+linear 0 1 flex   wllarm  wlelbow   50
+repeat 0 1 angles wllarm  wluarm  oewla1 oewla2 oewla3
+linear 0 1 bendto wlhand  wlwrist wllarm  0 0 0
+linear 0 1 rotate wlhand  wlwrist 180
+repeat 0 1 angles wlhand  wllarm  oewlh1 oewlh2 oewlh3
+*
+linear 0 1 abduct wruarm  wrshldr   75
+linear 0 1 rotate wruarm  wrshldr  -70
+linear 0 1 bendby wruarm  wrshldr wshldrs -10 y
+repeat 0 1 angles wruarm  wshldrs oewru1 oewru2 oewru3
+linear 0 1 flex   wrlarm  wrelbow   50
+repeat 0 1 angles wrlarm  wruarm  oewra1 oewra2 oewra3
+linear 0 1 bendto wrhand  wrwrist wrlarm  0 0 0
+linear 0 1 rotate wrhand  wrwrist 180
+repeat 0 1 angles wrhand  wrlarm  oewrh1 oewrh2 oewrh3
+*
+repeat 0 1 ground man
+repeat 0 1 ground woman
+*
+end oeset
+***********************************************
+*
+subroutine prset
+*
+*   set arm angles for promenade hold -
+*
+call   0 1 zero
+repeat 0 1 bendto mluarm  mlshldr mshldrs 0 0 0
+linear 0 1 flex   mluarm  mlshldr   20
+linear 0 1 abduct mluarm  mlshldr   70
+linear 0 1 bendby mluarm  mlshldr mshldrs  10 y
+repeat 0 1 angles mluarm  mshldrs prmlu1 prmlu2 prmlu3
+linear 0 1 bendto mllarm  mlelbow mluarm  0 0 0
+linear 0 1 flex   mllarm  mlelbow   30
+repeat 0 1 angles mllarm  mluarm  prmla1 prmla2 prmla3
+linear 0 1 bendto mlhand  mlwrist mllarm  0 0 0
+linear 0 1 rotate mlhand  mlwrist  -90
+linear 0 1 flex   mlhand  mlwrist   30
+repeat 0 1 angles mlhand  mllarm  prmlh1 prmlh2 prmlh3
+*
+repeat 0 1 bendto mruarm  mrshldr mshldrs 0 0 0
+linear 0 1 flex   mruarm  mrshldr   20
+linear 0 1 abduct mruarm  mrshldr   60
+linear 0 1 rotate mruarm  mrshldr   40
+repeat 0 1 angles mruarm  mshldrs prmru1 prmru2 prmru3
+linear 0 1 bendto mrlarm  mrelbow mruarm  0 0 0
+linear 0 1 flex   mrlarm  mrelbow   70
+repeat 0 1 angles mrlarm  mruarm  prmra1 prmra2 prmra3
+linear 0 1 bendto mrhand  mrwrist mrlarm  0 0 0
+linear 0 1 flex   mrhand  mrwrist   40 
+linear 0 1 rotate mrhand  mrwrist   10 
+repeat 0 1 angles mrhand  mrlarm  prmrh1 prmrh2 prmrh3
+*
+linear 0 1 bendto mneck   mspine  mshldrs 0 0 0
+linear 0 1 rotate mneck   mspine  +50
+repeat 0 1 angles mneck   mshldrs prmn1 prmn2 prmn3
+repeat 0 1 set prms1 90
+repeat 0 1 set prms2 0
+repeat 0 1 set prms3 -30
+*
+repeat 0 1 bendto wluarm  wlshldr wshldrs 0 0 0
+linear 0 1 flex   wluarm  wlshldr   20
+linear 0 1 abduct wluarm  wlshldr  100
+linear 0 1 rotate wluarm  wlshldr  -40
+repeat 0 1 angles wluarm  wshldrs prwlu1 prwlu2 prwlu3
+linear 0 1 bendto wllarm  wlelbow wluarm  0 0 0
+linear 0 1 flex   wllarm  wlelbow  120
+repeat 0 1 angles wllarm  wluarm  prwla1 prwla2 prwla3
+linear 0 1 bendto wlhand  wlwrist wllarm  0 0 0
+linear 0 1 rotate wlhand  wlwrist   40
+repeat 0 1 angles wlhand  wllarm  prwlh1 prwlh2 prwlh3
+*
+repeat 0 1 bendto wruarm  wrshldr wshldrs 0 0 0
+linear 0 1 abduct wruarm  wrshldr   90
+linear 0 1 bendby wruarm  wrshldr wshldrs -10 y
+repeat 0 1 angles wruarm  wshldrs prwru1 prwru2 prwru3
+linear 0 1 bendto wrlarm  wrelbow wruarm  0 0 0
+linear 0 1 flex   wrlarm  wrelbow   25
+repeat 0 1 angles wrlarm  wruarm  prwra1 prwra2 prwra3
+linear 0 1 bendto wrhand  wrwrist wrlarm  0 0 0
+linear 0 1 abduct wrhand  wrwrist    5
+linear 0 1 rotate wrhand  wrwrist  110
+repeat 0 1 angles wrhand  wrlarm  prwrh1 prwrh2 prwrh3
+*
+linear 0 1 bendto wneck   wspine   wshldrs 0 0 0
+linear 0 1 rotate wneck   wspine   +50
+repeat 0 1 angles wneck   wshldrs  prwn1 prwn2 prwn3
+repeat 0 1 set prws1 90
+repeat 0 1 set prws2 0
+repeat 0 1 set prws3 +30
+*
+repeat 0 1 axes   wpelvis wx wy wz
+linear 0 1 multip przsepn wz  2
+repeat 0 1 multip prxsepn wx  2
+*
+repeat 0 1 ground man
+repeat 0 1 ground woman
+*
+end prset
+**********************************************
+*
+subroutine shset
+*
+*   set angles for shadow hold
+*
+call   0 1 zero
+linear 0 1 flex   mluarm  mlshldr     -20
+linear 0 1 abduct mluarm  mlshldr      70
+repeat 0 1 angles mluarm  mshldrs  shmlu1 shmlu2 shmlu3
+linear 0 1 flex   mllarm  mlelbow      90
+linear 0 1 rotate mllarm  mlelbow     -80
+repeat 0 1 angles mllarm  mluarm   shmla1 shmla2 shmla3
+linear 0 1 bendto mlhand  mlwrist  mllarm  0 0 0
+repeat 0 1 angles mlhand  mllarm   shmlh1 shmlh2 shmlh3
+*
+linear 0 1 abduct mruarm  mrshldr      80
+repeat 0 1 angles mruarm  mshldrs  shmru1 shmru2 shmru3
+linear 0 1 flex   mrlarm  mrelbow      30
+linear 0 1 rotate mrlarm  mrelbow     -70
+repeat 0 1 angles mrlarm  mruarm   shmra1 shmra2 shmra3
+linear 0 1 bendto mrhand  mrwrist  mrlarm  0 0 0
+repeat 0 1 angles mrhand  mrlarm   shmrh1 shmrh2 shmrh3
+*
+linear 0 1 abduct wluarm  wlshldr      90
+repeat 0 1 angles wluarm  wshldrs  shwlu1 shwlu2 shwlu3
+linear 0 1 flex   wllarm  wlelbow      10
+linear 0 1 rotate wllarm  wlelbow      90 
+repeat 0 1 angles wllarm  wluarm   shwla1 shwla2 shwla3
+linear 0 1 bendto wlhand  wlwrist  wllarm  0 0 0
+repeat 0 1 angles wlhand  wllarm   shwlh1 shwlh2 shwlh3
+*
+linear 0 1 abduct wruarm  wrshldr      90
+linear 0 1 rotate wruarm  wrshldr     -90
+repeat 0 1 angles wruarm  wshldrs  shwru1 shwru2 shwru3
+linear 0 1 flex   wrlarm  wrelbow      30
+linear 0 1 rotate wrlarm  wrelbow     180 
+repeat 0 1 angles wrlarm  wruarm   shwra1 shwra2 shwra3
+linear 0 1 bendto wrhand  wrwrist  wrlarm  0 0 0
+repeat 0 1 angles wrhand  wrlarm   shwrh1 shwrh2 shwrh3
+*
+repeat 0 1 axes   mpelvis kx ky kz
+repeat 0 1 axes   wpelvis jx jy jz
+linear 0 1 multip shxsepn jx 1.8
+linear 0 1 add    shzsepn jz kz
+*
+repeat 0 1 ground man
+repeat 0 1 ground woman
+*
+end shset
+***********************************************
+*
+subroutine ssset
+*
+*  set arm angles for semi-shadow hold -
+*
+call   0 1 zero
+linear 0 1 abduct mluarm  mlshldr   70
+repeat 0 1 angles mluarm  mshldrs ssmlu1 ssmlu2 ssmlu3
+linear 0 1 flex   mllarm  mlelbow   60
+repeat 0 1 angles mllarm  mluarm  ssmla1 ssmla2 ssmla3
+linear 0 1 flex   mlhand  mlwrist   25
+linear 0 1 rotate mlhand  mlwrist  -45
+repeat 0 1 angles mlhand  mllarm  ssmlh1 ssmlh2 ssmlh3
+*
+linear 0 1 flex   mruarm  mrshldr   20
+linear 0 1 rotate mruarm  mrshldr   60
+linear 0 1 abduct mruarm  mrshldr   40
+repeat 0 1 angles mruarm  mshldrs ssmru1 ssmru2 ssmru3
+linear 0 1 flex   mrlarm  mrelbow   30
+repeat 0 1 angles mrlarm  mruarm  ssmra1 ssmra2 ssmra3
+linear 0 1 flex   mrhand  mrwrist   50
+repeat 0 1 angles mrhand  mrlarm  ssmrh1 ssmrh2 ssmrh3
+*
+linear 0 1 abduct wluarm  wlshldr   90
+linear 0 1 bendby wluarm  wlshldr wshldrs 10 y
+repeat 0 1 angles wluarm  wshldrs sswlu1 sswlu2 sswlu3
+linear 0 1 flex   wllarm  wlelbow    5
+repeat 0 1 angles wllarm  wluarm  sswla1 sswla2 sswla3
+linear 0 1 rotate wlhand  wlwrist   45
+repeat 0 1 angles wlhand  wllarm  sswlh1 sswlh2 sswlh3
+*
+linear 0 1 flex   wruarm  wrshldr   30
+linear 0 1 abduct wruarm  wrshldr   60
+linear 0 1 rotate wruarm  wrshldr   90
+repeat 0 1 angles wruarm  wshldrs sswru1 sswru2 sswru3
+linear 0 1 flex   wrlarm  wrelbow +105
+repeat 0 1 angles wrlarm  wruarm  sswra1 sswra2 sswra3
+linear 0 1 flex   wrhand  wrwrist   30
+linear 0 1 rotate wrhand  wrwrist   30
+repeat 0 1 angles wrhand  wrlarm  sswrh1 sswrh2 sswrh3
+*
+repeat 0 1 axes   mpelvis mx my mz
+repeat 0 1 axes   wpelvis wx wy wz
+linear 0 1 add    sszsepn mz wz
+linear 0 1 multip ssxsepn wx 1.5
+*
+repeat 0 1 ground man
+repeat 0 1 ground woman
+*
+end ssset
+***********************************************
+*
+subroutine clposn
+*
+*   put into closed hold -
+*
+variable 1 fp3o4
+repeat    0    1 mult fp3o4 fpos 0.75
+linear    0 fpos bendto mluarm   mlshldr mshldrs clmlu1 clmlu2 clmlu3
+linear    0 fpos bendto mllarm   mlelbow mluarm  clmla1 clmla2 clmla3
+linear    0 fpos bendto mlhand   mlwrist mllarm  clmlh1 clmlh2 clmlh3
+*
+linear    0 fp3o4 bendto mruarm   mrshldr mshldrs clmru1 clmru2 clmru3
+linear fp3o4 fpos bendto mrlarm   mrelbow mruarm  clmra1 clmra2 clmra3
+linear fp3o4 fpos bendto mrhand   mrwrist mrlarm  clmrh1 clmrh2 clmrh3
+*
+linear    0 fpos bendto mneck    mspine  mshldrs clmn1  clmn2  clmn3
+linear    0 fpos bendto mstomach mwaist  mpelvis clms1  clms2  clms3
+*
+linear    0 fpos bendto wluarm   wlshldr wshldrs clwlu1 clwlu2 clwlu3
+linear    0 fpos bendto wllarm   wlelbow wluarm  clwla1 clwla2 clwla3
+linear    0 fpos bendto wlhand   wlwrist wllarm  clwlh1 clwlh2 clwlh3
+*
+linear    0 fpos bendto wruarm   wrshldr wshldrs clwru1 clwru2 clwru3
+linear    0 fpos bendto wrlarm   wrelbow wruarm  clwra1 clwra2 clwra3
+linear    0 fpos bendto wrhand   wrwrist wrlarm  clwrh1 clwrh2 clwrh3
+*
+linear    0 fpos bendto wneck    wspine  wshldrs clwn1  clwn2  clwn3
+linear    0 fpos bendto wstomach wwaist  wpelvis clws1  clws2  clws3
+*
+repeat    0 fpos centre mpelvis  kx ky kz
+repeat    0 fpos moveto wpos     wcen kx ky kz
+repeat    0 fpos moveby wpos     mpelvis clxsepn 0 clzsepn
+repeat    0 fpos centre wcen     jx jy jz
+linear    0 fpos moveto woman    wpelvis jx jy jz
+*
+repeat    0 fpos ground man
+repeat    0 fpos ground woman
+*
+end clposn
+**********************************************
+*
+subroutine coposn
+*
+*   put into counter open extended hold -
+*
+repeat  0 fpos centre mlhand   kx ky kz
+linear  0 fpos moveto woman    wrhand kx ky kz
+*
+repeat  0 fpos ground man
+repeat  0 fpos ground woman
+*
+end coposn
+**********************************************
+*
+subroutine noposn
+*
+*   called by zero
+*
+linear 0 fpos bendto mneck    mspine  mshldrs  0 0 0
+linear 0 fpos bendto mhead    mthroat mneck    0 0 0
+linear 0 fpos bendto mchest   mribs   mstomach 0 0 0
+linear 0 fpos bendto mstomach mwaist  mpelvis  0 0 0
+*
+linear 0 fpos bendto wneck    wspine  wshldrs  0 0 0
+linear 0 fpos bendto whead    wthroat wneck    0 0 0
+linear 0 fpos bendto wchest   wribs   wstomach 0 0 0
+linear 0 fpos bendto wstomach wwaist  wpelvis  0 0 0
+*
+end noposn
+********************************************
+*
+subroutine oeposn
+*
+*   put into open extended hold -
+*
+repeat  0 fpos centre mrhand   kx ky kz
+linear  0 fpos moveto woman    wlhand kx ky kz
+*
+repeat  0 fpos ground man
+repeat  0 fpos ground woman
+*
+linear  0 fpos touch  wlhand  mrhand   wluarm wshldrs wlshldr z
+*
+end oeposn
+**********************************************
+*
+subroutine prposn
+*
+*   put into promenade hold -
+*
+linear  0 fpos bendto mluarm   mlshldr mshldrs prmlu1 prmlu2 prmlu3
+linear  0 fpos bendto mllarm   mlelbow mluarm  prmla1 prmla2 prmla3
+linear  0 fpos bendto mlhand   mlwrist mllarm  prmlh1 prmlh2 prmlh3
+*
+linear  0 fpos bendto mruarm   mrshldr mshldrs prmru1 prmru2 prmru3
+linear  0 fpos bendto mrlarm   mrelbow mruarm  prmra1 prmra2 prmra3
+linear  0 fpos bendto mrhand   mrwrist mrlarm  prmrh1 prmrh2 prmrh3
+*
+linear  0 fpos bendto mneck    mspine  mshldrs prmn1  prmn2  prmn3
+linear  0 fpos bendto mstomach mwaist  mpelvis prms1  prms2  prms3
+*
+linear  0 fpos bendto wluarm   wlshldr wshldrs prwlu1 prwlu2 prwlu3
+linear  0 fpos bendto wllarm   wlelbow wluarm  prwla1 prwla2 prwla3
+linear  0 fpos bendto wlhand   wlwrist wllarm  prwlh1 prwlh2 prwlh3
+*
+linear  0 fpos bendto wruarm   wrshldr wshldrs prwru1 prwru2 prwru3
+linear  0 fpos bendto wrlarm   wrelbow wruarm  prwra1 prwra2 prwra3
+linear  0 fpos bendto wrhand   wrwrist wrlarm  prwrh1 prwrh2 prwrh3
+*
+linear  0 fpos bendto wneck    wspine  wshldrs prwn1  prwn2  prwn3
+linear  0 fpos bendto wstomach wwaist  wpelvis prws1  prws2  prws3
+*
+repeat  0 fpos centre mpelvis  kx ky kz
+repeat  0 fpos moveto wpos     wcen kx ky kz
+repeat  0 fpos moveby wpos     mpelvis prxsepn 0 przsepn
+repeat  0 fpos centre wcen     jx jy jz
+linear  0 fpos moveto woman    wpelvis jx jy jz
+*
+repeat  0 fpos ground man
+repeat  0 fpos ground woman
+*
+end prposn
+**********************************************
+*
+subroutine shposn
+*
+linear  0 fpos bendto mluarm   mlshldr mshldrs shmlu1 shmlu2 shmlu3
+linear  0 fpos bendto mllarm   mlelbow mluarm  shmla1 shmla2 shmla3
+linear  0 fpos bendto mlhand   mlwrist mllarm  shmlh1 shmlh2 shmlh3
+*
+linear  0 fpos bendto mruarm   mrshldr mshldrs shmru1 shmru2 shmru3
+linear  0 fpos bendto mrlarm   mrelbow mruarm  shmra1 shmra2 shmra3
+linear  0 fpos bendto mrhand   mrwrist mrlarm  shmrh1 shmrh2 shmrh3
+*
+linear  0 fpos bendto wluarm   wlshldr wshldrs shwlu1 shwlu2 shwlu3
+linear  0 fpos bendto wllarm   wlelbow wluarm  shwla1 shwla2 shwla3
+linear  0 fpos bendto wlhand   wlwrist wllarm  shwlh1 shwlh2 shwlh3
+*
+linear  0 fpos bendto wruarm   wrshldr wshldrs shwru1 shwru2 shwru3
+linear  0 fpos bendto wrlarm   wrelbow wruarm  shwra1 shwra2 shwra3
+linear  0 fpos bendto wrhand   wrwrist wrlarm  shwrh1 shwrh2 shwrh3
+*
+repeat  0 fpos centre mpelvis  kx ky kz
+repeat  0 fpos moveto wpos     wcen kx ky kz
+repeat  0 fpos moveby wpos     mpelvis shxsepn 0 shzsepn
+repeat  0 fpos centre wcen     jx jy jz
+linear  0 fpos moveto woman    wpelvis jx jy jz
+*
+*repeat  0 fpos abut   wpelvis mpelvis mpelvis z
+*
+repeat  0 fpos ground man
+repeat  0 fpos ground woman
+*
+end shposn
+**********************************************
+*
+subroutine ssposn
+*
+*   put into semi-shadow hold -
+*
+linear  0 fpos bendto mluarm   mlshldr mshldrs ssmlu1 ssmlu2 ssmlu3
+linear  0 fpos bendto mllarm   mlelbow mluarm  ssmla1 ssmla2 ssmla3
+linear  0 fpos bendto mlhand   mlwrist mllarm  ssmlh1 ssmlh2 ssmlh3
+*
+linear  0 fpos bendto mruarm   mrshldr mshldrs ssmru1 ssmru2 ssmru3
+linear  0 fpos bendto mrlarm   mrelbow mruarm  ssmra1 ssmra2 ssmra3
+linear  0 fpos bendto mrhand   mrwrist mrlarm  ssmrh1 ssmrh2 ssmrh3
+*
+linear  0 fpos bendto wluarm   wlshldr wshldrs sswlu1 sswlu2 sswlu3
+linear  0 fpos bendto wllarm   wlelbow wluarm  sswla1 sswla2 sswla3
+linear  0 fpos bendto wlhand   wlwrist wllarm  sswlh1 sswlh2 sswlh3
+*
+linear  0 fpos bendto wruarm   wrshldr wshldrs sswru1 sswru2 sswru3
+linear  0 fpos bendto wrlarm   wrelbow wruarm  sswra1 sswra2 sswra3
+linear  0 fpos bendto wrhand   wrwrist wrlarm  sswrh1 sswrh2 sswrh3
+*
+repeat  0 fpos centre mpelvis  kx ky kz
+repeat  0 fpos moveto wpos     wcen kx ky kz
+repeat  0 fpos moveby wpos     mpelvis ssxsepn 0 sszsepn
+repeat  0 fpos centre wcen     jx jy jz
+linear  0 fpos moveto woman    wpelvis jx jy jz
+*
+repeat  0 fpos ground man
+repeat  0 fpos ground woman
+*
+end ssposn
+**********************************************
+*
+subroutine clkeep
+*
+*   keep in closed hold
+*
+linear  0 1 bendto mluarm   mlshldr mshldrs clmlu1 clmlu2 clmlu3
+linear  0 1 bendto mllarm   mlelbow mluarm  clmla1 clmla2 clmla3
+linear  0 1 bendto mlhand   mlwrist mllarm  clmlh1 clmlh2 clmlh3
+*
+linear  0 1 bendto mruarm   mrshldr mshldrs clmru1 clmru2 clmru3
+linear  0 1 bendto mrlarm   mrelbow mruarm  clmra1 clmra2 clmra3
+linear  0 1 bendto mrhand   mrwrist mrlarm  clmrh1 clmrh2 clmrh3
+*
+linear  0 1 bendto mneck    mspine  mshldrs clmn1  clmn2  clmn3
+linear  0 1 bendto mstomach mwaist  mpelvis clms1  clms2  clms3
+*
+linear  0 1 bendto wluarm   wlshldr wshldrs clwlu1 clwlu2 clwlu3
+linear  0 1 bendto wllarm   wlelbow wluarm  clwla1 clwla2 clwla3
+linear  0 1 bendto wlhand   wlwrist wllarm  clwlh1 clwlh2 clwlh3
+*
+linear  0 1 bendto wruarm   wrshldr wshldrs clwru1 clwru2 clwru3
+linear  0 1 bendto wrlarm   wrelbow wruarm  clwra1 clwra2 clwra3
+linear  0 1 bendto wrhand   wrwrist wrlarm  clwrh1 clwrh2 clwrh3
+*
+linear  0 1 bendto wneck    wspine  wshldrs clwn1  clwn2  clwn3
+linear  0 1 bendto wstomach wwaist  wpelvis clws1  clws2  clws3
+*
+repeat  0 1 centre mpelvis kx ky kz
+repeat  0 1 moveto wpos    wcen kx ky kz
+repeat  0 1 moveby wpos    mpelvis clxsepn 0 clzsepn
+repeat  0 1 centre wcen    jx jy jz
+linear  0 1 moveto woman   wpelvis jx jy jz
+*
+repeat 0 1 ground man
+repeat 0 1 ground woman
+* 
+repeat 0 1 touch  mlhand  wrhand   mllarm mluarm mlelbow x
+*
+end clkeep
+**************************************************
+*
+subroutine cokeep
+*
+*   keep in counter open extended hold -
+*
+repeat  0    1 centre mlhand  kx ky kz
+linear  0    1 moveto woman   wrhand kx ky kz
+*
+repeat  0    1 ground man
+repeat  0    1 ground woman
+*
+end cokeep
+**********************************************
+*
+subroutine nokeep
+*
+linear 0 1 bendto mneck    mspine   mshldrs  0 0 0
+linear 0 1 bendto mhead    mthroat  mneck    0 0 0
+linear 0 1 bendto mstomach mwaist   mpelvis  0 0 0
+linear 0 1 bendto wneck    wspine   wshldrs  0 0 0
+linear 0 1 bendto whead    wthroat  wneck    0 0 0
+linear 0 1 bendto wstomach wwaist   wpelvis  0 0 0
+*
+end nokeep
+**********************************************
+*
+subroutine oekeep
+*
+*   keep in open extended hold -
+*
+repeat  0    1 centre mrhand  kx ky kz
+linear  0    1 moveto woman   wlhand kx ky kz
+*
+repeat  0    1 ground man
+repeat  0    1 ground woman
+*
+repeat  0    1 touch  wlhand  mrhand  wluarm wshldrs wlshldr z
+*
+end oekeep
+**********************************************
+*
+subroutine prkeep
+*
+*   keep in promenade hold
+*
+linear  0 1 bendto mluarm   mlshldr mshldrs prmlu1 prmlu2 prmlu3
+linear  0 1 bendto mllarm   mlelbow mluarm  prmla1 prmla2 prmla3
+linear  0 1 bendto mlhand   mlwrist mllarm  prmlh1 prmlh2 prmlh3
+*
+linear  0 1 bendto mruarm   mrshldr mshldrs prmru1 prmru2 prmru3
+linear  0 1 bendto mrlarm   mrelbow mruarm  prmra1 prmra2 prmra3
+linear  0 1 bendto mrhand   mrwrist mrlarm  prmrh1 prmrh2 prmrh3
+*
+linear  0 1 bendto mneck    mspine  mshldrs prmn1  prmn2  prmn3
+linear  0 1 bendto mstomach mwaist  mpelvis prms1  prms2  prms3
+*
+linear  0 1 bendto wluarm   wlshldr wshldrs prwlu1 prwlu2 prwlu3
+linear  0 1 bendto wllarm   wlelbow wluarm  prwla1 prwla2 prwla3
+linear  0 1 bendto wlhand   wlwrist wllarm  prwlh1 prwlh2 prwlh3
+*
+linear  0 1 bendto wruarm   wrshldr wshldrs prwru1 prwru2 prwru3
+linear  0 1 bendto wrlarm   wrelbow wruarm  prwra1 prwra2 prwra3
+linear  0 1 bendto wrhand   wrwrist wrlarm  prwrh1 prwrh2 prwrh3
+*
+linear  0 1 bendto wneck    wspine  wshldrs prwn1  prwn2  prwn3
+linear  0 1 bendto wstomach wwaist  wpelvis prws1  prws2  prws3
+*
+repeat  0 1 centre mpelvis kx ky kz
+repeat  0 1 moveto wpos    wcen kx ky kz
+repeat  0 1 moveby wpos    mpelvis prxsepn 0 przsepn
+repeat  0 1 centre wcen    jx jy jz
+linear  0 1 moveto woman   wpelvis jx jy jz
+*
+repeat  0 1 ground man
+repeat  0 1 ground woman
+* 
+repeat 0 1 touch  mlhand  wrhand   mllarm mluarm mlelbow x
+repeat 0 1 touch  wlhand  mruarm   wllarm wluarm wlelbow y
+*
+end prkeep
+**************************************************
+*
+subroutine shkeep
+*
+*   keep in shadow hold -
+*
+linear  0    1 bendto mluarm  mlshldr mshldrs shmlu1 shmlu2 shmlu3
+linear  0    1 bendto mllarm  mlelbow mluarm  shmla1 shmla2 shmla3
+linear  0    1 bendto mlhand  mlwrist mllarm  shmlh1 shmlh2 shmlh3
+*
+linear  0    1 bendto mruarm  mrshldr mshldrs shmru1 shmru2 shmru3
+linear  0    1 bendto mrlarm  mrelbow mruarm  shmra1 shmra2 shmra3
+linear  0    1 bendto mrhand  mrwrist mrlarm  shmrh1 shmrh2 shmrh3
+*
+linear  0    1 bendto wluarm  wlshldr wshldrs shwlu1 shwlu2 shwlu3
+linear  0    1 bendto wllarm  wlelbow wluarm  shwla1 shwla2 shwla3
+linear  0    1 bendto wlhand  wlwrist wllarm  shwlh1 shwlh2 shwlh3
+*
+linear  0    1 bendto wruarm  wrshldr wshldrs shwru1 shwru2 shwru3
+linear  0    1 bendto wrlarm  wrelbow wruarm  shwra1 shwra2 shwra3
+linear  0    1 bendto wrhand  wrwrist wrlarm  shwrh1 shwrh2 shwrh3
+*
+repeat  0    1 centre mpelvis kx ky kz
+repeat  0    1 moveto wpos    wcen kx ky kz
+repeat  0    1 moveby wpos    mpelvis shxsepn 0 shzsepn
+repeat  0    1 centre wcen    jx jy jz
+linear  0    1 moveto woman   wpelvis jx jy jz
+*
+*repeat 0 1 touch  wlhand  mlhand   wluarm wshldrs wlshldr z
+*repeat 0 1 touch  wrlarm  mrhand   wruarm wshldrs wrshldr z
+*
+repeat  0    1 ground man
+repeat  0    1 ground woman
+*
+end shkeep
+**********************************************
+*
+subroutine sskeep
+*
+*   keep in semi-shadow hold
+*
+repeat 0 1 centre mpelvis  kx ky kz
+repeat 0 1 moveto woman    wpelvis kx ky kz
+repeat 0 1 moveby woman    wpelvis ssxsepn 0 sszsepn
+*repeat 0 1 abut   wpelvis  mpelvis mpelvis z
+repeat 0 1 ground man
+repeat 0 1 ground woman
+* 
+*repeat 0 1 touch  mrhand  wpelvis mruarm mshldrs mrshldr x
+*repeat 0 1 touch  wrhand  mrhand  wruarm wshldrs wrshldr x
+*repeat 0 1 touch  wlhand  mlhand  wluarm wshldrs wlshldr y
+*
+end sskeep
+**************************************************
+*
+subroutine forright
+*
+*   for a forward right step
+*        l=a, r=b
+*
+linear 0 1 set apelvis pelvis
+linear 0 1 set afoot   lfoot
+linear 0 1 set bfoot   rfoot
+linear 0 1 set aleg    lleg
+linear 0 1 set bleg    rleg
+linear 0 1 set athigh  lthigh
+linear 0 1 set bthigh  rthigh
+linear 0 1 set auarm   luarm
+linear 0 1 set buarm   ruarm
+linear 0 1 set ashldrs shldrs
+linear 0 1 set aankle  lankle
+linear 0 1 set bankle  rankle
+linear 0 1 set aknee   lknee
+linear 0 1 set bknee   rknee
+linear 0 1 set ahip    lhip
+linear 0 1 set bhip    rhip
+linear 0 1 set ashldr  lshldr
+linear 0 1 set bshldr  rshldr
+*
+end forright
+**********************************************
+*
+subroutine forleft
+*
+*   for a forward left step
+*        l=b, r=a
+*
+linear 0 1 set apelvis pelvis
+linear 0 1 set afoot   rfoot
+linear 0 1 set bfoot   lfoot
+linear 0 1 set aleg    rleg
+linear 0 1 set bleg    lleg
+linear 0 1 set athigh  rthigh
+linear 0 1 set bthigh  lthigh
+linear 0 1 set auarm   ruarm
+linear 0 1 set buarm   luarm
+linear 0 1 set ashldrs shldrs
+linear 0 1 set aankle  rankle
+linear 0 1 set bankle  lankle
+linear 0 1 set aknee   rknee
+linear 0 1 set bknee   lknee
+linear 0 1 set ahip    rhip
+linear 0 1 set bhip    lhip
+linear 0 1 set ashldr  rshldr
+linear 0 1 set bshldr  lshldr
+*
+end forleft
+**********************************************
+*
+subroutine doman
+*
+repeat 0 1 set fig     man
+repeat 0 1 set pelvis  mpelvis
+repeat 0 1 set rfoot   mrfoot
+repeat 0 1 set lfoot   mlfoot
+repeat 0 1 set rleg    mrleg
+repeat 0 1 set lleg    mlleg
+repeat 0 1 set rthigh  mrthigh
+repeat 0 1 set lthigh  mlthigh
+repeat 0 1 set rhand   mrhand
+repeat 0 1 set lhand   mlhand
+repeat 0 1 set rlarm   mrlarm
+repeat 0 1 set llarm   mllarm
+repeat 0 1 set ruarm   mruarm
+repeat 0 1 set luarm   mluarm
+repeat 0 1 set rankle  mrankle
+repeat 0 1 set lankle  mlankle
+repeat 0 1 set rknee   mrknee
+repeat 0 1 set lknee   mlknee
+repeat 0 1 set rhip    mrhip
+repeat 0 1 set lhip    mlhip
+repeat 0 1 set rwrist  mrwrist
+repeat 0 1 set lwrist  mlwrist
+repeat 0 1 set relbow  mrelbow
+repeat 0 1 set lelbow  mlelbow
+repeat 0 1 set rshldr  mrshldr
+repeat 0 1 set lshldr  mlshldr
+repeat 0 1 set shldrs  mshldrs
+repeat 0 1 set neck    mneck
+repeat 0 1 set spine   mspine
+repeat 0 1 set head    mhead
+repeat 0 1 set throat  mthroat
+repeat 0 1 set chest   mchest
+repeat 0 1 set waist   mwaist
+repeat 0 1 set stomach mstomach
+repeat 0 1 set ribs    mribs
+*
+repeat 0 1 set tlow1   mtlow1
+repeat 0 1 set tlow2   mtlow2
+repeat 0 1 set tlow3   mtlow3  
+repeat 0 1 set trlx1   mtrlx1
+repeat 0 1 set trlx2   mtrlx2
+repeat 0 1 set trlx3   mtrlx3 
+repeat 0 1 set tmed1   mtmed1
+repeat 0 1 set tmed2   mtmed2
+repeat 0 1 set tmed3   mtmed3 
+repeat 0 1 set thig1   mthig1
+repeat 0 1 set thig2   mthig2
+repeat 0 1 set thig3   mthig3 
+repeat 0 1 set tfor1   mtfor1
+repeat 0 1 set tfor2   mtfor2
+repeat 0 1 set tfor3   mtfor3 
+repeat 0 1 set tbac1   mtbac1
+repeat 0 1 set tbac2   mtbac2
+repeat 0 1 set tbac3   mtbac3  
+repeat 0 1 set tcls1   mtcls1
+repeat 0 1 set tcls2   mtcls2
+repeat 0 1 set tcls3   mtcls3  
+repeat 0 1 set tlef1   mtlef1
+repeat 0 1 set tlef2   mtlef2
+repeat 0 1 set tlef3   mtlef3  
+repeat 0 1 set trig1   mtrig1
+repeat 0 1 set trig2   mtrig2
+repeat 0 1 set trig3   mtrig3  
+*
+repeat 0 1 set lvlo1   mlvlo1
+repeat 0 1 set lvlo2   mlvlo2
+repeat 0 1 set lvlo3   mlvlo3
+repeat 0 1 set llow1   mllow1
+repeat 0 1 set llow2   mllow2
+repeat 0 1 set llow3   mllow3  
+repeat 0 1 set lrlx1   mlrlx1
+repeat 0 1 set lrlx2   mlrlx2
+repeat 0 1 set lrlx3   mlrlx3  
+repeat 0 1 set lmed1   mlmed1
+repeat 0 1 set lmed2   mlmed2
+repeat 0 1 set lmed3   mlmed3  
+repeat 0 1 set lhig1   mlhig1
+repeat 0 1 set lhig2   mlhig2
+repeat 0 1 set lhig3   mlhig3  
+repeat 0 1 set lcls1   mlcls1
+repeat 0 1 set lcls2   mlcls2
+repeat 0 1 set lcls3   mlcls3
+repeat 0 1 set lbac1   mlbac1
+repeat 0 1 set lbac2   mlbac2
+repeat 0 1 set lbac3   mlbac3   
+* 
+repeat 0 1 set fhig1   mfhig1
+repeat 0 1 set fhig2   mfhig2
+repeat 0 1 set fhig3   mfhig3
+repeat 0 1 set fmed1   mfmed1
+repeat 0 1 set fmed2   mfmed2
+repeat 0 1 set fmed3   mfmed3
+repeat 0 1 set frlx1   mfrlx1
+repeat 0 1 set frlx2   mfrlx2
+repeat 0 1 set frlx3   mfrlx3
+repeat 0 1 set flow1   mflow1
+repeat 0 1 set flow2   mflow2
+repeat 0 1 set flow3   mflow3
+repeat 0 1 set fvlo1   mfvlo1
+repeat 0 1 set fvlo2   mfvlo2
+repeat 0 1 set fvlo3   mfvlo3
+repeat 0 1 set fang    mang
+*
+end doman
+**********************************************
+*
+subroutine dowoman
+*
+repeat 0 1 set fig     woman
+repeat 0 1 set pelvis  wpelvis
+repeat 0 1 set rfoot   wrfoot
+repeat 0 1 set lfoot   wlfoot
+repeat 0 1 set rleg    wrleg
+repeat 0 1 set lleg    wlleg
+repeat 0 1 set rthigh  wrthigh
+repeat 0 1 set lthigh  wlthigh
+repeat 0 1 set rhand   wrhand
+repeat 0 1 set lhand   wlhand
+repeat 0 1 set rlarm   wrlarm
+repeat 0 1 set llarm   wllarm
+repeat 0 1 set ruarm   wruarm
+repeat 0 1 set luarm   wluarm
+repeat 0 1 set rankle  wrankle
+repeat 0 1 set lankle  wlankle
+repeat 0 1 set rknee   wrknee
+repeat 0 1 set lknee   wlknee
+repeat 0 1 set rhip    wrhip
+repeat 0 1 set lhip    wlhip
+repeat 0 1 set rwrist  wrwrist
+repeat 0 1 set lwrist  wlwrist
+repeat 0 1 set relbow  wrelbow
+repeat 0 1 set lelbow  wlelbow
+repeat 0 1 set rshldr  wrshldr
+repeat 0 1 set lshldr  wlshldr
+repeat 0 1 set shldrs  wshldrs
+repeat 0 1 set neck    wneck
+repeat 0 1 set spine   wspine
+repeat 0 1 set head    whead
+repeat 0 1 set throat  wthroat
+repeat 0 1 set chest   wchest
+repeat 0 1 set waist   wwaist
+repeat 0 1 set stomach wstomach
+repeat 0 1 set ribs    wribs
+*
+repeat 0 1 set tlow1   wtlow1
+repeat 0 1 set tlow2   wtlow2
+repeat 0 1 set tlow3   wtlow3  
+repeat 0 1 set trlx1   wtrlx1
+repeat 0 1 set trlx2   wtrlx2
+repeat 0 1 set trlx3   wtrlx3 
+repeat 0 1 set tmed1   wtmed1
+repeat 0 1 set tmed2   wtmed2
+repeat 0 1 set tmed3   wtmed3 
+repeat 0 1 set thig1   wthig1
+repeat 0 1 set thig2   wthig2
+repeat 0 1 set thig3   wthig3 
+repeat 0 1 set tfor1   wtfor1
+repeat 0 1 set tfor2   wtfor2
+repeat 0 1 set tfor3   wtfor3 
+repeat 0 1 set tbac1   wtbac1
+repeat 0 1 set tbac2   wtbac2
+repeat 0 1 set tbac3   wtbac3  
+repeat 0 1 set tcls1   wtcls1
+repeat 0 1 set tcls2   wtcls2
+repeat 0 1 set tcls3   wtcls3  
+repeat 0 1 set tlef1   wtlef1
+repeat 0 1 set tlef2   wtlef2
+repeat 0 1 set tlef3   wtlef3  
+repeat 0 1 set trig1   wtrig1
+repeat 0 1 set trig2   wtrig2
+repeat 0 1 set trig3   wtrig3  
+*
+repeat 0 1 set lvlo1   wlvlo1
+repeat 0 1 set lvlo2   wlvlo2
+repeat 0 1 set lvlo3   wlvlo3
+repeat 0 1 set llow1   wllow1
+repeat 0 1 set llow2   wllow2
+repeat 0 1 set llow3   wllow3  
+repeat 0 1 set lrlx1   wlrlx1
+repeat 0 1 set lrlx2   wlrlx2
+repeat 0 1 set lrlx3   wlrlx3  
+repeat 0 1 set lmed1   wlmed1
+repeat 0 1 set lmed2   wlmed2
+repeat 0 1 set lmed3   wlmed3  
+repeat 0 1 set lhig1   wlhig1
+repeat 0 1 set lhig2   wlhig2
+repeat 0 1 set lhig3   wlhig3  
+repeat 0 1 set lcls1   wlcls1
+repeat 0 1 set lcls2   wlcls2
+repeat 0 1 set lcls3   wlcls3 
+repeat 0 1 set lbac1   wlbac1
+repeat 0 1 set lbac2   wlbac2
+repeat 0 1 set lbac3   wlbac3  
+* 
+repeat 0 1 set fhig1   wfhig1
+repeat 0 1 set fhig2   wfhig2
+repeat 0 1 set fhig3   wfhig3
+repeat 0 1 set fmed1   wfmed1
+repeat 0 1 set fmed2   wfmed2
+repeat 0 1 set fmed3   wfmed3
+repeat 0 1 set frlx1   wfrlx1
+repeat 0 1 set frlx2   wfrlx2
+repeat 0 1 set frlx3   wfrlx3
+repeat 0 1 set flow1   wflow1
+repeat 0 1 set flow2   wflow2
+repeat 0 1 set flow3   wflow3
+repeat 0 1 set fvlo1   wfvlo1
+repeat 0 1 set fvlo2   wfvlo2
+repeat 0 1 set fvlo3   wfvlo3
+repeat 0 1 set fang    wang
+*
+end dowoman
+**********************************
+*
+subroutine forward
+*
+* stepping forward with bfoot
+*
+repeat    0     fend   centre afoot         fx fy fz
+quadratic 0     fend   bendto athigh ahip   coords tbac1 tbac2 tbac3
+quadratic 0     fend   bendto aleg   aknee  athigh lbac1 lbac2 lbac3
+quadratic 0     fo2    bendto afoot  aankle aleg   flow1 flow2 flow3
+quadratic 0     fend   bendto bthigh bhip   coords tcls1 tcls2 tcls3
+quadratic 0     fo2    bendto bleg   bknee  bthigh lcls1 lcls2 lcls3
+quadratic 0     fo2    bendto bfoot  bankle bleg   fcls1 fcls2 fcls3
+repeat    fo2   fend   drag   afoot  afoot  aankle aleg  x
+repeat    0     fend   moveto fig    afoot  fx fy fz
+*
+end forward
+***************************************
+*
+subroutine back
+*
+*  stepping back with bfoot
+*
+repeat    0     1      add fb1 f3o8 1
+repeat    0     f3o8   centre afoot  fx fy fz
+linear    0     fo2    bendto athigh ahip   coords tcls1 tcls2 tcls3
+**linear    0     fo2    bendto aleg   aknee  athigh lcls1 lcls2 lcls3
+linear    0     fo2    bendto aleg   aknee  athigh 0 0 0
+linear    0     fo2    bendto afoot  aankle aleg   fmed1 fmed2 fmed3
+decele    0     fo2    bendto bthigh bhip   coords 0 180 30
+decele    0     fo4    bendto bleg   bknee  bthigh lcls1 lcls2 lcls3
+linear    fo4   fo2    bendto bleg   bknee  bthigh 0 0 0
+linear    fo4   f3o8   bendto bfoot  bankle bleg   fhig1 fhig2 fhig3
+linear    f3o8  fo2    bendto bfoot  bankle bleg   fcls1 fcls2 fcls3
+repeat    0     f3o8   moveto fig    afoot  fx fy fz
+repeat    f3o8  fend   centre bfoot  fx fy fz
+**linear    fo2   fend   bendto athigh ahip   coords 0 0 30
+linear    fo2   fend   bendto athigh ahip   coords tcls1 tcls2 tcls3
+**linear    fo4   f3o4   bendto aleg   aknee  athigh 0 0 0
+linear    fo4   f3o4   bendto aleg   aknee  athigh lcls1 lcls2 lcls3
+linear    fo2   fend   bendto bthigh bhip   coords tcls1 tcls2 tcls3
+linear    fo2   fend   bendto bleg   bknee  bthigh lcls1 lcls2 lcls3
+repeat    f3o8  fend   moveto fig    bfoot  fx fy fz
+*
+end back
+********************************************************
+*
+subroutine lside
+*
+* stepping left with bfoot
+*
+repeat     0   fend   centre afoot         fx fy fz
+linear     0   fend   bendto athigh ahip   coords 0 270 30
+linear     0   fend   bendto bthigh bhip   coords tcls1 tcls2 tcls3
+linear     0   fend   bendto aleg   aknee  athigh 0 0 0
+linear     0   fend   bendto bleg   bknee  bthigh lcls1 lcls2 lcls3
+linear     0   fo2    bendto bfoot  bankle bleg   fcls1 fcls2 fcls3
+linear     0   fo2    bendto afoot  aankle aleg   fcls1 fcls2 fcls3
+repeat     fo2 fend   drag   afoot  afoot  aankle aleg  x
+repeat     0   fend   moveto fig    afoot  fx fy fz
+*
+end lside
+***************************************************
+*
+subroutine rside
+*
+* stepping right with bfoot
+*
+repeat     0  fend   centre afoot         fx fy fz
+linear     0  fend   bendto athigh ahip   coords 0  90 30
+linear     0   fend   bendto bthigh bhip   coords tcls1 tcls2 tcls3
+linear     0   fend   bendto aleg   aknee  athigh 0 0 0
+linear     0   fend   bendto bleg   bknee  bthigh lcls1 lcls2 lcls3
+linear     0   fo2    bendto bfoot  bankle bleg   fcls1 fcls2 fcls3
+linear     0   fo2    bendto afoot  aankle aleg   fcls1 fcls2 fcls3
+repeat     fo2 fend   drag   afoot  afoot  aankle aleg  x
+repeat     0   fend   moveto fig    afoot  fx fy fz
+*
+end rside
+***************************************************
+*
+subroutine lfordiag
+*
+repeat    0   fo2    centre afoot  fx fy fz
+linear    0   fo2    bendto athigh ahip   coords tcls1 tcls2 tcls3
+linear    0   fo2    bendto aleg   aknee  athigh lcls1 lcls2 lcls3
+linear    0   fo2    bendto afoot  aankle aleg   fcls1 fcls2 fcls3
+linear    0   fo2    bendto bthigh bhip   coords 0  45 30
+linear    0   fo2    bendto bleg   bknee  bthigh 0 0 0
+linear    0   fo2    bendto bfoot  bankle bleg   fcls1 fcls2 fcls3
+repeat  0   fo2    moveto fig    afoot  fx fy fz
+repeat  fo2 fend   centre bfoot  fx fy fz
+linear    fo2 fend   bendto athigh ahip   coords 0 225 30
+linear    fo2 fend   bendto aleg   aknee  athigh 0 0 0
+linear    fo2 fend   bendto bthigh bhip   coords tcls1 tcls2 tcls3
+linear    fo2 fend   bendto bleg   bknee  bthigh lcls1 lcls2 lcls3
+linear    fo2 fend   bendto bfoot  bankle bleg   fcls1 fcls2 fcls3
+repeat  fo2 fend   moveto fig    bfoot  fx fy fz
+*
+end lfordiag
+************************************************
+*
+subroutine rfordiag
+*
+repeat    0   fo2    centre afoot  fx fy fz
+linear    0   fo2    bendto athigh ahip   coords tcls1 tcls2 tcls3
+linear    0   fo2    bendto aleg   aknee  athigh lcls1 lcls2 lcls3
+linear    0   fo2    bendto afoot  aankle aleg   fcls1 fcls2 fcls3
+linear    0   fo2    bendto bthigh bhip   coords 0 315 30
+linear    0   fo2    bendto bleg   bknee  bthigh 0 0 0
+linear    0   fo2    bendto bfoot  bankle bleg   fcls1 fcls2 fcls3
+repeat  0   fo2    moveto fig    afoot  fx fy fz
+repeat  fo2 fend   centre bfoot  fx fy fz
+linear    fo2 fend   bendto athigh ahip   coords 0 135 30
+linear    fo2 fend   bendto aleg   aknee  athigh 0 0 0
+linear    fo2 fend   bendto bthigh bhip   coords tcls1 tcls2 tcls3
+linear    fo2 fend   bendto bleg   bknee  bthigh lcls1 lcls2 lcls3
+linear    fo2 fend   bendto bfoot  bankle bleg   fcls1 fcls2 fcls3
+repeat  fo2 fend   moveto fig    bfoot  fx fy fz
+*
+end rfordiag
+****************************************
+*
+subroutine lbacdiag
+*
+repeat  0   fo2    centre afoot  fx fy fz
+linear    0   fo2    bendto athigh ahip   coords tcls1 tcls2 tcls3
+linear    0   fo2    bendto aleg   aknee  athigh lcls1 lcls2 lcls3
+linear    0   fo2    bendto afoot  aankle aleg   fcls1 fcls2 fcls3
+linear    0   fo2    bendto bthigh bhip   coords 0 135 30
+linear    0   fo4    bendto bleg   bknee  bthigh lcls1 lcls2 lcls3
+linear    fo4 fo2    bendto bleg   bknee  bthigh 0 0 0
+linear    0   fo2    bendto bfoot  bankle bleg   fmed1 fmed2 fmed3
+repeat  0   fo2    moveto fig    afoot  fx fy fz
+repeat  fo2 fend   centre bfoot  fx fy fz
+linear    fo2 fend   bendto athigh ahip   pelvis 0 315 30
+linear    fo2 fend   bendto aleg   aknee  athigh 0 0 0
+linear    fo2 fend   bendto bthigh bhip   coords tcls1 tcls2 tcls3
+linear    fo2 fend   bendto bleg   bknee  bthigh lcls1 lcls2 lcls3
+linear    fo2 fend   bendto bfoot  bankle bleg   fcls1 fcls2 fcls3
+repeat  fo2 fend   moveto fig    bfoot  fx fy fz
+*
+end lbacdiag
+****************************************
+*
+subroutine rbacdiag
+*
+repeat  0   fo2    centre afoot  fx fy fz
+linear    0   fo2    bendto athigh ahip   coords tcls1 tcls2 tcls3
+linear    0   fo2    bendto aleg   aknee  athigh lcls1 lcls2 lcls3
+linear    0   fo2    bendto afoot  aankle aleg   fcls1 fcls2 fcls3
+linear    0   fo2    bendto bthigh bhip   coords 0 225 30
+linear    0   fo4    bendto bleg   bknee  bthigh lcls1 lcls2 lcls3
+linear    fo4 fo2    bendto bleg   bknee  bthigh 0 0 0
+linear    0   fo2    bendto bfoot  bankle bleg   fmed1 fmed2 fmed3
+repeat  0   fo2    moveto fig    afoot  fx fy fz
+repeat  fo2 fend   centre bfoot  fx fy fz
+linear    fo2 fend   bendto athigh ahip   pelvis 0  45 30
+linear    fo2 fend   bendto aleg   aknee  athigh 0 0 0
+linear    fo2 fend   bendto bthigh bhip   coords tcls1 tcls2 tcls3
+linear    fo2 fend   bendto bleg   bknee  bthigh lcls1 lcls2 lcls3
+linear    fo2 fend   bendto bfoot  bankle bleg   fcls1 fcls2 fcls3
+repeat  fo2 fend   moveto fig    bfoot  fx fy fz
+*
+end rbacdiag
+************************************************
+*
+subroutine close
+*
+* close without weight
+*
+repeat  0   fend   centre afoot  fx fy fz
+quadratic 0   fend   bendto bthigh bhip   coords tcls1 tcls2 tcls3
+quadratic 0   fo2    bendto bleg   bknee  bthigh lcls1 lcls2 lcls3
+**repeat    0   fend   drag   bfoot  bfoot  bankle bleg  x
+quadratic 0   fo2   bendto bfoot  bankle bleg   fcls1 fcls2 fcls3
+repeat  0   fend   moveto fig    afoot  fx fy fz
+*
+end close
+*************************************************
+*
+subroutine flow
+*
+repeat    0     1 divide fo2  fend 2
+repeat    0     1 divide fo4  fo2  2
+repeat    0     1 divide fo8  fo4  2
+repeat    0     1 add    f3o8 fo4  fo8
+repeat    0     1 add    f3o4 fo2  fo4
+repeat    0     1 add    f5o8 fo2  fo8
+repeat    0     1 set tcls1 tlow1
+repeat    0     1 set tcls2 tlow2
+repeat    0     1 set tcls3 tlow3
+repeat    0     1 set lcls1 llow1
+repeat    0     1 set lcls2 llow2
+repeat    0     1 set lcls3 llow3
+repeat    0     1 set fcls1 flow1
+repeat    0     1 set fcls2 flow2
+repeat    0     1 set fcls3 flow3
+*
+end flow
+************************************************
+*
+subroutine fmed
+*
+repeat    0     1 divide fo2  fend 2
+repeat    0     1 divide fo4  fo2  2
+repeat    0     1 divide fo8  fo4  2
+repeat    0     1 add    f3o8 fo4  fo8
+repeat    0     1 add    f3o4 fo2  fo4
+repeat    0     1 add    f5o8 fo2  fo8
+repeat    0     1 set tcls1 trlx1
+repeat    0     1 set tcls2 trlx2
+repeat    0     1 set tcls3 trlx3
+repeat    0     1 set lcls1 lrlx1
+repeat    0     1 set lcls2 lrlx2
+repeat    0     1 set lcls3 lrlx3
+repeat    0     1 set fcls1 frlx1
+repeat    0     1 set fcls2 frlx2
+repeat    0     1 set fcls3 frlx3
+*
+end fmed
+************************************************
+*
+subroutine fhigh
+*
+repeat    0     1 divide fo2  fend 2
+repeat    0     1 divide fo4  fo2  2
+repeat    0     1 divide fo8  fo4  2
+repeat    0     1 add    f3o8 fo4  fo8
+repeat    0     1 add    f3o4 fo2  fo4
+repeat    0     1 add    f5o8 fo2  fo8
+repeat    0     1 set tcls1 thig1
+repeat    0     1 set tcls2 thig2
+repeat    0     1 set tcls3 thig3
+repeat    0     1 set lcls1 lhig1
+repeat    0     1 set lcls2 lhig2
+repeat    0     1 set lcls3 lhig3
+repeat    0     1 set fcls1 fhig1
+repeat    0     1 set fcls2 fhig2
+repeat    0     1 set fcls3 fhig3
+*
+end fhigh
+************************************************
+*
+subroutine dance
+*
+*
+call        0   1 doman
+call        0   1 forleft
+*
+quadratic   0   1 spinby man    mlfoot  mpelvis 45 y
+*
+quadratic   0   1 spinby woman  wrfoot  wpelvis 315 y
+*
+repeat      0   1 centre mpelvis  kx ky kz
+repeat      0   1 moveto woman    wpelvis kx ky kz
+repeat      0   1 axes   wpelvis  cx cy cz
+linear      0   1 set    dx 16
+linear      0   1 set    dz 0
+linear      0   1 mult   wx   dx  cx
+linear      0   1 mult   wz   dz  cx
+repeat      0   1 centre wpelvis  cx cy cz
+linear      0   1 moveby woman    mpelvis  wx  0 wz
+repeat      0   1 centre wpelvis  cx cy cz
+repeat      0   1 set    fpos     1
+repeat      0   1 call   noposn
+*  lbowsb 15 13 -1 -1 41 -1 -1 -1 1
+*  lbowsb 27 22 -1 45 -1 -1 -1 -1 200
+*  lbowsb 28 22 43 -1 -1 -1 42 -1 110
+*  lbowsb 115 113 -1 -1 123 -1 -1 122 21
+*  lbowsb 138 130 -1 146 -1 136 -1 -1 202
+*  lbowsb 139 130 147 -1 -1 -1 140 -1 110
+*
+************************************
+*
+repeat      0 460 call   doman
+* 1  -4 Keys   0  65    3   2  50   15 L Barn_Dance # 1
+* 1   7 Keys   0 154    3   2 105   15 L updated_31_March_2007 # 2
+* 1  19 Keys   0 313    5   2  90   15 L Don_Herbison-Evans # 3
+* 1   7 Pins   2 203    8   1  18   18 L   # 4
+* 1   9 Pins   8 227    9   1  18   18 H   # 5
+* 0  -4 Stav   3  96   12   1   1  879 B   # 6
+* 0   4 Stav   0 170   12   1   1  879 B   # 7
+* 0  12 Stav   1 266   12   1   1  879 B   # 8
+* 0  18 Stav   2 340   12   1   1  879 B   # 9
+* 1  24 Face   8 400   16   1  18   18 B   # 10
+** lsethold 0 0,  0 0,  0 0,  1 0,  0 0,   2   8   2
+* 1  -7 Face   2  50   17   1  18   18 B   # 11
+linear      0   1 spinby fig    afoot  pelvis 45 y
+** lsethold 0 0,  0 0,  0 0,  1 0,  0 0,  -1  -1  -1
+* 0  15 Pins   1 293   18   1  18   18 H   # 12
+* 0  -1 Pins   1 122   19   1  18   18 L   # 13
+* 1   8 Volm   1 220   33   1  12   12 B   # 14
+* 1   8 Misc   1  66   37  26 312   52 B   # 15
+* 1   8 Volm   7 219   40   1  12   12 B   # 16
+* 0   1 Stav   5 133   48   1   1  843 L   # 17
+* 0  15 Stav   4 303   48   1   1  843 L   # 18
+* 1  11 Bars   0  30   48   1 464    3 B   # 19 # bar 0
+*
+***************************
+*
+*   bar 0
+*
+* 1   6 Volm   3 193   61   1  12   12 B   # 20
+*
+* arms
+quadratic   0   1 bendto ruarm  rshldr shldrs  45 300  98
+quadratic   0   1 bendto rlarm  relbow ruarm    0   0  90
+* 1  10 Volm   3 239   61   1  12   12 B   # 21
+* 1  -5 Volm   1  73   61   1  12   12 B   # 22
+*
+* arms
+quadratic   0   1 bendto luarm  lshldr shldrs  32  19  79
+quadratic   0   1 bendto llarm  lelbow luarm    0   0  45
+quadratic   0   1 bendto lhand  lwrist llarm    0   0   0
+* 1   9 Volm   1 223   61   1  12   12 B   # 23
+* 1  20 Volm   1 361   61   1  12   12 B   # 24
+* 1   7 Volm   1 209   63   1  12   12 B   # 25
+* 1   5 Limb   7 178   64   4  12   24 B   # 26
+** lsethold 0 0,  0 0,  0 0,  1 0,  0 0,  -1  -1  -1
+* 1   9 Misc   1 210   65   4  48    8 B   # 27
+* 1   7 Misc   1 181   67   4  48    8 B   # 28
+* 1   9 Volm   7 223   68   1  12   12 B   # 29
+* 1   7 Limb  10 204   68   4  12   24 B   # 30
+** lsethold 0 0,  0 0,  0 0,  1 0,  0 0,  -1  -1  -1
+* 1  11 Limb   1 250   68   4  12   24 B   # 31
+** lsethold 0 0,  0 0,  0 0,  1 0,  0 0,  -1  -1  -1
+* 1  21 Limb  10 372   69   4  12   24 B   # 32
+** lsethold 0 0,  0 0,  0 0,  1 0,  0 0,  -1  -1  -1
+* 1   1 Dirn  11 134   70   4  10   23 M   # 33
+*
+repeat      0   1 set    fend  1
+repeat      0   1 call   fmed
+repeat      0   1 set    coords mpelvis
+repeat      0   1 call   forright
+call        0   1 close
+* 1  14 Dirn  11 292   70   4  10   23 M   # 34
+* 1  15 Dirn  11 304   70   4  10   23 M   # 35
+* 0  -5 Dirn   9  72   70   4  10   23 M   # 36
+* 0  20 Dirn   2 360   70   4  10   23 M   # 37
+* 0   6 Dirn   1 192   70   4  10   23 M   # 38
+* 1   7 Volm   7 207   70   1  12   12 B   # 39
+* 0  10 Dirn  10 238   70   4  10   23 M   # 40
+* 1  -1 Dirn  11 122   70   4  10   23 M   # 41
+*
+repeat      0   1 set    fend  1
+repeat      0   1 call   fmed
+repeat      0   1 set    coords mpelvis
+repeat      0   1 call   forleft
+call        0   1 close
+* 1  -6 Limb   4  58   71   4  12   24 B   # 42
+** lsethold 0 0,  0 0,  0 0,  1 0,  0 0,  -1  -1  -1
+* 1   9 Limb   4 225   72   4  12   24 B   # 43
+** lsethold 0 0,  0 0,  0 0,  1 1,  0 1,  -1  -1  -1
+* 0   5 Area   1 175   76   3  15   15 B   # 44
+* 1   4 Keys  23 174   77   2   5   12 L | # 45
+* 0  11 Area   5 251   78   3  15   15 B   # 46
+* 1  11 Bars   1  30   96   1 464    3 L   # 47 # bar 1
+*
+***************************
+*
+*   bar 1
+*
+* 1  -1 Dirn   9 122   97   4  10   23 M   # 48
+*
+repeat      2  14 set    fend  12
+repeat      2  14 call   fmed
+repeat      2  14 set    coords mpelvis
+repeat      2  14 call   forleft
+call        2  14 lfordiag
+* 1  15 Dirn   2 304   97   4  10   23 M   # 49
+* 1 -10 Keys   1  18   98   2  12   12 B 1 # 50
+* 1  -8 Keys  16  42  100   2   5   12 L . # 51
+* 1  -8 Keys  17  40  106   2   5   12 L _ # 52
+* 1  -8 Keys  16  42  108   2   5   12 L . # 53
+* 1  14 Dirn   2 292  120   4  10   23 H   # 54
+* 1   1 Dirn   9 134  122   4  10   23 H   # 55
+*
+repeat     15  27 set    fend  12
+repeat     15  27 call   fhigh
+repeat     15  27 set    coords mpelvis
+repeat     15  27 call   forright
+call       15  27 lfordiag
+* 1  -1 Dirn   9 122  145   4  10   23 M   # 56
+*
+repeat     27  39 set    fend  12
+repeat     27  39 call   fmed
+repeat     27  39 set    coords mpelvis
+repeat     27  39 call   forleft
+call       27  39 lfordiag
+* 1  15 Dirn   2 304  146   4  10   23 M   # 57
+* 1   3 Volm   1 158  159   1  12   12 B   # 58
+*
+* forward diagonal gesture middle
+repeat     34  51 call   forright * right = b
+repeat     34  51 centre afoot  mx my mz
+quadratic  34  51 bendto bthigh bhip   pelvis 22 21 98
+linear     42  51 bendto bleg   bknee  bthigh lrlx1 lrlx2 lrlx3
+linear     42  51 bendto bfoot  bankle bleg   fhig1 fhig2 fhig3
+repeat     34  51 moveto fig    afoot  mx my mz
+* 1  12 Volm   1 266  159   1  12   12 B   # 59
+* 0  12 Dirn   2 267  169   4  10   23 M   # 60
+* 0   3 Dirn   9 159  169   4  10   23 M   # 61
+* 1  15 Dirn  11 304  169   4  10   23 H   # 62
+* 1  -1 Dirn  11 122  169   4  10   23 H   # 63
+*
+repeat     39  51 set    fend  12
+repeat     39  51 call   fhigh
+repeat     39  51 set    coords mpelvis
+repeat     39  51 call   forleft
+call       39  51 close
+* 1  11 Bars   2  30  193   1 464    3 B   # 64 # bar 2
+*
+***************************
+*
+*   bar 2
+*
+* 1  14 Dirn   7 292  194   4  10   23 M   # 65
+* 1   1 Dirn   4 134  194   4  10   23 M   # 66
+*
+repeat     53  65 set    fend  12
+repeat     53  65 call   fmed
+repeat     53  65 set    coords mpelvis
+repeat     53  65 call   forright
+call       53  65 rbacdiag
+* 1 -10 Keys   1  18  194   2  12   12 B 2 # 67
+* 1  15 Dirn   7 304  218   4  10   23 M   # 68
+* 1  -1 Dirn   4 122  220   4  10   23 M   # 69
+*
+repeat     66  78 set    fend  12
+repeat     66  78 call   fmed
+repeat     66  78 set    coords mpelvis
+repeat     66  78 call   forleft
+call       66  78 rbacdiag
+* 1  14 Dirn   7 292  242   8  10   47 M   # 70
+* 1   1 Dirn   4 134  242   8  10   47 M   # 71
+*
+repeat     78 103 set    fend  25
+repeat     78 103 call   fmed
+repeat     78 103 set    coords mpelvis
+repeat     78 103 call   forright
+call       78 103 rbacdiag
+* 1   8 Misc   2 218  255   2  12   12 B   # 72
+* lreleasea 85 91 71 -1 0 0
+* 1   7 Misc   2 205  255   2  12   12 B   # 73
+* lreleasea 85 91 72 -1 0 0
+* 1   9 Misc   2 231  256   2  12   12 B   # 74
+* lreleasea 85 91 73 -1 0 0
+* 1   7 Misc   3 201  259   2  12   12 B   # 75
+* 1   8 Misc   3 215  259   2  12   12 B   # 76
+* 1   9 Misc   3 228  260   2  12   12 B   # 77
+* 1  17 Dirn  11 329  265   4  10   23 L   # 78
+* 1  -3 Dirn  11  97  266   4  10   23 L   # 79
+*
+* close without weight low
+repeat     90 102 call   forleft * left = b
+repeat     90 102 centre afoot  mx my mz
+repeat     90 102 call   fmed
+repeat     90 102 set    fend  12
+repeat     90 102 set    coords mpelvis
+call       90 102 close
+repeat     90 102 moveto fig    afoot  mx my mz
+* 1  10 Volm   3 237  269   1  12   12 B   # 80
+* 1   6 Volm   3 191  269   1  12   12 B   # 81
+*
+* arms
+quadratic  92 103 bendto ruarm  rshldr shldrs 292 339  98
+quadratic  92 103 bendto rlarm  relbow ruarm    0   0  90
+* 0  10 Dirn   2 237  278   2  10   11 M   # 82
+* 0   6 Dirn   9 191  278   2  10   11 M   # 83
+* 1  14 Pins   3 288  284   1  18   18 L   # 84
+* 1   1 Pins   7 128  285   1  18   18 L   # 85
+* 1  11 Bars   3  30  290   1 464    3 B   # 86 # bar 3
+*
+***************************
+*
+*   bar 3
+*
+* 1  14 Rotn   2 292  291   2  10   11 M   # 87
+* 1   1 Rotn   1 134  291   2  10   11 M   # 88
+*
+* pivot
+repeat    104 110 call   forright * b = right
+repeat    104 105 centre bfoot  mx my mz
+linear    104 110 spinby fig    bfoot  pelvis -90 y
+repeat    104 110 moveto fig    bfoot  mx my mz
+* 1 -10 Keys   1  18  291   2  12   12 B 3 # 89
+* 1  -1 Dirn  10 122  303   2  10   11 M   # 90
+*
+repeat    110 116 set    fend  6
+repeat    110 116 call   fmed
+repeat    110 116 set    coords mpelvis
+repeat    110 116 call   forleft
+call      110 116 forward
+* 1  15 Dirn   1 304  304   2  10   11 M   # 91
+* 1  -7 Face   8  50  304   1  18   18 B   # 92
+** lsethold 0 0,  0 0,  0 0,  1 0,  0 0,  -1  -1  -1
+* 1  24 Face   2 400  307   1  18   18 B   # 93
+** lsethold 0 0,  0 0,  0 0,  1 0,  0 0,   8   2   6
+* 1  -1 Pins   8 115  310   1  18   18 L   # 94
+* 1  15 Pins   2 299  310   1  18   18 L   # 95
+* 1  12 Dirn  11 267  313   2  10   11 L   # 96
+* 1   6 Volm   1 194  313   1  12   12 B   # 97
+*
+* arms
+quadratic 115 127 bendto ruarm  rshldr shldrs 328 341  79
+quadratic 115 127 bendto rlarm  relbow ruarm    0   0  45
+quadratic 115 127 bendto rhand  rwrist rlarm    0   0   0
+* 1  10 Volm   1 239  314   1  12   12 B   # 98
+* 1  15 Rotn   2 304  315   2  10   11 M   # 99
+* 1  -1 Rotn   1 122  315   2  10   11 M   # 100
+*
+* pivot
+repeat    116 122 call   forleft * b = left
+repeat    116 117 centre bfoot  mx my mz
+linear    116 122 spinby fig    bfoot  pelvis -45 y
+repeat    116 122 moveto fig    bfoot  mx my mz
+* 1   3 Dirn  11 159  316   2  10   11 L   # 101
+*
+* close without weight low
+repeat    117 123 call   forright * right = b
+repeat    117 123 centre afoot  mx my mz
+repeat    117 123 call   fmed
+repeat    117 123 set    fend  6
+repeat    117 123 set    coords mpelvis
+call      117 123 close
+repeat    117 123 moveto fig    afoot  mx my mz
+* 0  10 Dirn   9 237  324   2  10   11 M   # 102
+* 0   6 Dirn   2 192  324   2  10   11 M   # 103
+* 1  -7 Face   7  50  327   1  18   18 B   # 104
+** lsethold 0 0,  0 0,  0 0,  1 0,  0 0,  -1  -1  -1
+* 1  14 Dirn  10 292  327   2  10   11 M   # 105
+* 1   1 Dirn   1 134  327   2  10   11 M   # 106
+*
+repeat    123 129 set    fend  6
+repeat    123 129 call   fmed
+repeat    123 129 set    coords mpelvis
+repeat    123 129 call   forright
+call      123 129 forward
+* 1  24 Face   3 400  328   1  18   18 B   # 107
+** lsethold 0 0,  0 0,  0 0,  0 0,  1 0,   7   3   4
+* 1  14 Pins   5 286  332   1  18   18 L   # 108
+* 1   1 Pins   5 128  334   1  17   17 L   # 109
+* 1  -3 Dirn  11  97  338   2  10   11 L   # 110
+*
+* close without weight low
+repeat    128 134 call   forleft * left = b
+repeat    128 134 centre afoot  mx my mz
+repeat    128 134 call   fmed
+repeat    128 134 set    fend  6
+repeat    128 134 set    coords mpelvis
+call      128 134 close
+repeat    128 134 moveto fig    afoot  mx my mz
+* 1  14 Rotn   2 292  339   2  10   11 M   # 111
+* 1   1 Rotn   1 134  339   2  10   11 M   # 112
+*
+* pivot
+repeat    129 135 call   forright * b = right
+repeat    129 130 centre bfoot  mx my mz
+linear    129 135 spinby fig    bfoot  pelvis -180 y
+repeat    129 135 moveto fig    bfoot  mx my mz
+* 1  18 Dirn  11 341  340   2  10   11 L   # 113
+* 1   8 Volm   1 212  344   1  12   12 B   # 114
+* 1   8 Misc   1  67  349  26 312   52 B   # 115
+* 1  24 Face   7 400  351   1  18   18 B   # 116
+** lsethold 0 0,  0 0,  0 0,  0 0,  1 0,   3   7   4
+* 1  -1 Dirn  10 122  351   2  10   11 M   # 117
+*
+repeat    135 141 set    fend  6
+repeat    135 141 call   fmed
+repeat    135 141 set    coords mpelvis
+repeat    135 141 call   forleft
+call      135 141 forward
+* 1  15 Dirn   1 304  351   2  10   11 M   # 118
+* 1  -7 Face   3  50  351   1  18   18 B   # 119
+** lsethold 0 0,  0 0,  0 0,  0 0,  1 0,  -1  -1  -1
+* 1   8 Volm   7 211  354   1  12   12 B   # 120
+* 1   1 Dirn   1 134  363   4  10   23 M   # 121
+*
+repeat    141 153 set    fend  12
+repeat    141 153 call   fmed
+repeat    141 153 set    coords mpelvis
+repeat    141 153 call   forright
+call      141 153 forward
+* 1  14 Dirn  10 292  365   4  10   23 M   # 122
+* 1  21 Limb   9 371  384   4  12   24 B   # 123
+** lsethold 0 0,  0 0,  0 0,  0 1,  1 1,  -1  -1  -1
+* 1  -6 Limb   4  61  387   4  12   24 B   # 124
+** lsethold 8 0,  0 0,  0 0,  0 2,  1 2,  -1  -1  -1
+** ldoposn 154 167,   0   8
+* 1  11 Bars   4  30  387   1 464    3 B   # 125 # bar 4
+*
+***************************
+*
+*   bar 4
+*
+* 1  15 Dirn   3 304  388   4  10   23 M   # 126
+* 1  -1 Dirn   8 122  388   4  10   23 M   # 127
+*
+repeat    155 167 set    fend  12
+repeat    155 167 call   fmed
+repeat    155 167 set    coords mpelvis
+repeat    155 167 call   forleft
+call      155 167 lside
+* 1 -10 Keys   1  18  388   2  12   12 B 4 # 128
+* 1  20 Volm   1 362  390   1  12   12 B   # 129
+* 1  -5 Volm   1  74  390   1  12   12 B   # 130
+*
+* arms
+quadratic 156 173 bendto luarm  lshldr shldrs  32  19  79
+quadratic 156 173 bendto llarm  lelbow luarm    0   0  45
+quadratic 156 173 bendto lhand  lwrist llarm    0   0   0
+* 1   8 Volm   1 219  390   1  12   12 B   # 131
+* 1   9 Volm   3 233  390   1  12   12 B   # 132
+* 1   5 Limb   7 175  391   4  12   24 B   # 133
+** lsethold 8 8,  0 0,  0 0,  0 2,  1 2,  -1  -1  -1
+* 1   7 Volm   1 204  391   1  12   12 B   # 134
+* 1   6 Volm   3 190  391   1  12   12 B   # 135
+*
+* arms
+quadratic 156 173 bendto ruarm  rshldr shldrs  45 300  98
+quadratic 156 173 bendto rlarm  relbow ruarm    0   0  90
+* 1  11 Limb   1 248  392   4  12   24 B   # 136
+** lsethold 8 8,  0 0,  0 0,  0 2,  1 2,  -1  -1  -1
+* 1   7 Limb   9 206  393   4  12   24 B   # 137
+** lsethold 8 8,  0 0,  0 0,  0 3,  1 3,  -1  -1  -1
+* 1   9 Misc   1 212  394   4  48    8 B   # 138
+* 1   6 Misc   1 177  395   4  48    8 B   # 139
+* 1   8 Volm   7 217  396   1  12   12 B   # 140
+* 1   8 Limb   4 221  397   4  12   24 B   # 141
+** lsethold 1 8,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+** ldoposn 159 172,   0   1
+* 1   7 Volm   7 203  397   1  12   12 B   # 142
+* 0   9 Dirn  10 233  399   4  10   23 M   # 143
+* 0  -5 Dirn   9  74  399   4  10   23 M   # 144
+* 0  20 Dirn   2 361  399   4  10   23 M   # 145
+* 0   6 Dirn   1 190  400   4  10   23 M   # 146
+* 0  11 Area   5 248  402   3  15   15 B   # 147
+* 0   4 Area   1 172  403   3  15   15 B   # 148
+* 1   4 Keys  23 171  403   2   5   12 L | # 149
+* 1  14 Dirn  11 292  412   4  10   23 M   # 150
+* 1   1 Dirn  11 134  412   4  10   23 M   # 151
+*
+repeat    167 179 set    fend  12
+repeat    167 179 call   fmed
+repeat    167 179 set    coords mpelvis
+repeat    167 179 call   forright
+call      167 179 close
+* 1  -1 Volm   7 122  414   1  12   12 B   # 152
+* 1  15 Volm   7 304  414   1  12   12 B   # 153
+* 1  15 Dirn   3 304  436   8  10   47 M   # 154
+* 1  -1 Dirn   8 122  436   8  10   47 M   # 155
+*
+repeat    180 205 set    fend  25
+repeat    180 205 call   fmed
+repeat    180 205 set    coords mpelvis
+repeat    180 205 call   forleft
+call      180 205 lside
+* 1  12 Dirn  11 267  460   4  10   23 L   # 156
+* 1   3 Dirn  11 159  460   4  10   23 L   # 157
+*
+* close without weight low
+repeat    192 204 call   forright * right = b
+repeat    192 204 centre afoot  mx my mz
+repeat    192 204 call   fmed
+repeat    192 204 set    fend  12
+repeat    192 204 set    coords mpelvis
+call      192 204 close
+repeat    192 204 moveto fig    afoot  mx my mz
+* 1  11 Bars   5  30  484   1 464    3 B   # 158 # bar 5
+*
+***************************
+*
+*   bar 5
+*
+* 1  14 Dirn   8 292  485   4  10   23 M   # 159
+* 1   1 Dirn   3 134  485   4  10   23 M   # 160
+*
+repeat    206 218 set    fend  12
+repeat    206 218 call   fmed
+repeat    206 218 set    coords mpelvis
+repeat    206 218 call   forright
+call      206 218 rside
+* 1 -10 Keys   1  18  485   2  12   12 B 5 # 161
+* 1  -1 Dirn  11 122  509   4  10   23 M   # 162
+*
+repeat    218 230 set    fend  12
+repeat    218 230 call   fmed
+repeat    218 230 set    coords mpelvis
+repeat    218 230 call   forleft
+call      218 230 close
+* 1   1 Volm   7 134  511   1  12   12 B   # 163
+* 1  15 Dirn  11 304  511   4  10   23 M   # 164
+* 1   1 Dirn   3 134  533   8  10   47 M   # 165
+*
+repeat    231 256 set    fend  25
+repeat    231 256 call   fmed
+repeat    231 256 set    coords mpelvis
+repeat    231 256 call   forright
+call      231 256 rside
+* 1  14 Dirn   8 292  533   8  10   47 M   # 166
+* 1  -3 Dirn  11  97  557   4  10   23 L   # 167
+*
+* close without weight low
+repeat    244 256 call   forleft * left = b
+repeat    244 256 centre afoot  mx my mz
+repeat    244 256 call   fmed
+repeat    244 256 set    fend  12
+repeat    244 256 set    coords mpelvis
+call      244 256 close
+repeat    244 256 moveto fig    afoot  mx my mz
+* 1  17 Dirn  11 329  557   4  10   23 L   # 168
+* 1  14 Pins   2 287  576   1  18   18 L   # 169
+* 1   1 Pins   2 129  577   1  18   18 L   # 170
+* 1  11 Bars   6  30  581   1 464    3 B   # 171 # bar 6
+*
+***************************
+*
+*   bar 6
+*
+* 1  14 Rotn   2 292  582   2  10   11 M   # 172
+* 1  -1 Dirn   8 122  582   2  10   11 M   # 173
+*
+repeat    257 263 set    fend  6
+repeat    257 263 call   fmed
+repeat    257 263 set    coords mpelvis
+repeat    257 263 call   forleft
+call      257 263 lside
+* 1   1 Rotn   2 134  582   2  10   11 M   # 174
+*
+* pivot
+repeat    257 263 call   forright * b = right
+repeat    257 258 centre bfoot  mx my mz
+linear    257 263 spinby fig    bfoot  pelvis 45 y
+repeat    257 263 moveto fig    bfoot  mx my mz
+* 1  15 Dirn   3 304  582   2  10   11 M   # 175
+* 1 -10 Keys   1  18  582   2  12   12 B 6 # 176
+* 1  -1 Pins   2 118  588   1  18   18 L   # 177
+* 1  15 Pins   2 299  589   1  18   18 L   # 178
+* 1  15 Rotn   2 304  594   2  10   11 M   # 179
+* 1  -7 Face   4  50  594   1  18   18 B   # 180
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 1  14 Dirn  11 292  594   2  10   11 M   # 181
+* 1  24 Face   8 400  594   1  18   18 B   # 182
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   4   8   4
+* 1   1 Dirn  11 134  594   2  10   11 M   # 183
+*
+repeat    263 269 set    fend  6
+repeat    263 269 call   fmed
+repeat    263 269 set    coords mpelvis
+repeat    263 269 call   forright
+call      263 269 close
+* 1  -1 Rotn   2 122  594   2  10   11 M   # 184
+*
+* pivot
+repeat    263 269 call   forleft * b = left
+repeat    263 264 centre bfoot  mx my mz
+linear    263 269 spinby fig    bfoot  pelvis 45 y
+repeat    263 269 moveto fig    bfoot  mx my mz
+* 1  15 Dirn   1 304  606   2  10   11 M   # 185
+* 1  -1 Dirn   6 122  606   2  10   11 M   # 186
+*
+repeat    269 275 set    fend  6
+repeat    269 275 call   fmed
+repeat    269 275 set    coords mpelvis
+repeat    269 275 call   forleft
+call      269 275 back
+* 1  -7 Face   5  50  606   1  18   18 B   # 187
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 1  24 Face   1 400  610   1  18   18 B   # 188
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   5   1   4
+* 1  15 Pins   2 301  613   1  18   18 L   # 189
+* 1  -1 Pins   2 117  613   1  18   18 L   # 190
+* 1  12 Dirn  11 267  615   2  10   11 L   # 191
+* 1   3 Dirn  11 159  617   2  10   11 L   # 192
+*
+* close without weight low
+repeat    275 281 call   forright * right = b
+repeat    275 281 centre afoot  mx my mz
+repeat    275 281 call   fmed
+repeat    275 281 set    fend  6
+repeat    275 281 set    coords mpelvis
+call      275 281 close
+repeat    275 281 moveto fig    afoot  mx my mz
+* 1  15 Rotn   2 304  618   2  10   11 M   # 193
+* 1  -1 Rotn   2 122  618   2  10   11 M   # 194
+*
+* pivot
+repeat    276 282 call   forleft * b = left
+repeat    276 277 centre bfoot  mx my mz
+linear    276 282 spinby fig    bfoot  pelvis 45 y
+repeat    276 282 moveto fig    bfoot  mx my mz
+* 1  15 Pins   3 299  623   1  18   18 L   # 195
+* 1  -1 Pins   3 118  624   1  18   18 L   # 196
+* 1  24 Face   2 400  628   1  18   18 B   # 197
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   6   2   4
+* 1  15 Rotn   2 304  629   2  10   11 M   # 198
+* 1  -1 Rotn   2 122  629   2  10   11 M   # 199
+*
+* pivot
+repeat    281 287 call   forleft * b = left
+repeat    281 282 centre bfoot  mx my mz
+linear    281 287 spinby fig    bfoot  pelvis 90 y
+repeat    281 287 moveto fig    bfoot  mx my mz
+* 1  -7 Face   6  50  630   1  18   18 B   # 200
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 1  14 Dirn   8 292  630   2  10   11 M   # 201
+* 1   1 Dirn   3 132  631   2  10   11 M   # 202
+*
+repeat    282 288 set    fend  6
+repeat    282 288 call   fmed
+repeat    282 288 set    coords mpelvis
+repeat    282 288 call   forright
+call      282 288 rside
+* 1  14 Pins   2 287  635   1  18   18 L   # 203
+* 1   1 Pins   2 130  636   1  18   18 L   # 204
+* 1   1 Rotn   2 134  641   2  10   11 M   # 205
+*
+* pivot
+repeat    288 294 call   forright * b = right
+repeat    288 289 centre bfoot  mx my mz
+linear    288 294 spinby fig    bfoot  pelvis 45 y
+repeat    288 294 moveto fig    bfoot  mx my mz
+* 1  14 Rotn   2 292  641   2  10   11 M   # 206
+* 1  24 Face   4 400  642   1  18   18 B   # 207
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   8   4   4
+* 1  -1 Dirn  11 122  642   2  10   11 M   # 208
+*
+repeat    288 294 set    fend  6
+repeat    288 294 call   fmed
+repeat    288 294 set    coords mpelvis
+repeat    288 294 call   forleft
+call      288 294 close
+* 1  15 Dirn  11 304  642   2  10   11 M   # 209
+* 1  -7 Face   8  50  643   1  18   18 B   # 210
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 1   1 Dirn   1 134  653   2  10   11 M   # 211
+*
+repeat    294 300 set    fend  6
+repeat    294 300 call   fmed
+repeat    294 300 set    coords mpelvis
+repeat    294 300 call   forright
+call      294 300 forward
+* 1  14 Dirn   6 292  654   2  10   11 M   # 212
+* 1  -7 Face   1  50  659   1  18   18 B   # 213
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 1  24 Face   5 400  659   1  18   18 B   # 214
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   1   5   4
+* 1   1 Pins   2 130  660   1  18   18 L   # 215
+* 1  14 Pins   2 287  661   1  17   17 L   # 216
+* 1   1 Rotn   2 134  666   2  10   11 M   # 217
+*
+* pivot
+repeat    301 307 call   forright * b = right
+repeat    301 302 centre bfoot  mx my mz
+linear    301 307 spinby fig    bfoot  pelvis 45 y
+repeat    301 307 moveto fig    bfoot  mx my mz
+* 1  -3 Dirn  11  96  666   2  10   11 L   # 218
+*
+* close without weight low
+repeat    301 307 call   forleft * left = b
+repeat    301 307 centre afoot  mx my mz
+repeat    301 307 call   fmed
+repeat    301 307 set    fend  6
+repeat    301 307 set    coords mpelvis
+call      301 307 close
+repeat    301 307 moveto fig    afoot  mx my mz
+* 1  17 Dirn  11 330  666   2  10   11 L   # 219
+* 1  14 Rotn   2 292  666   2  10   11 M   # 220
+* 1   1 Pins   3 130  674   1  18   18 L   # 221
+* 1  14 Pins   3 288  674   1  18   18 L   # 222
+* 1  -7 Face   2  50  678   1  18   18 B   # 223
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 1  11 Bars   7  30  678   1 464    3 B   # 224 # bar 7
+*
+***************************
+*
+*   bar 7
+*
+* 1  14 Rotn   2 292  679   2  10   11 M   # 225
+* 1   1 Rotn   2 134  679   2  10   11 M   # 226
+*
+* pivot
+repeat    308 314 call   forright * b = right
+repeat    308 309 centre bfoot  mx my mz
+linear    308 314 spinby fig    bfoot  pelvis 90 y
+repeat    308 314 moveto fig    bfoot  mx my mz
+* 1  -1 Dirn   8 122  679   2  10   11 M   # 227
+*
+repeat    308 314 set    fend  6
+repeat    308 314 call   fmed
+repeat    308 314 set    coords mpelvis
+repeat    308 314 call   forleft
+call      308 314 lside
+* 1  24 Face   6 400  679   1  18   18 B   # 228
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   2   6   4
+* 1  15 Dirn   3 304  679   2  10   11 M   # 229
+* 1 -10 Keys   1  18  679   2  12   12 B 7 # 230
+* 1  -1 Pins   2 118  684   1  18   18 L   # 231
+* 1  15 Pins   2 299  685   1  18   18 L   # 232
+* 1  -1 Rotn   2 122  690   2  10   11 M   # 233
+*
+* pivot
+repeat    313 319 call   forleft * b = left
+repeat    313 314 centre bfoot  mx my mz
+linear    313 319 spinby fig    bfoot  pelvis 45 y
+repeat    313 319 moveto fig    bfoot  mx my mz
+* 1  14 Dirn  11 292  691   2  10   11 M   # 234
+* 1  15 Rotn   2 304  691   2  10   11 M   # 235
+* 1   1 Dirn  11 134  691   2  10   11 M   # 236
+*
+repeat    314 320 set    fend  6
+repeat    314 320 call   fmed
+repeat    314 320 set    coords mpelvis
+repeat    314 320 call   forright
+call      314 320 close
+* 1  24 Face   8 400  691   1  18   18 B   # 237
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   4   8   4
+* 1  -7 Face   4  50  691   1  18   18 B   # 238
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 1  24 Face   1 400  703   1  18   18 B   # 239
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   5   1   4
+* 1  -7 Face   5  50  703   1  18   18 B   # 240
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 1  -1 Dirn   6 122  703   2  10   11 M   # 241
+*
+repeat    320 326 set    fend  6
+repeat    320 326 call   fmed
+repeat    320 326 set    coords mpelvis
+repeat    320 326 call   forleft
+call      320 326 back
+* 1  15 Dirn   1 304  703   2  10   11 M   # 242
+* 1  -1 Pins   2 116  710   1  18   18 L   # 243
+* 1  12 Dirn  11 267  710   2  10   11 L   # 244
+* 1  15 Pins   2 302  712   1  18   18 L   # 245
+* 1  -1 Rotn   2 122  715   2  10   11 M   # 246
+*
+* pivot
+repeat    327 333 call   forleft * b = left
+repeat    327 328 centre bfoot  mx my mz
+linear    327 333 spinby fig    bfoot  pelvis 45 y
+repeat    327 333 moveto fig    bfoot  mx my mz
+* 1   3 Dirn  11 159  715   2  10   11 L   # 247
+*
+* close without weight low
+repeat    327 333 call   forright * right = b
+repeat    327 333 centre afoot  mx my mz
+repeat    327 333 call   fmed
+repeat    327 333 set    fend  6
+repeat    327 333 set    coords mpelvis
+call      327 333 close
+repeat    327 333 moveto fig    afoot  mx my mz
+* 1  15 Rotn   2 304  716   2  10   11 M   # 248
+* 1  -1 Pins   3 118  721   1  18   18 L   # 249
+* 1  15 Pins   3 299  722   1  18   18 L   # 250
+* 1  -1 Rotn   2 122  726   2  10   11 M   # 251
+*
+* pivot
+repeat    332 338 call   forleft * b = left
+repeat    332 333 centre bfoot  mx my mz
+linear    332 338 spinby fig    bfoot  pelvis 90 y
+repeat    332 338 moveto fig    bfoot  mx my mz
+* 1  24 Face   2 400  727   1  18   18 B   # 252
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   6   2   4
+* 1  15 Rotn   2 304  727   2  10   11 M   # 253
+* 1   1 Dirn   3 134  727   2  10   11 M   # 254
+*
+repeat    333 339 set    fend  6
+repeat    333 339 call   fmed
+repeat    333 339 set    coords mpelvis
+repeat    333 339 call   forright
+call      333 339 rside
+* 1  14 Dirn   8 292  727   2  10   11 M   # 255
+* 1  -7 Face   6  50  728   1  18   18 B   # 256
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 1  14 Pins   2 288  733   1  18   18 L   # 257
+* 1   1 Pins   2 130  734   1  18   18 L   # 258
+* 1  14 Rotn   2 292  738   2  10   11 M   # 259
+* 1  15 Dirn  11 304  739   2  10   11 M   # 260
+* 1  -1 Dirn  11 122  739   2  10   11 M   # 261
+*
+repeat    339 345 set    fend  6
+repeat    339 345 call   fmed
+repeat    339 345 set    coords mpelvis
+repeat    339 345 call   forleft
+call      339 345 close
+* 1  24 Face   4 400  739   1  18   18 B   # 262
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   8   4   4
+* 1   1 Rotn   2 134  739   2  10   11 M   # 263
+*
+* pivot
+repeat    339 345 call   forright * b = right
+repeat    339 340 centre bfoot  mx my mz
+linear    339 345 spinby fig    bfoot  pelvis 45 y
+repeat    339 345 moveto fig    bfoot  mx my mz
+* 1  -7 Face   8  50  740   1  18   18 B   # 264
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 1   1 Dirn   1 134  751   2  10   11 M   # 265
+*
+repeat    346 352 set    fend  6
+repeat    346 352 call   fmed
+repeat    346 352 set    coords mpelvis
+repeat    346 352 call   forright
+call      346 352 forward
+* 1  14 Dirn   6 292  751   2  10   11 M   # 266
+* 1  24 Face   5 400  756   1  18   18 B   # 267
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   1   5   4
+* 1  -7 Face   1  50  756   1  18   18 B   # 268
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 1   1 Pins   2 130  758   1  18   18 L   # 269
+* 1  14 Pins   2 287  758   1  18   18 L   # 270
+* 1  -3 Dirn  11  97  763   2  10   11 L   # 271
+*
+* close without weight low
+repeat    352 358 call   forleft * left = b
+repeat    352 358 centre afoot  mx my mz
+repeat    352 358 call   fmed
+repeat    352 358 set    fend  6
+repeat    352 358 set    coords mpelvis
+call      352 358 close
+repeat    352 358 moveto fig    afoot  mx my mz
+* 1  14 Rotn   2 292  763   2  10   11 M   # 272
+* 1   1 Rotn   2 134  763   2  10   11 M   # 273
+*
+* pivot
+repeat    352 358 call   forright * b = right
+repeat    352 353 centre bfoot  mx my mz
+linear    352 358 spinby fig    bfoot  pelvis 45 y
+repeat    352 358 moveto fig    bfoot  mx my mz
+* 1  17 Dirn  11 329  763   2  10   11 L   # 274
+* 1  14 Pins   3 287  771   1  18   18 L   # 275
+* 1   1 Pins   3 130  771   1  18   18 L   # 276
+* 1  -7 Face   2  50  775   1  18   18 B   # 277
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 1  11 Bars   8  30  775   1 464    3 B   # 278 # bar 8
+*
+***************************
+*
+*   bar 8
+*
+* 1  14 Rotn   2 292  776   2  10   11 M   # 279
+* 1  15 Dirn   3 304  776   2  10   11 M   # 280
+* 1  24 Face   6 400  776   1  18   18 B   # 281
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   2   6   4
+* 1  -1 Dirn   8 122  776   2  10   11 M   # 282
+*
+repeat    359 365 set    fend  6
+repeat    359 365 call   fmed
+repeat    359 365 set    coords mpelvis
+repeat    359 365 call   forleft
+call      359 365 lside
+* 1   1 Rotn   2 134  776   2  10   11 M   # 283
+*
+* pivot
+repeat    359 365 call   forright * b = right
+repeat    359 360 centre bfoot  mx my mz
+linear    359 365 spinby fig    bfoot  pelvis 90 y
+repeat    359 365 moveto fig    bfoot  mx my mz
+* 1 -10 Keys   1  18  776   2  12   12 B 8 # 284
+* 1  -1 Pins   2 117  782   1  18   18 L   # 285
+* 1  15 Pins   2 300  783   1  18   18 L   # 286
+* 1  -7 Face   4  50  788   1  18   18 B   # 287
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 1  -1 Rotn   2 122  788   2  10   11 M   # 288
+*
+* pivot
+repeat    365 371 call   forleft * b = left
+repeat    365 366 centre bfoot  mx my mz
+linear    365 371 spinby fig    bfoot  pelvis 45 y
+repeat    365 371 moveto fig    bfoot  mx my mz
+* 1  24 Face   8 400  788   1  18   18 B   # 289
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   4   8   4
+* 1  14 Dirn  11 292  788   2  10   11 M   # 290
+* 1  15 Rotn   2 304  788   2  10   11 M   # 291
+* 1   1 Dirn  11 134  788   2  10   11 M   # 292
+*
+repeat    365 371 set    fend  6
+repeat    365 371 call   fmed
+repeat    365 371 set    coords mpelvis
+repeat    365 371 call   forright
+call      365 371 close
+* 1  -7 Face   5  50  800   1  18   18 B   # 293
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 1  -1 Dirn   7 122  800   2  10   11 M   # 294
+*
+repeat    371 377 set    fend  6
+repeat    371 377 call   fmed
+repeat    371 377 set    coords mpelvis
+repeat    371 377 call   forleft
+call      371 377 lbacdiag
+* 1  24 Face   1 400  800   1  18   18 B   # 295
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   5   1   4
+* 1  15 Dirn   1 304  800   2  10   11 M   # 296
+* 1  15 Pins   5 298  805   1  18   18 L   # 297
+* 1  -1 Pins   4 116  806   1  18   18 L   # 298
+* 1  12 Dirn  11 267  809   2  10   11 L   # 299
+* 1   3 Dirn  11 159  811   2  10   11 L   # 300
+*
+* close without weight low
+repeat    377 383 call   forright * right = b
+repeat    377 383 centre afoot  mx my mz
+repeat    377 383 call   fmed
+repeat    377 383 set    fend  6
+repeat    377 383 set    coords mpelvis
+call      377 383 close
+repeat    377 383 moveto fig    afoot  mx my mz
+* 1  15 Rotn   2 304  812   2  10   11 M   # 301
+* 1  -1 Rotn   2 122  812   2  10   11 M   # 302
+*
+* pivot
+repeat    378 384 call   forleft * b = left
+repeat    378 379 centre bfoot  mx my mz
+linear    378 384 spinby fig    bfoot  pelvis 135 y
+repeat    378 384 moveto fig    bfoot  mx my mz
+* 1   1 Dirn   3 134  824   4  10   23 M   # 303
+*
+repeat    384 396 set    fend  12
+repeat    384 396 call   fmed
+repeat    384 396 set    coords mpelvis
+repeat    384 396 call   forright
+call      384 396 rside
+* 1  -7 Face   8  50  824   1  18   18 B   # 304
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 1  14 Dirn   7 292  824   2  10   11 M   # 305
+* 1  24 Face   5 400  824   1  18   18 B   # 306
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   8   5   3
+* 1  14 Pins   2 288  831   1  18   18 L   # 307
+* 1  14 Rotn   2 292  836   2  10   11 M   # 308
+* 1  14 Pins   3 287  842   1  18   18 L   # 309
+* 1  -5 Volm   1  71  846   1  12   12 B   # 310
+* 1  14 Rotn   2 292  847   2  10   11 M   # 311
+* 1  20 Volm   1 360  847   1  12   12 B   # 312
+* 1   1 Rotn   2 134  847   4  10   23 M   # 313
+*
+* pivot
+repeat    396 408 call   forright * b = right
+repeat    396 397 centre bfoot  mx my mz
+linear    396 408 spinby fig    bfoot  pelvis 90 y
+repeat    396 408 moveto fig    bfoot  mx my mz
+* 1  15 Dirn   3 304  848   2  10   11 M   # 314
+* 1   1 Pins   3 129  848   1  18   18 L   # 315
+* 1  24 Face   6 400  853   1  18   18 B   # 316
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1   6  -1
+* 1  21 Keys  16 380  856   2   5   12 L . # 317
+* 0  20 Dirn   2 360  859   2  10   11 M   # 318
+* 0  -5 Dirn   9  71  859   2  10   11 M   # 319
+* 1  17 Dirn  11 329  860   2  10   11 L   # 320
+* 1  14 Dirn  11 292  860   2  10   11 M   # 321
+* 1  -3 Dirn  11  97  860   2  10   11 L   # 322
+*
+* close without weight low
+repeat    403 409 call   forleft * left = b
+repeat    403 409 centre afoot  mx my mz
+repeat    403 409 call   fmed
+repeat    403 409 set    fend  6
+repeat    403 409 set    coords mpelvis
+call      403 409 close
+repeat    403 409 moveto fig    afoot  mx my mz
+* 1  21 Keys  17 378  862   2   5   12 L _ # 323
+* 1  21 Keys  16 380  864   2   5   12 L . # 324
+* 1  24 Face   8 400  872   1  18   18 B   # 325
+** lsethold 2 1,  0 0,  0 0,  1 4,  0 4,   2   8   2
+** ldoposn 409 418,   0   2
+* 1  11 Bars   9  30  872   1 464    3 B   # 326 # bar 9
+* 1  -7 Face   2  50  873   1  18   18 B   # 327
+** lsethold 2 2,  0 0,  0 0,  1 4,  0 4,  -1  -1  -1
+* 1 -10 Keys   1  18  873   2  12   12 B 9 # 328
+*
+************************************
+*
+repeat      0 460 call   dowoman
+* 1 -18 Keys   0  65    3   2  50   15 L Barn_Dance # 1
+* 1  -9 Keys   0 154    3   2 105   15 L updated_31_March_2007 # 2
+* 1   5 Keys   0 313    5   2  90   15 L Don_Herbison-Evans # 3
+* 1  -8 Pins   2 203    8   1  18   18 L   # 4
+* 1  -6 Pins   8 227    9   1  18   18 H   # 5
+* 0 -18 Stav   3  96   12   1   1  879 B   # 6
+* 0 -12 Stav   0 170   12   1   1  879 B   # 7
+* 0  -4 Stav   1 266   12   1   1  879 B   # 8
+* 0   4 Stav   2 340   12   1   1  879 B   # 9
+* 1   9 Face   8 400   16   1  18   18 B   # 10
+linear      0   1 spinby fig    afoot  pelvis 315 y
+** lsethold 0 0,  0 0,  0 0,  1 0,  0 0,   2   8   2
+* 1 -21 Face   2  50   17   1  18   18 B   # 11
+** lsethold 0 0,  0 0,  0 0,  1 0,  0 0,  -1  -1  -1
+* 0  -1 Pins   1 293   18   1  18   18 H   # 12
+* 0 -15 Pins   1 122   19   1  18   18 L   # 13
+* 1  -7 Volm   1 220   33   1  12   12 B   # 14
+* 1  -7 Misc   1  66   37  26 312   52 B   # 15
+* 1  -7 Volm   7 219   40   1  12   12 B   # 16
+* 0 -15 Stav   5 133   48   1   1  843 L   # 17
+* 0   1 Stav   4 303   48   1   1  843 L   # 18
+* 1  -4 Bars   0  30   48   1 464    3 B   # 19 # bar 0
+*
+***************************
+*
+*   bar 0
+*
+* 0  -9 Volm   3 193   61   1  12   12 B   # 20
+* 1  -5 Volm   3 239   61   1  12   12 B   # 21
+*
+* arms
+quadratic   0   1 bendto luarm  lshldr shldrs 315  60  98
+quadratic   0   1 bendto llarm  lelbow luarm    0   0  90
+** ldohold   0   1,   0   0
+** ldokeep   0   1,   0
+* 0 -19 Volm   1  73   61   1  12   12 B   # 22
+* 1  -7 Volm   1 223   61   1  12   12 B   # 23
+* 1   6 Volm   1 361   61   1  12   12 B   # 24
+*
+* arms
+quadratic   0   1 bendto ruarm  rshldr shldrs 328 341  79
+quadratic   0   1 bendto rlarm  relbow ruarm    0   0  45
+quadratic   0   1 bendto rhand  rwrist rlarm  270   0 150
+** ldohold   1   1,   0   0
+* 1  -8 Volm   1 209   63   1  12   12 B   # 25
+* 1 -10 Limb   7 178   64   4  12   24 B   # 26
+** lsethold 0 0,  0 0,  0 0,  1 0,  0 0,  -1  -1  -1
+* 1  -6 Misc   1 210   65   4  48    8 B   # 27
+* 1  -9 Misc   1 181   67   4  48    8 B   # 28
+* 1  -7 Volm   7 223   68   1  12   12 B   # 29
+* 1  -8 Limb  10 204   68   4  12   24 B   # 30
+** lsethold 0 0,  0 0,  0 0,  1 0,  0 0,  -1  -1  -1
+* 1  -4 Limb   1 250   68   4  12   24 B   # 31
+** lsethold 0 0,  0 0,  0 0,  1 0,  0 0,  -1  -1  -1
+* 1   7 Limb  10 372   69   4  12   24 B   # 32
+** lsethold 0 0,  0 0,  0 0,  1 0,  0 0,  -1  -1  -1
+* 0 -14 Dirn  11 134   70   4  10   23 M   # 33
+* 1  -1 Dirn  11 292   70   4  10   23 M   # 34
+*
+repeat      0   1 set    fend  1
+repeat      0   1 call   fmed
+repeat      0   1 set    coords wpelvis
+repeat      0   1 call   forleft
+call        0   1 close
+** ldohold   1   1,   0   0
+* 1   1 Dirn  11 304   70   4  10   23 M   # 35
+*
+repeat      0   1 set    fend  1
+repeat      0   1 call   fmed
+repeat      0   1 set    coords wpelvis
+repeat      0   1 call   forright
+call        0   1 close
+** ldohold   1   1,   0   0
+* 0 -19 Dirn   9  72   70   4  10   23 M   # 36
+* 0   6 Dirn   2 360   70   4  10   23 M   # 37
+** ldohold   1   1,   0   0
+* 0  -9 Dirn   1 192   70   4  10   23 M   # 38
+* 1  -8 Volm   7 207   70   1  12   12 B   # 39
+* 0  -6 Dirn  10 238   70   4  10   23 M   # 40
+** ldohold   1   1,   0   0
+* 0 -15 Dirn  11 122   70   4  10   23 M   # 41
+* 1 -20 Limb   4  58   71   4  12   24 B   # 42
+** lsethold 0 0,  0 0,  0 0,  1 0,  0 0,  -1  -1  -1
+* 1  -7 Limb   4 225   72   4  12   24 B   # 43
+** lsethold 0 0,  0 0,  0 0,  1 1,  0 1,  -1  -1  -1
+* 0 -11 Area   1 175   76   3  15   15 B   # 44
+* 1 -11 Keys  23 174   77   2   5   12 L | # 45
+* 0  -4 Area   5 251   78   3  15   15 B   # 46
+* 1  -4 Bars   1  30   96   1 464    3 L   # 47 # bar 1
+*
+***************************
+*
+*   bar 1
+*
+* 0 -15 Dirn   9 122   97   4  10   23 M   # 48
+* 1   1 Dirn   2 304   97   4  10   23 M   # 49
+*
+repeat      2  14 set    fend  12
+repeat      2  14 call   fmed
+repeat      2  14 set    coords wpelvis
+repeat      2  14 call   forright
+call        2  14 rfordiag
+** ldohold   1  14,   0   0
+** ldokeep   1  14,   0
+* 1 -24 Keys   1  18   98   2  12   12 B 1 # 50
+* 1 -22 Keys  16  42  100   2   5   12 L . # 51
+* 1 -22 Keys  17  40  106   2   5   12 L _ # 52
+* 1 -22 Keys  16  42  108   2   5   12 L . # 53
+* 1  -1 Dirn   2 292  120   4  10   23 H   # 54
+*
+repeat     14  26 set    fend  12
+repeat     14  26 call   fhigh
+repeat     14  26 set    coords wpelvis
+repeat     14  26 call   forleft
+call       14  26 rfordiag
+** ldohold  14  26,   0   0
+** ldokeep  14  26,   0
+* 0 -14 Dirn   9 134  122   4  10   23 H   # 55
+* 0 -15 Dirn   9 122  145   4  10   23 M   # 56
+* 1   1 Dirn   2 304  146   4  10   23 M   # 57
+*
+repeat     27  39 set    fend  12
+repeat     27  39 call   fmed
+repeat     27  39 set    coords wpelvis
+repeat     27  39 call   forright
+call       27  39 rfordiag
+** ldohold  26  39,   0   0
+** ldokeep  26  39,   0
+* 0 -12 Volm   1 158  159   1  12   12 B   # 58
+* 1  -3 Volm   1 266  159   1  12   12 B   # 59
+*
+* forward diagonal gesture middle
+repeat     34  51 call   forleft * left = b
+repeat     34  51 centre afoot  wx wy wz
+quadratic  34  51 bendto bthigh bhip   pelvis 337 339 98
+linear     42  51 bendto bleg   bknee  bthigh lrlx1 lrlx2 lrlx3
+linear     42  51 bendto bfoot  bankle bleg   fhig1 fhig2 fhig3
+repeat     34  51 moveto fig    afoot  wx wy wz
+** ldohold  39  51,   0   0
+** ldokeep  39  51,   0
+* 0  -3 Dirn   2 267  169   4  10   23 M   # 60
+** ldohold  51  51,   0   0
+* 0 -12 Dirn   9 159  169   4  10   23 M   # 61
+* 1   1 Dirn  11 304  169   4  10   23 H   # 62
+*
+repeat     39  51 set    fend  12
+repeat     39  51 call   fhigh
+repeat     39  51 set    coords wpelvis
+repeat     39  51 call   forright
+call       39  51 close
+** ldohold  51  51,   0   0
+* 0 -15 Dirn  11 122  169   4  10   23 H   # 63
+* 1  -4 Bars   2  30  193   1 464    3 B   # 64 # bar 2
+*
+***************************
+*
+*   bar 2
+*
+* 1  -1 Dirn   7 292  194   4  10   23 M   # 65
+*
+repeat     53  65 set    fend  12
+repeat     53  65 call   fmed
+repeat     53  65 set    coords wpelvis
+repeat     53  65 call   forleft
+call       53  65 lbacdiag
+** ldohold  51  65,   0   0
+** ldokeep  51  65,   0
+* 0 -14 Dirn   4 134  194   4  10   23 M   # 66
+* 1 -24 Keys   1  18  194   2  12   12 B 2 # 67
+* 1   1 Dirn   7 304  218   4  10   23 M   # 68
+*
+repeat     65  77 set    fend  12
+repeat     65  77 call   fmed
+repeat     65  77 set    coords wpelvis
+repeat     65  77 call   forright
+call       65  77 lbacdiag
+** ldohold  65  77,   0   0
+** ldokeep  65  77,   0
+* 0 -15 Dirn   4 122  220   4  10   23 M   # 69
+* 1  -1 Dirn   7 292  242   8  10   47 M   # 70
+*
+repeat     78 103 set    fend  25
+repeat     78 103 call   fmed
+repeat     78 103 set    coords wpelvis
+repeat     78 103 call   forleft
+call       78 103 lbacdiag
+** ldohold  77 103,   0   0
+** ldokeep  77 103,   0
+* 0 -14 Dirn   4 134  242   8  10   47 M   # 71
+* 1  -7 Misc   2 218  255   2  12   12 B   # 72
+* lreleasea 85 91 71 -1 0 0
+* 1  -8 Misc   2 205  255   2  12   12 B   # 73
+* lreleasea 85 91 72 -1 0 0
+* 1  -6 Misc   2 231  256   2  12   12 B   # 74
+* lreleasea 85 91 73 -1 0 0
+* 1  -9 Misc   3 201  259   2  12   12 B   # 75
+* 1  -7 Misc   3 215  259   2  12   12 B   # 76
+* 1  -6 Misc   3 228  260   2  12   12 B   # 77
+* 1   3 Dirn  11 329  265   4  10   23 L   # 78
+*
+* close without weight low
+repeat     90 102 call   forright * right = b
+repeat     90 102 centre afoot  wx wy wz
+repeat     90 102 call   fmed
+repeat     90 102 set    fend  12
+repeat     90 102 set    coords wpelvis
+call       90 102 close
+** ldohold  92  93,   0   0
+** ldokeep  92  93,   0
+* 0 -17 Dirn  11  97  266   4  10   23 L   # 79
+* 1  -6 Volm   3 237  269   1  12   12 B   # 80
+*
+* arms
+quadratic  92 103 bendto luarm  lshldr shldrs  67  21  98
+quadratic  92 103 bendto llarm  lelbow luarm    0   0  90
+** ldohold  93 102,   0   0
+** ldokeep  93 102,   0
+* 0  -9 Volm   3 191  269   1  12   12 B   # 81
+* 0  -6 Dirn   2 237  278   2  10   11 M   # 82
+** ldohold 102 103,   0   0
+** ldokeep 102 103,   0
+* 0  -9 Dirn   9 191  278   2  10   11 M   # 83
+* 1  -1 Pins   3 288  284   1  18   18 L   # 84
+* 1 -14 Pins   7 128  285   1  18   18 L   # 85
+* 1  -4 Bars   3  30  290   1 464    3 B   # 86 # bar 3
+*
+***************************
+*
+*   bar 3
+*
+* 1  -1 Rotn   2 292  291   2  10   11 M   # 87
+*
+* pivot
+repeat    104 110 call   forleft * b = left
+repeat    104 105 centre bfoot  wx wy wz
+linear    104 110 spinby fig    bfoot  pelvis 90 y
+repeat    104 110 moveto fig    bfoot  wx wy wz
+** ldohold 103 111,   0   0
+** ldokeep 103 111,   0
+* 1 -14 Rotn   1 134  291   2  10   11 M   # 88
+* 1 -24 Keys   1  18  291   2  12   12 B 3 # 89
+* 0 -15 Dirn  10 122  303   2  10   11 M   # 90
+* 1   1 Dirn   1 304  304   2  10   11 M   # 91
+*
+repeat    110 116 set    fend  6
+repeat    110 116 call   fmed
+repeat    110 116 set    coords wpelvis
+repeat    110 116 call   forright
+call      110 116 forward
+** ldohold 111 116,   0   0
+** ldokeep 111 116,   0
+* 1 -21 Face   8  50  304   1  18   18 B   # 92
+** lsethold 0 0,  0 0,  0 0,  1 0,  0 0,  -1  -1  -1
+* 1   9 Face   2 400  307   1  18   18 B   # 93
+** lsethold 0 0,  0 0,  0 0,  1 0,  0 0,   8   2   6
+* 1 -15 Pins   8 115  310   1  18   18 L   # 94
+* 1   1 Pins   2 299  310   1  18   18 L   # 95
+* 1  -3 Dirn  11 267  313   2  10   11 L   # 96
+*
+* close without weight low
+repeat    115 121 call   forleft * left = b
+repeat    115 121 centre afoot  wx wy wz
+repeat    115 121 call   fmed
+repeat    115 121 set    fend  6
+repeat    115 121 set    coords wpelvis
+call      115 121 close
+** ldohold 116 123,   0   0
+** ldokeep 116 123,   0
+* 0  -9 Volm   1 194  313   1  12   12 B   # 97
+* 1  -5 Volm   1 239  314   1  12   12 B   # 98
+*
+* arms
+quadratic 116 127 bendto luarm  lshldr shldrs  32  19  79
+quadratic 116 127 bendto llarm  lelbow luarm    0   0  45
+quadratic 116 127 bendto lhand  lwrist llarm  270   0 150
+** ldohold 123 127,   0   0
+** ldokeep 123 127,   0
+* 1   1 Rotn   2 304  315   2  10   11 M   # 99
+*
+* pivot
+repeat    116 122 call   forright * b = right
+repeat    116 117 centre bfoot  wx wy wz
+linear    116 122 spinby fig    bfoot  pelvis 45 y
+repeat    116 122 moveto fig    bfoot  wx wy wz
+** ldohold 127 123,   0   0
+* 1 -15 Rotn   1 122  315   2  10   11 M   # 100
+* 0 -12 Dirn  11 159  316   2  10   11 L   # 101
+* 0  -6 Dirn   9 237  324   2  10   11 M   # 102
+** ldohold 127 123,   0   0
+* 0  -9 Dirn   2 192  324   2  10   11 M   # 103
+* 1 -21 Face   7  50  327   1  18   18 B   # 104
+** lsethold 0 0,  0 0,  0 0,  1 0,  0 0,  -1  -1  -1
+* 1  -1 Dirn  10 292  327   2  10   11 M   # 105
+*
+repeat    123 129 set    fend  6
+repeat    123 129 call   fmed
+repeat    123 129 set    coords wpelvis
+repeat    123 129 call   forleft
+call      123 129 forward
+** ldohold 127 129,   0   0
+** ldokeep 127 129,   0
+* 0 -14 Dirn   1 134  327   2  10   11 M   # 106
+* 1   9 Face   3 400  328   1  18   18 B   # 107
+** lsethold 0 0,  0 0,  0 0,  0 0,  1 0,   7   3   4
+* 1  -1 Pins   5 286  332   1  18   18 L   # 108
+* 1 -14 Pins   5 128  334   1  17   17 L   # 109
+* 0 -17 Dirn  11  97  338   2  10   11 L   # 110
+* 1  -1 Rotn   2 292  339   2  10   11 M   # 111
+*
+* pivot
+repeat    129 135 call   forleft * b = left
+repeat    129 130 centre bfoot  wx wy wz
+linear    129 135 spinby fig    bfoot  pelvis 180 y
+repeat    129 135 moveto fig    bfoot  wx wy wz
+** ldohold 129 136,   0   0
+** ldokeep 129 136,   0
+* 1 -14 Rotn   1 134  339   2  10   11 M   # 112
+* 1   4 Dirn  11 341  340   2  10   11 L   # 113
+*
+* arms
+quadratic 129 135 bendto rlarm  relbow ruarm    0   0   0
+quadratic 129 135 bendto ruarm  rshldr shldrs   0   0   0
+quadratic 129 135 bendto rhand  rwrist rlarm    0   0   0
+** ldohold 136 135,   0   0
+* 1  -8 Volm   1 212  344   1  12   12 B   # 114
+* 1  -7 Misc   1  67  349  26 312   52 B   # 115
+* 1   9 Face   7 400  351   1  18   18 B   # 116
+** lsethold 0 0,  0 0,  0 0,  0 0,  1 0,   3   7   4
+* 0 -15 Dirn  10 122  351   2  10   11 M   # 117
+* 1   1 Dirn   1 304  351   2  10   11 M   # 118
+*
+repeat    135 141 set    fend  6
+repeat    135 141 call   fmed
+repeat    135 141 set    coords wpelvis
+repeat    135 141 call   forright
+call      135 141 forward
+** ldohold 136 141,   0   0
+** ldokeep 136 141,   0
+* 1 -21 Face   3  50  351   1  18   18 B   # 119
+** lsethold 0 0,  0 0,  0 0,  0 0,  1 0,  -1  -1  -1
+* 1  -8 Volm   7 211  354   1  12   12 B   # 120
+* 0 -14 Dirn   1 134  363   4  10   23 M   # 121
+* 1  -1 Dirn  10 292  365   4  10   23 M   # 122
+*
+repeat    143 155 set    fend  12
+repeat    143 155 call   fmed
+repeat    143 155 set    coords wpelvis
+repeat    143 155 call   forleft
+call      143 155 forward
+** ldohold 141 155,   0   0
+** ldokeep 141 155,   0
+* 1   7 Limb   9 371  384   4  12   24 B   # 123
+** lsethold 0 0,  0 0,  0 0,  0 1,  1 1,  -1  -1  -1
+* 1 -20 Limb   4  61  387   4  12   24 B   # 124
+** lsethold 8 0,  0 0,  0 0,  0 2,  1 2,  -1  -1  -1
+** ldoposn 154 167,   1   8
+repeat    154 167 set    fpos  13
+call      154 167 coposn
+*
+* 1  -4 Bars   4  30  387   1 464    3 B   # 125 # bar 4
+*
+***************************
+*
+*   bar 4
+*
+* 1   1 Dirn   3 304  388   4  10   23 M   # 126
+*
+repeat    155 167 set    fend  12
+repeat    155 167 call   fmed
+repeat    155 167 set    coords wpelvis
+repeat    155 167 call   forright
+call      155 167 rside
+** ldohold 167 167,   8   8
+* 0 -15 Dirn   8 122  388   4  10   23 M   # 127
+* 1 -24 Keys   1  18  388   2  12   12 B 4 # 128
+* 1   6 Volm   1 362  390   1  12   12 B   # 129
+*
+* arms
+quadratic 156 173 bendto ruarm  rshldr shldrs 328 341  79
+quadratic 156 173 bendto rlarm  relbow ruarm    0   0  45
+quadratic 156 173 bendto rhand  rwrist rlarm  270   0 150
+** ldohold 167 161,   8   8
+* 0 -19 Volm   1  74  390   1  12   12 B   # 130
+* 1  -7 Volm   1 219  390   1  12   12 B   # 131
+* 1  -6 Volm   3 233  390   1  12   12 B   # 132
+*
+* arms
+quadratic 156 173 bendto luarm  lshldr shldrs 315  60  98
+quadratic 156 173 bendto llarm  lelbow luarm    0   0  90
+** ldohold 167 162,   8   8
+* 1 -11 Limb   7 175  391   4  12   24 B   # 133
+** lsethold 8 8,  0 0,  0 0,  0 2,  1 2,  -1  -1  -1
+* 1  -8 Volm   1 204  391   1  12   12 B   # 134
+* 0  -9 Volm   3 190  391   1  12   12 B   # 135
+* 1  -5 Limb   1 248  392   4  12   24 B   # 136
+** lsethold 8 8,  0 0,  0 0,  0 2,  1 2,  -1  -1  -1
+* 1  -8 Limb   9 206  393   4  12   24 B   # 137
+** lsethold 8 8,  0 0,  0 0,  0 3,  1 3,  -1  -1  -1
+* 1  -6 Misc   1 212  394   4  48    8 B   # 138
+* 1  -9 Misc   1 177  395   4  48    8 B   # 139
+* 1  -7 Volm   7 217  396   1  12   12 B   # 140
+* 1  -7 Limb   4 221  397   4  12   24 B   # 141
+** lsethold 1 8,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+** ldoposn 159 172,   1   1
+repeat    159 172 set    fpos  13
+call      159 172 clposn
+*
+* 1  -8 Volm   7 203  397   1  12   12 B   # 142
+* 0  -6 Dirn  10 233  399   4  10   23 M   # 143
+** ldohold 172 165,   1   1
+* 0 -19 Dirn   9  74  399   4  10   23 M   # 144
+* 0   6 Dirn   2 361  399   4  10   23 M   # 145
+** ldohold 172 172,   1   1
+* 0 -10 Dirn   1 190  400   4  10   23 M   # 146
+* 0  -5 Area   5 248  402   3  15   15 B   # 147
+* 0 -11 Area   1 172  403   3  15   15 B   # 148
+* 1 -11 Keys  23 171  403   2   5   12 L | # 149
+* 1  -1 Dirn  11 292  412   4  10   23 M   # 150
+*
+repeat    167 179 set    fend  12
+repeat    167 179 call   fmed
+repeat    167 179 set    coords wpelvis
+repeat    167 179 call   forleft
+call      167 179 close
+** ldohold 172 179,   1   1
+** ldokeep 172 179,   1
+repeat    172 179 call   clkeep
+*
+* 0 -14 Dirn  11 134  412   4  10   23 M   # 151
+* 1 -15 Volm   7 122  414   1  12   12 B   # 152
+* 1   1 Volm   7 304  414   1  12   12 B   # 153
+* 1   1 Dirn   3 304  436   8  10   47 M   # 154
+*
+repeat    180 205 set    fend  25
+repeat    180 205 call   fmed
+repeat    180 205 set    coords wpelvis
+repeat    180 205 call   forright
+call      180 205 rside
+** ldohold 179 205,   1   1
+** ldokeep 179 205,   1
+repeat    179 205 call   clkeep
+*
+* 0 -15 Dirn   8 122  436   8  10   47 M   # 155
+* 1  -3 Dirn  11 267  460   4  10   23 L   # 156
+*
+* close without weight low
+repeat    192 204 call   forleft * left = b
+repeat    192 204 centre afoot  wx wy wz
+repeat    192 204 call   fmed
+repeat    192 204 set    fend  12
+repeat    192 204 set    coords wpelvis
+call      192 204 close
+** ldohold 205 205,   1   1
+* 0 -12 Dirn  11 159  460   4  10   23 L   # 157
+* 1  -4 Bars   5  30  484   1 464    3 B   # 158 # bar 5
+*
+***************************
+*
+*   bar 5
+*
+* 1  -1 Dirn   8 292  485   4  10   23 M   # 159
+*
+repeat    206 218 set    fend  12
+repeat    206 218 call   fmed
+repeat    206 218 set    coords wpelvis
+repeat    206 218 call   forleft
+call      206 218 lside
+** ldohold 205 218,   1   1
+** ldokeep 205 218,   1
+repeat    205 218 call   clkeep
+*
+* 0 -14 Dirn   3 134  485   4  10   23 M   # 160
+* 1 -24 Keys   1  18  485   2  12   12 B 5 # 161
+* 0 -15 Dirn  11 122  509   4  10   23 M   # 162
+* 1 -14 Volm   7 134  511   1  12   12 B   # 163
+* 1   1 Dirn  11 304  511   4  10   23 M   # 164
+*
+repeat    219 231 set    fend  12
+repeat    219 231 call   fmed
+repeat    219 231 set    coords wpelvis
+repeat    219 231 call   forright
+call      219 231 close
+** ldohold 218 231,   1   1
+** ldokeep 218 231,   1
+repeat    218 231 call   clkeep
+*
+* 0 -14 Dirn   3 134  533   8  10   47 M   # 165
+* 1  -1 Dirn   8 292  533   8  10   47 M   # 166
+*
+repeat    231 256 set    fend  25
+repeat    231 256 call   fmed
+repeat    231 256 set    coords wpelvis
+repeat    231 256 call   forleft
+call      231 256 lside
+** ldohold 231 256,   1   1
+** ldokeep 231 256,   1
+repeat    231 256 call   clkeep
+*
+* 0 -17 Dirn  11  97  557   4  10   23 L   # 167
+* 1   3 Dirn  11 329  557   4  10   23 L   # 168
+*
+* close without weight low
+repeat    244 256 call   forright * right = b
+repeat    244 256 centre afoot  wx wy wz
+repeat    244 256 call   fmed
+repeat    244 256 set    fend  12
+repeat    244 256 set    coords wpelvis
+call      244 256 close
+** ldohold 256 256,   1   1
+* 1  -1 Pins   2 287  576   1  18   18 L   # 169
+* 1 -14 Pins   2 129  577   1  18   18 L   # 170
+* 1  -4 Bars   6  30  581   1 464    3 B   # 171 # bar 6
+*
+***************************
+*
+*   bar 6
+*
+* 1  -1 Rotn   2 292  582   2  10   11 M   # 172
+*
+* pivot
+repeat    257 263 call   forleft * b = left
+repeat    257 258 centre bfoot  wx wy wz
+linear    257 263 spinby fig    bfoot  pelvis 45 y
+** ldohold 256 264,   1   1
+** ldokeep 256 264,   1
+repeat    256 264 call   clkeep
+*
+* 0 -15 Dirn   8 122  582   2  10   11 M   # 173
+* 1 -14 Rotn   2 134  582   2  10   11 M   # 174
+* 1   1 Dirn   3 304  582   2  10   11 M   # 175
+*
+repeat    257 263 set    fend  6
+repeat    257 263 call   fmed
+repeat    257 263 set    coords wpelvis
+repeat    257 263 call   forright
+call      257 263 rside
+** ldohold 264 263,   1   1
+* 1 -24 Keys   1  18  582   2  12   12 B 6 # 176
+* 1 -15 Pins   2 118  588   1  18   18 L   # 177
+* 1   1 Pins   2 299  589   1  18   18 L   # 178
+* 1   1 Rotn   2 304  594   2  10   11 M   # 179
+*
+* pivot
+repeat    263 269 call   forright * b = right
+repeat    263 264 centre bfoot  wx wy wz
+linear    263 269 spinby fig    bfoot  pelvis 45 y
+** ldohold 264 270,   1   1
+** ldokeep 264 270,   1
+repeat    264 270 call   clkeep
+*
+* 1 -21 Face   4  50  594   1  18   18 B   # 180
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 1  -1 Dirn  11 292  594   2  10   11 M   # 181
+*
+repeat    263 269 set    fend  6
+repeat    263 269 call   fmed
+repeat    263 269 set    coords wpelvis
+repeat    263 269 call   forleft
+call      263 269 close
+** ldohold 270 269,   1   1
+* 1   9 Face   8 400  594   1  18   18 B   # 182
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   4   8   4
+* 0 -14 Dirn  11 134  594   2  10   11 M   # 183
+* 1 -15 Rotn   2 122  594   2  10   11 M   # 184
+* 1   1 Dirn   1 304  606   2  10   11 M   # 185
+*
+repeat    269 275 set    fend  6
+repeat    269 275 call   fmed
+repeat    269 275 set    coords wpelvis
+repeat    269 275 call   forright
+call      269 275 forward
+** ldohold 270 275,   1   1
+** ldokeep 270 275,   1
+repeat    270 275 call   clkeep
+*
+* 0 -15 Dirn   6 122  606   2  10   11 M   # 186
+* 1 -21 Face   5  50  606   1  18   18 B   # 187
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 1   9 Face   1 400  610   1  18   18 B   # 188
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   5   1   4
+* 1   1 Pins   2 301  613   1  18   18 L   # 189
+* 1 -15 Pins   2 117  613   1  18   18 L   # 190
+* 1  -3 Dirn  11 267  615   2  10   11 L   # 191
+*
+* close without weight low
+repeat    274 280 call   forleft * left = b
+repeat    274 280 centre afoot  wx wy wz
+repeat    274 280 call   fmed
+repeat    274 280 set    fend  6
+repeat    274 280 set    coords wpelvis
+call      274 280 close
+** ldohold 275 282,   1   1
+** ldokeep 275 282,   1
+repeat    275 282 call   clkeep
+*
+* 0 -12 Dirn  11 159  617   2  10   11 L   # 192
+* 1   1 Rotn   2 304  618   2  10   11 M   # 193
+*
+* pivot
+repeat    276 282 call   forright * b = right
+repeat    276 277 centre bfoot  wx wy wz
+linear    276 282 spinby fig    bfoot  pelvis 45 y
+** ldohold 282 283,   1   1
+** ldokeep 282 283,   1
+repeat    282 283 call   clkeep
+*
+* 1 -15 Rotn   2 122  618   2  10   11 M   # 194
+* 1   1 Pins   3 299  623   1  18   18 L   # 195
+* 1 -15 Pins   3 118  624   1  18   18 L   # 196
+* 1   9 Face   2 400  628   1  18   18 B   # 197
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   6   2   4
+* 1   1 Rotn   2 304  629   2  10   11 M   # 198
+*
+* pivot
+repeat    281 287 call   forright * b = right
+repeat    281 282 centre bfoot  wx wy wz
+linear    281 287 spinby fig    bfoot  pelvis 90 y
+** ldohold 283 288,   1   1
+** ldokeep 283 288,   1
+repeat    283 288 call   clkeep
+*
+* 1 -15 Rotn   2 122  629   2  10   11 M   # 199
+* 1 -21 Face   6  50  630   1  18   18 B   # 200
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 1  -1 Dirn   8 292  630   2  10   11 M   # 201
+*
+repeat    282 288 set    fend  6
+repeat    282 288 call   fmed
+repeat    282 288 set    coords wpelvis
+repeat    282 288 call   forleft
+call      282 288 lside
+** ldohold 288 288,   1   1
+* 0 -14 Dirn   3 132  631   2  10   11 M   # 202
+* 1  -1 Pins   2 287  635   1  18   18 L   # 203
+* 1 -14 Pins   2 130  636   1  18   18 L   # 204
+* 1 -14 Rotn   2 134  641   2  10   11 M   # 205
+* 1  -1 Rotn   2 292  641   2  10   11 M   # 206
+*
+* pivot
+repeat    288 294 call   forleft * b = left
+repeat    288 289 centre bfoot  wx wy wz
+linear    288 294 spinby fig    bfoot  pelvis 45 y
+** ldohold 288 295,   1   1
+** ldokeep 288 295,   1
+repeat    288 295 call   clkeep
+*
+* 1   9 Face   4 400  642   1  18   18 B   # 207
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   8   4   4
+* 0 -15 Dirn  11 122  642   2  10   11 M   # 208
+* 1   1 Dirn  11 304  642   2  10   11 M   # 209
+*
+repeat    288 294 set    fend  6
+repeat    288 294 call   fmed
+repeat    288 294 set    coords wpelvis
+repeat    288 294 call   forright
+call      288 294 close
+** ldohold 295 294,   1   1
+* 1 -21 Face   8  50  643   1  18   18 B   # 210
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 0 -14 Dirn   1 134  653   2  10   11 M   # 211
+* 1  -1 Dirn   6 292  654   2  10   11 M   # 212
+*
+repeat    295 301 set    fend  6
+repeat    295 301 call   fmed
+repeat    295 301 set    coords wpelvis
+repeat    295 301 call   forleft
+call      295 301 back
+** ldohold 295 301,   1   1
+** ldokeep 295 301,   1
+repeat    295 301 call   clkeep
+*
+* 1 -21 Face   1  50  659   1  18   18 B   # 213
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 1   9 Face   5 400  659   1  18   18 B   # 214
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   1   5   4
+* 1 -14 Pins   2 130  660   1  18   18 L   # 215
+* 1  -1 Pins   2 287  661   1  17   17 L   # 216
+* 1 -14 Rotn   2 134  666   2  10   11 M   # 217
+* 0 -17 Dirn  11  96  666   2  10   11 L   # 218
+* 1   3 Dirn  11 330  666   2  10   11 L   # 219
+*
+* close without weight low
+repeat    301 307 call   forright * right = b
+repeat    301 307 centre afoot  wx wy wz
+repeat    301 307 call   fmed
+repeat    301 307 set    fend  6
+repeat    301 307 set    coords wpelvis
+call      301 307 close
+** ldohold 301 307,   1   1
+** ldokeep 301 307,   1
+repeat    301 307 call   clkeep
+*
+* 1  -1 Rotn   2 292  666   2  10   11 M   # 220
+*
+* pivot
+repeat    301 307 call   forleft * b = left
+repeat    301 302 centre bfoot  wx wy wz
+linear    301 307 spinby fig    bfoot  pelvis 45 y
+** ldohold 307 308,   1   1
+** ldokeep 307 308,   1
+repeat    307 308 call   clkeep
+*
+* 1 -14 Pins   3 130  674   1  18   18 L   # 221
+* 1  -1 Pins   3 288  674   1  18   18 L   # 222
+* 1 -21 Face   2  50  678   1  18   18 B   # 223
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 1  -4 Bars   7  30  678   1 464    3 B   # 224 # bar 7
+*
+***************************
+*
+*   bar 7
+*
+* 1  -1 Rotn   2 292  679   2  10   11 M   # 225
+*
+* pivot
+repeat    308 314 call   forleft * b = left
+repeat    308 309 centre bfoot  wx wy wz
+linear    308 314 spinby fig    bfoot  pelvis 90 y
+** ldohold 308 315,   1   1
+** ldokeep 308 315,   1
+repeat    308 315 call   clkeep
+*
+* 1 -14 Rotn   2 134  679   2  10   11 M   # 226
+* 0 -15 Dirn   8 122  679   2  10   11 M   # 227
+* 1   9 Face   6 400  679   1  18   18 B   # 228
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   2   6   4
+* 1   1 Dirn   3 304  679   2  10   11 M   # 229
+*
+repeat    308 314 set    fend  6
+repeat    308 314 call   fmed
+repeat    308 314 set    coords wpelvis
+repeat    308 314 call   forright
+call      308 314 rside
+** ldohold 315 314,   1   1
+* 1 -24 Keys   1  18  679   2  12   12 B 7 # 230
+* 1 -15 Pins   2 118  684   1  18   18 L   # 231
+* 1   1 Pins   2 299  685   1  18   18 L   # 232
+* 1 -15 Rotn   2 122  690   2  10   11 M   # 233
+* 1  -1 Dirn  11 292  691   2  10   11 M   # 234
+*
+repeat    314 320 set    fend  6
+repeat    314 320 call   fmed
+repeat    314 320 set    coords wpelvis
+repeat    314 320 call   forleft
+call      314 320 close
+** ldohold 315 320,   1   1
+** ldokeep 315 320,   1
+repeat    315 320 call   clkeep
+*
+* 1   1 Rotn   2 304  691   2  10   11 M   # 235
+*
+* pivot
+repeat    314 320 call   forright * b = right
+repeat    314 315 centre bfoot  wx wy wz
+linear    314 320 spinby fig    bfoot  pelvis 45 y
+** ldohold 320 321,   1   1
+** ldokeep 320 321,   1
+repeat    320 321 call   clkeep
+*
+* 0 -14 Dirn  11 134  691   2  10   11 M   # 236
+* 1   9 Face   8 400  691   1  18   18 B   # 237
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   4   8   4
+* 1 -21 Face   4  50  691   1  18   18 B   # 238
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 1   9 Face   1 400  703   1  18   18 B   # 239
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   5   1   4
+* 1 -21 Face   5  50  703   1  18   18 B   # 240
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 0 -15 Dirn   6 122  703   2  10   11 M   # 241
+* 1   1 Dirn   1 304  703   2  10   11 M   # 242
+*
+repeat    320 326 set    fend  6
+repeat    320 326 call   fmed
+repeat    320 326 set    coords wpelvis
+repeat    320 326 call   forright
+call      320 326 forward
+** ldohold 321 326,   1   1
+** ldokeep 321 326,   1
+repeat    321 326 call   clkeep
+*
+* 1 -15 Pins   2 116  710   1  18   18 L   # 243
+* 1  -3 Dirn  11 267  710   2  10   11 L   # 244
+*
+* close without weight low
+repeat    324 330 call   forleft * left = b
+repeat    324 330 centre afoot  wx wy wz
+repeat    324 330 call   fmed
+repeat    324 330 set    fend  6
+repeat    324 330 set    coords wpelvis
+call      324 330 close
+** ldohold 326 333,   1   1
+** ldokeep 326 333,   1
+repeat    326 333 call   clkeep
+*
+* 1   1 Pins   2 302  712   1  18   18 L   # 245
+* 1 -15 Rotn   2 122  715   2  10   11 M   # 246
+* 0 -12 Dirn  11 159  715   2  10   11 L   # 247
+* 1   1 Rotn   2 304  716   2  10   11 M   # 248
+*
+* pivot
+repeat    327 333 call   forright * b = right
+repeat    327 328 centre bfoot  wx wy wz
+linear    327 333 spinby fig    bfoot  pelvis 45 y
+** ldohold 333 334,   1   1
+** ldokeep 333 334,   1
+repeat    333 334 call   clkeep
+*
+* 1 -15 Pins   3 118  721   1  18   18 L   # 249
+* 1   1 Pins   3 299  722   1  18   18 L   # 250
+* 1 -15 Rotn   2 122  726   2  10   11 M   # 251
+* 1   9 Face   2 400  727   1  18   18 B   # 252
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   6   2   4
+* 1   1 Rotn   2 304  727   2  10   11 M   # 253
+*
+* pivot
+repeat    333 339 call   forright * b = right
+repeat    333 334 centre bfoot  wx wy wz
+linear    333 339 spinby fig    bfoot  pelvis 90 y
+** ldohold 334 340,   1   1
+** ldokeep 334 340,   1
+repeat    334 340 call   clkeep
+*
+* 0 -14 Dirn   3 134  727   2  10   11 M   # 254
+* 1  -1 Dirn   8 292  727   2  10   11 M   # 255
+*
+repeat    333 339 set    fend  6
+repeat    333 339 call   fmed
+repeat    333 339 set    coords wpelvis
+repeat    333 339 call   forleft
+call      333 339 lside
+** ldohold 340 339,   1   1
+* 1 -21 Face   6  50  728   1  18   18 B   # 256
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 1  -1 Pins   2 288  733   1  18   18 L   # 257
+* 1 -14 Pins   2 130  734   1  18   18 L   # 258
+* 1  -1 Rotn   2 292  738   2  10   11 M   # 259
+*
+* pivot
+repeat    339 345 call   forleft * b = left
+repeat    339 340 centre bfoot  wx wy wz
+linear    339 345 spinby fig    bfoot  pelvis 45 y
+** ldohold 340 346,   1   1
+** ldokeep 340 346,   1
+repeat    340 346 call   clkeep
+*
+* 1   1 Dirn  11 304  739   2  10   11 M   # 260
+*
+repeat    339 345 set    fend  6
+repeat    339 345 call   fmed
+repeat    339 345 set    coords wpelvis
+repeat    339 345 call   forright
+call      339 345 close
+** ldohold 346 345,   1   1
+* 0 -15 Dirn  11 122  739   2  10   11 M   # 261
+* 1   9 Face   4 400  739   1  18   18 B   # 262
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   8   4   4
+* 1 -14 Rotn   2 134  739   2  10   11 M   # 263
+* 1 -21 Face   8  50  740   1  18   18 B   # 264
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 0 -14 Dirn   1 134  751   2  10   11 M   # 265
+* 1  -1 Dirn   6 292  751   2  10   11 M   # 266
+*
+repeat    346 352 set    fend  6
+repeat    346 352 call   fmed
+repeat    346 352 set    coords wpelvis
+repeat    346 352 call   forleft
+call      346 352 back
+** ldohold 346 352,   1   1
+** ldokeep 346 352,   1
+repeat    346 352 call   clkeep
+*
+* 1   9 Face   5 400  756   1  18   18 B   # 267
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   1   5   4
+* 1 -21 Face   1  50  756   1  18   18 B   # 268
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 1 -14 Pins   2 130  758   1  18   18 L   # 269
+* 1  -1 Pins   2 287  758   1  18   18 L   # 270
+* 0 -17 Dirn  11  97  763   2  10   11 L   # 271
+* 1  -1 Rotn   2 292  763   2  10   11 M   # 272
+*
+* pivot
+repeat    352 358 call   forleft * b = left
+repeat    352 353 centre bfoot  wx wy wz
+linear    352 358 spinby fig    bfoot  pelvis 45 y
+** ldohold 352 359,   1   1
+** ldokeep 352 359,   1
+repeat    352 359 call   clkeep
+*
+* 1 -14 Rotn   2 134  763   2  10   11 M   # 273
+* 1   3 Dirn  11 329  763   2  10   11 L   # 274
+*
+* close without weight low
+repeat    352 358 call   forright * right = b
+repeat    352 358 centre afoot  wx wy wz
+repeat    352 358 call   fmed
+repeat    352 358 set    fend  6
+repeat    352 358 set    coords wpelvis
+call      352 358 close
+** ldohold 359 358,   1   1
+* 1  -1 Pins   3 287  771   1  18   18 L   # 275
+* 1 -14 Pins   3 130  771   1  18   18 L   # 276
+* 1 -21 Face   2  50  775   1  18   18 B   # 277
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 1  -4 Bars   8  30  775   1 464    3 B   # 278 # bar 8
+*
+***************************
+*
+*   bar 8
+*
+* 1  -1 Rotn   2 292  776   2  10   11 M   # 279
+*
+* pivot
+repeat    359 365 call   forleft * b = left
+repeat    359 360 centre bfoot  wx wy wz
+linear    359 365 spinby fig    bfoot  pelvis 90 y
+** ldohold 359 366,   1   1
+** ldokeep 359 366,   1
+repeat    359 366 call   clkeep
+*
+* 1   1 Dirn   3 304  776   2  10   11 M   # 280
+*
+repeat    359 365 set    fend  6
+repeat    359 365 call   fmed
+repeat    359 365 set    coords wpelvis
+repeat    359 365 call   forright
+call      359 365 rside
+** ldohold 366 365,   1   1
+* 1   9 Face   6 400  776   1  18   18 B   # 281
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   2   6   4
+* 0 -15 Dirn   8 122  776   2  10   11 M   # 282
+* 1 -14 Rotn   2 134  776   2  10   11 M   # 283
+* 1 -24 Keys   1  18  776   2  12   12 B 8 # 284
+* 1 -15 Pins   2 117  782   1  18   18 L   # 285
+* 1   1 Pins   2 300  783   1  18   18 L   # 286
+* 1 -21 Face   4  50  788   1  18   18 B   # 287
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 1 -15 Rotn   2 122  788   2  10   11 M   # 288
+* 1   9 Face   8 400  788   1  18   18 B   # 289
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   4   8   4
+* 1  -1 Dirn  11 292  788   2  10   11 M   # 290
+*
+repeat    365 371 set    fend  6
+repeat    365 371 call   fmed
+repeat    365 371 set    coords wpelvis
+repeat    365 371 call   forleft
+call      365 371 close
+** ldohold 366 371,   1   1
+** ldokeep 366 371,   1
+repeat    366 371 call   clkeep
+*
+* 1   1 Rotn   2 304  788   2  10   11 M   # 291
+*
+* pivot
+repeat    365 371 call   forright * b = right
+repeat    365 366 centre bfoot  wx wy wz
+linear    365 371 spinby fig    bfoot  pelvis 45 y
+** ldohold 371 372,   1   1
+** ldokeep 371 372,   1
+repeat    371 372 call   clkeep
+*
+* 0 -14 Dirn  11 134  788   2  10   11 M   # 292
+* 1 -21 Face   5  50  800   1  18   18 B   # 293
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 0 -15 Dirn   7 122  800   2  10   11 M   # 294
+* 1   9 Face   1 400  800   1  18   18 B   # 295
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   5   1   4
+* 1   1 Dirn   1 304  800   2  10   11 M   # 296
+*
+repeat    371 377 set    fend  6
+repeat    371 377 call   fmed
+repeat    371 377 set    coords wpelvis
+repeat    371 377 call   forright
+call      371 377 forward
+** ldohold 372 377,   1   1
+** ldokeep 372 377,   1
+repeat    372 377 call   clkeep
+*
+* 1   1 Pins   5 298  805   1  18   18 L   # 297
+* 1 -15 Pins   4 116  806   1  18   18 L   # 298
+* 1  -3 Dirn  11 267  809   2  10   11 L   # 299
+*
+* close without weight low
+repeat    376 382 call   forleft * left = b
+repeat    376 382 centre afoot  wx wy wz
+repeat    376 382 call   fmed
+repeat    376 382 set    fend  6
+repeat    376 382 set    coords wpelvis
+call      376 382 close
+** ldohold 377 383,   1   1
+** ldokeep 377 383,   1
+repeat    377 383 call   clkeep
+*
+* 0 -12 Dirn  11 159  811   2  10   11 L   # 300
+* 1   1 Rotn   2 304  812   2  10   11 M   # 301
+*
+* pivot
+repeat    378 384 call   forright * b = right
+repeat    378 379 centre bfoot  wx wy wz
+linear    378 384 spinby fig    bfoot  pelvis 180 y
+** ldohold 383 385,   1   1
+** ldokeep 383 385,   1
+repeat    383 385 call   clkeep
+*
+* 1 -15 Rotn   2 122  812   2  10   11 M   # 302
+* 0 -14 Dirn   3 134  824   4  10   23 M   # 303
+* 1 -21 Face   8  50  824   1  18   18 B   # 304
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1  -1  -1
+* 1  -1 Dirn   7 292  824   2  10   11 M   # 305
+*
+repeat    384 390 set    fend  6
+repeat    384 390 call   fmed
+repeat    384 390 set    coords wpelvis
+repeat    384 390 call   forleft
+call      384 390 lbacdiag
+** ldohold 385 390,   1   1
+** ldokeep 385 390,   1
+repeat    385 390 call   clkeep
+*
+* 1   9 Face   5 400  824   1  18   18 B   # 306
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,   8   5   3
+* 1  -1 Pins   2 288  831   1  18   18 L   # 307
+* 1  -1 Rotn   2 292  836   2  10   11 M   # 308
+*
+* pivot
+repeat    390 396 call   forleft * b = left
+repeat    390 391 centre bfoot  wx wy wz
+linear    390 396 spinby fig    bfoot  pelvis 45 y
+** ldohold 390 397,   1   1
+** ldokeep 390 397,   1
+repeat    390 397 call   clkeep
+*
+* 1  -1 Pins   3 287  842   1  18   18 L   # 309
+* 1 -19 Volm   1  71  846   1  12   12 B   # 310
+* 1  -1 Rotn   2 292  847   2  10   11 M   # 311
+*
+* pivot
+repeat    396 402 call   forleft * b = left
+repeat    396 397 centre bfoot  wx wy wz
+linear    396 402 spinby fig    bfoot  pelvis 90 y
+** ldohold 397 403,   1   1
+** ldokeep 397 403,   1
+repeat    397 403 call   clkeep
+*
+* 1   6 Volm   1 360  847   1  12   12 B   # 312
+** ldohold 403 402,   1   1
+* 1 -14 Rotn   2 134  847   4  10   23 M   # 313
+* 1   1 Dirn   3 304  848   2  10   11 M   # 314
+*
+repeat    397 403 set    fend  6
+repeat    397 403 call   fmed
+repeat    397 403 set    coords wpelvis
+repeat    397 403 call   forright
+call      397 403 rside
+** ldohold 403 403,   1   1
+* 1 -14 Pins   3 129  848   1  18   18 L   # 315
+* 1   9 Face   6 400  853   1  18   18 B   # 316
+** lsethold 1 1,  0 0,  0 0,  0 4,  1 4,  -1   6  -1
+* 1   7 Keys  16 380  856   2   5   12 L . # 317
+* 0   6 Dirn   2 360  859   2  10   11 M   # 318
+** ldohold 403 407,   1   1
+** ldokeep 403 407,   1
+repeat    403 407 call   clkeep
+*
+* 0 -19 Dirn   9  71  859   2  10   11 M   # 319
+* 1   3 Dirn  11 329  860   2  10   11 L   # 320
+*
+* close without weight low
+repeat    403 409 call   forright * right = b
+repeat    403 409 centre afoot  wx wy wz
+repeat    403 409 call   fmed
+repeat    403 409 set    fend  6
+repeat    403 409 set    coords wpelvis
+call      403 409 close
+** ldohold 407 408,   1   1
+** ldokeep 407 408,   1
+repeat    407 408 call   clkeep
+*
+* 1  -1 Dirn  11 292  860   2  10   11 M   # 321
+*
+repeat    403 409 set    fend  6
+repeat    403 409 call   fmed
+repeat    403 409 set    coords wpelvis
+repeat    403 409 call   forleft
+call      403 409 close
+** ldohold 408 409,   1   1
+** ldokeep 408 409,   1
+repeat    408 409 call   clkeep
+*
+* 0 -17 Dirn  11  97  860   2  10   11 L   # 322
+* 1   7 Keys  17 378  862   2   5   12 L _ # 323
+* 1   7 Keys  16 380  864   2   5   12 L . # 324
+* 1   9 Face   8 400  872   1  18   18 B   # 325
+** lsethold 2 1,  0 0,  0 0,  1 4,  0 4,   2   8   2
+** ldoposn 409 418,   1   2
+repeat    409 418 set    fpos   9
+call      409 418 prposn
+*
+* 1  -4 Bars   9  30  872   1 464    3 B   # 326 # bar 9
+* 1 -21 Face   2  50  873   1  18   18 B   # 327
+** lsethold 2 2,  0 0,  0 0,  1 4,  0 4,  -1  -1  -1
+* 1 -24 Keys   1  18  873   2  12   12 B 9 # 328
+*
+**************************
+*
+repeat      0 462 ground man
+repeat      0 462 ground woman
+repeat      0 462 centre mpelvis fx fy fz
+repeat      0 462 add     fy -900 fz
+repeat      0 462 place   fx  500 fy
+repeat      0 462 observe -9    0  0
+*
+end dance
+****************************
+*
+subroutine setfmax
+*
+repeat 0 1 set fmax 462
+*
+end setfmax
+****************************
+*
+stop
