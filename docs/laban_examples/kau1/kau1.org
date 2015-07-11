@@ -1,0 +1,15 @@
+man:
+5th position low
+jump to right and land on right foot
+pick up left leg sideways to left
+rotate on right foot by 360 degree clockwise
+walk 3 steps forward (will take 2 steps)
+get in 3rd position
+jump in same place into 1st position
+hop on right leg forward
+split jump in place (leg gestures are given here)
+land in physically impossible postion
+lift left leg sideways to left
+while left leg is lifted turn on left leg clockwise by 360 (physically imposible)
+again rotate same way (diff representation)
+lift right leg to right and then forward simultaneously (simultaneous action bow is used)

@@ -1,0 +1,18 @@
+* Male Female pins work
+** White pin is female, black pin is male. To get a white pin select the High shading and then click on a existing black pin.
+* When 2 staffs are added 2 the GIF is being created with 2nd person in focus
+* Head movement - Not supported
+** The head symbol--> C  disappears when we try to save the lbn file note: it is in the 'keys menu'
+* Mid Supports position is not correct, knees remain bend a little high and low are correct
+* when no pin is given in a turn symbol no turn occurs
+* different types of positions are not supported
+* Jumps are not supported
+** during a hop oddly the other foot (one which does not do the hop) moves at the ankle (refer head004)
+** when leg gestures are given during a jump the leg gestures occur without the jump occuring. (see head005)
+* Sometimes figures translate wierdly and randomly.
+* Physically impossible cases 
+** rotate on leg being lifted
+*** the person rotated on other leg. Well actually he translated in a circular path.
+*** Rotation might be occuring wrt the body and not wrt a leg
+** stand in 1st position with one foot high and other mid
+*** the foot at mid is lifted from the ground
