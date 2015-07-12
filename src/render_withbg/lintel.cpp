@@ -9981,78 +9981,48 @@ bool strcmpend ( char str1[], char str2[] )
 	if ( cnt == len2 )		return( true );
 
 	return( false );
-}/* strcmpend */void get_filesa ( bool lbn_type, int error )
-{
-	printf( "\n" );
-	if ( error == 0 )
-	{
-		printf( "    Please type input filename followed by pressing the 'enter' key\n\n" );
-	}
-	else
-	{
-		printf( "\n" );
-		printf( "    Please type a correct input filename\n\n" );
-	}
-
-	if ( lbn_type == true )
-	{
-		printf( "      NUDES file (xxx.nud or xxx.n)\n" );
-		printf( "        - full filename (xxx.nud or xxx.n)\n" );
-		printf( "      LBN file (yyy.lbn)\n" );
-		printf( "        - root portion (yyy) of filename\n" );
-		printf( "           (interprets staves 1 and 2 with figure tracking)\n" );
-		printf( "        - full filename (yyy.lbn)\n" );
-		printf( "           (choice of staves, choice of tracking)\n\n" );
-		printf( "    Filename:  " );
-	}
-
-
-	if ( lbn_type == false )
-	{
-		printf( "    Filename:  " );
-	}
-} /* get_filesa */
+}/* strcmpend */
 /************************************************/
 
 void get_files ( char file[] )
 /*
    called by main
-	calls get_filesa, strcmpend, bell, add_id_num,
+	calls strcmpend, bell, add_id_num,
 */
 {
 	int c;
 	int i;
 	int len;
 	int last;
-	int err_count;
+	//int err_count;
 	int error;
 	int loc_dot;
-	int from_ini;
+	//int from_ini;
 	char key;
 	bool get_out;
-	bool ini_ok;
-	bool file_ok;
-	bool dir_ok;
+	//bool ini_ok;
+	//bool file_ok;
+	//bool dir_ok;
 	bool lbn_type;
 	char dir[BMAX];
 
-	from_ini = 0;
-	err_count = 0;
+	//from_ini = 0;
+	//err_count = 0;
 	error = 0;
 	get_out = false;
-	ini_ok = false;
-	file_ok = false;
-	dir_ok = false;
+	//ini_ok = false;
+	//file_ok = false;
+	//dir_ok = false;
 	lbn_type = true;
-start:
-	err_count = err_count + 1;
+	
+	/*err_count = err_count + 1;
 	if ( err_count >= 25 ) 
 	{
 		printf( " Limit: tried %d times for input file %s\n",
 			err_count,name );
 		ok = -1;
 		return;
-	}
+		}*/
 	input_file_type = -1;
 	for ( c = 0; c < BMAX; ++c )
 	{
@@ -10060,56 +10030,14 @@ start:
 		finname[c] = NULL;
 		nudesname[c] = NULL;
 	}
-
-	if ( file == NULL )
-	{
-		file_ok = false;
-		if ( from_ini == 0 )
-		{
-			if ( get_if_ini () == true )
-			{
-				ini_ok = get_ini_bool ( "input_file_default" );
-				if ( ini_ok == true ) 
-				{
-					file_ok = get_ini_str ( "input_file_name", name );
-					dir_ok = get_ini_str ( "input_file_dir", dir );
-					if ( dir[0] == NULL ) dir_ok = false;
-					len = (int)strlen( dir );
-					if ( dir_ok == true && dir[len - 1] != '\\' )
-						dir[len - 1] = '\\';
-					lbn_type = get_ini_bool ( "lbn_file_encoded" );
-					from_ini = 1;
-				}
-			}
-		}
-
-		if ( file_ok == false )
-		{
-			name[0] = NULL;
-			get_filesa ( lbn_type, error );
-			if ( gets ( name ) != NULL )
-			{
-				len = (int)strlen( name );
-				if ( len == 0 )
-				{
-					get_out = true;
-					error = 1;
-					goto start; 
-				}
-			}
-			else
-			{
-				get_out = true;
-				error = 1;
-				goto start; 
-			}
-		}
+ 
+	if(file==NULL){
+	  printf("\nPlease provide a filename\n");
+	  exit(0);
 	}
 	else
-	{
-		strcpy ( name, file );
-	}
-
+	  strcpy ( name, file );
+	
 	len = (int)strlen( name );
 	last = len - 1;
 
@@ -10196,23 +10124,11 @@ start:
 	}
 	if ( get_out == true )
 	{
-		if ( from_ini == 1 ) 
-		{
-			printf("\n\nFile: %s from lintel.ini is not available.\n",
-				name );
-			from_ini = -1;
-		}
 		error = 1;
 		name[0] = NULL;
-		goto start;
+		exit(0);
 	}
 
-	// add directory to filename
-	if ( dir_ok == true )
-	{
-		strcat ( dir, name );
-		strcpy ( name, dir );
-	}
 	printf( "\n    " );
 	if ( input_file_type == 0 )
 	{
@@ -10221,12 +10137,9 @@ start:
 		{
 			if ( infile ) fclose ( infile );
 			printf ( "\n\n %s OOPS?\n", nudesname );
+			printf ( "file NOT found\nPlease give correct file name as argument\n ");
 			bell ( 1, 1 );
-			if ( from_ini == 1 ) 
-			{
-				from_ini = -1;
-			}
-			goto start;
+			exit(0);
 		}
 		printf ( "  Opened %s\n", nudesname );
 	}
@@ -10237,14 +10150,10 @@ start:
 		if ( ( infile = fopen ( finname, "r" ) ) == NULL )
 		{
 			if ( infile ) fclose ( infile );
-			printf ( "\n   %s ?  OOPS - file not found.\n", finname );
+			printf ( "\n   %s ?  OOPS\n", finname );
+			printf ( "file NOT found\nPlease give correct file name as argument\n ");
 			bell ( 1, 1 );
-			if ( from_ini == 1 ) 
-			{
-				printf( "\n\n    File: %s from lintel.ini is not available.\n", name );
-				from_ini = -1;
-			}
-			goto start;
+			exit(0);
 		}
 
 		printf ( "\n   opened input file %s\n", finname );
@@ -10255,7 +10164,7 @@ start:
 			if ( nudesfile ) fclose ( nudesfile );
 			printf ( "\n\n %s OOPS?\n", nudesname );
 			bell ( 1, 1 );
-			goto start;
+			exit(0);
 		}
 		printf ( "\n   created nudes file %s\n", nudesname );
 	}
@@ -10264,7 +10173,7 @@ start:
 		if ( infile ) fclose ( infile );
 		printf ( "\n\n %s OOPS?\n", nudesname );
 		bell ( 1, 1 );
-		goto start;
+		exit(0);
 	}
 } /* get_files */
 /************************************************/
@@ -10414,7 +10323,7 @@ more:
 	initialise();
 	get_ini ( 0 );
 	led_param();
-	get_files ( NULL );
+	get_files ( argv[1] );
 	if ( ok != 0 ) goto more;
 	if (haslbn == TRUE)
 	{
