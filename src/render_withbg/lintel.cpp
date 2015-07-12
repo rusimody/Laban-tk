@@ -3923,11 +3923,13 @@ void ldolimb(void)
 	else
 	if (jm == Limb)
 		colm[nc] = Limb;
-	else
+       	else
 	if ((jm == Volm)&&(ji == 7)
-		&&(colm[nc] == Area)&&(jd == BLANK))
+		&&(colm[nc] == Area)&&(jd == LOW))
 	{
 		colm[nc] = CHEST;
+		fprintf(nudesfile,"quadratic 10 60 bendto chest ribs stomach 0 0 45\n");    /*2015 Samir Patil/Manish Adkar Added missing pelvis bend option*/
+		fprintf(nudesfile,"quadratic 10 60 bendto stomach waist pelvis 0 0 -45\n");
 	   fprintf(nudesfile,"* ldolimba CHEST at column %d\n",nc);
 	}
 	else
