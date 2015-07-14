@@ -2,7 +2,7 @@ CFLAGS = -g
 CC = gcc
 #CXX = i686-w64-mingw32-g++
 CXX = g++
-executables = lintelmac lintelrefmac
+executables = lintelmac lintelrefmac ledmac
 
 all: ${executables}
 
@@ -11,3 +11,6 @@ lintelmac: lintel.cpp
 
 lintelrefmac: lintelref.cpp
 	$(CXX) -g -I /usr/include/GLUT lintelref.cpp -o lintelrefmac -lm -framework OpenGL -framework GLUT
+
+ledmac: led.cpp
+	$(CXX) -g -I /usr/include/GLUT led.cpp -o ledmac -lm -framework OpenGL -framework GLUT
