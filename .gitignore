@@ -15,6 +15,7 @@ lintelref
 *mac*
 *TAGS*
 *.dSYM
+*lbn_00*
 
 *.o
 *.obj
