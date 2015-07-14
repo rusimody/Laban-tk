@@ -604,7 +604,12 @@
 // #include "stdafx.h"
 #include <math.h>
 #include <ctype.h>
+#ifdef __APPLE__
+#include <GLUT/glut.h>
+#else
 #include "glut.h"
+#endif
+
 
 typedef char TCHAR;
 
@@ -4182,7 +4187,7 @@ Relevant symbols:-
 		{
       if(jm == Dirn)
       {
-          if (jc == 1 || jc == -1) j = ldolegs(j);
+          if (jc == 1 || jc == -1) j = ldolegs(0); // 0 is passed as no prev support sym is found
 
 
       }
@@ -4190,16 +4195,24 @@ Relevant symbols:-
   }
 }
 
-/* functions created by Samir : 2015 Persistent Summer Project.
+/* functions created :2015 Persistent Summer Project.
 1. ldolegs
 */
 
-void ldolegs(int SupportSymFound) {
-
-	if(!SupportSymFound)
+void ldolegs(int SupportSym) {
+	if(!SupportSym)
 	{
 		if((lbn[jl+1].m == Pins) && lbn[jl+1].i == 1 || lbn[jl+1].i == 5)
-			SupportSymFound = 1;
+		{
+			if (lbn[jl+1].i == 1) {
+				SupportSym = 1; //front
+			}
+			else if (lbn[jl+1].i == 5)
+			{
+				SupportSym = 5; //back
+			}
+		}
+
 	}
   fprintf( nudesfile, "*\n" );
   if ( ( jc == -1 ) &&
@@ -4242,7 +4255,7 @@ void ldolegs(int SupportSymFound) {
         fprintf( nudesfile, "call      %3d %3d rside\n",
 					fstart, fend ); //right leg sideways
       }
-      else if(SupportSymFound) // if supporting symbol is found , then grape wine step.:2015
+      else if(SupportSym) // if supporting symbol is found , then grape wine step.:2015
       {
         //if forward backward yet to add default backwards.
         fprintf( nudesfile, "call      %3d %3d gwineleft\n",
