@@ -684,6 +684,11 @@ typedef char TCHAR;
 #define MODIFIER    0
 #define HASMOD			1
 #define NOMOD				0
+//new Global Variables : Persistent Project
+int mod_lsupport = NOMOD;
+int mod_rsupport = NOMOD;
+char mod_lsupport_type = 'z';
+char mod_rsupport_type = 'z';
 // ini file variables-
 
 int x;
@@ -4134,6 +4139,7 @@ void ldotoetaps ( void )/*
 
 void ldosupport(int j);
 int checkSymbol(int j);
+void lkneesupport();
 void laction(void)
 /*
    run through and interpret the actions
@@ -4197,6 +4203,8 @@ Relevant symbols:-
 		fprintf(nudesfile,"* %d %3d %s",lbn[j].a,jc,lbnline[j]);
 		if ( lbn[j].a == TODO )
 		{
+			if(lbn[j].m == Bars)
+				ldobar();
       if(jc == 1 || jc == -1)
 			{
 				ldosupport(j);
@@ -4213,21 +4221,87 @@ void ldosupport(int j)
 	int type = checkSymbol(j);
 	if(type == INDEPENDENT)
 	{
-		if(lbn[j].m == Dirn)
-		{
-			if(lbn[j].modifier == NOMOD)
+			if (jc == 1)//for right
 			{
-				ldostep();
-
+					if(lbn[j].m == Dirn)
+					{
+						if (mod_rsupport == NOMOD)
+						{
+							ldostep();
+						}
+						else
+						{
+							if(mod_rsupport_type == Limb)//it is a limb
+							{
+								if(mod_rsupport == 17) // its a knee.
+								{
+									lkneesupport();
+								}
+							}
+						}
+					}
 			}
-
-		}
+			else //for left
+			{
+				if(lbn[j].m == Dirn)
+				{
+					if (mod_lsupport == NOMOD)
+					{
+						ldostep();
+					}
+					else
+					{
+						if(mod_lsupport_type == Limb)//it is a limb
+						{
+							if(mod_lsupport == 12) // its a knee.
+							{
+								lkneesupport();
+							}
+						}
+					}
+				}
+			}
 	}
+	else
+	{
+			if(jc == 1) //right modifier
+			{
+					if(mod_rsupport == NOMOD)
+					{
+							mod_rsupport = ji;
+							mod_rsupport_type = jm;
+					}
+					else if (mod_rsupport == 9 && mod_rsupport_type == Area)//combination box .
+					{
+						//checks combination
+					}
+			}
+			else
+			{
+				if(mod_lsupport == NOMOD)
+				{
+						mod_lsupport = ji;
+						mod_lsupport_type = jm;
+				}
+				else if(mod_lsupport == 9 && mod_lsupport_type == Area)
+				{
+
+				}
+			}
+	}
+}
+//2. lkneesupport()
+
+void lkneesupport()
+{
+	fprintf( nudesfile, "repeat    %3d %3d call   kneebend\n",fstart, fend );
 }
 int checkSymbol(int j)
 {
 	if(lbn[j].m == Dirn)
 		return INDEPENDENT;
+	else if (lbn[j].m == Limb)
+		return MODIFIER;
 }
 int ldolegs(int SupportSym, int j) {
 	int retj = j;
