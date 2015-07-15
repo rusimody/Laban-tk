@@ -13,4 +13,4 @@ lintel: lintel.cpp
 	$(CXX) -g -I /usr/include/GL lintel.cpp -o lintel -lm -lglut -lGL
 
 lintelref: lintelref.cpp
-	$(CXX) -g -I /usr/include/GL lintel.cpp -o lintelref -lm -lglut -lGL
+	$(CXX) -g -I /usr/include/GL lintelref.cpp -o lintelref -lm -lglut -lGL
