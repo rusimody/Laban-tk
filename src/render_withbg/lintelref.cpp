@@ -679,7 +679,11 @@ typedef char TCHAR;
 #define SS        10        // semi-shadow hold: both facing same way, bodies touching,
                             // man's L hand to lady's L,
                             // man's R hand on lady's R hip, lady's R hand free.
-
+//new Macros : Persistent Project
+#define INDEPENDENT 1
+#define MODIFIER    0
+#define HASMOD			1
+#define NOMOD				0
 // ini file variables-
 
 int x;
@@ -816,6 +820,7 @@ struct Symbol {
 	int x2;      // horizontal position of right side
 	int y2;      // vertical position of top
 	int d;       // height indicator
+	int modifier;//if the symbol has a modifier : 2015 Persistent
    };
 
 struct Symbol lbn[LMAX]; // laban score entries
@@ -1924,6 +1929,7 @@ a: goto a;
             lbn[j].x2 = x+w;
             lbn[j].y2 = y+h;
             lbn[j].d = BLANK;
+						lbn[j].modifier = NOMOD;
             if (d =='M') lbn[j].d = MED;
             if (d =='L') lbn[j].d = LOW;
             if (d =='H') lbn[j].d = HIGH;
@@ -4122,6 +4128,12 @@ void ldotoetaps ( void )/*
 } /* ldotoetaps */
 /**************************************/
 
+/* functions created :2015 Persistent Summer Project.
+1. ldosupport
+*/
+
+void ldosupport(int j);
+int checkSymbol(int j);
 void laction(void)
 /*
    run through and interpret the actions
@@ -4185,31 +4197,52 @@ Relevant symbols:-
 		fprintf(nudesfile,"* %d %3d %s",lbn[j].a,jc,lbnline[j]);
 		if ( lbn[j].a == TODO )
 		{
-      if(jm == Dirn)
-      {
-          if (jc == 1 || jc == -1) j = ldolegs(0); // 0 is passed as no prev support sym is found
-
-
-      }
+      if(jc == 1 || jc == -1)
+			{
+				ldosupport(j);
+			}
     }
   }
 }
 
 /* functions created :2015 Persistent Summer Project.
-1. ldolegs
+1. ldosupport
 */
+void ldosupport(int j)
+{
+	int type = checkSymbol(j);
+	if(type == INDEPENDENT)
+	{
+		if(lbn[j].m == Dirn)
+		{
+			if(lbn[j].modifier == NOMOD)
+			{
+				ldostep();
 
-void ldolegs(int SupportSym) {
+			}
+
+		}
+	}
+}
+int checkSymbol(int j)
+{
+	if(lbn[j].m == Dirn)
+		return INDEPENDENT;
+}
+int ldolegs(int SupportSym, int j) {
+	int retj = j;
 	if(!SupportSym)
 	{
-		if((lbn[jl+1].m == Pins) && lbn[jl+1].i == 1 || lbn[jl+1].i == 5)
+		if(lbn[j+1].m == Pins)
 		{
-			if (lbn[jl+1].i == 1) {
+			if (lbn[j+1].i == 1) {
 				SupportSym = 1; //front
+				retj++;
 			}
-			else if (lbn[jl+1].i == 5)
+			else if (lbn[j+1].i == 5)
 			{
 				SupportSym = 5; //back
+				retj++;
 			}
 		}
 
@@ -4252,15 +4285,17 @@ void ldolegs(int SupportSym) {
     {
       if(jc == 1)
       {
-        fprintf( nudesfile, "call      %3d %3d rside\n",
-					fstart, fend ); //right leg sideways
+        fprintf( nudesfile, "call      %3d %3d rside\n",fstart, fend ); //right leg sideways
       }
-      else if(SupportSym) // if supporting symbol is found , then grape wine step.:2015
+      else if(SupportSym == 1) // if supporting symbol is found , then grape wine step.:2015
       {
         //if forward backward yet to add default backwards.
-        fprintf( nudesfile, "call      %3d %3d gwineleft\n",
-					fstart, fend );
+        fprintf( nudesfile, "call      %3d %3d gwineleftfront\n",fstart, fend );
       }
+			else if (SupportSym == 5)
+			{
+				fprintf( nudesfile, "call      %3d %3d gwineleftfront\n",fstart, fend );
+			}
     }
     if ( ji == 8 )
     {
@@ -4269,13 +4304,19 @@ void ldolegs(int SupportSym) {
         fprintf( nudesfile, "call      %3d %3d lside\n",
 					fstart, fend );
       }
-      else if(SupportSymFound)
+      else if(SupportSym == 1)
       {
-        //if forward backward yet to add default backwards : 2015
-				if()
-        fprintf( nudesfile, "call      %3d %3d gwineright\n",
+
+        fprintf( nudesfile, "call      %3d %3d gwinerightfront\n",
 					fstart, fend );
       }
+			else if(SupportSym == 5)
+      {
+
+        fprintf( nudesfile, "call      %3d %3d gwinerightback\n",
+					fstart, fend );
+      }
+
     }
 		if ( ( ji == 5 ) || ( ji == 6 ) )
 			fprintf( nudesfile, "call      %3d %3d back\n",
@@ -4303,7 +4344,7 @@ void ldolegs(int SupportSym) {
 	rise = jd;
 	prevc = jc;
 	previ = ji;
-
+	return retj;
 }
 
 void linter(void)
