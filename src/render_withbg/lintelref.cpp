@@ -1949,7 +1949,7 @@ a: goto a;
             lbn[j].x2 = x+w;
             lbn[j].y2 = y+h;
             lbn[j].d = BLANK;
-	    
+
             if (d =='M') lbn[j].d = MED;
             if (d =='L') lbn[j].d = LOW;
             if (d =='H') lbn[j].d = HIGH;
@@ -4342,7 +4342,36 @@ void ldojump(int column, int yrange, int ystart)
 		lsetframes2(ystart,yrange);
 		printf("call jump \n" );
 		ldostep();
-		printf("call kneebend\n");
+		if (lbn[j+1].c == -1)//left column has a symbol.
+		{
+			if(lbn[j+1].m == Dirn)
+			{
+				ldostep();
+				lbn[j+1].a = DONE;
+			}
+			else
+			{
+				printf("Call kneebend\n");
+			}
+		}
+	}
+	if(column == -1)//left column : check if right column also has a symbol
+	{
+		lsetframes2(ystart,yrange);
+		printf("call jump \n" );
+		ldostep();
+		if (lbn[j+1].c == 1)//right column has a symbol.
+		{
+			if(lbn[j+1].m == Dirn)
+			{
+				ldostep();
+				lbn[j+1].a = DONE;
+			}
+			else
+			{
+				printf("Call kneebend\n");
+			}
+		}
 	}
 }
 //2. lkneesupport()
