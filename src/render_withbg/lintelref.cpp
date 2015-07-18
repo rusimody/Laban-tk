@@ -2900,7 +2900,7 @@ int lgetpin(void)
 	calls     loverlap,
 */
 {
-    int k,ki;
+  int k,ki,kpin;
     int piv;
     int ymost;
     int xlap,ylap;
@@ -2917,6 +2917,7 @@ int lgetpin(void)
              {
                 ki = lbn[k].i;
                 ymost = ylap;
+		kpin = k;
              } /* pin overlaps more than previous pins */
          } /* got a pin */
     } /* k loop looking for overlapping pin */
@@ -2927,6 +2928,7 @@ int lgetpin(void)
        if (ji == 2) piv = 45*(ki-1);
        if (ki == 1) piv = 360;
     }
+    lbn[kpin].a = DONE;
     return(piv);
 } /* lgetpin */
 /***************************************************/
@@ -4223,7 +4225,7 @@ void ldosupport(int j)
 	{
 			if (jc == 1)//for right
 			{
-					if(lbn[j].m == Dirn)
+					if(jm == Dirn)
 					{
 						if (mod_rsupport == NOMOD)
 						{
@@ -4238,12 +4240,18 @@ void ldosupport(int j)
 									lkneesupport();
 								}
 							}
+							mod_rsupport = NOMOD;
+							mod_rsupport_type = 'z';
 						}
 					}
+					else if(jm == Rotn)
+					  {
+					    ldopivot();
+					  }
 			}
 			else //for left
 			{
-				if(lbn[j].m == Dirn)
+				if(jm == Dirn)
 				{
 					if (mod_lsupport == NOMOD)
 					{
@@ -4260,6 +4268,10 @@ void ldosupport(int j)
 						}
 					}
 				}
+				else if(jm == Rotn)
+				  {
+				    ldopivot();
+				  }
 			}
 	}
 	else
@@ -4298,10 +4310,13 @@ void lkneesupport()
 }
 int checkSymbol(int j)
 {
-	if(lbn[j].m == Dirn)
+	if(jm == Dirn || jm == Rotn)
 		return INDEPENDENT;
-	else if (lbn[j].m == Limb)
+	else if (jm == Limb)
 		return MODIFIER;
+	else
+	  return NOMOD;
+	  
 }
 int ldolegs(int SupportSym, int j) {
 	int retj = j;
