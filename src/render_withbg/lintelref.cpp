@@ -684,11 +684,18 @@ typedef char TCHAR;
 #define MODIFIER    0
 #define HASMOD			1
 #define NOMOD				0
+#define BASEY				96	//y coordinate of double bar
+#define MINYJUMP		24  //min y span for a jump detection
 //new Global Variables : Persistent Project
 int mod_lsupport = NOMOD;
 int mod_rsupport = NOMOD;
 char mod_lsupport_type = 'z';
 char mod_rsupport_type = 'z';
+//variables for jump detection in ldosupport
+int prevry = BASEY;
+int prevly = BASEY;
+int prevlfend = 0;
+int prevrfend = 0;
 // ini file variables-
 
 int x;
@@ -1861,6 +1868,14 @@ void lsetframes(void)
    if (fend > f_max) f_max = fend;
 } /* lsetframes */
 /************************************************/
+void lsetframes2(int jy,int jh)
+{
+	fstart = int(inv2+lbn_fpp*double(jy-ystart));
+	if (fstart < 1) fstart = 1;
+	frange = int(inv2+lbn_fpp*double(jh));
+	if (frange < 1) frange = 1;
+	fend = fstart + frange;
+}
 
 void lcolx(int lcentre)
 /*
@@ -1934,7 +1949,7 @@ a: goto a;
             lbn[j].x2 = x+w;
             lbn[j].y2 = y+h;
             lbn[j].d = BLANK;
-						lbn[j].modifier = NOMOD;
+	    
             if (d =='M') lbn[j].d = MED;
             if (d =='L') lbn[j].d = LOW;
             if (d =='H') lbn[j].d = HIGH;
@@ -4142,6 +4157,7 @@ void ldotoetaps ( void )/*
 void ldosupport(int j);
 int checkSymbol(int j);
 void lkneesupport();
+void ldojump(int ,int ,int);
 void laction(void)
 /*
    run through and interpret the actions
@@ -4218,6 +4234,12 @@ Relevant symbols:-
 /* functions created :2015 Persistent Summer Project.
 1. ldosupport
 */
+int findmin(int a,int b)
+{
+	if (a>b)
+		return a;
+	return b;
+}
 void ldosupport(int j)
 {
 	int type = checkSymbol(j);
@@ -4225,6 +4247,16 @@ void ldosupport(int j)
 	{
 			if (jc == 1)//for right
 			{
+				int ydiffr = jy - prevry;
+				int ydiffl = jy - prevly;
+				if( ydiffr > MINYJUMP)
+				{
+					if(ydiffl > MINYJUMP)
+					{
+						int jumprange = findmin(ydiffl,ydiffr) + jy2;
+						ldojump(jc,jumprange,prevry);
+					}
+				}
 					if(jm == Dirn)
 					{
 						if (mod_rsupport == NOMOD)
@@ -4302,6 +4334,17 @@ void ldosupport(int j)
 			}
 	}
 }
+
+void ldojump(int column, int yrange, int ystart)
+{
+	if(column == 1) //right column : dont check
+	{
+		lsetframes2(ystart,yrange);
+		printf("call jump \n" );
+		ldostep();
+		printf("call kneebend\n");
+	}
+}
 //2. lkneesupport()
 
 void lkneesupport()
@@ -4316,124 +4359,7 @@ int checkSymbol(int j)
 		return MODIFIER;
 	else
 	  return NOMOD;
-	  
-}
-int ldolegs(int SupportSym, int j) {
-	int retj = j;
-	if(!SupportSym)
-	{
-		if(lbn[j+1].m == Pins)
-		{
-			if (lbn[j+1].i == 1) {
-				SupportSym = 1; //front
-				retj++;
-			}
-			else if (lbn[j+1].i == 5)
-			{
-				SupportSym = 5; //back
-				retj++;
-			}
-		}
 
-	}
-  fprintf( nudesfile, "*\n" );
-  if ( ( jc == -1 ) &&
-    ( ( ji == 1 ) || ( ji == 5 ) ) )
-  {
-    printf( "dostep: funny symbol in left support column, line %d, bar %d\n",
-      j, nbar );
-    printf( "%3d %3d %3d %3d %3d %3d %d\n",
-      jm, ji, jy, js, jw, jh, jd );
-  }
-  else if ( ( jc == 1 ) &&
-    ( ( ji == 10 ) || ( ji == 6 ) ) )
-  {
-    printf( "dostep: funny  symbol in right support column, line %d, bar %d\n",
-      j, nbar );
-    printf( "%3d %3d %3d %3d %3d %3d %d\n",
-      jm, ji, jy, js, jw, jh, jd );
-  }
-
-  else
-  {
-    fprintf( nudesfile, "repeat    %3d %3d set    fend  %d\n",
-      fstart, fend, frange );
-    fprintf( nudesfile, "repeat    %3d %3d call   %s\n",
-      fstart, fend, risesub[jd] );
-    lsetcoords();
-    if ( jc > 0 )
-      fprintf( nudesfile, "repeat    %3d %3d call   forright\n",fstart, fend );
-
-    else
-      fprintf( nudesfile, "repeat    %3d %3d call   forleft\n",fstart, fend );
-
-    if ( ( ji == 1 ) || ( ji == 10 ) )
-      fprintf( nudesfile, "call      %3d %3d forward\n",fstart, fend );
-
-    if ( ji == 3 )
-    {
-      if(jc == 1)
-      {
-        fprintf( nudesfile, "call      %3d %3d rside\n",fstart, fend ); //right leg sideways
-      }
-      else if(SupportSym == 1) // if supporting symbol is found , then grape wine step.:2015
-      {
-        //if forward backward yet to add default backwards.
-        fprintf( nudesfile, "call      %3d %3d gwineleftfront\n",fstart, fend );
-      }
-			else if (SupportSym == 5)
-			{
-				fprintf( nudesfile, "call      %3d %3d gwineleftfront\n",fstart, fend );
-			}
-    }
-    if ( ji == 8 )
-    {
-      if (jc == -1)
-      {
-        fprintf( nudesfile, "call      %3d %3d lside\n",
-					fstart, fend );
-      }
-      else if(SupportSym == 1)
-      {
-
-        fprintf( nudesfile, "call      %3d %3d gwinerightfront\n",
-					fstart, fend );
-      }
-			else if(SupportSym == 5)
-      {
-
-        fprintf( nudesfile, "call      %3d %3d gwinerightback\n",
-					fstart, fend );
-      }
-
-    }
-		if ( ( ji == 5 ) || ( ji == 6 ) )
-			fprintf( nudesfile, "call      %3d %3d back\n",
-				fstart, fend );
-		if ( ji == 2 )
-			fprintf( nudesfile, "call      %3d %3d rfordiag\n",
-				fstart, fend );
-		if ( ji == 9 )
-			fprintf( nudesfile, "call      %3d %3d lfordiag\n",
-				fstart, fend );
-		if ( ji == 4 )
-			fprintf( nudesfile, "call      %3d %3d rbacdiag\n",
-				fstart, fend );
-		if ( ji == 7 )
-			fprintf( nudesfile, "call      %3d %3d lbacdiag\n",
-				fstart, fend );
-		if ( ji == 11 )
-			fprintf( nudesfile, "call      %3d %3d close\n",
-				fstart, fend );
-		lbn[j].a = DONE;
-		pstart = fstart;
-		pend = fend;
-	}
-	//just added for assuring nothing breaks : 2015
-	rise = jd;
-	prevc = jc;
-	previ = ji;
-	return retj;
 }
 
 void linter(void)
