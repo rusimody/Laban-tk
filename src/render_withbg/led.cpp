@@ -52,7 +52,7 @@
   4 Oct 2005 v82 adding comments at bar lines
  30 Aug 2005 v81 resizing window again
   4 Aug 2005 v80 resizing window
- 28 Jun 2005 v77 clearing comments with 'clear'
+ 28 Jun 2005 v77 clearing comments with 'clear' 
  27 Jun 2005 v76 adding newline at end of text comment
  10 Jun 2005 v75 improving hatching of high symbols
   5 Jun 2005 v74 allow comments
@@ -88,11 +88,11 @@
   4 Jan 2003 output menu initials
   4 Jan 2003 changed SPACE to VOLME, PATH to WAYS
   3 Jan 2003 ouput y and h values as 4 digits
-  1 Jan 2003 adding batch mode
+  1 Jan 2003 adding batch mode 
  29 Aug 2002 adding unbar routine
  29 Aug 2002 fix size of rotation symbols
  17 Jan 2002 fix redrawing bar lines and symbol echoes
-  6 Dec 2001 fix bar lines
+  6 Dec 2001 fix bar lines 
   2 Dec 2001 cleaning up
  29 Nov 2001 fix 1 & 2 pixel x alignment errors
   6 Dec 1998 fix bug in call to drawdots()
@@ -239,20 +239,16 @@
       t_main            - organises everything
 */
 #include <iostream>
-#ifdef __APPLE__
-#include <GLUT/glut.h>
-#else
-#include "glut.h"
-#endif
-#include <stdlib.h>
-#include <stdio.h>
+#include "glut.h" 
+#include <stdlib.h> 
+#include <stdio.h> 
 #include <string.h>
 
-#define WINDOW_WIDTH 700
-#define WINDOW_HEIGHT 650
+#define WINDOW_WIDTH 700 
+#define WINDOW_HEIGHT 650 
 #define WINDOW_Y  20
 #define WINDOW_X 300
-#define WINDOW_MODE
+#define WINDOW_MODE 
 #define    ESCAPE     27
 #define    MAXINT 1073741824
 #define    BMAX      128      /* input text buffer size */
@@ -310,7 +306,7 @@
 #define    AREA        6
 #define    ROTN        7
 #define    KEYS        8
-#define    MISC        9
+#define    MISC        9 
 #define    WAYS       10
 #define    STAF       11
 #define    TOP        12
@@ -382,7 +378,7 @@ int bardif;           /* y spacing between bar lines */
 int barn;             /* number of bar lines */
 int bary[SMAX];       /* bar height positions */
 int beginy;
-int button;           /* GLUT_DN or GLUT_UP */
+int button;           /* GLUT_DN or GLUT_UP */      
 int currentx = 0;
 int currenty = 0;
 int dscroll;
@@ -423,7 +419,7 @@ char middle = 'M';
 char buf[BMAX];
 char infile[BMAX];
 char outfile[BMAX];
-char postfile[BMAX];
+char postfile[BMAX]; 
 char comments[BMAX][BMAX];
 char finname[BMAX];
 char foutname[BMAX];
@@ -548,7 +544,7 @@ int   keydx[NSYMS][LINES] = { {0},
          { 0, 1, 1, 1, 0, -1, -1, -1, 0, 1, 1, 1 },
 	 { 0, 3, -3 },
 	 { 1, 1, 0, -1, -1, -1, 0, 1, 1, 1, 0, -1, -1, -1, 0, 1 },
-	 { 0, 1, 1, 1, 0, -1, -1, -1, 0, 1, 1, 1 },
+	 { 0, 1, 1, 1, 0, -1, -1, -1, 0, 1, 1, 1 }, 
 	 { 0, 1, 1, 1, 0, -1, -1, -1, 0 },
 	 { 2, -2, 0, 2 },
 	 { 0, 2, 0, -2 },
@@ -574,7 +570,7 @@ int   keydy[NSYMS][LINES] = { {0},
          { 2, 1, 0, -1, -1, -1, 0, 1, 4, 1, 0, -1 },
 	 { 0, 6, 0 },
 	 { 0, 1, 1, 1, 0, 1, 1, 1, 0, -1, -1, -1, 0, -1, -1, -1 },
-	 { 1, -1, 0, 1, 4, 1, 0, -1, -1, -1, 0, 1 },
+	 { 1, -1, 0, 1, 4, 1, 0, -1, -1, -1, 0, 1 }, 
 	 { 1, -1, 0, 1, 4, 1, 0, -1, -4 },
 	 { 0, 2, 2, 2 },
 	 { 0, 2, 2, 2 },
@@ -1010,7 +1006,7 @@ void hashpolygonabs(int ax[LINES], int ay[LINES], int n)
    hstep = HSTEP;
    x1[0] = ax[n-1]+ay[n-1];
    y1[0] = ax[n-1]-ay[n-1];
-   maxy = y1[0];
+   maxy = y1[0]; 
    miny = y1[0];
    for (j = 0; j < n; ++j)
    {
@@ -1018,7 +1014,7 @@ void hashpolygonabs(int ax[LINES], int ay[LINES], int n)
       y2[j] = ax[j]-ay[j];
       if (y1[j] > y2[j])
       {
-         x2[j] = x1[j];
+         x2[j] = x1[j]; 
          y2[j] = y1[j];
          x1[j] = ax[j]+ay[j];
          y1[j] = ax[j]-ay[j];
@@ -1124,10 +1120,10 @@ void fillpolygonabs(int ax[LINES], int ay[LINES], int n)
             if ((j > 0) && (nx > 0))
             {
                if (xcut[nx-1] != xcut[nx])
-                  ++nx;
+                  ++nx; 
             }
             else
-               ++nx;
+               ++nx; 
             if (dyj == 0)
             {
                xcut[nx] = x2[j];
@@ -1138,7 +1134,7 @@ void fillpolygonabs(int ax[LINES], int ay[LINES], int n)
       sort(xcut,nx);
       if ((nx > 2) && (nx%2 == 1))
       {
-         xcut[nx] = xcut[nx-2];
+         xcut[nx] = xcut[nx-2]; 
          ++nx;
       }
       if (nx == 0)
@@ -1170,8 +1166,8 @@ void dopolygonrel(int s, int ax[LINES], int ay[LINES], int n)
 
    called by createhigh, createmiddle, createlow,
              createhelp, createblank, setsymbol,
-   calls     moverel, fillpolygonabs, hashpolygonabs,
-             polylineabs, moveabs,
+   calls     moverel, fillpolygonabs, hashpolygonabs, 
+             polylineabs, moveabs, 
 */
 {
    int aax[LINES],aay[LINES];
@@ -1259,9 +1255,9 @@ void setinfile(void)
 		printf("Please type root name of .lbn input file,\n");
 	c = 0;
 another:
-	key = getchar();
+	key = getchar(); 
 	if (key == '\n') goto gotit;
-	rootname[c++] = key;
+	rootname[c++] = key; 
 	goto another;
 gotit:
 	sprintf(finname,"%s.lbn",rootname);
@@ -1304,7 +1300,7 @@ void setpsfile(void)
 		printf("Please type root name of .ps Postscript file,\n");
 	c = 0;
 another:
-	key = getchar();
+	key = getchar(); 
 	if (key == '\n') goto gotit;
 	if (c == 0)
 	{
@@ -1312,7 +1308,7 @@ another:
            rootname[c] = NULL;
 		c = 0;
 	}
-	rootname[c++] = key;
+	rootname[c++] = key; 
 	goto another;
 gotit:
 	sprintf(fpostname,"%s.ps",rootname);
@@ -1402,7 +1398,7 @@ void lbnsort(void)
 /*
    sort score symbols into ascending order of 'y'
    (bubble sort) and renumber bar lines.
-   Also find highest symbol that is not a
+   Also find highest symbol that is not a 
    barline, staff, or bar number.
 
    called by getout, lbnwrite,
@@ -1527,7 +1523,7 @@ void createsegment(int s)
              drawstaff, createhelp,
    calls     moveabs,
 */
-{
+{  
    if ( ((segs[s].y+segs[s].h) > ybot)
      && ((segs[s].y-segs[s].h) < ytop) )
    {
@@ -1546,7 +1542,7 @@ void createsegment(int s)
       //target = s;
       segs[s].ok = TRUE;
       moveabs(segs[s].x,segs[s].y);
-
+ 
       glNewList(s,GL_COMPILE);
       glBegin(GL_LINES);
 	  glClearColor(1.0,1.0,1.0,0.0);
@@ -1746,7 +1742,7 @@ void drawstaff(int s, int n, int x, int y, int h, char level)
          yy = bar0y;
          for (j = 1; yy < yhigh; ++j)
          {
-            yy = bar0y - 1 + 2*j*STEP
+            yy = bar0y - 1 + 2*j*STEP 
                   + (bar0y + 2*j*STEP)/(2*STEP*barsp+1);
             if (barsp > 3) ++yy;
             if (j > 71) ++yy;
@@ -1941,7 +1937,7 @@ void dobarnumber(int n, int x, int y)
     end of bar line
 
     called by drawbars,
-    calls     drawsymbol,
+    calls     drawsymbol, 
 */
 {
       int s;
@@ -2001,12 +1997,14 @@ void createbars(void)
 /**********************************************/
 
 void unbar(void)
+
 /*
    remove bar lines and numbers
 
    called by drawbars,
    calls     delseg,
 */
+
 {
    int j;
    int i,m;
@@ -2021,18 +2019,18 @@ void unbar(void)
          delseg(j);
       }
       else
-      if ( (m == MKEYS) &&
-			((segs[j].x < xlimit)||(segs[j].level == 'B')) )
+      if ( (m == MKEYS) && ( (segs[j].x < xlimit) || (segs[j].level == 'B')) )
       {
-			i = segs[j].item;
-         if ((i > 0)&&(i != 16)&&(i != 17))
-         {
-            delseg(j);
-         }
+	i = segs[j].item;
+	if( ((i>5) && (i<8)) || (i>13) && (i!=17) ) //numbers, C, _ symbols wont disappear
+	  delseg(j);
       }
    }
    barn = 0;
-} /* unbar */
+}
+
+
+ /* unbar */
 /***************************************************/
 
 void setbarsp(void)
@@ -2064,7 +2062,7 @@ void setbarsp(void)
    }
 } /* setbarsp */
 /****************************************************/
-
+	  
 void drawbars(void)
 /*
    draw bar lines
@@ -2220,7 +2218,7 @@ void lbnwrite(void)
    store the score in a "outfile".
 
    called by checkeys, docommand, getout, saveas,
-   calls     fixscore, lbnsort, highesty,
+   calls     fixscore, lbnsort, highesty, 
 */
 {
    int count;
@@ -2282,7 +2280,7 @@ start:
     printf("else type root name of .lbn output file,\n");
 	c = 0;
 another:
-	key = getchar();
+	key = getchar(); 
 	if (key == '\n') goto gotit;
 	if (c == 0)
 	{
@@ -2290,7 +2288,7 @@ another:
            rootname[c] = NULL;
 		c = 0;
 	}
-	rootname[c++] = key;
+	rootname[c++] = key; 
 	goto another;
 gotit:
 	sprintf(foutname,"%s.lbn",rootname);
@@ -2429,7 +2427,7 @@ void createstaff(void)
 /*
    called by create,
    calls     createsegment, closesegment,
-             linerel,
+             linerel, 
 */
 {
    sprintf(segs[STAFF].text,"Staff ");
@@ -2585,7 +2583,7 @@ void createsnap(void)
 /*
    called by create,
 
-   calls     createsegment, closesegment, linerel,
+   calls     createsegment, closesegment, linerel, 
 */
 {
    sprintf(segs[SNAP].text,"Snap");
@@ -2766,7 +2764,7 @@ void createpost(void)
 /*
    called by create, pswrite,
 
-   calls     createsegment, closesegment, linerel,
+   calls     createsegment, closesegment, linerel, 
 */
 {
    sprintf(segs[POST].text,"Postscr");
@@ -3487,10 +3485,10 @@ void setxy(int s)
             for (j = 0; j < barn; ++j)
             {
                difd = bot - bary[j];
-               if (difd < 0)
+               if (difd < 0) 
                   difd = -difd;
                difu = bary[j] - top;
-               if (difu < 0)
+               if (difu < 0) 
                   difu = -difu;
                if (difu < difd)
                {
@@ -3541,10 +3539,10 @@ void setxy(int s)
             for (j = 0; j < staffn; ++j)
             {
                difd = bot - staffx[j];
-               if (difd < 0)
+               if (difd < 0) 
                   difd = -difd;
                difu = staffx[j] - top;
-               if (difu < 0)
+               if (difu < 0) 
                   difu = -difu;
                if (difu < difd)
                {
@@ -3578,13 +3576,13 @@ void setxy(int s)
 
 void scale(int n)
 /*
-   make symbol 'n' larger or smaller, e.g.
+   make symbol 'n' larger or smaller, e.g. 
    by adding/subtracting STEP to/from the height/width,
    or scaling it by 1/2 or 2.
 
    called by dosymbol,
    calls     delseg, drawsymbol, copyseg,
-	MPINS MFACE	MLIMB MVOLM	MKEYS MMISC
+	MPINS MFACE	MLIMB MVOLM	MKEYS MMISC 
 */
 {
    int j;
@@ -3597,11 +3595,11 @@ void scale(int n)
    m = segs[n].menu;
    j = segs[n].item;
 	copyseg(s,n);
-   if ((m == MAREA) || (m == MWAYS) || (m == MDIRN)
+   if ((m == MAREA) || (m == MWAYS) || (m == MDIRN) 
 	   || (m == MROTN))
    {
       if (mode == EXPAND)
-      {
+      {     
          if (segs[s].step < 2)
          {
             segs[s].h = 5;
@@ -3839,7 +3837,7 @@ void pswrite(void)
 
 void fixsymbol(void)
 /*
-   standardise sizes of symbols created using
+   standardise sizes of symbols created using 
    old versions of LED
 
    called by lbnread
@@ -3885,7 +3883,7 @@ void fixsymbol(void)
          if (segs[s].step == 4)
             h = 23;
          else
-         if (h < 30)
+         if (h < 30) 
             h = 23;
          else
          if (h < 40)
@@ -3959,7 +3957,7 @@ void lbnread(void)
    read in a score
 
    called by checkeys,   docommand, main,
-   calls     setinfile,  fixsymbol, fixscore,
+   calls     setinfile,  fixsymbol, fixscore,  
              drawbars,   gettext, setbarsp, highesty,
 */
 {
@@ -4051,7 +4049,7 @@ void lbnread(void)
                   }
                   if (d > 4) segs[s].step = 2;
                   segs[s].w = segs[s].length*CH*segs[s].step/6;
-               }
+               }	
                if ((m == MPINS)&&(j == 9)&&(lev != MIDDLE))
                {
                      segs[s].menu = MVOLM;
@@ -4068,7 +4066,7 @@ void lbnread(void)
                   ++ staffn;
                }
                ++s;
-            } /* x ok */
+            } /* x ok */ 
          } /* not comment */
       } /* while not eof */
    } /* openin true */
@@ -4114,7 +4112,7 @@ void getsize(void)
    printf("to change height: hit 'h' followed by the required dimension\n");
    printf("to accept: just hit 'Enter'\n");
    printf("to accept and read an lbn file: type filename root\n");
-   first = getchar();
+   first = getchar(); 
    if (first == '\n')
    {
       setf = FALSE;
@@ -4130,7 +4128,7 @@ void getsize(void)
       seth = TRUE;
       setf = FALSE;
    }
-   second = getchar();
+   second = getchar(); 
    if (second == '\n')
    {
       setf = TRUE;
@@ -4162,7 +4160,7 @@ void getsize(void)
    } /* second != space */
 
 another:
-   key = getchar();
+   key = getchar(); 
    if (key == '\n')  goto done;
    if (setw == TRUE)
       width = 10*width+(key-'0');
@@ -4256,7 +4254,7 @@ void setlevel(int n, char lev)
    set segment 'n' to have level 'lev'.
 
    called by dosymbol,
-   calls     makebar, delseg, createsegment, setsymbol,
+   calls     makebar, delseg, createsegment, setsymbol, 
              closesegment, copyseg,
 */
 {
@@ -4420,9 +4418,9 @@ void clear(void)
 /**************************************************/
 
 void help(void)
-/*
+/* 
    print helpful list of commands
-
+   
    called by checkeys
  */
 {
@@ -4483,7 +4481,7 @@ void wait(int m)
 void addtext(void)
 /*
    add text to the score
-
+	
 	called by docommand,
 */
 {
@@ -4511,7 +4509,7 @@ void addtext(void)
 void addcomment(void)
 /*
    add comment to .lbn file
-
+	
 	called by docommand,
 */
 {
@@ -4529,16 +4527,16 @@ void addcomment(void)
 /*************************************************/
 
 void displayscore(void)
-/*
+/* 
      show all the display list segments
-
+	 
 	 called by  doscroll, docommand, main (glutDisplayFunc)
 */
 {
    int s;
 
    glClear(GL_COLOR_BUFFER_BIT);
-   glClearColor(1.0,1.0,1.0,0.0);
+   glClearColor(1.0,1.0,1.0,0.0); 
    glPushMatrix();
    for (s = 0; s < SCORE; ++s)
    {
@@ -4587,7 +4585,7 @@ void docommand(int c)
 		create(c);
 	}
    switch(c)
-   {
+   {  
       case TEXTL:
 		  printf("text\n");
 		  segs[oldmode].red = 0.0;
@@ -4612,43 +4610,43 @@ void docommand(int c)
 		  makestaff();
 		  break;
 
-      case EXPAND:
+      case EXPAND: 
 		  oldmode = mode;
 		  mode = EXPAND;
 		  if (oldmode != mode) printf("expand\n");
 		  break;
 
-      case CONTRACT:
+      case CONTRACT: 
 		  oldmode = mode;
 		  mode = CONTRACT;
 		  if (oldmode != mode) printf("contract\n");
 		  break;
 
-      case DELETEL:
+      case DELETEL: 
 		  oldmode = mode;
 		  mode = DELETEL;
 		  if (oldmode != mode) printf("delete\n");
 		  break;
 
-      case MOVE:
+      case MOVE: 
 		  oldmode = mode;
 		  mode = MOVE;
 		  if (oldmode != mode) printf("move\n");
 		  break;
 
-      case COPY:
+      case COPY: 
 		  oldmode = mode;
 		  mode = COPY;
 		  if (oldmode != mode) printf("copy\n");
 		  break;
 
-      case LOW:
+      case LOW: 
 		  oldmode = mode;
 		  mode = LOW;
 		  if (oldmode != mode) printf("low\n");
 		  break;
 
-      case MIDDLE:
+      case MIDDLE: 
 		  oldmode = mode;
 		  mode = MIDDLE;
 		  if (oldmode != mode) printf("middle\n");
@@ -4659,25 +4657,25 @@ void docommand(int c)
 		  mode = HIGH;
 		  if (oldmode != mode) printf("high\n");
 		  break;
-
-      case BLANK:
+      
+      case BLANK: 
 		  oldmode = mode;
 		  mode = BLANK;
 		  if (oldmode != mode) printf("blank\n");
 		  break;
 
-      case HELP:
-		  printf("help\n");
+      case HELP: 
+		  printf("help\n");		  		  		  
 		  help();
 		  break;
 
-      case BARS:
+      case BARS: 
 		  printf("bars\n");
 		  printf("bar lines drawn\n");
 		  drawbars();
 		  break;
 
-      case PLUS:
+      case PLUS: 
 		  printf("plus\n");
 		  ++barsp;
 		  printf("bar spacing increased to %d\n",barsp);
@@ -4715,20 +4713,20 @@ void docommand(int c)
              printf("\n\n oops: cannot open %s for writing?\n",
 				 foutname);
              openout = FALSE;
-		  }
+		  }	
 		  if (openout == TRUE)
 		  {
 			  saving = TRUE;
 			  lbnwrite();
 		  }
 		  break;
-
+	  
       case SAVEAS:
 		  printf("save as\n");
 		  saveas();
 		  break;
-
-      case CLEAR:
+		  
+      case CLEAR: 
 		  printf("clear score\n");
 		  clear();
 		  break;
@@ -4803,13 +4801,13 @@ void dosymbol(int t)
 } /* dosymbol */
 /**********************************************/
 
-void checkeys(unsigned char key, int x, int y)
+void checkeys(unsigned char key, int x, int y) 
 /*
    called by main
    calls  getout, drawbars, lbnwrite, lbnread, pswrite,
           help, clear, makestaff.
 */
-{
+{ 
 	if (key == 'b')
 	{
 		printf("key 'b': draw barlines\n");
@@ -4833,7 +4831,7 @@ void checkeys(unsigned char key, int x, int y)
 		glColor3f(1.0, 0.0, 0.0);
 		create(DELETEL);
 		glColor3f(0.0, 0.0, 0.0);
-		create(oldmode);
+		create(oldmode);	
 	}
 	if (key == 'f')
 	{
@@ -4901,7 +4899,7 @@ int checkhit(int mx, int my)
       if (segs[j].ok == TRUE)
       {
          hit = TRUE;
-
+			
          if (mx < segs[j].x) hit = FALSE;
          if (mx > (segs[j].x+segs[j].w)) hit = FALSE;
          if (my < segs[j].y) hit = FALSE;
@@ -4937,7 +4935,7 @@ void mouseclick(GLint b, GLint action, GLint mx, GLint mmy)
    mousey = my;
    mousex = mx;
    n = scoretop;
-   if ((mx > segs[SCROLLUP].w) && (mx < xtop))
+   if ((mx > segs[SCROLLUP].w) && (mx < xtop)) 
       my += ybot;
    if (action == GLUT_DOWN)
    {
@@ -4953,6 +4951,9 @@ void mouseclick(GLint b, GLint action, GLint mx, GLint mmy)
       target = segdown;
       tm = segs[target].menu;
       tj = segs[target].item;
+      
+      printf("\n----MOUSECLICK---down---menu--target----> %d - %d \n",tm,tj);
+
       if ((target <= 0) || (target >= scoretop)
          || (tj < 0) || (tm < 0) || (tm > SCORE)
          || ((tj > NSYMS)&&(tm != MBARS)))
@@ -5012,7 +5013,7 @@ void mousetrack(GLint mx, GLint mmy)
    int my;
 
    my = height-mmy;
-   if ((mx > segs[SCROLLUP].w) && (mx < dirmx))
+   if ((mx > segs[SCROLLUP].w) && (mx < dirmx)) 
       my += ybot;
    if (segs[target].ok == TRUE)
    {
@@ -5057,26 +5058,26 @@ void doscroll()
 } /* doscroll*/
 /**************************************************/
 
-void initgraphics(void)
+void initgraphics(void) 
 /*
    initialise OpenGl and glut graphics systems
 
       called by main,
 */
-{
-   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
-   glutInitWindowSize(width, height);
-   glutInitWindowPosition(WINDOW_X,WINDOW_Y);
+{ 
+   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB); 
+   glutInitWindowSize(width, height); 
+   glutInitWindowPosition(WINDOW_X,WINDOW_Y); 
    glutCreateWindow(ptitle);
-/* background color */
-   glClearColor(1.0, 1.0, 1.0, 0.5);
-   glShadeModel(GL_SMOOTH);
-/* init viewing matrix */
-   glMatrixMode(GL_PROJECTION);
-   glLoadIdentity();
-   glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0);
+/* background color */ 
+   glClearColor(1.0, 1.0, 1.0, 0.5); 
+   glShadeModel(GL_SMOOTH); 
+/* init viewing matrix */ 
+   glMatrixMode(GL_PROJECTION); 
+   glLoadIdentity(); 
+   glOrtho(0.0, 1.0, 0.0, 1.0, -1.0, 1.0); 
 } /* initgraphics */
-/***************************************/
+/***************************************/ 
 
 int main(int argc, char* argv[])
 /*
@@ -5096,7 +5097,7 @@ int main(int argc, char* argv[])
    create(COPY);
    if (openin == TRUE)
 	   lbnread();
-   glutDisplayFunc(displayscore);/* register Display handler */
+   glutDisplayFunc(displayscore);/* register Display handler */ 
    glutMouseFunc(mouseclick);    /* register Mouse button handler */
    glutMotionFunc(mousetrack);   /* register Mouse tracker */
    glutKeyboardFunc(checkeys);   /* register Keyboard handler */
@@ -5105,3 +5106,8 @@ int main(int argc, char* argv[])
    getout(0);
    return(0);
 }
+
+
+
+
+

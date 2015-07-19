@@ -691,6 +691,12 @@ int mod_lsupport = NOMOD;
 int mod_rsupport = NOMOD;
 char mod_lsupport_type = 'z';
 char mod_rsupport_type = 'z';
+int mod_larm = NOMOD;
+int mod_rarm = NOMOD;
+int mod_rhead = NOMOD;
+char mod_larm_type = 'z';
+char mod_rarm_type = 'z';
+char mod_rhead_type = 'z';
 //variables for jump detection in ldosupport
 int prevry = BASEY;
 int prevly = BASEY;
@@ -4158,6 +4164,7 @@ void ldosupport(int j);
 int checkSymbol(int j);
 void lkneesupport();
 void ldojump(int ,int ,int);
+void ldoarmsorhead(int);
 void laction(void)
 /*
    run through and interpret the actions
@@ -4223,12 +4230,17 @@ Relevant symbols:-
 		{
 			if(lbn[j].m == Bars)
 				ldobar();
-      if(jc == 1 || jc == -1)
-			{
-				ldosupport(j);
-			}
-    }
-  }
+			if(jc == 1 || jc == -1)
+			  {
+			    ldosupport(j);
+			  }
+			else if(jc == 4 || jc == -4 || jc == 6 || jc == -6)
+			  {
+			    ldoarmsorhead(j);
+			  }
+      
+		}
+	}
 }
 
 /* functions created :2015 Persistent Summer Project.
@@ -4257,8 +4269,8 @@ void ldosupport(int j)
 						ldojump(jc,jumprange,prevry);
 					}
 				}
-					if(jm == Dirn)
-					{
+				if(jm == Dirn)
+				  {
 						if (mod_rsupport == NOMOD)
 						{
 							ldostep();
@@ -4390,7 +4402,191 @@ int checkSymbol(int j)
 	  return NOMOD;
 
 }
-
+//3. ldoarmsorhead()
+void ldoarmsorhead(int j)
+{
+  int type = checkSymbol(j);
+  if(type == INDEPENDENT)
+    {
+      if(jc == 4)
+	{
+	  if(jm == Dirn)
+	    {
+	      if(mod_rarm == NOMOD)
+		{
+		  ldoarms();
+		}
+	      else
+		{
+		  if(mod_rarm_type == Keys)
+		    {
+		      if(mod_rarm == 8)
+			{
+			  if(ji == 1)
+			    {
+			      fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 x\n",fstart,fend);
+			    }
+			  else if(ji == 5)
+			    {
+			      fprintf(nudesfile,"quadratic %d %d bendby head throat neck 50 x\n",fstart,fend);
+			    }
+			  else if(ji == 3)
+			    {
+      			      fprintf(nudesfile,"quadratic %d %d bendby head throat neck 33 z\n",fstart,fend);
+			    }
+			  else if(ji == 8)
+			    {
+			      fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 z\n",fstart,fend);
+			    }
+			  else if(ji == 2)
+			    {
+			      fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 x\n",fstart,fend);
+			      fprintf(nudesfile,"quadratic %d %d bendby head throat neck 33 z\n",fstart,fend);
+			    }
+			  else if(ji == 4)
+			    {
+			      fprintf(nudesfile,"quadratic %d %d bendby head throat neck 50 x\n",fstart,fend);
+			      fprintf(nudesfile,"quadratic %d %d bendby head throat neck 33 z\n",fstart,fend);
+			    }
+			  else if(ji == 7)
+			    {
+			      fprintf(nudesfile,"quadratic %d %d bendby head throat neck 50 x\n",fstart,fend);
+			      fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 z\n",fstart,fend);
+			    }
+			  else if(ji == 9)
+			    {
+			      fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 x\n",fstart,fend);
+			      fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 z\n",fstart,fend);
+			    }
+			  else if(ji == 11)
+			    {
+			      fprintf(nudesfile,"quadratic %d %d bendto head throat neck 0 0 0\n",fstart,fend);
+			    }
+			}
+		    }
+		}
+	    }
+	  else if(jm == Rotn)
+	    {
+	      if(mod_rarm == NOMOD)
+		{
+		  
+		  //
+		}
+	      else
+		{
+		  if(mod_rarm_type == Keys)
+		    {
+		      if(mod_rarm == 8)
+			{
+			  int piv = lgetpin();
+			  fprintf(nudesfile,"quadratic %d %d bendby head throat neck %d y\n",fstart,fend,piv);
+			}
+		    }
+		}
+	    }
+	}
+      else if(jc == 6)
+	{
+	   if(jm == Dirn)
+	    {
+	      if(mod_rhead == NOMOD)
+		{
+		  ldoarms();
+		}
+	      else
+		{
+		  if(mod_rhead_type == Keys)
+		    {
+		      if(mod_rhead == 8)
+			{
+			  if(ji == 1)
+			    {
+			      fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 x\n",fstart,fend);
+			    }
+			  else if(ji == 5)
+			    {
+			      fprintf(nudesfile,"quadratic %d %d bendby head throat neck 50 x\n",fstart,fend);
+			    }
+			  else if(ji == 3)
+			    {
+      			      fprintf(nudesfile,"quadratic %d %d bendby head throat neck 33 z\n",fstart,fend);
+			    }
+			  else if(ji == 8)
+			    {
+			      fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 z\n",fstart,fend);
+			    }
+			  else if(ji == 2)
+			    {
+			      fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 x\n",fstart,fend);
+			      fprintf(nudesfile,"quadratic %d %d bendby head throat neck 33 z\n",fstart,fend);
+			    }
+			  else if(ji == 4)
+			    {
+			      fprintf(nudesfile,"quadratic %d %d bendby head throat neck 50 x\n",fstart,fend);
+			      fprintf(nudesfile,"quadratic %d %d bendby head throat neck 33 z\n",fstart,fend);
+			    }
+			  else if(ji == 7)
+			    {
+			      fprintf(nudesfile,"quadratic %d %d bendby head throat neck 50 x\n",fstart,fend);
+			      fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 z\n",fstart,fend);
+			    }
+			  else if(ji == 9)
+			    {
+			      fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 x\n",fstart,fend);
+			      fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 z\n",fstart,fend);
+			    }
+			  else if(ji == 11)
+			    {
+			      fprintf(nudesfile,"quadratic %d %d bendto head throat neck 0 0 0\n",fstart,fend);
+			    }
+			}
+		    }
+		}
+	    }
+	  else if(jm == Rotn)
+	    {
+	      if(mod_rhead == NOMOD)
+		{
+		  //
+		}
+	      else
+		{
+		  if(mod_rhead_type == Keys)
+		    {
+		      if(mod_rhead == 8)
+			{
+			  int piv = lgetpin();
+			  fprintf(nudesfile,"quadratic %d %d bendby head throat neck %d y\n",fstart,fend,piv);
+			}
+		    }
+		}
+	    }
+	}
+    }
+  else if(type == MODIFIER)
+    {
+      if(jc == 4)
+	{
+	  if(mod_rarm == NOMOD)
+	    {
+	      mod_rarm = ji;
+	      mod_rarm_type = jm;
+	    }
+	}
+      else if(jc == 6)
+	{
+	  if(mod_rhead == NOMOD)
+	    {
+	      mod_rhead = ji;
+	      mod_rhead_type = jm;
+	    }
+	}
+    }
+}
+	  
+	  
+	  
 void linter(void)
 /*
                      linter
