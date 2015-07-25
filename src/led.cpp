@@ -245,9 +245,9 @@
 #include <string.h>
 
 #define WINDOW_WIDTH 700 
-#define WINDOW_HEIGHT 650 
-#define WINDOW_Y  20
-#define WINDOW_X 300
+#define WINDOW_HEIGHT 625 
+#define WINDOW_Y  0
+#define WINDOW_X 0
 #define WINDOW_MODE 
 #define    ESCAPE     27
 #define    MAXINT 1073741824
@@ -4108,6 +4108,7 @@ void getsize(void)
       width,height);
    printf("to change width: hit 'w' followed by the required dimension\n");
    printf("to change height: hit 'h' followed by the required dimension\n");
+   printf("to open in fullscreen: hit 'f'\n");
    printf("to accept: just hit 'Enter'\n");
    printf("to accept and read an lbn file: type filename root\n");
    first = getchar(); 
@@ -4115,6 +4116,14 @@ void getsize(void)
    {
       setf = FALSE;
       goto done;
+   }
+   if (first == 'f')
+   {
+     
+     setf = FALSE;
+     width = int(glutGet(GLUT_SCREEN_WIDTH))-100;
+     height = int(glutGet(GLUT_SCREEN_HEIGHT))-100;
+     goto done;
    }
    if (first == 'w')
    {
@@ -4126,12 +4135,13 @@ void getsize(void)
       seth = TRUE;
       setf = FALSE;
    }
+
    second = getchar(); 
    if (second == '\n')
    {
       setf = TRUE;
 	  for (  c = 0 ; c < BMAX ; ++c )
-           rootname[c] = NULL;
+          rootname[c] = NULL;
 	  rootname[0] = first;
       goto done;
    }
@@ -4177,6 +4187,7 @@ done:
    ybot = 0;
    ytop = height-1;
    ymax = ytop;
+   printf("\n________________done\n xtop- %d ytop- %d scalex- %f scaley- %f width- %d height- %d  done_______________\n",xtop,ytop,scalex,scaley,width,height);
    if (setf == TRUE)
    {
       sprintf(finname,"%s.lbn",rootname);
@@ -5084,8 +5095,8 @@ int main(int argc, char* argv[])
    sprintf(ptitle,"led120");
    printf("%s\n",ptitle);
    setup();
-   getsize();
    glutInit(&argc, argv);
+   getsize();
    initgraphics();
    createmenus();
    segs[COPY].red = 1.0;
