@@ -2017,6 +2017,7 @@ void unbar(void)
          delseg(j);
       }
       else
+<<<<<<< HEAD
 	 if ( (m == MKEYS) && 
 	      ((segs[j].x < xlimit)||(segs[j].level == 'B')) )
 	 {
@@ -2026,6 +2027,14 @@ void unbar(void)
 	       delseg(j);
 	    }
 	 }
+=======
+      if ( (m == MKEYS) && ( (segs[j].x < xlimit) || (segs[j].level == 'B')) )
+      {
+	i = segs[j].item;
+	if( ((i>5) && (i<8)) || (i>13) && (i!=17) && (i!=20) && (i!=21)) //numbers, C, <, >, _ symbols wont disappear
+	  delseg(j);
+      }
+>>>>>>> a5f4d1d60c3eb4b6d63d3b0a58ee536b66a197de
    }
    barn = 0;
 } /* unbar */
@@ -4959,6 +4968,7 @@ void mouseclick(GLint b, GLint action, GLint mx, GLint mmy)
       target = segdown;
       tm = segs[target].menu;
       tj = segs[target].item;
+      printf("\n----MOUSECLICK---down---menu--target----> %d - %d \n",tm,tj);
       if ((target <= 0) || (target >= scoretop)
 	  || (tj < 0) || (tm < 0) || (tm > SCORE)
 	  || ((tj > NSYMS)&&(tm != MBARS)))
