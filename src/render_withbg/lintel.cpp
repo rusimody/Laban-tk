@@ -10293,7 +10293,7 @@ void initgraphics(void)
    char title[BMAX];
 
    sprintf(title,"%s  -  %s",ptitle,finname);
-   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB);
+   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB|GLUT_DEPTH);
    glutInitWindowSize(width, height);
    glutInitWindowPosition(xw,yw);
    glutCreateWindow(title);
