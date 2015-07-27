@@ -1,0 +1,3 @@
+The suryanamaskar file is not producing a gif in my laptop and also Kaushal’s laptop.
+It was a little hard to make it in the led as the led does not have any symbol for the whole body movement which is required in almost all the steps of suryanamaskar. I tried manipulating a little and used some other symbols.
+Maybe the backend team can figure out the problem.
