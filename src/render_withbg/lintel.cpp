@@ -679,6 +679,9 @@ typedef char TCHAR;
                             // man's L hand to lady's L,
                             // man's R hand on lady's R hip, lady's R hand free.
 
+int headcol4 = 0;
+int headcol6 = 0;
+
 // ini file variables-
 
 int x;
@@ -1826,7 +1829,7 @@ void lsetframes(void)
 /*
     set the frames over which an action occurs :-
     fstart, fhalf, frange, fend.
-
+    lbn_fpp = double(lbn_fps)*doub60 / (double(lbn_bpm)*double(lbn_ppb)); calculated in function led_param
     called by laction,
 */
 {
@@ -1838,7 +1841,7 @@ void lsetframes(void)
    }
    else
    {
-      fstart = int(inv2+lbn_fpp*double(jy-ystart));
+     fstart = int(inv2+lbn_fpp*double(jy-ystart));//inv2 is 0.5
       if (fstart < 1) fstart = 1;
       frange = int(inv2+lbn_fpp*double(jh));
       if (frange < 1) frange = 1;
@@ -1854,25 +1857,25 @@ void lsetframes(void)
 void lcolx(int lcentre)
 /*
     find column number of each symbol
-	-5 = L arm
+	-4 = L arm
 	-3 = L gesture
     -1 = L support
 	 1 = R support
 	 3 = R gesture
-	 5 = R arm
+	 4 = R arm
 
     called by linter,
 */
 {
    int k;
-   int kc;
+   int kc;//column number
    int kwx;
 
    for (k = 0; k < nlabs; ++k)
    {
       kwx = lbn[k].x + (lbn[k].w/2);
-      kc = (kwx - lcentre)/STEP;
-      if (kwx < lcentre)
+      kc = (kwx - lcentre)/STEP;//here STEP is 12
+      if (kwx < lcentre)//lcentre is x coordinate of middle stav
          --kc;
       else
          ++kc;
@@ -1886,6 +1889,28 @@ void lbnread(void)
    read .lbn laban score file
 
    called by linter,
+
+A structure Symbol is created as follows:
+      struct Symbol {
+        int i;       // item in menu
+	int x;       // horizontal position of left side
+	int y;       // vertical position of bottom
+	int s;       // drawing step size
+	int w;       // width
+	int h;       // height
+	int d;       // height indicator //0,1,2,3 : low,mid,high,blank
+	char m;      // menu
+	//below data not present in .lbn file , so hardcoded or derived from available data
+	int x2;      // horizontal position of right side  = x+w
+	int y2;      // vertical position of top = y+h
+	int a;       // TRUE = 0 if already done
+	int b;       // bent indicator // not implemented as given -1 value
+	int c;       // column position relative to right support column
+	int l;       // lbn file line number
+	};
+	Extra variables set :
+	xmin = min(x)
+	xmax = max(x+w)
 */
 {
    int j;
@@ -2112,15 +2137,23 @@ void lfindstaff(void)
 
     called by linter,
 	calls     lsortx, lgetout,
+
+staff[TMAX][6].
+   staff[k][0] = stff[j][0]; // current staff index
+   staff[k][1] = stff[j-1][1];// left staff x coordinate
+   staff[k][2] = stff[j][1]; // current staff x cooridnate
+   staff[k][3] = stff[j+1][1]; // right staff x coordinate
+   staff[k][4] = -1;   // decides if staff represents a 'MAN' or'Woman'
+   staff[k][5] = TODO;
 */
 {
    int j,jp,jq;
    int k,kp,kq;
-   int staffstart;
-   int nstaffstart;
-   int nstff;
-   int stff[TMAX][2];
-   int gen;
+   int staffstart;//y coordinate of middle Stav
+   int nstaffstart;//index of the staves
+   int nstff;//number of staves
+   int stff[TMAX][2];//temporary array to store staff info
+   int gen;//stores the gender
 
    k = 0;
    staffstart = 0;
@@ -2929,15 +2962,15 @@ void ldopivot(void)
 */
 {
    int g,t;
-   int piv;
+   int piv;//angle of turn
 
    if ( (jm == Rotn)&&(nbar > 0)&&
 	 ((jc == -2)||(jc == -1)||(jc == 1)||(jc == 2)) )
    {
-      piv = lgetpin();
+     piv = lgetpin();//finds the pin in the symbol and returns the angle
       if (fstart < 1) fstart = 1;
-      g = lhasgesture(j);
-      t = lhastap(j);
+      g = lhasgesture(j);//checks the gesture column for (-3 +3)for ovelapping gestures
+      t = lhastap(j);//checks if the j'th symbol has overlapping ground contact
       if ((g > 0)&&(t > 0))
       {
          lspotturn(j,piv,fstart,fend,g);
@@ -3101,8 +3134,8 @@ void lstart(void)
    int k;
    int p;
    int dx,dz;
-   int mx,my;
-   int wx,wy;
+   int mx,my;//coordinates of male pins if exist
+   int wx,wy;//coordinates of female pins if exist
 
    mx = -123;
    my = -123;
@@ -3137,6 +3170,7 @@ void lstart(void)
                   "*\nquadratic   0   1 spinby woman  wrfoot  wpelvis %d y\n",
                   (ji-1)*45);
          }
+	 //if both male and female pins exist then do this
          if ((wx > 0)&&(mx > 0)&&(wy > 0)&&(my > 0))
          {
             dx = ((wx - mx)*2)/3;
@@ -3170,15 +3204,16 @@ void lstart(void)
    called by linter,
 */
 {
-   int bend;
-   int k,kmax;
-   int ymax;
+  int bend;//useless
+  int k,kmax;//kmax is index of symbol with ymax
+  int ymax;//highest y2 of a symbol
 
    ystart = 0;
    yend = lbn[0].y;
    ymax = yend;
    sstart = 0;
    ssend = nlabs;
+   //finds the starting symbol and stores its y in ystart
    for (k = 0; k < nlabs; ++k)
    {
       if (lbn[k].m == Bars)
@@ -3191,6 +3226,7 @@ void lstart(void)
       }
    }
    bend = bstart + blength;
+   //useless
    for (k = (sstart+1); k < nlabs; ++k)
    {
       if (lbn[k].m == Bars)
@@ -3199,6 +3235,7 @@ void lstart(void)
             ssend = k;
       }
    }
+   //finds the last symbol and stores its y in ymax
    for (k = 0; k < nlabs; ++k)
    {
       if (lbn[k].m == Dirn)
@@ -3212,6 +3249,7 @@ void lstart(void)
 		 }
       }
    }
+   //f_max is total number of frames required for the dance
    f_max = 2 + int(lbn_fpp*double(ymax));
 	printf("\n   lsetrange: pixels %d, frames %d\n",ymax,f_max);
 } /* lsetrange */
@@ -3303,7 +3341,7 @@ void lselectfig(void)
    called by linter,
 */
 {
-   int k;
+  int k;
    int nf;
    int nogo;
    int st;
@@ -3314,9 +3352,9 @@ void lselectfig(void)
 again:
    for (k = 0; k < nstaff; ++k)
       staff[k][5] = DONE;
-   nf = 0;
-   nm = 0;
-   nw = 0;
+   nf = 0;//number of figures
+   nm = 0;//no. of male figs
+   nw = 0;//no. of female figs
    nogo = FALSE;
    if (nstaff < 1)
       printf("no staves\n");
@@ -3421,7 +3459,7 @@ rtrn:
           track = FALSE;
    }
    else
-       track = TRUE;
+     track = TRUE;//follows the figure while dance
    if (track == FALSE)
        printf("\n   tracking OFF\n");
    else
@@ -3462,11 +3500,11 @@ void lbent(void)
    Volm   7  hold
 */
 {
-   int g;
+  int g;//stores the index of Dirn symbol being modified
    int k;
-   int ki,kx,kx2,ky,ky2;
+   int ki,kx,kx2,ky,ky2;//temporary variables for i, x, x2, y, y2 of symbol
    int jy2h;
-   char km;
+   char km;//temporary variable for menu name
 
    for (j = 0; j < ssend; ++j)
    {
@@ -3607,7 +3645,7 @@ void lrelease(void)
 void ldoposn(void)
 /*
    set up a couple dance position
-
+   calls respective subroutines
    called by lsethold, ldohold
 */
 {
@@ -3980,7 +4018,7 @@ void lcoords(char jm, int ji)
 
 	if ((jm == Area)&&(ji == 9))
 	{
-		piv = lgetpin ( );
+	  piv = lgetpin ( );//finds the pin belonging to Area symbol and returns the angle
 		//fprintf(nudesfile,"* lcoordsa %c %d\n",m,piv);
 		if (piv != maxint)
 		{
@@ -4120,6 +4158,49 @@ void ldotoetaps ( void )/*
 	} /* c OK */
 } /* ldotoetaps */
 /**************************************/
+void ldohead()
+{
+  if(ji == 1)
+          {
+            fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 x\n",fstart,fend);
+          }
+        else if(ji == 5)
+          {
+            fprintf(nudesfile,"quadratic %d %d bendby head throat neck 50 x\n",fstart,fend);
+          }
+        else if(ji == 3)
+          {
+                  fprintf(nudesfile,"quadratic %d %d bendby head throat neck 33 z\n",fstart,fend);
+          }
+        else if(ji == 8)
+          {
+            fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 z\n",fstart,fend);
+          }
+        else if(ji == 2)
+          {
+            fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 x\n",fstart,fend);
+            fprintf(nudesfile,"quadratic %d %d bendby head throat neck 33 z\n",fstart,fend);
+          }
+        else if(ji == 4)
+          {
+            fprintf(nudesfile,"quadratic %d %d bendby head throat neck 50 x\n",fstart,fend);
+            fprintf(nudesfile,"quadratic %d %d bendby head throat neck 33 z\n",fstart,fend);
+          }
+        else if(ji == 7)
+          {
+            fprintf(nudesfile,"quadratic %d %d bendby head throat neck 50 x\n",fstart,fend);
+            fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 z\n",fstart,fend);
+          }
+        else if(ji == 9)
+          {
+            fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 x\n",fstart,fend);
+            fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 z\n",fstart,fend);
+          }
+        else if(ji == 11)
+          {
+            fprintf(nudesfile,"quadratic %d %d bendto head throat neck 0 0 0\n",fstart,fend);
+          }
+}
 
 void laction(void)
 /*
@@ -4179,15 +4260,15 @@ Relevant symbols:-
 		colm[j] = ARM;
 	for ( j = 0; j < ssend; ++j )
 	{
-		lassign ();
-		lsetframes ();
+	  lassign ();//assigns the parameter of current symbol to temporary varibles
+	  lsetframes ();//sets the frame numbers for a particular symbol(fstart , fend, frange)
 		fprintf(nudesfile,"* %d %3d %s",lbn[j].a,jc,lbnline[j]);
 		if ( lbn[j].a == TODO )
 		{
 			if ( jm == Bars )
-				ldobar ();
+			  ldobar ();//increments nbar
 			else if ( ( jm == Face ) || ( jm == Limb ) )
-				lsethold ();
+			  lsethold ();	  
 			else if ( jm == Misc )
 			{
 				lrelease ();
@@ -4199,6 +4280,24 @@ Relevant symbols:-
 						lcoords(jm, ji);
 				if ( ( jm == Rotn ) && ( jc > -4 ) && ( jc < 4 ) )
 					ldopivot ();
+				 else if(jc == 4 && (jm==Keys)&&(ji == 8))
+				 {
+				   headcol4 = 1;
+				 }
+				 else if(jc == 6 && (jm==Keys)&&(ji == 8))
+				 {
+				   headcol6 = 1;
+				 }
+				 else if(headcol4 == 1 && (jm == Dirn || jm == Rotn)&&jc == 4)
+				 {
+				   ldohead();
+				   headcol4 = 0;
+				 }
+				 else if(headcol6 == 1 && (jm == Dirn || jm == Rotn)&&jc == 6)
+				 {
+				   ldohead();
+				   headcol6 = 0;
+				 }
 				else if (( jm == Dirn ) && ( jc > -4 ) && ( jc < 4 ))
 				{
 					ldostep ();
@@ -4233,10 +4332,44 @@ void linter(void)
              lfindystart, lcolx, lsetrange, lselectfig,
              lgetout, lcopyfigs, lfinish, lcopysubs,
              lbows,
+
+int keptf;           // last frame when last position kept
+int mface,wface;     // facing directions of man and woman
+int nbar;            // number of current bar
+int nlabs;           // number of laban score entries
+int npins;           // number of pins below first barline
+int nm;              // number of men
+int nw;              // number of women
+int nmw;             // nm * nw
+int nstaff;          // number of staves
+int oriented;        // true after orientation
+int pend;            // last frame of previous action
+int pstart;          // first fame of previous action
+int ppb;             // pixels per beat (= 23 );
+int prev_time;       // clock reading of previous frame
+int pres_time;       // clock reading of current frame
+int previ;           // item of previous support symbol
+int prevc;           // column of previous support symbol
+int prevhold;        // previous hold
+int rise;            // height of previous step;
+int ssend;           // ending score symbol
+int sstart;          // starting score symbol
+int st;              // current staff number
+int stmiddle;        // halfway across between L and R staves
+int track;           // TRUE when tracking viewpoint on main figure
+int xmin,xmax;       // width range of score symbols
+int ymax;            // top of score
+int yend;            // y position of last movement
+int ystart;          // y position of start of movement
+int yj[5*FMAX];      // symbols starting at given y positions
+int pins[TMAX][2];   // index and use of initial pins
+int staff[TMAX][6];  // index, x positions, gender, and use of staves
+char colm[NCOLM];    // limb presigns in the columns
+
 */
 {
    lbnread();
-   lsorty();
+   lsorty();//sorts the lbn structure array by y parameter
    lfindstaff();
    lsetrange();
    lselectfig();
@@ -4268,7 +4401,7 @@ void linter(void)
       gh = 0;
       if (staff[st][5] == TODO)
       {
-         nbar = -1;
+	nbar = -1;//number of bars processed
          if (staff[st][4] == MAN)
             dofig = MAN;
          else
@@ -10293,7 +10426,7 @@ void initgraphics(void)
    char title[BMAX];
 
    sprintf(title,"%s  -  %s",ptitle,finname);
-   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB|GLUT_DEPTH);
+   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
    glutInitWindowSize(width, height);
    glutInitWindowPosition(xw,yw);
    glutCreateWindow(title);

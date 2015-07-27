@@ -1,0 +1,16 @@
+Algorithm to add a symbol
+* Check in which column the specific symbol lies(arms, leg gestures, support etc.)( In function laction() )
+* Check whether the symbol lies in the left or right column(i.e. jc)( In function checkSymbol() )
+* Check whether the symbol is a modifier or a independent symbol
+** If independent:
+Check whether previous symbol was a modifier.
+If YES then call the subroutines as per the type(jm) and id(ji) of the modifier.
+If NO then call the normal subroutine for the particular symbol.
+** If modifier:
+Check whether previous symbol was a modifier(menu = Area (square)).
+If YES then determine the type of the previous modifier and set the modifier variables for the compound modifier according to the current modifier.
+If NO then set the modifier variables for the current modifier.
+* For reference:
+Independent symbol is the one which is a specific defined action(Dirn, Rotn) for which will do a simple action according to the column in which it is present.
+Modifier defines the path, angle(Pins) or way(Ways) in which an independent symbol should work also is used to denote which body part the independent symbol belongs(Limb).
+Compound Modifier is the modifier which consists of two or more modifiers for a single independent symbol (HERE compound modifiers can only be formed with Area symbol).
