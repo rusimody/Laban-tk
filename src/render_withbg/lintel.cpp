@@ -2131,7 +2131,7 @@ int loverlap(int p1j, int p2j, int p1k, int p2k)
 } /* loverlap */
 /********************************************/
 
-void lfindstaff(void)
+void lfindstaff(char* gen)
 /*
     find the centres of the staves
 
@@ -2153,7 +2153,6 @@ staff[TMAX][6].
    int nstaffstart;//index of the staves
    int nstff;//number of staves
    int stff[TMAX][2];//temporary array to store staff info
-   int gen;//stores the gender
 
    k = 0;
    staffstart = 0;
@@ -2237,29 +2236,28 @@ staff[TMAX][6].
    {
 		if (j == 0)
 			printf("\n");
-      printf("staff %d: ",j+1);
+		/*printf("staff %d: ",j+1);
       if (staff[j][4] == MAN)
          printf(" man\n");
       else
       if (staff[j][4] == WOMAN)
          printf(" woman\n");
       else
-         printf(" no gender\n");
-      if(nstaff == 1)
-	{
-	  printf("\nSelect 1 for MAN and 2 for WOMAN\n");
-	  scanf("%d",&gen);
-	  if(gen == 1)
-	    staff[j][4] = MAN;
-	  else
-	    staff[j][4] = WOMAN;
-	}
-
-      else if(j==0)
-	  staff[j][4] = MAN;
-      else if(j==1)
-	staff[j][4] = WOMAN;
-
+      printf(" no gender\n");*/
+		if(gen != NULL)
+		{
+		  if(nstaff == 1)
+		  {
+		    if(gen[0] == 'm')
+		      staff[j][4] = MAN;
+		    else if(gen[0] == 'f')
+		      staff[j][4] = WOMAN;
+		  }
+		  else if(j==0)
+		    staff[j][4] = MAN;
+		  else if(j==1)
+		    staff[j][4] = WOMAN;
+		}
    }
 rtrn: ;
 }   /* lfindstaff */
@@ -4327,7 +4325,7 @@ Relevant symbols:-
 } /* laction */
 /*************************************************/
 
-void linter(char* renOrfile)
+void linter(char* renOrfile,char* gen)
 /*
                      linter
 
@@ -4380,7 +4378,7 @@ char colm[NCOLM];    // limb presigns in the columns
 {
    lbnread();
    lsorty();//sorts the lbn structure array by y parameter
-   lfindstaff();
+   lfindstaff(gen);
    lsetrange();
    lselectfig();
    lcopyfigs(renOrfile);
@@ -10479,7 +10477,7 @@ more:
          fprintf(nudesfile,
             "*\n* created %s from %s using %s\n*\n",
             nudesname,name,ptitle);
-         linter(argv[2]);
+         linter(argv[2],argv[3]);
 	}
 	if(argv[2][0] == 'r')
 	{
