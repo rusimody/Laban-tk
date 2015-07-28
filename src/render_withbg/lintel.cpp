@@ -3255,7 +3255,7 @@ void lstart(void)
 } /* lsetrange */
 /****************************************************/
 
-void lcopyfigs(void)
+void lcopyfigs(char* renOrfile)
 /*
    finish off
 
@@ -3263,6 +3263,16 @@ void lcopyfigs(void)
    calls     lgetout,
 */
 {
+	if (renOrfile[0] == 'r') {
+		sprintf(figsname,"lintel.n");
+	}
+	else if (renOrfile[0] == 'n') {
+		sprintf(figsname,"lintelnudes.n");
+	}
+	else{
+		printf("Enter a valid option r for render n for nudes\n");
+		exit(0);
+		}
    sprintf(figsname,"lintel.n");
    if ((figsfile = fopen(figsname,"r")) == NULL)
    {
@@ -4268,7 +4278,7 @@ Relevant symbols:-
 			if ( jm == Bars )
 			  ldobar ();//increments nbar
 			else if ( ( jm == Face ) || ( jm == Limb ) )
-			  lsethold ();	  
+			  lsethold ();
 			else if ( jm == Misc )
 			{
 				lrelease ();
@@ -4317,7 +4327,7 @@ Relevant symbols:-
 } /* laction */
 /*************************************************/
 
-void linter(void)
+void linter(char* renOrfile)
 /*
                      linter
 
@@ -4373,7 +4383,7 @@ char colm[NCOLM];    // limb presigns in the columns
    lfindstaff();
    lsetrange();
    lselectfig();
-   lcopyfigs();
+   lcopyfigs(renOrfile);
    lstart();
    lfindystart();
    lbows(); // flag hand signs
@@ -10469,31 +10479,34 @@ more:
          fprintf(nudesfile,
             "*\n* created %s from %s using %s\n*\n",
             nudesname,name,ptitle);
-         linter();
+         linter(argv[2]);
+	}
+	if(argv[2][0] == 'r')
+	{
+		fstart = 0;
+		if (ok == 0) openfile();
+			 else
+					if (ok != 1) getout(1);
+						 else goto more;
+		compl1();
+		if (ok == 0) doframes();
+				 else
+						if (ok != 1) getout(1);
+							 else goto more;
+		if (ok == 0)
+			initsphere();
+				 else
+						if (ok != 1) getout(1);
+							 else goto more;
+		glutInit(&argc, argv);
+		initgraphics();
+		printf("For interactive command list:\n");
+		printf("    click in animation window, then press 'h' key\n");
+		glutKeyboardFunc(checkeys); // register Keyboard handler
+		glutDisplayFunc(image);     // register Display handler
+		glutIdleFunc(animate);
+		glutMainLoop();
+		goto more;
 	}
 
-	fstart = 0;
-	if (ok == 0) openfile();
-	   else
-	      if (ok != 1) getout(1);
-	         else goto more;
-	compl1();
-	if (ok == 0) doframes();
-       else
-          if (ok != 1) getout(1);
-             else goto more;
-	if (ok == 0)
-	  initsphere();
-       else
-          if (ok != 1) getout(1);
-             else goto more;
-	glutInit(&argc, argv);
-	initgraphics();
-	printf("For interactive command list:\n");
-	printf("    click in animation window, then press 'h' key\n");
-	glutKeyboardFunc(checkeys); // register Keyboard handler
-	glutDisplayFunc(image);     // register Display handler
-	glutIdleFunc(animate);
-	glutMainLoop();
-	goto more;
 }
