@@ -801,7 +801,7 @@ double  quat[EMAX+2][5];       // quat[i][j] - angle of ith ellipsoid
                                // j = 3,4   - sine and cosine of rotation about axis
 double point[SMAX][2*SMAX+1][3];
 
-
+int system(const char *command);
 
 struct Symbol {
 	int a;       // TRUE = 0 if already done
@@ -3273,7 +3273,7 @@ void lcopyfigs(char* renOrfile)
 		printf("Enter a valid option r for render n for nudes\n");
 		exit(0);
 		}
-   sprintf(figsname,"lintel.n");
+   
    if ((figsfile = fopen(figsname,"r")) == NULL)
    {
       if (figsfile) fclose(figsfile);
@@ -10507,6 +10507,11 @@ more:
 		glutIdleFunc(animate);
 		glutMainLoop();
 		goto more;
+	}
+	else
+	{
+		sprintf(figsname,"./nudes %s",nudesname);
+		system(figsname);
 	}
 
 }
