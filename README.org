@@ -1,0 +1,32 @@
+* Laban-tk 
+  The Laban toolkit A linux port and adaptation of a suite of Laban tools from Don Herbison-Evans 
+* Repo Information 
+** data 
+   Contains intermediate files. 
+*** lbn_files  
+    Contains laban files i.e .lbn files 
+*** nudata 
+    Contains .n files 
+ 
+** docs 
+   Contains documentation files. mostly org files and some txt. 
+   I gathered all doc files from all previous branches and put them in docs. 
+   Please refactor or categorize them as you read them, it will helpful for others.  
+ 
+** src 
+*** legacy 
+    Contains all previous code before the refactoring, We should keep it for reference.  
+*** lintel_led_src  
+    Contains source code for lintel and led. I think whoever among us working on lintel and led must gather 
+    our respective files and make separate dir under src for further work. That will be more useful.  
+ 
+* Other Information 
+   Some of docs files are in org format as this README too. So most of emacs user might aware of this 'org-mode'. 
+   But in case if you are not then please follow below mentioned link for it. And for non-emacs user's it does not 
+   require expertise in emacs to get started with 'org-mode' and it does much more than writing readme and documentation. 
+   So it will be useful for you as well. 
+ 
+   1. [[https://en.wikipedia.org/wiki/Org-mode][Wiki org mode]] 
+   2. [[http://orgmode.org/worg/org-tutorials/orgtutorial_dto.html][David O'Toole Org tutorial]] 
+ 
+

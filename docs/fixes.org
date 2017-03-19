@@ -1,0 +1,58 @@
+* TCHAR typedef to char
+* fmax renamed to f_max
+* string.h included
+* ctype.h included
+* glut linkage -lglut
+* math linkage -lm
+* tmain renamed to main
+* removed stdafx.h (the windows version of unicode)
+* Added trivial Makefile
+* Added this file
+
+--------
+* Command line for nudes: nudes walk -h -j -l 1 -b 4 -G
+* Needs auxillary tools to run prfrm compln
+* Nudes still breaking for want of view[a|b|c].c
+* pipeline of prfrm and compln: cat walk.n|./compln |./prfrm
+* Modified Makefile
+
+* Received Viewc ViewB and lintel.ini from Don, not yet merged
+* Received following documentation from Don about lintel usage:
+
+Yes LED produces a .lbn file.
+That file is human readable.It has one line per symbol.,
+with first a 4 letter abbreviation of which menu the symbol is from
+then a number indicating which symbol from that menu it is
+then its x and y coordinates of its lower left corner
+then the step size to be used to draw it,
+then the width and height 
+then whether it is shaded or clear or has a dot
+then its bar number if it is a bar line,
+then an * indicating the rest of the line is commentary
+then a symbol sequence number in that script.
+
+Most ballroom dances are 80 (slow waltz) to 240 (quickstep) beats/minute.
+Films are 25 frames/sec, video (in USA) is 30 frames/sec.
+
+LINTEL produces animation on screen which can  be
+rotated, panned, zoomed, speed changed etc
+interactively whilst it is animating,
+by hitting different keys.
+Hitting h (for 'help')  gives the list of interactive commands.
+It also produces an intermediate .n NUDES file.
+It will also take a .n file as input.
+
+Some versions of LINTEL need a lintel.ini file.
+I attach one that might work with walk.lbn.
+* Got viewc running, fixed hard paths in nudes.c
+* Got frad3.c up, fixing hard paths in nudes.c
+* got split3e.c up and running, hard paths
+* got hideo.c up and running, hard paths
+
+* plotelg and raselr...
+* got missing mpeg headers from Don, added
+* formats have changed... so mpeg not being made... crashing
+- change to tmp
+- convert -delay 20 *ppm movie2.gif
+(convert is part of imagemagick)
+* Need to write a script to do this and close the pipeline
