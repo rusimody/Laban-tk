@@ -74,8 +74,8 @@ If this still remains unclear and you are enthusiastic about understanding the r
 
 ## Caret symbol
 The caret symbol is used to describe that the foot is going to remain in the same position in the next. So, instead of describing which foot takes the active role, caret symbol does just the opposite - it shows which foot does not move.
-**Left caret: **![Caret symbol for left](https://github.com/rusimody/Laban-tk/blob/pucsd_laban_project/docs/img/caret1.png?raw=true)
-**Right caret:  **![Caret symbol for right](https://github.com/rusimody/Laban-tk/blob/pucsd_laban_project/docs/img/caret2.png?raw=true)
+**Left caret:** ![Caret symbol for left](https://github.com/rusimody/Laban-tk/blob/pucsd_laban_project/docs/img/caret1.png?raw=true)
+**Right caret:** ![Caret symbol for right](https://github.com/rusimody/Laban-tk/blob/pucsd_laban_project/docs/img/caret2.png?raw=true)
 
 ## Springing
 Springing or aerial steps form an important part of any dance. Some dance forms include emphasised springs (major springs) while others have lighter, more tame ones (minor springs). Absence of symbols represents lack of movement. When there is a gap between two direction modifiers in the support columns, it represents a lack of support aka a spring. When you think about it, it also demonstrates the importance of retention symbol - a retention symbol "retains" the previous stance for a while. The absence of retention symbol means the previous stance is not to be retained and hence, the dancer dives into the air.
