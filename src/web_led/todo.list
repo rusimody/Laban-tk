@@ -1,0 +1,11 @@
+Region: Extends Rectangle Object
+Work:   Parent for multiple objects in canvas, children moves along with the parent
+TODO:::::::
+ 1. Move moving logic from common inside region - P4 - Done
+ 2. Handle Overlap Conditions - P3
+ 3. JSON Generation - P1 - Test
+ 4. Subscribe to parent - P0 - Done
+ 5. leave parent region and look for new one - P0 - Done
+ 6. Region should be deleted if there's no children left inside region - P4
+ 7. Moving objects should not go outside of the canvas - P3 - Done (bad code, but working)
+ 8. Create Toolbar

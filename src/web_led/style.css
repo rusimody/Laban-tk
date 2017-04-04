@@ -1,3 +1,18 @@
 canvas {
     border: 1px solid #ccc;
 }
+
+.container {
+    display: inline-block;
+    overflow: auto;
+    max-height: 768px;
+    height: 100%;
+}
+
+.led {
+    width: 60%;
+}
+
+.editor {
+    position: relative;
+}
