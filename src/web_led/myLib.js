@@ -1,11 +1,11 @@
 /* laban.util namespace is defined in laban_util.js file */
 
-Region = fabric.util.createClass(fabric.Rect, {
+Region = fabric.util.createClass(fabric.Group,  {
     type	: "region",
     objects	: [],
 
-    _calcBounds: function(object) {
-	object.__objectPosition = new fabric.Point(object.left - object.parentRegion.left, object.top - object.parentRegion.top);
+    _myCalcBounds: function(object) {
+	object.__objectPosition = new fabric.Point(object.getLeft() - object.parentRegion.getLeft(), object.getTop() - object.parentRegion.getTop());
     },
 
 
@@ -14,28 +14,29 @@ Region = fabric.util.createClass(fabric.Rect, {
     },
     
     _getRegionBounds: function() {
-	objs	= this.objects;
-	group	= new fabric.Group(objs);
 
+	objs1	= this.objects;
+	objs2    = objs1.slice();
+	this.backgroundObj && objs2.push(this.backgroundObj);
+	group	= new fabric.Group(objs2);
 	obj	= {
 	    left	: Math.round(group.getLeft()),
 	    top		: Math.round(group.getTop()),
 	    height	: Math.round(group.getHeight()),
 	    width	: Math.round(group.getWidth())
 	};
-	group.destroy();
+	group.destroy();	
 	return obj;
     },
 
-    initialize: function (options) {
+    initialize: function (objects, options) {
 	options = options || { }
-	this.callSuper ("initialize", options)
+	this.callSuper ("initialize", objects, options)
 	this.objects = []
 	this.on('moving', function(evt) {
 	    points		= new fabric.Point(this.getLeft(), this.getTop());
 	    var childObjs	= this.objects;
 	    laban.util.normalizeCoords(points, this.movx, this.movy);
-
 	    childObjs && childObjs.map(function (o) {
     		leftCMove	= points.x + o.__objectPosition.x;
     		rightCMove	= points.y + o.__objectPosition.y
@@ -48,55 +49,39 @@ Region = fabric.util.createClass(fabric.Rect, {
 	});
     },
 
-    toObject			: function() {
+    toObject: function() {
 	this.callSuper("toObject")
     },
-
-    setBackgroundObj: function(obj) {
-	this.backgroundObj		= obj;
-	this.backgroundObj.selectable	= false;
-	this.add(obj);
-	obj.sendToBack && obj.sendToBack();
-    },
-
-    _updateRegionCoords: function() {
-	regionCoords = this._getRegionBounds();
-	this.set(regionCoords).setCoords();
-	this._updateObjectCoords();
-    },
-
-    _updateObjectCoords: function() {
-	objs = this.objects;
-	objs.map(this._calcBounds);
-    },
-
     _onChildMove: function(obj) {
 	return function (e) {
-	    obj.parentRegion && obj.parentRegion._calcBounds(obj);
-	    !obj.parentRegion.isInsideParent(obj) && obj.parentRegion.remove(obj);
+	    obj.parentRegion && obj.parentRegion._myCalcBounds(obj);
+	    !obj.parentRegion.isInsideParent(obj) && obj.parentRegion.removeObject(obj);
 	}
     },
+    
 
     addObject: function(obj) {
-	obj.level > this.level && this.add(obj);
-    },
-    add: function (obj) {
+	if (obj.level <= this.level)
+	    return;
 	obj.on('moving', this._onChildMove(obj));
 	obj.parentRegion = this;
 	this.objects.push(obj)
-	this._updateRegionCoords();
-	obj.bringToFront();
+	// this._updateRegionCoords();
+	obj.bringToFront && obj.bringToFront();
+	this._myCalcBounds(obj);
+	// this._updateObjectCoords();
+    },
+
+    setCoords: function() {
+	this.callSuper('setCoords');
+	this.objects.forEach(this._myCalcBounds)
     },
 
     addMultiple: function(objs) {
 	objs.map(this.addObject);
     },
-    shouldDestroy: function() {
-	// mycanvas = this._cacheCanvas;
-	// this.objects.length === 0 && mycanvas.remove(this);
-    },
 
-    remove: function(obj) {
+    removeObject: function(obj) {
 	this.objects = this.objects.filter(function (ob) {
 	    return ob !== obj;
 	});
@@ -104,7 +89,6 @@ Region = fabric.util.createClass(fabric.Rect, {
 	obj.off('moving');
 	obj.parentRegion = undefined;
 	delete obj.__objectPosition;
-	this.shouldDestroy();
     }
 });
 
@@ -112,12 +96,44 @@ Region = fabric.util.createClass(fabric.Rect, {
 
 Staff = fabric.util.createClass(Region, {
     type: "staff",
-    initialize		: function (options) {
-	options = options || { }
-	this.callSuper ("initialize", options)
+    blockSize: 50,
+    strokeWidth: 5,
+    height: 0,
+    width: 0,
+    defaultLines: 3,
+    
+    getStaffLine: function (height, leftMargin, cnter) {
+	var centerLine = new fabric.Line([leftMargin, 0, leftMargin, height], { stroke: '#f00', strokeWidth: 5, selectable: false })
+	return centerLine;
     },
 
-    addComponentRight	: function() {
-	
+    initialize: function (objects, options) {
+	objects = objects || []
+	options = options || { }	
+	this.callSuper ("initialize", objects,  options)
+	this.movx = this.blockSize;
+	this.generateStaff(this.defaultLines)
+    },
+
+    generateStaff: function(minStaff) {
+	for (i = 0; i < minStaff; ++i)
+	    this.addComponentRight()
+    },
+
+    addComponentRight: function() {
+	staff = this;
+	var negativeRatio =  staff.strokeWidth;
+	negativeRatio = staff.getWidth() <= 5 ? negativeRatio : staff.strokeWidth * 2
+	var mLeft = staff.getLeft() + staff.getWidth() + (staff.blockSize * 2) - negativeRatio;
+	staff.addWithUpdate(staff.getStaffLine(staff.getHeight(), mLeft));
+	staff.setCoords();
+    },
+
+    addComponentLeft: function() {
+	staff = this;
+	var mLeft = staff.getLeft() - (staff.blockSize * 2) ;
+	staff.addWithUpdate(staff.getStaffLine(staff.getHeight(), mLeft));
+	staff.setCoords();
     }
+
 });
