@@ -74,11 +74,12 @@ window.onload = function() {
 	canvasid	: 'toolbar',
 	containerclass	: 'container toolbar'
     }
-    // setupCanvas(mainContainerId, toolbarProperties);
+    setupCanvas(mainContainerId, toolbarProperties);
     /* --------------------------------DOM SETUP ENDS---------------------------- */
     
     // Temp
     drawCanvasObjects(canvas);
+    toolbarDraw();
     
     // Event on canvas, for moving object
     canvas.on('object:moving', handleObjectMoving);
@@ -137,7 +138,272 @@ function drawCanvasObjects(canvas) {
 	myStaff.addComponentRight();
 	canvas.renderAll();
     });
+}
 
-    
+function toolbarDraw() {
+    var tcanvas = new fabric.Canvas('toolbar', { selection: false });
+    var loadedObjects = [];
 
+    fabric.Image.fromURL("laban_notations/Direction/left_forword_diagonal.svg",function(oImg) {
+        loadedObjects[0] = oImg;
+        loadedObjects[0].set({
+            left: 10,
+            top: 20,
+            width:80,
+            height:130,
+            movx: 0,
+            movy: 0,
+            scaleX: 0.2,
+            scaleY: 0.2,
+            lockMovementX: true,
+            lockMovementY: true,
+            lockScalingX: true,
+            lockScalingY: true,
+            hasBorders: true,
+            hasControls: true,
+            hasRotatingPoint: false
+        });
+        tcanvas.add(loadedObjects[0]);
+        tcanvas.renderAll();
+    });
+
+    fabric.Image.fromURL("laban_notations/Direction/right_forword.svg",function(oImg)
+    {
+        loadedObjects[1] = oImg;
+        loadedObjects[1].set({
+            left: 30,
+            top: 10,
+            width:80,
+            height:130,
+            movx: 0,
+            movy: 0,
+            scaleX: 0.2,
+            scaleY: 0.2,
+            lockMovementX: true,
+            lockMovementY: true,
+            lockScalingX: true,
+            lockScalingY: true,
+            hasBorders: true,
+            hasControls: true,
+            hasRotatingPoint: false
+        });
+        tcanvas.add(loadedObjects[1]);
+        tcanvas.renderAll();
+    });
+
+    fabric.Image.fromURL("laban_notations/Direction/left_forword.svg",function(oImg)
+    {
+        loadedObjects[2] = oImg;
+        loadedObjects[2].set({
+            left: 50,
+            top: 10,
+            width:80,
+            height:130,
+            movx: 0,
+            movy: 0,
+            scaleX: 0.2,
+            scaleY: 0.2,
+            lockMovementX: true,
+            lockMovementY: true,
+            lockScalingX: true,
+            lockScalingY: true,
+            hasBorders: true,
+            hasControls: true,
+            hasRotatingPoint: false
+        });
+        tcanvas.add(loadedObjects[2]);
+        tcanvas.renderAll();
+    });
+
+    fabric.Image.fromURL("laban_notations/Direction/right_forword_diagonal.svg",function(oImg)
+    {
+        loadedObjects[3] = oImg;
+        loadedObjects[3].set({
+            left: 70,
+            top: 20,
+            width:80,
+            height:130,
+            movx: 0,
+            movy: 0,
+            scaleX: 0.2,
+            scaleY: 0.2,
+            lockMovementX: true,
+            lockMovementY: true,
+            lockScalingX: true,
+            lockScalingY: true,
+            hasBorders: true,
+            hasControls: true,
+            hasRotatingPoint: false
+        });
+        tcanvas.add(loadedObjects[3]);
+        tcanvas.renderAll();
+    });
+
+    fabric.Image.fromURL("laban_notations/Direction/left_side.svg",function(oImg)
+    {
+        loadedObjects[4] = oImg;
+        loadedObjects[4].set({
+            left: 10,
+            top: 55,
+            width:80,
+            height:130,
+            movx: 0,
+            movy: 0,
+            scaleX: 0.2,
+            scaleY: 0.2,
+            lockMovementX: true,
+            lockMovementY: true,
+            lockScalingX: true,
+            lockScalingY: true,
+            hasBorders: true,
+            hasControls: true,
+            hasRotatingPoint: false
+        });
+        tcanvas.add(loadedObjects[4]);
+        tcanvas.renderAll();
+    });
+
+    fabric.Image.fromURL("laban_notations/Direction/centre.svg",function(oImg)
+    {
+        loadedObjects[5] = oImg;
+        loadedObjects[5].set({
+            left: 35,
+            top: 47,
+            width:80,
+            height:130,
+            movx: 0,
+            movy: 0,
+            scaleX: 0.3,
+            scaleY: 0.3,
+            lockMovementX: true,
+            lockMovementY: true,
+            lockScalingX: true,
+            lockScalingY: true,
+            hasBorders: true,
+            hasControls: true,
+            hasRotatingPoint: false
+        });
+        tcanvas.add(loadedObjects[5]);
+        tcanvas.renderAll();
+    });
+
+    fabric.Image.fromURL("laban_notations/Direction/right_side.svg",function(oImg)
+    {
+        loadedObjects[6] = oImg;
+        loadedObjects[6].set({
+            left: 70,
+            top: 55,
+            width:80,
+            height:130,
+            movx: 0,
+            movy: 0,
+            scaleX: 0.2,
+            scaleY: 0.2,
+            lockMovementX: true,
+            lockMovementY: true,
+            lockScalingX: true,
+            lockScalingY: true,
+            hasBorders: true,
+            hasControls: true,
+            hasRotatingPoint: false
+        });
+        tcanvas.add(loadedObjects[6]);
+        tcanvas.renderAll();
+    });
+
+    fabric.Image.fromURL("laban_notations/Direction/left_backword_diagonal.svg",function(oImg)
+    {
+        loadedObjects[7] = oImg;
+        loadedObjects[7].set({
+            left: 10,
+            top: 90,
+            width:80,
+            height:130,
+            movx: 0,
+            movy: 0,
+            scaleX: 0.2,
+            scaleY: 0.2,
+            lockMovementX: true,
+            lockMovementY: true,
+            lockScalingX: true,
+            lockScalingY: true,
+            hasBorders: true,
+            hasControls: true,
+            hasRotatingPoint: false
+        });
+        tcanvas.add(loadedObjects[7]);
+        tcanvas.renderAll();
+    });
+
+    fabric.Image.fromURL("laban_notations/Direction/right_backword.svg",function(oImg)
+    {
+        loadedObjects[8] = oImg;
+        loadedObjects[8].set({
+            left: 30,
+            top: 100,
+            width:80,
+            height:130,
+            movx: 0,
+            movy: 0,
+            scaleX: 0.2,
+            scaleY: 0.2,
+            lockMovementX: true,
+            lockMovementY: true,
+            lockScalingX: true,
+            lockScalingY: true,
+            hasBorders: true,
+            hasControls: true,
+            hasRotatingPoint: false
+        });
+        tcanvas.add(loadedObjects[8]);
+        tcanvas.renderAll();
+    });
+
+    fabric.Image.fromURL("laban_notations/Direction/left_backword.svg",function(oImg)
+    {
+        loadedObjects[9] = oImg;
+        loadedObjects[9].set({
+            left: 50,
+            top: 100,
+            width:80,
+            height:130,
+            movx: 0,
+            movy: 0,
+            scaleX: 0.2,
+            scaleY: 0.2,
+            lockMovementX: true,
+            lockMovementY: true,
+            lockScalingX: true,
+            lockScalingY: true,
+            hasBorders: true,
+            hasControls: true,
+            hasRotatingPoint: false
+        });
+        tcanvas.add(loadedObjects[9]);
+        tcanvas.renderAll();
+    });
+
+    fabric.Image.fromURL("laban_notations/Direction/right_backword_diagonal.svg",function(oImg)
+    {
+        loadedObjects[10] = oImg;
+        loadedObjects[10].set({
+            left: 70,
+            top: 90,
+            width:80,
+            height:130,
+            movx: 0,
+            movy: 0,
+            scaleX: 0.2,
+            scaleY: 0.2,
+            lockMovementX: true,
+            lockMovementY: true,
+            lockScalingX: true,
+            lockScalingY: true,
+            hasBorders: true,
+            hasControls: true,
+            hasRotatingPoint: false
+        });
+        tcanvas.add(loadedObjects[10]);
+        tcanvas.renderAll();
+    });
 }
