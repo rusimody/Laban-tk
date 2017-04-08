@@ -1,0 +1,2389 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+AREA	led.cpp	306;"	d	file:
+ARM	lintel.cpp	652;"	d	file:
+ARM	lintelref.cpp	653;"	d	file:
+Area	lintel.cpp	/^char Area ='A';$/;"	v
+Area	lintelref.cpp	/^char Area ='A';$/;"	v
+BACK	lintel.cpp	647;"	d	file:
+BACK	lintelref.cpp	648;"	d	file:
+BARS	led.cpp	278;"	d	file:
+BASEY	lintelref.cpp	687;"	d	file:
+BENT	lintel.cpp	643;"	d	file:
+BENT	lintelref.cpp	644;"	d	file:
+BLANK	led.cpp	294;"	d	file:
+BLANK	lintel.cpp	658;"	d	file:
+BLANK	lintelref.cpp	659;"	d	file:
+BMAX	compln.c	427;"	d	file:
+BMAX	frad3c.c	30;"	d	file:
+BMAX	led.cpp	254;"	d	file:
+BMAX	lintel.cpp	624;"	d	file:
+BMAX	lintelref.cpp	625;"	d	file:
+BMAX	nudes.c	586;"	d	file:
+BMAX	prfrm.c	145;"	d	file:
+BMAX	raselr.c	93;"	d	file:
+BMAX	shadoq.c	51;"	d	file:
+BMAX	split3e.c	31;"	d	file:
+BMAX	viewc.c	37;"	d	file:
+Bars	lintel.cpp	/^char Bars ='B';$/;"	v
+Bars	lintelref.cpp	/^char Bars ='B';$/;"	v
+CC	Makefile	/^CC = gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS = -g -Wall -lm$/;"	m
+CH	led.cpp	266;"	d	file:
+CHEST	lintel.cpp	653;"	d	file:
+CHEST	lintelref.cpp	654;"	d	file:
+CL	lintel.cpp	661;"	d	file:
+CL	lintelref.cpp	662;"	d	file:
+CLEAR	led.cpp	270;"	d	file:
+CMAX	nudes.c	587;"	d	file:
+CMAX	raselr.c	94;"	d	file:
+CO	lintel.cpp	674;"	d	file:
+CO	lintelref.cpp	675;"	d	file:
+COMMANDS	led.cpp	298;"	d	file:
+COMMENT	led.cpp	280;"	d	file:
+CONTRACT	led.cpp	287;"	d	file:
+COPY	led.cpp	288;"	d	file:
+CP	lintel.cpp	664;"	d	file:
+CP	lintelref.cpp	665;"	d	file:
+CPPFLAGS	Makefile	/^CPPFLAGS = -g -I \/usr\/include\/GL$/;"	m
+CPPLIBS	Makefile	/^CPPLIBS = -lm -lglut -lGL$/;"	m
+CPPfiles	Makefile	/^CPPfiles = led lintel lintelref$/;"	m
+CR	lintel.cpp	670;"	d	file:
+CR	lintelref.cpp	671;"	d	file:
+CW	led.cpp	267;"	d	file:
+CXX	Makefile	/^CXX = g++$/;"	m
+Cfiles	Makefile	/^Cfiles = compln prfrm viewc frad3c split3e shadoq raselr nudes$/;"	m
+DB	lintel.cpp	666;"	d	file:
+DB	lintelref.cpp	667;"	d	file:
+DELETEL	led.cpp	290;"	d	file:
+DIRN	led.cpp	301;"	d	file:
+DONE	lintel.cpp	617;"	d	file:
+DONE	lintelref.cpp	618;"	d	file:
+DUMMY	led.cpp	269;"	d	file:
+Dirn	lintel.cpp	/^char Dirn ='D';$/;"	v
+Dirn	lintelref.cpp	/^char Dirn ='D';$/;"	v
+EMAX	compln.c	428;"	d	file:
+EMAX	frad3c.c	29;"	d	file:
+EMAX	lintel.cpp	625;"	d	file:
+EMAX	lintelref.cpp	626;"	d	file:
+EMAX	nudes.c	588;"	d	file:
+EMAX	prfrm.c	146;"	d	file:
+EMAX	raselr.c	95;"	d	file:
+EMAX	shadoq.c	52;"	d	file:
+EMAX	split3e.c	32;"	d	file:
+EMAX	viewc.c	38;"	d	file:
+ESCAPE	led.cpp	252;"	d	file:
+EXPAND	led.cpp	286;"	d	file:
+FACE	led.cpp	303;"	d	file:
+FALSE	compln.c	431;"	d	file:
+FALSE	frad3c.c	32;"	d	file:
+FALSE	led.cpp	262;"	d	file:
+FALSE	lintel.cpp	616;"	d	file:
+FALSE	lintelref.cpp	617;"	d	file:
+FALSE	nudes.c	590;"	d	file:
+FALSE	prfrm.c	144;"	d	file:
+FALSE	raselr.c	98;"	d	file:
+FALSE	shadoq.c	55;"	d	file:
+FALSE	viewc.c	36;"	d	file:
+FCOLS	raselr.c	/^FILE   *FCOLS;$/;"	v
+FILE3	nudes.c	/^FILE *FILE3;$/;"	v
+FILE4	nudes.c	/^FILE *FILE4;$/;"	v
+FIN	nudes.c	/^FILE *FIN;$/;"	v
+FMAX	lintel.cpp	627;"	d	file:
+FMAX	lintelref.cpp	628;"	d	file:
+FMAX	shadoq.c	53;"	d	file:
+FREE	led.cpp	297;"	d	file:
+FRONT	lintel.cpp	646;"	d	file:
+FRONT	lintelref.cpp	647;"	d	file:
+Face	lintel.cpp	/^char Face ='F';$/;"	v
+Face	lintelref.cpp	/^char Face ='F';$/;"	v
+GLUT_KEY_ESCAPE	lintel.cpp	623;"	d	file:
+GLUT_KEY_ESCAPE	lintelref.cpp	624;"	d	file:
+HASMOD	lintelref.cpp	685;"	d	file:
+HELP	led.cpp	295;"	d	file:
+HIGH	led.cpp	293;"	d	file:
+HIGH	lintel.cpp	657;"	d	file:
+HIGH	lintelref.cpp	658;"	d	file:
+HSTEP	led.cpp	259;"	d	file:
+IMAX	led.cpp	255;"	d	file:
+INDEPENDENT	lintelref.cpp	683;"	d	file:
+INFILE	led.cpp	/^FILE    *INFILE;$/;"	v
+INFILE	nudes.c	/^FILE *INFILE;$/;"	v
+KEYS	led.cpp	308;"	d	file:
+KMAX	prfrm.c	147;"	d	file:
+Keys	lintel.cpp	/^char Keys ='K';$/;"	v
+Keys	lintelref.cpp	/^char Keys ='K';$/;"	v
+LIMB	led.cpp	304;"	d	file:
+LINES	led.cpp	264;"	d	file:
+LMAX	lintel.cpp	634;"	d	file:
+LMAX	lintelref.cpp	635;"	d	file:
+LOW	led.cpp	291;"	d	file:
+LOW	lintel.cpp	655;"	d	file:
+LOW	lintelref.cpp	656;"	d	file:
+Limb	lintel.cpp	/^char Limb ='L';$/;"	v
+Limb	lintelref.cpp	/^char Limb ='L';$/;"	v
+MAN	lintel.cpp	619;"	d	file:
+MAN	lintelref.cpp	620;"	d	file:
+MAREA	led.cpp	321;"	d	file:
+MAXINT	led.cpp	253;"	d	file:
+MAXINT	lintel.cpp	621;"	d	file:
+MAXINT	lintelref.cpp	622;"	d	file:
+MBARS	led.cpp	314;"	d	file:
+MDIRN	led.cpp	316;"	d	file:
+MDOTS	led.cpp	315;"	d	file:
+MED	lintel.cpp	656;"	d	file:
+MED	lintelref.cpp	657;"	d	file:
+MFACE	led.cpp	318;"	d	file:
+MIDDLE	led.cpp	292;"	d	file:
+MINUS	led.cpp	277;"	d	file:
+MINYJUMP	lintelref.cpp	688;"	d	file:
+MISC	led.cpp	309;"	d	file:
+MKEYS	led.cpp	323;"	d	file:
+MLHAND	lintel.cpp	648;"	d	file:
+MLHAND	lintelref.cpp	649;"	d	file:
+MLIMB	led.cpp	319;"	d	file:
+MMISC	led.cpp	324;"	d	file:
+MODIFIER	lintelref.cpp	684;"	d	file:
+MOVE	led.cpp	289;"	d	file:
+MPINS	led.cpp	317;"	d	file:
+MRHAND	lintel.cpp	649;"	d	file:
+MRHAND	lintelref.cpp	650;"	d	file:
+MROTN	led.cpp	322;"	d	file:
+MSIZE	led.cpp	263;"	d	file:
+MSTAF	led.cpp	326;"	d	file:
+MVOLM	led.cpp	320;"	d	file:
+MWAYS	led.cpp	325;"	d	file:
+Misc	lintel.cpp	/^char Misc ='M';$/;"	v
+Misc	lintelref.cpp	/^char Misc ='M';$/;"	v
+NCOLM	lintel.cpp	637;"	d	file:
+NCOLM	lintelref.cpp	638;"	d	file:
+NIL	nudes.c	591;"	d	file:
+NKEYS	compln.c	429;"	d	file:
+NKEYS	lintel.cpp	628;"	d	file:
+NKEYS	lintelref.cpp	629;"	d	file:
+NMAX	prfrm.c	148;"	d	file:
+NO	lintel.cpp	660;"	d	file:
+NO	lintelref.cpp	661;"	d	file:
+NOMOD	lintelref.cpp	686;"	d	file:
+NSYMS	led.cpp	265;"	d	file:
+NSYMS	lintel.cpp	640;"	d	file:
+NSYMS	lintelref.cpp	641;"	d	file:
+OE	lintel.cpp	672;"	d	file:
+OE	lintelref.cpp	673;"	d	file:
+OP	lintel.cpp	668;"	d	file:
+OP	lintelref.cpp	669;"	d	file:
+OPEN	led.cpp	271;"	d	file:
+OUTFILE	led.cpp	/^FILE    *OUTFILE;$/;"	v
+OUTFILE	nudes.c	/^FILE *OUTFILE;$/;"	v
+OUTFILE	raselr.c	/^FILE   *OUTFILE;$/;"	v
+PINS	led.cpp	302;"	d	file:
+PLUS	led.cpp	276;"	d	file:
+PMAX	compln.c	430;"	d	file:
+PMAX	lintel.cpp	629;"	d	file:
+PMAX	lintelref.cpp	630;"	d	file:
+PMAX	prfrm.c	149;"	d	file:
+POST	led.cpp	274;"	d	file:
+POSTFILE	led.cpp	/^FILE    *POSTFILE;$/;"	v
+PR	lintel.cpp	662;"	d	file:
+PR	lintelref.cpp	663;"	d	file:
+PRFRMMESS	nudes.c	/^FILE *PRFRMMESS;$/;"	v
+PWDFILE	nudes.c	/^FILE *PWDFILE;$/;"	v
+Path	lintel.cpp	/^char Path ='H';$/;"	v
+Path	lintelref.cpp	/^char Path ='H';$/;"	v
+Pins	lintel.cpp	/^char Pins ='P';$/;"	v
+Pins	lintelref.cpp	/^char Pins ='P';$/;"	v
+RELAX	lintel.cpp	642;"	d	file:
+RELAX	lintelref.cpp	643;"	d	file:
+ROTN	led.cpp	307;"	d	file:
+Rotn	lintel.cpp	/^char Rotn ='R';$/;"	v
+Rotn	lintelref.cpp	/^char Rotn ='R';$/;"	v
+SAVE	led.cpp	272;"	d	file:
+SAVEAS	led.cpp	273;"	d	file:
+SCALE	lintel.cpp	/^double  SCALE = 1.0;           \/\/ default scaling to fit window$/;"	v
+SCALE	lintelref.cpp	/^double  SCALE = 1.0;           \/\/ default scaling to fit window$/;"	v
+SCORE	led.cpp	327;"	d	file:
+SCROLLBX	led.cpp	282;"	d	file:
+SCROLLDN	led.cpp	284;"	d	file:
+SCROLLUP	led.cpp	283;"	d	file:
+SH	lintel.cpp	676;"	d	file:
+SH	lintelref.cpp	677;"	d	file:
+SMAX	led.cpp	256;"	d	file:
+SMAX	lintel.cpp	630;"	d	file:
+SMAX	lintelref.cpp	631;"	d	file:
+SMIN	lintel.cpp	631;"	d	file:
+SMIN	lintelref.cpp	632;"	d	file:
+SNAP	led.cpp	296;"	d	file:
+SS	lintel.cpp	678;"	d	file:
+SS	lintelref.cpp	679;"	d	file:
+SSTART	lintel.cpp	632;"	d	file:
+SSTART	lintelref.cpp	633;"	d	file:
+STAF	led.cpp	311;"	d	file:
+STAFF	led.cpp	275;"	d	file:
+STEP	led.cpp	260;"	d	file:
+STEP	lintel.cpp	638;"	d	file:
+STEP	lintelref.cpp	639;"	d	file:
+STRAIGHT	lintel.cpp	644;"	d	file:
+STRAIGHT	lintelref.cpp	645;"	d	file:
+STRETCH	lintel.cpp	645;"	d	file:
+STRETCH	lintelref.cpp	646;"	d	file:
+Segment	led.cpp	/^struct Segment {$/;"	s	file:
+Stav	lintel.cpp	/^char Stav ='S';$/;"	v
+Stav	lintelref.cpp	/^char Stav ='S';$/;"	v
+Symbol	lintel.cpp	/^struct Symbol {$/;"	s	file:
+Symbol	lintelref.cpp	/^struct Symbol {$/;"	s	file:
+TCHAR	lintel.cpp	/^typedef char TCHAR;$/;"	t	file:
+TCHAR	lintelref.cpp	/^typedef char TCHAR;$/;"	t	file:
+TEXTL	led.cpp	279;"	d	file:
+TMAX	led.cpp	257;"	d	file:
+TMAX	lintel.cpp	635;"	d	file:
+TMAX	lintelref.cpp	636;"	d	file:
+TODO	lintel.cpp	618;"	d	file:
+TODO	lintelref.cpp	619;"	d	file:
+TOP	led.cpp	312;"	d	file:
+TRUE	compln.c	432;"	d	file:
+TRUE	frad3c.c	31;"	d	file:
+TRUE	led.cpp	261;"	d	file:
+TRUE	lintel.cpp	615;"	d	file:
+TRUE	lintelref.cpp	616;"	d	file:
+TRUE	nudes.c	589;"	d	file:
+TRUE	prfrm.c	143;"	d	file:
+TRUE	raselr.c	97;"	d	file:
+TRUE	shadoq.c	54;"	d	file:
+TRUE	viewc.c	35;"	d	file:
+VMAX	led.cpp	258;"	d	file:
+VMAX	lintel.cpp	636;"	d	file:
+VMAX	lintelref.cpp	637;"	d	file:
+VOLM	led.cpp	305;"	d	file:
+Volm	lintel.cpp	/^char Volm ='V';$/;"	v
+Volm	lintelref.cpp	/^char Volm ='V';$/;"	v
+WAYS	led.cpp	310;"	d	file:
+WIDTH	lintel.cpp	639;"	d	file:
+WIDTH	lintelref.cpp	640;"	d	file:
+WINDOW_HEIGHT	led.cpp	248;"	d	file:
+WINDOW_MODE	led.cpp	251;"	d	file:
+WINDOW_MODE	lintel.cpp	622;"	d	file:
+WINDOW_MODE	lintelref.cpp	623;"	d	file:
+WINDOW_WIDTH	led.cpp	247;"	d	file:
+WINDOW_X	led.cpp	250;"	d	file:
+WINDOW_Y	led.cpp	249;"	d	file:
+WLHAND	lintel.cpp	650;"	d	file:
+WLHAND	lintelref.cpp	651;"	d	file:
+WOMAN	lintel.cpp	620;"	d	file:
+WOMAN	lintelref.cpp	621;"	d	file:
+WRHAND	lintel.cpp	651;"	d	file:
+WRHAND	lintelref.cpp	652;"	d	file:
+XMAX	raselr.c	96;"	d	file:
+a	lintel.cpp	/^	int a;       \/\/ TRUE = 0 if already done$/;"	m	struct:Symbol	file:
+a	lintelref.cpp	/^	int a;       \/\/ TRUE = 0 if already done$/;"	m	struct:Symbol	file:
+a1	frad3c.c	/^int a1,a2,a3;$/;"	v
+a1	raselr.c	/^int    a1,a2,a3;$/;"	v
+a1	shadoq.c	/^int a1,a2,a3;$/;"	v
+a2	frad3c.c	/^int a1,a2,a3;$/;"	v
+a2	raselr.c	/^int    a1,a2,a3;$/;"	v
+a2	shadoq.c	/^int a1,a2,a3;$/;"	v
+a3	frad3c.c	/^int a1,a2,a3;$/;"	v
+a3	raselr.c	/^int    a1,a2,a3;$/;"	v
+a3	shadoq.c	/^int a1,a2,a3;$/;"	v
+abduct	prfrm.c	/^   int abduct = 40;$/;"	v
+abduct_keyword_code	lintel.cpp	/^   int abduct_keyword_code= 40;$/;"	v
+abduct_keyword_code	lintelref.cpp	/^   int abduct_keyword_code= 40;$/;"	v
+abnt	lintel.cpp	/^int   abnt[3][12][3]  \/* quaternion angles of 11 direction symbols *\/$/;"	v
+abnt	lintelref.cpp	/^int   abnt[3][12][3]  \/* quaternion angles of 11 direction symbols *\/$/;"	v
+abut	prfrm.c	/^   int abut   = 55;$/;"	v
+abut_keyword_code	lintel.cpp	/^   int abut_keyword_code= 55;$/;"	v
+abut_keyword_code	lintelref.cpp	/^   int abut_keyword_code= 55;$/;"	v
+accele	prfrm.c	/^   int accele = 5;$/;"	v
+accele_keyword_code	lintel.cpp	/^   int accele_keyword_code=  5;$/;"	v
+accele_keyword_code	lintelref.cpp	/^   int accele_keyword_code=  5;$/;"	v
+action	lintel.cpp	/^void action ( int keyword_code )$/;"	f
+action	lintelref.cpp	/^void action ( int keyword_code )$/;"	f
+action	prfrm.c	/^action(t)$/;"	f
+add	prfrm.c	/^   int add    = 14;$/;"	v
+add_id_num	lintel.cpp	/^void add_id_num ( char name[], char outname[], char ext[] )$/;"	f
+add_id_num	lintelref.cpp	/^void add_id_num ( char name[], char outname[], char ext[] )$/;"	f
+add_keyword_code	lintel.cpp	/^   int add_keyword_code= 14;$/;"	v
+add_keyword_code	lintelref.cpp	/^   int add_keyword_code= 14;$/;"	v
+addcomment	led.cpp	/^void addcomment(void)$/;"	f
+addnam	compln.c	/^addnam(nnames,names,isvar,lengths)$/;"	f
+addnam	lintel.cpp	/^int addnam(int n, char names[EMAX][BMAX], int isvar, int lengths[EMAX])$/;"	f
+addnam	lintelref.cpp	/^int addnam(int n, char names[EMAX][BMAX], int isvar, int lengths[EMAX])$/;"	f
+addtext	led.cpp	/^void addtext(void)$/;"	f
+again	led.cpp	/^int again;$/;"	v
+aline	lintel.cpp	/^char aline[PMAX][BMAX];    \/\/ nudes input lines$/;"	v
+aline	lintelref.cpp	/^char aline[PMAX][BMAX];    \/\/ nudes input lines$/;"	v
+allok	compln.c	/^int allok;               \/* set to true only if all data decoded ok *\/$/;"	v
+allow_keyword_code	lintel.cpp	/^   int allow_keyword_code= 62;$/;"	v
+allow_keyword_code	lintelref.cpp	/^   int allow_keyword_code= 62;$/;"	v
+alpha	lintel.cpp	/^double  alpha;                 \/\/ basic interactive angle increment$/;"	v
+alpha	lintelref.cpp	/^double  alpha;                 \/\/ basic interactive angle increment$/;"	v
+ambint	raselr.c	/^double ambint;$/;"	v
+ang	lintel.cpp	/^double  ang[3];                \/\/ the 3 eulerian angles$/;"	v
+ang	lintelref.cpp	/^double  ang[3];                \/\/ the 3 eulerian angles$/;"	v
+ang	prfrm.c	/^double  ang[3];$/;"	v
+ang	raselr.c	/^double ang[EMAX][3];$/;"	v
+ang	shadoq.c	/^double ang[4],con[7],elln[4][4],cn[4];$/;"	v
+ang	shadoq.c	/^double ang[4];$/;"	v
+ang	viewc.c	/^double  ang[3];       \/* Eulerian angles of an ellipsoid *\/$/;"	v
+angles	prfrm.c	/^   int angles = 36;$/;"	v
+angles_keyword_code	lintel.cpp	/^   int angles_keyword_code= 36;$/;"	v
+angles_keyword_code	lintelref.cpp	/^   int angles_keyword_code= 36;$/;"	v
+anglex	lintel.cpp	/^double  anglex,angley,anglez;  \/\/ interactive rotation angles$/;"	v
+anglex	lintelref.cpp	/^double  anglex,angley,anglez;  \/\/ interactive rotation angles$/;"	v
+angley	lintel.cpp	/^double  anglex,angley,anglez;  \/\/ interactive rotation angles$/;"	v
+angley	lintelref.cpp	/^double  anglex,angley,anglez;  \/\/ interactive rotation angles$/;"	v
+anglez	lintel.cpp	/^double  anglex,angley,anglez;  \/\/ interactive rotation angles$/;"	v
+anglez	lintelref.cpp	/^double  anglex,angley,anglez;  \/\/ interactive rotation angles$/;"	v
+angn	raselr.c	/^int    angn[3];$/;"	v
+angsepn	lintel.cpp	/^double angsepn ( double xx[3], int ell1, int ell2 )$/;"	f
+angsepn	lintelref.cpp	/^double angsepn ( double xx[3], int ell1, int ell2 )$/;"	f
+angsepn	prfrm.c	/^double angsepn()$/;"	f
+animate	lintel.cpp	/^void animate(void)$/;"	f
+animate	lintelref.cpp	/^void animate(void)$/;"	f
+aredx	led.cpp	/^int   aredx[NSYMS][LINES] = { {0},$/;"	v
+aredy	led.cpp	/^int   aredy[NSYMS][LINES] = { {0},$/;"	v
+aremenudx	led.cpp	/^int   aremenudx[5] = { 0, MSIZE, 0, -MSIZE, 0};$/;"	v
+aremenudy	led.cpp	/^int   aremenudy[5] = { 0, 0, MSIZE, 0, -MSIZE};$/;"	v
+aremx	led.cpp	/^int   aremx;$/;"	v
+aremy	led.cpp	/^int   aremy;$/;"	v
+arestep	led.cpp	/^int   arestep = 3;$/;"	v
+arex	led.cpp	/^int   arex[NSYMS] = { 0, 40, 60, 75, 60, 40, 20, 10, 20, 40 };$/;"	v
+arey	led.cpp	/^int   arey[NSYMS] = { 0, 75, 65, 45, 25, 10, 25, 45, 65, 45 };$/;"	v
+arlx	lintel.cpp	/^int   arlx[3][12][3]  \/* quaternion angles of 11 direction symbols *\/$/;"	v
+arlx	lintelref.cpp	/^int   arlx[3][12][3]  \/* quaternion angles of 11 direction symbols *\/$/;"	v
+arrowdndx	led.cpp	/^int   arrowdndx[7] = {  9,  0, 2, -6, -6, 2,  0 };$/;"	v
+arrowdndy	led.cpp	/^int   arrowdndy[7] = {  0, -8, 0, -8,  8, 0,  8 };$/;"	v
+arrowupdx	led.cpp	/^int   arrowupdx[7] = { 10,  0, 4, -9, -9, 4,  0 };$/;"	v
+arrowupdy	led.cpp	/^int   arrowupdy[7] = {  0,  8, 0,  8, -8, 0, -8 };$/;"	v
+attach	prfrm.c	/^   int attach = 8;$/;"	v
+attach_keyword_code	lintel.cpp	/^   int attach_keyword_code=  8;$/;"	v
+attach_keyword_code	lintelref.cpp	/^   int attach_keyword_code=  8;$/;"	v
+ax	compln.c	/^float ax[EMAX][3];       \/* ellipsoid semi-axis lengths *\/$/;"	v
+ax	lintel.cpp	/^double  ax[EMAX][3];           \/\/ ax3[i][j] - length of jth semiaxis of ith ellipsoid$/;"	v
+ax	lintelref.cpp	/^double  ax[EMAX][3];           \/\/ ax3[i][j] - length of jth semiaxis of ith ellipsoid$/;"	v
+ax	shadoq.c	/^double cen[EMAX+1][4],ax[EMAX+1][4],rotn[EMAX+1][6] ;$/;"	v
+ax	viewc.c	/^double  ax[EMAX][3];  \/* length of semiaxes of ellipsoids  *\/$/;"	v
+ax3	lintel.cpp	/^double  ax3[FMAX][EMAX][3];    \/\/ ellipsoid semiaxis lengths$/;"	v
+ax3	lintelref.cpp	/^double  ax3[FMAX][EMAX][3];    \/\/ ellipsoid semiaxis lengths$/;"	v
+ax3	prfrm.c	/^double  ax3[EMAX][3];$/;"	v
+ax3	raselr.c	/^double ax3[EMAX][3];$/;"	v
+axes	prfrm.c	/^   int axes   = 48;$/;"	v
+axes_keyword_code	lintel.cpp	/^   int axes_keyword_code= 48;$/;"	v
+axes_keyword_code	lintelref.cpp	/^   int axes_keyword_code= 48;$/;"	v
+axis	lintel.cpp	/^int axis;            \/\/ axis of next rotation$/;"	v
+axis	lintelref.cpp	/^int axis;            \/\/ axis of next rotation$/;"	v
+axis	prfrm.c	/^int     axis;$/;"	v
+axlen	compln.c	/^int axlen[EMAX];         \/* lengths of names *\/$/;"	v
+axlen	lintel.cpp	/^int axlen[EMAX];     \/\/ lengths of names$/;"	v
+axlen	lintelref.cpp	/^int axlen[EMAX];     \/\/ lengths of names$/;"	v
+axn	raselr.c	/^int    axn[3];$/;"	v
+axnam	compln.c	/^char axnam[EMAX][BMAX];  \/* first entry is the set of axis names -$/;"	v
+axnam	lintel.cpp	/^char axnam[EMAX][BMAX];    \/\/ first entry is the set of axis names 'x','y','z'. The rest are null$/;"	v
+axnam	lintelref.cpp	/^char axnam[EMAX][BMAX];    \/\/ first entry is the set of axis names 'x','y','z'. The rest are null$/;"	v
+axxn	shadoq.c	/^double axxn,axzn;$/;"	v
+axzn	shadoq.c	/^double axxn,axzn;$/;"	v
+b	lintel.cpp	/^	int b;       \/\/ bent indicator$/;"	m	struct:Symbol	file:
+b	lintelref.cpp	/^	int b;       \/\/ bent indicator$/;"	m	struct:Symbol	file:
+backgrnd	nudes.c	/^int backgrnd;       \/* true if background to be dithered$/;"	v
+balanc	prfrm.c	/^   int balanc = 7;$/;"	v
+balanc_keyword_code	lintel.cpp	/^   int balanc_keyword_code=  7;$/;"	v
+balanc_keyword_code	lintelref.cpp	/^   int balanc_keyword_code=  7;$/;"	v
+bar0y	led.cpp	/^int bar0y;            \/* y position of bar 0 *\/$/;"	v
+bar1y	led.cpp	/^int bar1y;            \/* y position of bar 1 *\/$/;"	v
+bar2y	led.cpp	/^int bar2y;            \/* y position of bar 2 *\/$/;"	v
+bardif	led.cpp	/^int bardif;           \/* y spacing between bar lines *\/$/;"	v
+barn	led.cpp	/^int barn;             \/* number of bar lines *\/$/;"	v
+barsp	led.cpp	/^int barsp;            \/* beats per bar *\/$/;"	v
+bary	led.cpp	/^int bary[SMAX];       \/* bar height positions *\/$/;"	v
+beginy	led.cpp	/^int beginy;$/;"	v
+bell	lintel.cpp	/^void bell ( int number, int delay)$/;"	f
+bell	lintelref.cpp	/^void bell ( int number, int delay)$/;"	f
+bendby	prfrm.c	/^   int bendby = 19;$/;"	v
+bendby_keyword_code	lintel.cpp	/^   int bendby_keyword_code= 19;$/;"	v
+bendby_keyword_code	lintelref.cpp	/^   int bendby_keyword_code= 19;$/;"	v
+bendto	prfrm.c	/^   int bendto = 21;$/;"	v
+bendto_keyword_code	lintel.cpp	/^   int bendto_keyword_code= 21;$/;"	v
+bendto_keyword_code	lintelref.cpp	/^   int bendto_keyword_code= 21;$/;"	v
+bg	raselr.c	/^double bg;                 \/* components of the background colours *\/$/;"	v
+bgmess	nudes.c	/^char bgmess[BMAX];  \/* message about background *\/$/;"	v
+bignum	raselr.c	/^double bignum;$/;"	v
+bin	nudes.c	/^char bin[] = "bin";$/;"	v
+blank	compln.c	/^char blank = ' ';$/;"	v
+blank	led.cpp	/^char blank = 'B';$/;"	v
+blank	lintel.cpp	/^char blank = ' ';$/;"	v
+blank	lintelref.cpp	/^char blank = ' ';$/;"	v
+blength	lintel.cpp	/^int blength;         \/\/ number of bars to interpret$/;"	v
+blength	lintelref.cpp	/^int blength;         \/\/ number of bars to interpret$/;"	v
+blmess	nudes.c	/^char blmess[BMAX];  \/* message about blurring *\/$/;"	v
+blur	raselr.c	/^int    blur[XMAX][XMAX][3];\/* blur buffer *\/$/;"	v
+bmess	nudes.c	/^char bmess[BMAX];   \/* message to juxte about starting frame number *\/$/;"	v
+bnums	lintel.cpp	/^int bnums;           \/\/ TRUE if bar numbers to be displayed$/;"	v
+bnums	lintelref.cpp	/^int bnums;           \/\/ TRUE if bar numbers to be displayed$/;"	v
+bpm	lintel.cpp	/^int bpm;             \/\/ beats per minute$/;"	v
+bpm	lintelref.cpp	/^int bpm;             \/\/ beats per minute$/;"	v
+bstart	lintel.cpp	/^int bstart;          \/\/ bar to start at$/;"	v
+bstart	lintelref.cpp	/^int bstart;          \/\/ bar to start at$/;"	v
+buf	frad3c.c	/^char buf[BMAX];$/;"	v
+buf	led.cpp	/^char buf[BMAX];$/;"	v
+buf	lintel.cpp	/^char buf[BMAX];            \/\/ input buffer$/;"	v
+buf	lintelref.cpp	/^char buf[BMAX];            \/\/ input buffer$/;"	v
+buf	nudes.c	/^char buf[BMAX];     \/* input buffer used when counting NUDES.3 frames *\/$/;"	v
+buf	prfrm.c	/^char    buf[BMAX] ;$/;"	v
+buf	raselr.c	/^char   buf[BMAX];$/;"	v
+buf	shadoq.c	/^char buf[EMAX];$/;"	v
+buf	viewc.c	/^char    buf[BMAX];$/;"	v
+buf1	split3e.c	/^char buf1[BMAX];$/;"	v
+buf2	split3e.c	/^char buf2[BMAX];$/;"	v
+button	led.cpp	/^int button;           \/* GLUT_DN or GLUT_UP *\/      $/;"	v
+bw	raselr.c	/^int    bw;                 \/* true if not in colour *\/$/;"	v
+c	lintel.cpp	/^	int c;       \/\/ column position relative to right support column$/;"	m	struct:Symbol	file:
+c	lintelref.cpp	/^	int c;       \/\/ column position relative to right support column$/;"	m	struct:Symbol	file:
+call	prfrm.c	/^   int call   = 28;$/;"	v
+call_keyword_code	lintel.cpp	/^   int call_keyword_code= 28;$/;"	v
+call_keyword_code	lintelref.cpp	/^   int call_keyword_code= 28;$/;"	v
+called	compln.c	/^int called[PMAX];        \/* true if subroutine is called *\/$/;"	v
+called	lintel.cpp	/^int called[PMAX];    \/\/ true if subroutine is called$/;"	v
+called	lintelref.cpp	/^int called[PMAX];    \/\/ true if subroutine is called$/;"	v
+calsub	compln.c	/^int calsub = 28;  \/* code of subroutine call *\/$/;"	v
+ce3	lintel.cpp	/^double  ce3[FMAX][EMAX][3];    \/\/ coordinates of ellipsoid centres$/;"	v
+ce3	lintelref.cpp	/^double  ce3[FMAX][EMAX][3];    \/\/ coordinates of ellipsoid centres$/;"	v
+cen	compln.c	/^float cen[EMAX][3];      \/* centres of the ellipsoids *\/$/;"	v
+cen	lintel.cpp	/^double  cen[EMAX][3];          \/\/ cen[i][j] - jth coordinate of centre of ith ellipsoid$/;"	v
+cen	lintelref.cpp	/^double  cen[EMAX][3];          \/\/ cen[i][j] - jth coordinate of centre of ith ellipsoid$/;"	v
+cen	prfrm.c	/^double  cen[EMAX][3];$/;"	v
+cen	raselr.c	/^double cen[EMAX][3];$/;"	v
+cen	shadoq.c	/^double cen[EMAX+1][4],ax[EMAX+1][4],rotn[EMAX+1][6] ;$/;"	v
+cen	viewc.c	/^double  cen[EMAX][3]; \/* coordinates of centres of ellipsoids *\/$/;"	v
+cenn	raselr.c	/^int    cenn[3];$/;"	v
+censav	lintel.cpp	/^double  censav[EMAX][3];$/;"	v
+censav	lintelref.cpp	/^double  censav[EMAX][3];$/;"	v
+censav	prfrm.c	/^double  censav[EMAX][3];$/;"	v
+center_keyword_code	lintel.cpp	/^   int center_keyword_code= 59;$/;"	v
+center_keyword_code	lintelref.cpp	/^   int center_keyword_code= 59;$/;"	v
+centre	prfrm.c	/^   int centre = 37;$/;"	v
+centre_keyword_code	lintel.cpp	/^   int centre_keyword_code= 37;$/;"	v
+centre_keyword_code	lintelref.cpp	/^   int centre_keyword_code= 37;$/;"	v
+chckpr	prfrm.c	/^chckpr()$/;"	f
+checkSymbol	lintelref.cpp	/^int checkSymbol(int j)$/;"	f
+checkeys	led.cpp	/^void checkeys(unsigned char key, int x, int y) $/;"	f
+checkeys	lintel.cpp	/^void checkeys(unsigned char key, int x, int y)$/;"	f
+checkeys	lintelref.cpp	/^void checkeys(unsigned char key, int x, int y)$/;"	f
+checkhit	led.cpp	/^int checkhit(int mx, int my)$/;"	f
+checkin	lintel.cpp	/^void checkin(void)$/;"	f
+checkin	lintelref.cpp	/^void checkin(void)$/;"	f
+checkpr	lintel.cpp	/^void checkpr(void)$/;"	f
+checkpr	lintelref.cpp	/^void checkpr(void)$/;"	f
+clear	led.cpp	/^void clear(void)$/;"	f
+cline	compln.c	/^int cline[PMAX];         \/* line numbers in input file of each action *\/$/;"	v
+cline	lintel.cpp	/^int cline[PMAX];     \/\/ line numbers in input file of each action$/;"	v
+cline	lintelref.cpp	/^int cline[PMAX];     \/\/ line numbers in input file of each action$/;"	v
+cline	prfrm.c	/^int     cline[PMAX];$/;"	v
+closesegment	led.cpp	/^void closesegment(int s)$/;"	f
+cmdmenudx	led.cpp	/^int cmdmenudx[LINES] = { 0, CW, 0, -CW, 0 };$/;"	v
+cmdmenudy	led.cpp	/^int cmdmenudy[LINES] = { 0, 0, CH, 0, -CH };$/;"	v
+cmnd	frad3c.c	/^char cmnd[BMAX];$/;"	v
+cmnd	raselr.c	/^char   cmnd[BMAX];$/;"	v
+cmnd	split3e.c	/^char cmnd[BMAX];$/;"	v
+cn	shadoq.c	/^double ang[4],con[7],elln[4][4],cn[4];$/;"	v
+co3	lintel.cpp	/^double  co3[FMAX][EMAX][3];    \/\/ colours of ellipsoids$/;"	v
+co3	lintelref.cpp	/^double  co3[FMAX][EMAX][3];    \/\/ colours of ellipsoids$/;"	v
+code	compln.c	/^int code[NKEYS][6] = {$/;"	v
+code	lintel.cpp	/^int code[NKEYS][6] = {$/;"	v
+code	lintelref.cpp	/^int code[NKEYS][6] = {$/;"	v
+code	prfrm.c	/^int     code[6][KMAX] ;$/;"	v
+coef	raselr.c	/^double coef[EMAX][6];$/;"	v
+coel	compln.c	/^int coel[EMAX][2];       \/* the 2 ellipsoids joined at a joint *\/$/;"	v
+coel	lintel.cpp	/^int coel[EMAX][2];   \/\/ the 2 ellipsoids joined at a joint$/;"	v
+coel	lintelref.cpp	/^int coel[EMAX][2];   \/\/ the 2 ellipsoids joined at a joint$/;"	v
+coel	prfrm.c	/^int     coel[EMAX][2];$/;"	v
+coel	shadoq.c	/^int coel[EMAX][2];$/;"	v
+coel	viewc.c	/^int     coel[EMAX][2];   \/* ellipsoids meeting at each joint *\/$/;"	v
+col	lintel.cpp	/^double  col[EMAX][3];          \/\/ col[i][j] - colour of ell i; j = 0 red, 1 green, 2 blue$/;"	v
+col	lintelref.cpp	/^double  col[EMAX][3];          \/\/ col[i][j] - colour of ell i; j = 0 red, 1 green, 2 blue$/;"	v
+colm	lintel.cpp	/^char colm[NCOLM];    \/\/ limb presigns in the columns$/;"	v
+colm	lintelref.cpp	/^char colm[NCOLM];    \/\/ limb presigns in the columns$/;"	v
+colmax	nudes.c	/^int colmax;         \/* number of allowed colours *\/$/;"	v
+color	raselr.c	/^int    color[EMAX][3];     \/* colours of the ellipsoids *\/$/;"	v
+color_keyword_code	lintel.cpp	/^   int color_keyword_code= 58;$/;"	v
+color_keyword_code	lintelref.cpp	/^   int color_keyword_code= 58;$/;"	v
+colour	prfrm.c	/^   int colour = 50;$/;"	v
+colour_keyword_code	lintel.cpp	/^   int colour_keyword_code= 50;$/;"	v
+colour_keyword_code	lintelref.cpp	/^   int colour_keyword_code= 50;$/;"	v
+comand	lintel.cpp	/^int comand;          \/\/ counter through all commands.$/;"	v
+comand	lintelref.cpp	/^int comand;          \/\/ counter through all commands.$/;"	v
+comess	nudes.c	/^char comess[BMAX];  \/* message about colouring *\/$/;"	v
+command	nudes.c	/^char command[BMAX]; \/* string accumulating next system command *\/$/;"	v
+comments	led.cpp	/^char comments[BMAX][BMAX];$/;"	v
+compl1	lintel.cpp	/^void compl1(void)$/;"	f
+compl1	lintelref.cpp	/^void compl1(void)$/;"	f
+compldebug	nudes.c	/^int compldebug;     \/* debug parameter for complm *\/$/;"	v
+complete	lintel.cpp	/^int complete;        \/\/ true if Gloria and Frank to be used$/;"	v
+complete	lintelref.cpp	/^int complete;        \/\/ true if Gloria and Frank to be used$/;"	v
+comprs	nudes.c	/^int comprs;         \/* true if output files are to be compressed *\/$/;"	v
+con	shadoq.c	/^double ang[4],con[7],elln[4][4],cn[4];$/;"	v
+copyseg	led.cpp	/^void copyseg(int n, int s)$/;"	f
+count	raselr.c	/^int    count;              \/* count of spaces used on a line in output file *\/$/;"	v
+countin	nudes.c	/^countin(f)$/;"	f
+cphi	shadoq.c	/^double cphi,sphi,phi;$/;"	v
+create	led.cpp	/^void create(int s)$/;"	f
+createaremenu	led.cpp	/^void createaremenu(int x, int y)$/;"	f
+createbars	led.cpp	/^void createbars(void)$/;"	f
+createblank	led.cpp	/^void createblank(void)$/;"	f
+createclear	led.cpp	/^void createclear(void)$/;"	f
+createcomment	led.cpp	/^void createcomment(void)$/;"	f
+createcontract	led.cpp	/^void createcontract(void)$/;"	f
+createcopy	led.cpp	/^void createcopy(void)$/;"	f
+createdel	led.cpp	/^void createdel(void)$/;"	f
+createdirmenu	led.cpp	/^void createdirmenu(int x, int y)$/;"	f
+createexpand	led.cpp	/^void createexpand(void)$/;"	f
+createfacmenu	led.cpp	/^void createfacmenu(int x, int y)$/;"	f
+createfree	led.cpp	/^void createfree(void)$/;"	f
+createhelp	led.cpp	/^void createhelp(void)$/;"	f
+createhigh	led.cpp	/^void createhigh(void)$/;"	f
+createkeymenu	led.cpp	/^void createkeymenu(int x, int y)$/;"	f
+createlimmenu	led.cpp	/^void createlimmenu(int x, int y)$/;"	f
+createlow	led.cpp	/^void createlow(void)$/;"	f
+createmenus	led.cpp	/^void createmenus(void)$/;"	f
+createmiddle	led.cpp	/^void createmiddle(void)$/;"	f
+createminus	led.cpp	/^void createminus(void)$/;"	f
+createmismenu	led.cpp	/^void createmismenu(int x, int y)$/;"	f
+createmove	led.cpp	/^void createmove(void)$/;"	f
+createopen	led.cpp	/^void createopen(void)$/;"	f
+createpinmenu	led.cpp	/^void createpinmenu(int x, int y)$/;"	f
+createplus	led.cpp	/^void createplus(void)$/;"	f
+createpost	led.cpp	/^void createpost(void)$/;"	f
+createrotmenu	led.cpp	/^void createrotmenu(int x, int y)$/;"	f
+createsave	led.cpp	/^void createsave(void)$/;"	f
+createsaveas	led.cpp	/^void createsaveas(void)$/;"	f
+createscroll	led.cpp	/^void createscroll(void)$/;"	f
+createsegment	led.cpp	/^void createsegment(int s)$/;"	f
+createsnap	led.cpp	/^void createsnap(void)$/;"	f
+createstaff	led.cpp	/^void createstaff(void)$/;"	f
+createtext	led.cpp	/^void createtext(void)$/;"	f
+createvolmenu	led.cpp	/^void createvolmenu(int x, int y)$/;"	f
+createwaymenu	led.cpp	/^void createwaymenu(int x, int y)$/;"	f
+cubic	prfrm.c	/^   int cubic  = 46;$/;"	v
+cubic_keyword_code	lintel.cpp	/^   int cubic_keyword_code= 46;$/;"	v
+cubic_keyword_code	lintelref.cpp	/^   int cubic_keyword_code= 46;$/;"	v
+currentx	led.cpp	/^int currentx = 0;$/;"	v
+currenty	led.cpp	/^int currenty = 0;$/;"	v
+cutting	lintel.cpp	/^void cutting ( void )$/;"	f
+cutting	lintelref.cpp	/^void cutting ( void )$/;"	f
+d	lintel.cpp	/^	int d;       \/\/ height indicator$/;"	m	struct:Symbol	file:
+d	lintelref.cpp	/^	int d;       \/\/ height indicator$/;"	m	struct:Symbol	file:
+dangx	lintel.cpp	/^double  dangx,dangy,dangz;     \/\/ interactive rotation angle increments$/;"	v
+dangx	lintelref.cpp	/^double  dangx,dangy,dangz;     \/\/ interactive rotation angle increments$/;"	v
+dangy	lintel.cpp	/^double  dangx,dangy,dangz;     \/\/ interactive rotation angle increments$/;"	v
+dangy	lintelref.cpp	/^double  dangx,dangy,dangz;     \/\/ interactive rotation angle increments$/;"	v
+dangz	lintel.cpp	/^double  dangx,dangy,dangz;     \/\/ interactive rotation angle increments$/;"	v
+dangz	lintelref.cpp	/^double  dangx,dangy,dangz;     \/\/ interactive rotation angle increments$/;"	v
+dcen	lintel.cpp	/^double dcen(double d[3])$/;"	f
+dcen	lintelref.cpp	/^double dcen(double d[3])$/;"	f
+dcen	prfrm.c	/^double dcen(d)$/;"	f
+dcon	compln.c	/^float dcon[EMAX][2][3];  \/* distances of joint from ellipsoid centres *\/$/;"	v
+dcon	lintel.cpp	/^double  dcon[EMAX][2][3];      \/\/ distances of joint from ellipsoid centres$/;"	v
+dcon	lintelref.cpp	/^double  dcon[EMAX][2][3];      \/\/ distances of joint from ellipsoid centres$/;"	v
+debug	compln.c	/^int debug = 3;$/;"	v
+debug	frad3c.c	/^int debug ;$/;"	v
+debug	nudes.c	/^int debug;          \/* prints diagnostics if value < 2 *\/$/;"	v
+debug	prfrm.c	/^int     debug;$/;"	v
+debug	raselr.c	/^int    debug = 1;          \/* debug value: 0 = some, 1 = none *\/$/;"	v
+debug	shadoq.c	/^int debug;$/;"	v
+debug	split3e.c	/^int debug = 1;$/;"	v
+debug	viewc.c	/^int     debug;           \/*  <= 0 for diagnostic output  *\/$/;"	v
+debugf	compln.c	/^int debugf = 22;  \/* code for debug command *\/$/;"	v
+decele	prfrm.c	/^   int decele = 10;$/;"	v
+decele_keyword_code	lintel.cpp	/^   int decele_keyword_code= 10;$/;"	v
+decele_keyword_code	lintelref.cpp	/^   int decele_keyword_code= 10;$/;"	v
+decvar	compln.c	/^int decvar = 32;  \/* code of declaration of variables *\/$/;"	v
+defined	compln.c	/^int defined[EMAX];       \/* true if subroutine is defined *\/$/;"	v
+defined	lintel.cpp	/^int defined[PMAX];   \/\/ TRUE if subroutine is defined$/;"	v
+defined	lintelref.cpp	/^int defined[PMAX];   \/\/ TRUE if subroutine is defined$/;"	v
+deg10	raselr.c	/^double deg10;$/;"	v
+degree	lintel.cpp	/^double  degree;                \/\/ number of degrees in a radian$/;"	v
+degree	lintelref.cpp	/^double  degree;                \/\/ number of degrees in a radian$/;"	v
+degree	prfrm.c	/^double  degree;          \/* number of degrees in a radian *\/$/;"	v
+delseg	led.cpp	/^void delseg(int s)$/;"	f
+den	raselr.c	/^double den[EMAX];$/;"	v
+detach	prfrm.c	/^   int detach = 9;$/;"	v
+detach_keyword_code	lintel.cpp	/^   int detach_keyword_code=  9;$/;"	v
+detach_keyword_code	lintelref.cpp	/^   int detach_keyword_code=  9;$/;"	v
+device	nudes.c	/^char device; \/* code for output to be produced -$/;"	v
+df	lintel.cpp	/^int df;              \/\/ interactive frame increment$/;"	v
+df	lintelref.cpp	/^int df;              \/\/ interactive frame increment$/;"	v
+dig	compln.c	/^char dig[11] = {'0','1','2','3','4','5','6','7','8','9','*'};$/;"	v
+dig	frad3c.c	/^int dig[43][9] = {$/;"	v
+dig	lintel.cpp	/^char dig[11] = {'0','1','2','3','4','5','6','7','8','9','*'};$/;"	v
+dig	lintelref.cpp	/^char dig[11] = {'0','1','2','3','4','5','6','7','8','9','*'};$/;"	v
+digits	frad3c.c	/^digits()$/;"	f
+digits	led.cpp	/^int digits(int n)$/;"	f
+dimess	nudes.c	/^char dimess[BMAX]; \/* message about b\/w shading -$/;"	v
+dirdx	led.cpp	/^int dirdx[NSYMS][LINES] = { {0,0,0,0,0,0,0},$/;"	v
+dirdy	led.cpp	/^int dirdy[NSYMS][LINES] = { {0,0,0,0,0,0,0 },$/;"	v
+dirmenudx	led.cpp	/^int dirmenudx[5] = { 0,MSIZE,0,-MSIZE,0 };$/;"	v
+dirmenudy	led.cpp	/^int dirmenudy[5] = { 0,0,2*MSIZE,0,-2*MSIZE };$/;"	v
+dirmx	led.cpp	/^int dirmx;$/;"	v
+dirmy	led.cpp	/^int dirmy;$/;"	v
+dirstep	led.cpp	/^int dirstep = STEP\/2 - 1;$/;"	v
+dirx	led.cpp	/^int dirx[NSYMS] = { 0, 52, 68,76,68,52,36,20,14, 20, 36,46 };$/;"	v
+diry	led.cpp	/^int diry[NSYMS] = { 0,128,122,80,40,30,30,40,80,122,128,80 };$/;"	v
+displayscore	led.cpp	/^void displayscore(void)$/;"	f
+distrn	compln.c	/^int distrn[PMAX];        \/* how actions are distributed over frames *\/$/;"	v
+distrn	lintel.cpp	/^int distrn[PMAX];    \/\/ how actions are distributed over frames$/;"	v
+distrn	lintelref.cpp	/^int distrn[PMAX];    \/\/ how actions are distributed over frames$/;"	v
+distrn	prfrm.c	/^int     distrn[PMAX];$/;"	v
+divide	prfrm.c	/^   int divide = 43;$/;"	v
+divide_keyword_code	lintel.cpp	/^   int divide_keyword_code= 43;$/;"	v
+divide_keyword_code	lintelref.cpp	/^   int divide_keyword_code= 43;$/;"	v
+doabut	lintel.cpp	/^void doabut(void)$/;"	f
+doabut	lintelref.cpp	/^void doabut(void)$/;"	f
+doabut	prfrm.c	/^doabut()$/;"	f
+doangles	lintel.cpp	/^void doangles(int el, int re, double v[3])$/;"	f
+doangles	lintel.cpp	/^void doangles(int el, int re, double val[EMAX], int var0, int var1, int var2)$/;"	f
+doangles	lintelref.cpp	/^void doangles(int el, int re, double v[3])$/;"	f
+doangles	lintelref.cpp	/^void doangles(int el, int re, double val[EMAX], int var0, int var1, int var2)$/;"	f
+doangles	prfrm.c	/^doangles(el,re,val,var0,var1,var2)$/;"	f
+doattach	lintel.cpp	/^void doattach(void)$/;"	f
+doattach	lintelref.cpp	/^void doattach(void)$/;"	f
+doattach	prfrm.c	/^doattach()$/;"	f
+doauto	nudes.c	/^doauto(f)$/;"	f
+dobalanc	lintel.cpp	/^void dobalanc(void)$/;"	f
+dobalanc	lintelref.cpp	/^void dobalanc(void)$/;"	f
+dobalanc	prfrm.c	/^dobalanc()$/;"	f
+dobarnumber	led.cpp	/^void dobarnumber(int n, int x, int y)$/;"	f
+dobend	lintel.cpp	/^void dobend(double angle, int axis)$/;"	f
+dobend	lintelref.cpp	/^void dobend(double angle, int axis)$/;"	f
+dobend	prfrm.c	/^dobend(angle,axis)$/;"	f
+doblur	raselr.c	/^doblur()$/;"	f
+docol	nudes.c	/^int docol;          \/* true if colour requested *\/$/;"	v
+docola	prfrm.c	/^docola(prop)$/;"	f
+docolour	lintel.cpp	/^void docolour(double prop)$/;"	f
+docolour	lintelref.cpp	/^void docolour(double prop)$/;"	f
+docommand	led.cpp	/^void docommand(int c)$/;"	f
+docompress	nudes.c	/^docompress(f,nfr,change)$/;"	f
+dodebug	prfrm.c	/^   int dodebug= 22;$/;"	v
+dodebug_keyword_code	lintel.cpp	/^   int dodebug_keyword_code= 22;$/;"	v
+dodebug_keyword_code	lintelref.cpp	/^   int dodebug_keyword_code= 22;$/;"	v
+dodensity	nudes.c	/^dodensity(f)$/;"	f
+dodetach	lintel.cpp	/^void dodetach(void)$/;"	f
+dodetach	lintelref.cpp	/^void dodetach(void)$/;"	f
+dodetach	prfrm.c	/^dodetach()$/;"	f
+dodir	nudes.c	/^dodir()$/;"	f
+dodname	nudes.c	/^dodname()$/;"	f
+dodrag	lintel.cpp	/^void dodrag(void)$/;"	f
+dodrag	lintelref.cpp	/^void dodrag(void)$/;"	f
+dodrag	prfrm.c	/^dodrag()$/;"	f
+dofig	lintel.cpp	/^int dofig;           \/\/ required gender of current staff$/;"	v
+dofig	lintelref.cpp	/^int dofig;           \/\/ required gender of current staff$/;"	v
+dofr	nudes.c	/^int dofr;           \/* insert frame numbers *\/$/;"	v
+doframes	lintel.cpp	/^void doframes(void)$/;"	f
+doframes	lintelref.cpp	/^void doframes(void)$/;"	f
+doframes	prfrm.c	/^int doframes()$/;"	f
+dogif	nudes.c	/^int dogif;          \/* true if gif images wanted (default: false) *\/$/;"	v
+dogroell	lintel.cpp	/^void dogroell( double f[3], int j, double a[EMAX][3])$/;"	f
+dogroell	lintelref.cpp	/^void dogroell( double f[3], int j, double a[EMAX][3])$/;"	f
+dogroell	prfrm.c	/^dogroell(f,j,array)$/;"	f
+dogrofig	lintel.cpp	/^void dogrofig( double x0, double x1, double x2)$/;"	f
+dogrofig	lintelref.cpp	/^void dogrofig( double x0, double x1, double x2)$/;"	f
+dogrofig	prfrm.c	/^dogrofig(x0,x1,x2)$/;"	f
+dogrojnt	lintel.cpp	/^void dogrojnt(void)$/;"	f
+dogrojnt	lintelref.cpp	/^void dogrojnt(void)$/;"	f
+dogrojnt	prfrm.c	/^dogrojnt()$/;"	f
+doground	lintel.cpp	/^double doground(void)$/;"	f
+doground	lintelref.cpp	/^double doground(void)$/;"	f
+doground	prfrm.c	/^double doground()$/;"	f
+dogrowto	lintel.cpp	/^void dogrowto ( double x, double y, double z )$/;"	f
+dogrowto	lintelref.cpp	/^void dogrowto ( double x, double y, double z )$/;"	f
+dojoin	lintel.cpp	/^void dojoin(void)$/;"	f
+dojoin	lintelref.cpp	/^void dojoin(void)$/;"	f
+dolentic	nudes.c	/^dolentic(fleft,fright)$/;"	f
+dolighting	lintel.cpp	/^void dolighting ( double x, double y, double z )$/;"	f
+dolighting	lintelref.cpp	/^void dolighting ( double x, double y, double z )$/;"	f
+domaps	raselr.c	/^domaps(n)$/;"	f
+domoveby	lintel.cpp	/^void domoveby( double x, double y, double z, int refell)$/;"	f
+domoveby	lintelref.cpp	/^void domoveby( double x, double y, double z, int refell)$/;"	f
+domoveby	prfrm.c	/^domoveby(x,y,z,refell)$/;"	f
+domovjnt	lintel.cpp	/^void domovjnt(void)$/;"	f
+domovjnt	lintelref.cpp	/^void domovjnt(void)$/;"	f
+domovjnt	prfrm.c	/^domovjnt()$/;"	f
+dompg	nudes.c	/^dompg(fbase)$/;"	f
+donesurf	lintel.cpp	/^int donesurf;        \/\/ TRUE if 'surf' called from 'dotouch'$/;"	v
+donesurf	lintelref.cpp	/^int donesurf;        \/\/ TRUE if 'surf' called from 'dotouch'$/;"	v
+donud	nudes.c	/^donud(f)$/;"	f
+donum	lintel.cpp	/^void donum(int f)$/;"	f
+donum	lintelref.cpp	/^void donum(int f)$/;"	f
+doopacity	lintel.cpp	/^void doopacity ( void )$/;"	f
+doopacity	lintelref.cpp	/^void doopacity ( void )$/;"	f
+dopairs	nudes.c	/^dopairs(f)$/;"	f
+dopause	lintel.cpp	/^void dopause(int t)$/;"	f
+dopause	lintelref.cpp	/^void dopause(int t)$/;"	f
+doperfrm	lintel.cpp	/^void doperfrm(int sub, int fr, int fstart, int fend)$/;"	f
+doperfrm	lintelref.cpp	/^void doperfrm(int sub, int fr, int fstart, int fend)$/;"	f
+doplace	lintel.cpp	/^void doplace(void)$/;"	f
+doplace	lintelref.cpp	/^void doplace(void)$/;"	f
+dopolygonrel	led.cpp	/^void dopolygonrel(int s, int ax[LINES], int ay[LINES], int n)$/;"	f
+doprint	nudes.c	/^doprint(f)$/;"	f
+doscale	lintel.cpp	/^double doscale(double x)$/;"	f
+doscale	lintelref.cpp	/^double doscale(double x)$/;"	f
+doscan	nudes.c	/^doscan(f)$/;"	f
+doscroll	led.cpp	/^void doscroll()$/;"	f
+doshade	nudes.c	/^doshade(f,nfr)$/;"	f
+doshadow	lintel.cpp	/^void doshadow()$/;"	f
+doshadow	lintelref.cpp	/^void doshadow()$/;"	f
+dospinby	lintel.cpp	/^void dospinby(double xx[3], int refell, double angl, int axis)$/;"	f
+dospinby	lintelref.cpp	/^void dospinby(double xx[3], int refell, double angl, int axis)$/;"	f
+dospinby	prfrm.c	/^dospinby(x,refell,angl,axis)$/;"	f
+dospinto	lintel.cpp	/^void dospinto(double xx[3], int refell, double ang[3], double pro)$/;"	f
+dospinto	lintelref.cpp	/^void dospinto(double xx[3], int refell, double ang[3], double pro)$/;"	f
+dospinto	prfrm.c	/^dospinto(x,refell,ang,pro)$/;"	f
+dostaff	lintel.cpp	/^int dostaff;         \/\/ index in staff[] of current staff$/;"	v
+dostaff	lintelref.cpp	/^int dostaff;         \/\/ index in staff[] of current staff$/;"	v
+dosymbol	led.cpp	/^void dosymbol(int t)$/;"	f
+dotouch	lintel.cpp	/^void dotouch(void)$/;"	f
+dotouch	lintelref.cpp	/^void dotouch(void)$/;"	f
+dotouch	prfrm.c	/^dotouch()$/;"	f
+doub0	lintel.cpp	/^double  doub0;$/;"	v
+doub0	lintelref.cpp	/^double  doub0;$/;"	v
+doub0	prfrm.c	/^double  doub0;$/;"	v
+doub0	raselr.c	/^double doub0;$/;"	v
+doub0	shadoq.c	/^double inv2,doub0,ten,rad10,pi,piby2 ;$/;"	v
+doub0	viewc.c	/^double  doub0;$/;"	v
+doub1	lintel.cpp	/^double  doub1;$/;"	v
+doub1	lintelref.cpp	/^double  doub1;$/;"	v
+doub1	prfrm.c	/^double  doub1;$/;"	v
+doub1	raselr.c	/^double doub1;$/;"	v
+doub1	viewc.c	/^double  doub1;        \/* a double constant *\/$/;"	v
+doub10	lintel.cpp	/^double  doub10;$/;"	v
+doub10	lintelref.cpp	/^double  doub10;$/;"	v
+doub10	prfrm.c	/^double  doub10;$/;"	v
+doub128	raselr.c	/^double doub128;$/;"	v
+doub150	lintel.cpp	/^double  doub150;$/;"	v
+doub150	lintelref.cpp	/^double  doub150;$/;"	v
+doub179	lintel.cpp	/^double  doub179;$/;"	v
+doub179	lintelref.cpp	/^double  doub179;$/;"	v
+doub180	lintel.cpp	/^double  doub180;$/;"	v
+doub180	lintelref.cpp	/^double  doub180;$/;"	v
+doub181	lintel.cpp	/^double  doub181;$/;"	v
+doub181	lintelref.cpp	/^double  doub181;$/;"	v
+doub2	lintel.cpp	/^double  doub2;$/;"	v
+doub2	lintelref.cpp	/^double  doub2;$/;"	v
+doub2	prfrm.c	/^double  doub2;$/;"	v
+doub2	raselr.c	/^double doub2;$/;"	v
+doub255	lintel.cpp	/^double  doub255;$/;"	v
+doub255	lintelref.cpp	/^double  doub255;$/;"	v
+doub3	lintel.cpp	/^double  doub3;$/;"	v
+doub3	lintelref.cpp	/^double  doub3;$/;"	v
+doub3	prfrm.c	/^double  doub3;$/;"	v
+doub360	lintel.cpp	/^double  doub360;$/;"	v
+doub360	lintelref.cpp	/^double  doub360;$/;"	v
+doub4	lintel.cpp	/^double  doub4;$/;"	v
+doub4	lintelref.cpp	/^double  doub4;$/;"	v
+doub4	prfrm.c	/^double  doub4;$/;"	v
+doub4	raselr.c	/^double doub4;$/;"	v
+doub500	lintel.cpp	/^double  doub500;$/;"	v
+doub500	lintelref.cpp	/^double  doub500;$/;"	v
+doub60	lintel.cpp	/^double  doub60;$/;"	v
+doub60	lintelref.cpp	/^double  doub60;$/;"	v
+doub90	lintel.cpp	/^double  doub90;$/;"	v
+doub90	lintelref.cpp	/^double  doub90;$/;"	v
+doubmax	lintel.cpp	/^double  doubmax;$/;"	v
+doubmax	lintelref.cpp	/^double  doubmax;$/;"	v
+doubmax	prfrm.c	/^double  doubmax;$/;"	v
+dovector	nudes.c	/^dovector(f)$/;"	f
+drag	prfrm.c	/^   int drag   = 53;$/;"	v
+drag_keyword_code	lintel.cpp	/^   int drag_keyword_code= 53;$/;"	v
+drag_keyword_code	lintelref.cpp	/^   int drag_keyword_code= 53;$/;"	v
+drawbars	led.cpp	/^void drawbars(void)$/;"	f
+drawbow	led.cpp	/^void drawbow(int s)$/;"	f
+drawstaff	led.cpp	/^void drawstaff(int s, int n, int x, int y, int h, char level)$/;"	f
+drawsymbol	led.cpp	/^void drawsymbol(int s)$/;"	f
+dscroll	led.cpp	/^int dscroll;$/;"	v
+dummy	compln.c	/^char dummy[6] = {'d','u','m','m','y'};$/;"	v
+dummy	lintel.cpp	/^char dummy[6] = {'d','u','m','m','y'};$/;"	v
+dummy	lintelref.cpp	/^char dummy[6] = {'d','u','m','m','y'};$/;"	v
+echoall	nudes.c	/^int echoall;        \/* true if all system commands to be echoed *\/$/;"	v
+echosome	nudes.c	/^int echosome;       \/* true if some system commands to be echoed *\/$/;"	v
+ecount	lintel.cpp	/^int ecount;          \/\/ number of entries in 'elist'$/;"	v
+ecount	lintelref.cpp	/^int ecount;          \/\/ number of entries in 'elist'$/;"	v
+ecount	prfrm.c	/^int     ecount;$/;"	v
+elcol	prfrm.c	/^int     elcol[EMAX][3] ;$/;"	v
+elcol	shadoq.c	/^int elcol[EMAX+1][4];$/;"	v
+elcol	viewc.c	/^int     elcol[EMAX][3] ; \/* red, green, blue of each ellipsoid *\/$/;"	v
+elground	lintel.cpp	/^double elground(int i)$/;"	f
+elground	lintelref.cpp	/^double elground(int i)$/;"	f
+eline	split3e.c	/^char eline[EMAX][BMAX];$/;"	v
+elist	lintel.cpp	/^int elist[EMAX];     \/\/ array for lists of ellipsoids in current action$/;"	v
+elist	lintelref.cpp	/^int elist[EMAX];     \/\/ array for lists of ellipsoids in current action$/;"	v
+elist	prfrm.c	/^int     elist[EMAX];$/;"	v
+ell	raselr.c	/^double ell[EMAX][3][3];$/;"	v
+ell1	lintel.cpp	/^int ell1;            \/\/ ellipsoid to touch something$/;"	v
+ell1	lintelref.cpp	/^int ell1;            \/\/ ellipsoid to touch something$/;"	v
+ell1	prfrm.c	/^int     ell1;$/;"	v
+ell2	lintel.cpp	/^int ell2;            \/\/ ellipsoid to be touched$/;"	v
+ell2	lintelref.cpp	/^int ell2;            \/\/ ellipsoid to be touched$/;"	v
+ell2	prfrm.c	/^int     ell2;$/;"	v
+ellen	compln.c	/^int ellen[EMAX];$/;"	v
+ellen	lintel.cpp	/^int ellen[EMAX];$/;"	v
+ellen	lintelref.cpp	/^int ellen[EMAX];$/;"	v
+ellfig	compln.c	/^int ellfig[EMAX];        \/* number of the figure containing each ellipsoid$/;"	v
+ellfig	lintel.cpp	/^int ellfig[EMAX];    \/\/ number of the figure containing each ellipsoid$/;"	v
+ellfig	lintelref.cpp	/^int ellfig[EMAX];    \/\/ number of the figure containing each ellipsoid$/;"	v
+ellips	compln.c	/^int ellips = 2;   \/* code of 'ellipsoid' declaration *\/$/;"	v
+ellips	prfrm.c	/^   int ellips = 2;$/;"	v
+ellips_keyword_code	lintel.cpp	/^   int ellips_keyword_code=  2;$/;"	v
+ellips_keyword_code	lintelref.cpp	/^   int ellips_keyword_code=  2;$/;"	v
+ellmat	lintel.cpp	/^void ellmat(double r[3][3], int e, int f)$/;"	f
+ellmat	lintelref.cpp	/^void ellmat(double r[3][3], int e, int f)$/;"	f
+elln	shadoq.c	/^double ang[4],con[7],elln[4][4],cn[4];$/;"	v
+ellnam	compln.c	/^char ellnam[EMAX][BMAX]; \/* ellipsoid names *\/$/;"	v
+ellpsd	lintel.cpp	/^int ellpsd;          \/\/ active ellipsoid$/;"	v
+ellpsd	lintelref.cpp	/^int ellpsd;          \/\/ active ellipsoid$/;"	v
+ellpsd	prfrm.c	/^int     ellpsd;$/;"	v
+elow	lintel.cpp	/^double elow(int i)$/;"	f
+elow	lintelref.cpp	/^double elow(int i)$/;"	f
+empty	frad3c.c	/^int empty;$/;"	v
+ename	lintel.cpp	/^char ename[EMAX][BMAX];    \/\/ ellipsoid names$/;"	v
+ename	lintelref.cpp	/^char ename[EMAX][BMAX];    \/\/ ellipsoid names$/;"	v
+ename	prfrm.c	/^char    ename[EMAX][BMAX];$/;"	v
+ename	shadoq.c	/^char ename[EMAX][BMAX];$/;"	v
+ename	viewc.c	/^char    ename[EMAX][BMAX];$/;"	v
+enames	frad3c.c	/^char enames[EMAX][BMAX];$/;"	v
+enames	raselr.c	/^char   enames[EMAX][BMAX]; \/* names of ellipsoids *\/$/;"	v
+endin	nudes.c	/^char endin[BMAX];   \/* end of input file name *\/$/;"	v
+endnud	compln.c	/^int endnud = 16;  \/* code for 'stop' at end of input actions *\/$/;"	v
+endsub	compln.c	/^int endsub = 29;  \/* code of end of subroutine *\/$/;"	v
+endsub	prfrm.c	/^   int endsub = 29;$/;"	v
+endsub_keyword_code	lintel.cpp	/^   int endsub_keyword_code= 29;$/;"	v
+endsub_keyword_code	lintelref.cpp	/^   int endsub_keyword_code= 29;$/;"	v
+enquir	lintel.cpp	/^void enquir(int thisp, double array[EMAX][3])$/;"	f
+enquir	lintelref.cpp	/^void enquir(int thisp, double array[EMAX][3])$/;"	f
+enquir	prfrm.c	/^enquir(this,array)$/;"	f
+err	nudes.c	/^char err[BMAX];     \/* error messages *\/$/;"	v
+every	compln.c	/^char every[6] = {'e','v','e','r','y'};$/;"	v
+every	lintel.cpp	/^char every[6] = {'e','v','e','r','y'};$/;"	v
+every	lintelref.cpp	/^char every[6] = {'e','v','e','r','y'};$/;"	v
+exec	nudes.c	/^exec(echo)$/;"	f
+expect	compln.c	/^char expect[9][10] = { {' '},$/;"	v
+expect	lintel.cpp	/^char expect[9][10] = { {' '},$/;"	v
+expect	lintelref.cpp	/^char expect[9][10] = { {' '},$/;"	v
+extn	nudes.c	/^char extn;          \/* output file extension *\/$/;"	v
+f	lintel.cpp	/^int f;               \/\/ counter through frames$/;"	v
+f	lintelref.cpp	/^int f;               \/\/ counter through frames$/;"	v
+f	prfrm.c	/^double  f[3];$/;"	v
+f	raselr.c	/^int    f;$/;"	v
+f	run.py	/^f = open(userinput,"r")$/;"	v
+f	run.py	/^f = open(userinput,"w")$/;"	v
+f	shadoq.c	/^int f,h,j,m,n ;$/;"	v
+f	split3e.c	/^char f[BMAX];$/;"	v
+f	viewc.c	/^int     f;               \/* counter through frames *\/$/;"	v
+f3	split3e.c	/^char f3[BMAX];$/;"	v
+f_max	lintel.cpp	/^int f_max;            \/\/ maximum frame number$/;"	v
+f_max	lintelref.cpp	/^int f_max;            \/\/ maximum frame number$/;"	v
+fac	led.cpp	/^float fac;            \/* change in symbol size for expand\/contract *\/$/;"	v
+facdx	led.cpp	/^int   facdx[NSYMS][LINES] = { {0},$/;"	v
+facdy	led.cpp	/^int   facdy[NSYMS][LINES] = { {0},$/;"	v
+facecl	lintel.cpp	/^int facecl;          \/\/ facing score of closed position$/;"	v
+facecl	lintelref.cpp	/^int facecl;          \/\/ facing score of closed position$/;"	v
+facedif	lintel.cpp	/^int facedif;         \/\/ difference between facing directions of man and lwoman$/;"	v
+facedif	lintelref.cpp	/^int facedif;         \/\/ difference between facing directions of man and lwoman$/;"	v
+facepr	lintel.cpp	/^int facepr;          \/\/ facing score of promenade position$/;"	v
+facepr	lintelref.cpp	/^int facepr;          \/\/ facing score of promenade position$/;"	v
+facesh	lintel.cpp	/^int facesh;          \/\/ facing score of shadow position$/;"	v
+facesh	lintelref.cpp	/^int facesh;          \/\/ facing score of shadow position$/;"	v
+facess	lintel.cpp	/^int facess;          \/\/ facing score of semishadow position$/;"	v
+facess	lintelref.cpp	/^int facess;          \/\/ facing score of semishadow position$/;"	v
+facmenudx	led.cpp	/^int   facmenudx[5] = { 0, MSIZE, 0, -MSIZE, 0};$/;"	v
+facmenudy	led.cpp	/^int   facmenudy[5] = { 0, 0, MSIZE, 0, -MSIZE};$/;"	v
+facmx	led.cpp	/^int   facmx;$/;"	v
+facmy	led.cpp	/^int   facmy;$/;"	v
+facstep	led.cpp	/^int   facstep = 1;$/;"	v
+factor	lintel.cpp	/^double  factor[3];             \/\/ factors in x,y, and z directions$/;"	v
+factor	lintelref.cpp	/^double  factor[3];             \/\/ factors in x,y, and z directions$/;"	v
+facx	led.cpp	/^int   facx[NSYMS] = { 0, 40, 60, 75, 60, 40, 20, 5, 20 };$/;"	v
+facy	led.cpp	/^int   facy[NSYMS] = { 0, 75, 60, 40, 20, 5, 20, 40, 60 };$/;"	v
+fast	compln.c	/^int fast;                \/* factor multiplying frame counts *\/$/;"	v
+fast	lintel.cpp	/^int fast;            \/\/ multiplier of frame numbers$/;"	v
+fast	lintelref.cpp	/^int fast;            \/\/ multiplier of frame numbers$/;"	v
+fast	prfrm.c	/^int     fast;$/;"	v
+fbase	nudes.c	/^char fbase[BMAX];   \/* base of data file name *\/$/;"	v
+fbegin	lintel.cpp	/^int fbegin,ffin,flen;\/\/ start,end, and length of a position$/;"	v
+fbegin	lintelref.cpp	/^int fbegin,ffin,flen;\/\/ start,end, and length of a position$/;"	v
+fend	lintel.cpp	/^int fend;            \/\/ frame number of end of current movement$/;"	v
+fend	lintelref.cpp	/^int fend;            \/\/ frame number of end of current movement$/;"	v
+ffin	lintel.cpp	/^int fbegin,ffin,flen;\/\/ start,end, and length of a position$/;"	v
+ffin	lintelref.cpp	/^int fbegin,ffin,flen;\/\/ start,end, and length of a position$/;"	v
+fhalf	lintel.cpp	/^int fhalf;           \/\/ frame halfway through a movement$/;"	v
+fhalf	lintelref.cpp	/^int fhalf;           \/\/ frame halfway through a movement$/;"	v
+fig	lintel.cpp	/^int fig;             \/\/ current figure$/;"	v
+fig	lintelref.cpp	/^int fig;             \/\/ current figure$/;"	v
+fig	prfrm.c	/^int     fig;$/;"	v
+figell	compln.c	/^int figell[EMAX];        \/* numbers of first ellipsoid in each figure *\/$/;"	v
+figell	lintel.cpp	/^int figell[EMAX];    \/\/ figell[i] - first ellipsoid in ith figure$/;"	v
+figell	lintelref.cpp	/^int figell[EMAX];    \/\/ figell[i] - first ellipsoid in ith figure$/;"	v
+figell	prfrm.c	/^int     figell[EMAX] ;$/;"	v
+figlen	compln.c	/^int figlen[EMAX];$/;"	v
+figlen	lintel.cpp	/^int figlen[EMAX];$/;"	v
+figlen	lintelref.cpp	/^int figlen[EMAX];$/;"	v
+fignam	compln.c	/^char fignam[EMAX][BMAX]; \/* figure names *\/$/;"	v
+figname	nudes.c	/^char figname[BMAX]; \/* name of figure file if -D option not used *\/$/;"	v
+figsfile	lintel.cpp	/^FILE *figsfile;$/;"	v
+figsfile	lintelref.cpp	/^FILE *figsfile;$/;"	v
+figsname	lintel.cpp	/^char figsname[BMAX];       \/\/ name of lintel nudes figures, declarations, and subroutines file *\/$/;"	v
+figsname	lintelref.cpp	/^char figsname[BMAX];       \/\/ name of lintel nudes figures, declarations, and subroutines file *\/$/;"	v
+figure	compln.c	/^int figure = 1;   \/* code of a 'figure' declaration *\/$/;"	v
+figure	prfrm.c	/^   int figure = 1;$/;"	v
+figure_keyword_code	lintel.cpp	/^   int figure_keyword_code=  1;$/;"	v
+figure_keyword_code	lintelref.cpp	/^   int figure_keyword_code=  1;$/;"	v
+file3	nudes.c	/^char file3[BMAX];   \/* ellipsoid file name *\/$/;"	v
+file4	nudes.c	/^char file4[BMAX];   \/* performance file name *\/$/;"	v
+filledpin	led.cpp	/^int filledpin = FALSE;\/* TRUE if filled pin being drawn *\/$/;"	v
+fillen	compln.c	/^int fillen[EMAX];$/;"	v
+fillen	lintel.cpp	/^int fillen[EMAX];$/;"	v
+fillen	lintelref.cpp	/^int fillen[EMAX];$/;"	v
+fillpolygonabs	led.cpp	/^void fillpolygonabs(int ax[LINES], int ay[LINES], int n)$/;"	f
+filnam	compln.c	/^char filnam[EMAX][BMAX]; \/* texture map file names *\/$/;"	v
+fin	nudes.c	/^char fin[BMAX];     \/* name of input file *\/$/;"	v
+find_ini_title	lintel.cpp	/^int find_ini_title ( char title[] )$/;"	f
+find_ini_title	lintelref.cpp	/^int find_ini_title ( char title[] )$/;"	f
+findfg	lintel.cpp	/^int findfg(int ell)$/;"	f
+findfg	lintelref.cpp	/^int findfg(int ell)$/;"	f
+findfg	prfrm.c	/^int findfg(ell)$/;"	f
+findip	nudes.c	/^findip(f)$/;"	f
+findmin	lintelref.cpp	/^int findmin(int a,int b)$/;"	f
+finname	led.cpp	/^char finname[BMAX];$/;"	v
+finname	lintel.cpp	/^char finname[BMAX];        \/\/ name of input file$/;"	v
+finname	lintelref.cpp	/^char finname[BMAX];        \/\/ name of input file$/;"	v
+first	frad3c.c	/^int first;$/;"	v
+first	prfrm.c	/^int     first ;$/;"	v
+fixscore	led.cpp	/^void fixscore(void)$/;"	f
+fixstaff	led.cpp	/^void fixstaff(void)$/;"	f
+fixsymbol	led.cpp	/^void fixsymbol(void)$/;"	f
+flag	frad3c.c	/^int flag;$/;"	v
+flag1	split3e.c	/^int flag1,flag2;$/;"	v
+flag1	viewc.c	/^int     flag1;           \/* negative if frame contains joints *\/$/;"	v
+flag2	split3e.c	/^int flag1,flag2;$/;"	v
+flag2	viewc.c	/^int     flag2;           \/* number of joints if joints in file *\/$/;"	v
+flen	lintel.cpp	/^int fbegin,ffin,flen;\/\/ start,end, and length of a position$/;"	v
+flen	lintelref.cpp	/^int fbegin,ffin,flen;\/\/ start,end, and length of a position$/;"	v
+flex	prfrm.c	/^   int flex   = 38;$/;"	v
+flex_keyword_code	lintel.cpp	/^   int flex_keyword_code= 38;$/;"	v
+flex_keyword_code	lintelref.cpp	/^   int flex_keyword_code= 38;$/;"	v
+fname	lintel.cpp	/^char fname[EMAX][BMAX];    \/\/ figure names$/;"	v
+fname	lintelref.cpp	/^char fname[EMAX][BMAX];    \/\/ figure names$/;"	v
+fname	prfrm.c	/^char    fname[EMAX][BMAX] ;$/;"	v
+fname	raselr.c	/^char   fname[BMAX];$/;"	v
+fname	shadoq.c	/^char fname[EMAX][BMAX];$/;"	v
+fname	viewc.c	/^char    fname[EMAX][BMAX] ;$/;"	v
+fnames	frad3c.c	/^char fnames[EMAX][BMAX];$/;"	v
+fndmin	lintel.cpp	/^double fndmin(double a, double b, int n)$/;"	f
+fndmin	lintelref.cpp	/^double fndmin(double a, double b, int n)$/;"	f
+fndmin	prfrm.c	/^double fndmin(a,b,n)$/;"	f
+fnums	lintel.cpp	/^int fnums;           \/\/ TRUE if frame numbers to be displayed$/;"	v
+fnums	lintelref.cpp	/^int fnums;           \/\/ TRUE if frame numbers to be displayed$/;"	v
+forbid	lintel.cpp	/^bool forbid[EMAX][EMAX];$/;"	v
+forbid	lintelref.cpp	/^bool forbid[EMAX][EMAX];$/;"	v
+forbid_keyword_code	lintel.cpp	/^   int forbid_keyword_code= 63;$/;"	v
+forbid_keyword_code	lintelref.cpp	/^   int forbid_keyword_code= 63;$/;"	v
+forward	lintel.cpp	/^int forward;         \/\/ TRUE for animation to go forwards$/;"	v
+forward	lintelref.cpp	/^int forward;         \/\/ TRUE for animation to go forwards$/;"	v
+fout	nudes.c	/^char fout[BMAX];    \/* name of output file *\/$/;"	v
+foutname	led.cpp	/^char foutname[BMAX];$/;"	v
+fpostname	led.cpp	/^char fpostname[BMAX];$/;"	v
+fps	lintel.cpp	/^int fps;             \/\/ frames\/second$/;"	v
+fps	lintelref.cpp	/^int fps;             \/\/ frames\/second$/;"	v
+fr	prfrm.c	/^int     fr;$/;"	v
+frac	lintel.cpp	/^double  frac;                  \/\/ fraction of action to be done in this frame$/;"	v
+frac	lintelref.cpp	/^double  frac;                  \/\/ fraction of action to be done in this frame$/;"	v
+frac	prfrm.c	/^double  frac;$/;"	v
+frame	raselr.c	/^int    frame;$/;"	v
+frame	shadoq.c	/^int frame;$/;"	v
+frame	viewc.c	/^int     frame;           \/* current actual frame name  *\/$/;"	v
+frames	lintel.cpp	/^int frames[FMAX];    \/\/ original NUDES frame numbers$/;"	v
+frames	lintelref.cpp	/^int frames[FMAX];    \/\/ original NUDES frame numbers$/;"	v
+frames3	nudes.c	/^frames3(f)$/;"	f
+frange	lintel.cpp	/^int frange;          \/\/ number of frames in an action$/;"	v
+frange	lintelref.cpp	/^int frange;          \/\/ number of frames in an action$/;"	v
+freeze	lintel.cpp	/^int freeze;          \/\/ TRUE if animation frozen$/;"	v
+freeze	lintelref.cpp	/^int freeze;          \/\/ TRUE if animation frozen$/;"	v
+frend	nudes.c	/^int frend;          \/* last frame number *\/$/;"	v
+frperbar	lintel.cpp	/^int frperbar;        \/\/ frames per bar;$/;"	v
+frperbar	lintelref.cpp	/^int frperbar;        \/\/ frames per bar;$/;"	v
+frstart	lintel.cpp	/^int frstart[PMAX];   \/\/ frstart[i] - frame number of start of ith action$/;"	v
+frstart	lintelref.cpp	/^int frstart[PMAX];   \/\/ frstart[i] - frame number of start of ith action$/;"	v
+frstart	prfrm.c	/^int     frstart[PMAX];$/;"	v
+frstop	compln.c	/^int frstop[PMAX];        \/* number of last frame affected by action *\/$/;"	v
+frstop	lintel.cpp	/^int frstop[PMAX];    \/\/ frstop[i] - frame number of end of ith action$/;"	v
+frstop	lintelref.cpp	/^int frstop[PMAX];    \/\/ frstop[i] - frame number of end of ith action$/;"	v
+frstop	prfrm.c	/^int     frstop[PMAX] ;$/;"	v
+frstrt	compln.c	/^int frstrt[PMAX];        \/* frame number after which action is to begin *\/$/;"	v
+fslow	lintel.cpp	/^int fslow;$/;"	v
+fslow	lintelref.cpp	/^int fslow;$/;"	v
+fslow	prfrm.c	/^int     fslow;$/;"	v
+fstart	lintel.cpp	/^int fstart;          \/\/ first frame number of action$/;"	v
+fstart	lintelref.cpp	/^int fstart;          \/\/ first frame number of action$/;"	v
+fstop	lintel.cpp	/^int fstop;           \/\/ last frame number of actions$/;"	v
+fstop	lintelref.cpp	/^int fstop;           \/\/ last frame number of actions$/;"	v
+fun	lintel.cpp	/^double fun(double xarg)$/;"	f
+fun	lintelref.cpp	/^double fun(double xarg)$/;"	f
+fun	prfrm.c	/^double fun(xarg)$/;"	f
+get_files	lintel.cpp	/^void get_files ( char file[] )$/;"	f
+get_files	lintelref.cpp	/^void get_files ( char file[] )$/;"	f
+get_if_ini	lintel.cpp	/^bool get_if_ini ( void )$/;"	f
+get_if_ini	lintelref.cpp	/^bool get_if_ini ( void )$/;"	f
+get_ini	lintel.cpp	/^void get_ini ( int dump )$/;"	f
+get_ini	lintelref.cpp	/^void get_ini ( int dump )$/;"	f
+get_ini_bool	lintel.cpp	/^bool get_ini_bool ( char title[] )$/;"	f
+get_ini_bool	lintelref.cpp	/^bool get_ini_bool ( char title[] )$/;"	f
+get_ini_char	lintel.cpp	/^char* get_ini_char ( char title[] )$/;"	f
+get_ini_char	lintelref.cpp	/^char* get_ini_char ( char title[] )$/;"	f
+get_ini_double	lintel.cpp	/^double get_ini_double ( char title[] )$/;"	f
+get_ini_double	lintelref.cpp	/^double get_ini_double ( char title[] )$/;"	f
+get_ini_dump	lintel.cpp	/^void get_ini_dump ( void )$/;"	f
+get_ini_dump	lintelref.cpp	/^void get_ini_dump ( void )$/;"	f
+get_ini_float	lintel.cpp	/^float get_ini_float ( char title[] )$/;"	f
+get_ini_float	lintelref.cpp	/^float get_ini_float ( char title[] )$/;"	f
+get_ini_int	lintel.cpp	/^int get_ini_int ( char title[] )$/;"	f
+get_ini_int	lintelref.cpp	/^int get_ini_int ( char title[] )$/;"	f
+get_ini_str	lintel.cpp	/^bool get_ini_str ( char title[], char value[] )$/;"	f
+get_ini_str	lintelref.cpp	/^bool get_ini_str ( char title[], char value[] )$/;"	f
+getaxes	lintel.cpp	/^void getaxes(double m[3][3], double axes[3], double r[3][3])$/;"	f
+getaxes	lintelref.cpp	/^void getaxes(double m[3][3], double axes[3], double r[3][3])$/;"	f
+getaxes	prfrm.c	/^getaxes(m,axes,r)$/;"	f
+getfig	nudes.c	/^int getfig;         \/* true if figure to be read from a file *\/$/;"	v
+getfram3	frad3c.c	/^getfram3()$/;"	f
+getfram3	split3e.c	/^getfram3()$/;"	f
+getinput	nudes.c	/^getinput(f)$/;"	f
+getint	compln.c	/^int getint()$/;"	f
+getint	lintel.cpp	/^int getint(void)$/;"	f
+getint	lintelref.cpp	/^int getint(void)$/;"	f
+getmat	lintel.cpp	/^void getmat(double mat[3][3], double tr[3][3], double untr[3][3],$/;"	f
+getmat	lintelref.cpp	/^void getmat(double mat[3][3], double tr[3][3], double untr[3][3],$/;"	f
+getmat	prfrm.c	/^getmat(mat,tr,untr,trtr,untrtr,ell)$/;"	f
+getout	led.cpp	/^void getout(int v)$/;"	f
+getout	lintel.cpp	/^void getout(int v)$/;"	f
+getout	lintelref.cpp	/^void getout(int v)$/;"	f
+getout	nudes.c	/^getout(n)$/;"	f
+getpar	frad3c.c	/^getpar(argc,argv)$/;"	f
+getpar	nudes.c	/^getpar(argc,argv)$/;"	f
+getsize	led.cpp	/^void getsize(void)$/;"	f
+gettext	led.cpp	/^void gettext(int s, char buf[BMAX])$/;"	f
+getval	prfrm.c	/^int getval(p)$/;"	f
+getvalu	lintel.cpp	/^int getvalu(int p)$/;"	f
+getvalu	lintelref.cpp	/^int getvalu(int p)$/;"	f
+gh	lintel.cpp	/^int gy,gh;           \/\/ arm gesture range disabled by contact bow$/;"	v
+gh	lintelref.cpp	/^int gy,gh;           \/\/ arm gesture range disabled by contact bow$/;"	v
+grey	frad3c.c	/^int grey ;$/;"	v
+grey	nudes.c	/^int grey = 127;     \/* colour of frame numbers *\/$/;"	v
+groell	prfrm.c	/^   int groell = 34;$/;"	v
+groell_keyword_code	lintel.cpp	/^   int groell_keyword_code= 34;$/;"	v
+groell_keyword_code	lintelref.cpp	/^   int groell_keyword_code= 34;$/;"	v
+grofig	prfrm.c	/^   int grofig = 11;$/;"	v
+grofig_keyword_code	lintel.cpp	/^   int grofig_keyword_code= 11;$/;"	v
+grofig_keyword_code	lintelref.cpp	/^   int grofig_keyword_code= 11;$/;"	v
+grojnt	prfrm.c	/^   int grojnt = 35;$/;"	v
+grojnt_keyword_code	lintel.cpp	/^   int grojnt_keyword_code= 35;$/;"	v
+grojnt_keyword_code	lintelref.cpp	/^   int grojnt_keyword_code= 35;$/;"	v
+ground	prfrm.c	/^   int ground = 18;$/;"	v
+ground	shadoq.c	/^double ground(i)$/;"	f
+ground_keyword_code	lintel.cpp	/^   int ground_keyword_code= 18;$/;"	v
+ground_keyword_code	lintelref.cpp	/^   int ground_keyword_code= 18;$/;"	v
+growto_keyword_code	lintel.cpp	/^   int growto_keyword_code= 57;$/;"	v
+growto_keyword_code	lintelref.cpp	/^   int growto_keyword_code= 57;$/;"	v
+gy	lintel.cpp	/^int gy,gh;           \/\/ arm gesture range disabled by contact bow$/;"	v
+gy	lintelref.cpp	/^int gy,gh;           \/\/ arm gesture range disabled by contact bow$/;"	v
+h	led.cpp	/^   int h;             \/* height *\/$/;"	m	struct:Segment	file:
+h	lintel.cpp	/^	int h;       \/\/ height$/;"	m	struct:Symbol	file:
+h	lintelref.cpp	/^	int h;       \/\/ height$/;"	m	struct:Symbol	file:
+h	shadoq.c	/^int f,h,j,m,n ;$/;"	v
+hashpolygonabs	led.cpp	/^void hashpolygonabs(int ax[LINES], int ay[LINES], int n)$/;"	f
+haslbn	lintel.cpp	/^int haslbn;          \/\/ TRUE if input is lbn file, FALSE for .n file$/;"	v
+haslbn	lintelref.cpp	/^int haslbn;          \/\/ TRUE if input is lbn file, FALSE for .n file$/;"	v
+headcol4	lintel.cpp	/^int headcol4 = 0;$/;"	v
+headcol6	lintel.cpp	/^int headcol6 = 0;$/;"	v
+height	led.cpp	/^int height;          \/* height of window *\/$/;"	v
+height	lintel.cpp	/^int height = 512;    \/\/ height  of window in pixels$/;"	v
+height	lintelref.cpp	/^int height = 512;    \/\/ height  of window in pixels$/;"	v
+help	led.cpp	/^void help(void)$/;"	f
+help	lintel.cpp	/^void help(void)$/;"	f
+help	lintelref.cpp	/^void help(void)$/;"	f
+hend	lintel.cpp	/^int hend;            \/\/ frame at end of hold$/;"	v
+hend	lintelref.cpp	/^int hend;            \/\/ frame at end of hold$/;"	v
+high	led.cpp	/^char high = 'H';$/;"	v
+highesty	led.cpp	/^void highesty(void)$/;"	f
+hold	lintel.cpp	/^int hold;            \/\/ one of the defined holds NO,CL,PR,CP,DB,OP,CR,OE,CO,SH,SS$/;"	v
+hold	lintelref.cpp	/^int hold;            \/\/ one of the defined holds NO,CL,PR,CP,DB,OP,CR,OE,CO,SH,SS$/;"	v
+holdcl	lintel.cpp	/^int holdcl;          \/\/ closed hold counter$/;"	v
+holdcl	lintelref.cpp	/^int holdcl;          \/\/ closed hold counter$/;"	v
+holdco	lintel.cpp	/^int holdco;          \/\/ counter open extended hold counter$/;"	v
+holdco	lintelref.cpp	/^int holdco;          \/\/ counter open extended hold counter$/;"	v
+holdoe	lintel.cpp	/^int holdoe;          \/\/ open extended hold counter$/;"	v
+holdoe	lintelref.cpp	/^int holdoe;          \/\/ open extended hold counter$/;"	v
+holdpr	lintel.cpp	/^int holdpr;          \/\/ promenade hold counter$/;"	v
+holdpr	lintelref.cpp	/^int holdpr;          \/\/ promenade hold counter$/;"	v
+holdsh	lintel.cpp	/^int holdsh;          \/\/ shadow hold counter$/;"	v
+holdsh	lintelref.cpp	/^int holdsh;          \/\/ shadow hold counter$/;"	v
+holdss	lintel.cpp	/^int holdss;          \/\/ semishadow hold counter$/;"	v
+holdss	lintelref.cpp	/^int holdss;          \/\/ semishadow hold counter$/;"	v
+home	nudes.c	/^char home[] = "\/home\/laban-experiments";$/;"	v
+hstart	lintel.cpp	/^int hstart;          \/\/ frame at start of hold$/;"	v
+hstart	lintelref.cpp	/^int hstart;          \/\/ frame at start of hold$/;"	v
+i	lintel.cpp	/^	int i;       \/\/ item in menu$/;"	m	struct:Symbol	file:
+i	lintelref.cpp	/^	int i;       \/\/ item in menu$/;"	m	struct:Symbol	file:
+illum	raselr.c	/^double illum(n,x,y,z,ell2y)$/;"	f
+image	lintel.cpp	/^void image(void)$/;"	f
+image	lintelref.cpp	/^void image(void)$/;"	f
+imess	nudes.c	/^char imess[BMAX];   \/* stereo separation message *\/$/;"	v
+inells	compln.c	/^int inells()$/;"	f
+inells	lintel.cpp	/^int inells(void)$/;"	f
+inells	lintelref.cpp	/^int inells(void)$/;"	f
+infile	led.cpp	/^char infile[BMAX];$/;"	v
+infile	lintel.cpp	/^FILE *infile;$/;"	v
+infile	lintelref.cpp	/^FILE *infile;$/;"	v
+infile	nudes.c	/^char infile[BMAX];  \/* name of input file containing frame number *\/$/;"	v
+infile	raselr.c	/^char   infile[BMAX];$/;"	v
+ini_diag	lintel.cpp	/^int ini_diag = 0;$/;"	v
+ini_diag	lintelref.cpp	/^int ini_diag = 0;$/;"	v
+ini_title	lintel.cpp	/^char ini_title[256][32];$/;"	v
+ini_title	lintelref.cpp	/^char ini_title[256][32];$/;"	v
+ini_value	lintel.cpp	/^char ini_value[256][128];$/;"	v
+ini_value	lintelref.cpp	/^char ini_value[256][128];$/;"	v
+initgraphics	led.cpp	/^void initgraphics(void) $/;"	f
+initgraphics	lintel.cpp	/^void initgraphics(void)$/;"	f
+initgraphics	lintelref.cpp	/^void initgraphics(void)$/;"	f
+initialise	lintel.cpp	/^void initialise(void)$/;"	f
+initialise	lintelref.cpp	/^void initialise(void)$/;"	f
+initsphere	lintel.cpp	/^static void initsphere(void)$/;"	f	file:
+initsphere	lintelref.cpp	/^static void initsphere(void)$/;"	f	file:
+injts	compln.c	/^injts()$/;"	f
+injts	lintel.cpp	/^void injts(void)$/;"	f
+injts	lintelref.cpp	/^void injts(void)$/;"	f
+inlims	compln.c	/^inlims()$/;"	f
+inlims	lintel.cpp	/^void inlims(void)$/;"	f
+inlims	lintelref.cpp	/^void inlims(void)$/;"	f
+inmain	lintel.cpp	/^int inmain;          \/\/ TRUE if still in main NUDES program$/;"	v
+inmain	lintelref.cpp	/^int inmain;          \/\/ TRUE if still in main NUDES program$/;"	v
+inname	compln.c	/^inname(nnames,names,isvar,lengths)$/;"	f
+inname	lintel.cpp	/^int inname(int n, int isvar, int lengths[EMAX], char names[EMAX][BMAX])$/;"	f
+inname	lintelref.cpp	/^int inname(int n, int isvar, int lengths[EMAX], char names[EMAX][BMAX])$/;"	f
+inperf	compln.c	/^inperf()$/;"	f
+inperf	lintel.cpp	/^void inperf(void)$/;"	f
+inperf	lintelref.cpp	/^void inperf(void)$/;"	f
+input	nudes.c	/^char input;         \/* n, 2, 3, 4, p, or q for NUDES input file *\/$/;"	v
+input	prfrm.c	/^input()$/;"	f
+input	shadoq.c	/^input()$/;"	f
+input	viewc.c	/^input()$/;"	f
+input_file_type	lintel.cpp	/^int input_file_type;$/;"	v
+input_file_type	lintelref.cpp	/^int input_file_type;$/;"	v
+intersect	lintel.cpp	/^int intersect;$/;"	v
+intersect	lintelref.cpp	/^int intersect;$/;"	v
+intersect	prfrm.c	/^int     intersect;$/;"	v
+inv10	lintel.cpp	/^double  inv10;$/;"	v
+inv10	lintelref.cpp	/^double  inv10;$/;"	v
+inv10	raselr.c	/^double inv10;$/;"	v
+inv1000	lintel.cpp	/^double  inv1000;$/;"	v
+inv1000	lintelref.cpp	/^double  inv1000;$/;"	v
+inv2	led.cpp	/^float inv2;$/;"	v
+inv2	lintel.cpp	/^double  inv2;$/;"	v
+inv2	lintelref.cpp	/^double  inv2;$/;"	v
+inv2	prfrm.c	/^double  inv2;$/;"	v
+inv2	raselr.c	/^double inv2;$/;"	v
+inv2	shadoq.c	/^double inv2,doub0,ten,rad10,pi,piby2 ;$/;"	v
+inv2	viewc.c	/^double  inv2;$/;"	v
+inv256	lintel.cpp	/^double  inv256;$/;"	v
+inv256	lintelref.cpp	/^double  inv256;$/;"	v
+inv3	lintel.cpp	/^double  inv3;$/;"	v
+inv3	lintelref.cpp	/^double  inv3;$/;"	v
+inv3	prfrm.c	/^double  inv3;$/;"	v
+inv3	raselr.c	/^double inv3;$/;"	v
+inv4	lintel.cpp	/^double  inv4;$/;"	v
+inv4	lintelref.cpp	/^double  inv4;$/;"	v
+inv5	lintel.cpp	/^double  inv5;$/;"	v
+inv5	lintelref.cpp	/^double  inv5;$/;"	v
+inv6	lintel.cpp	/^double  inv6;$/;"	v
+inv6	lintelref.cpp	/^double  inv6;$/;"	v
+inv6	prfrm.c	/^double  inv6;$/;"	v
+invert	prfrm.c	/^   int invert = 31;$/;"	v
+invert_keyword_code	lintel.cpp	/^   int invert_keyword_code= 31;$/;"	v
+invert_keyword_code	lintelref.cpp	/^   int invert_keyword_code= 31;$/;"	v
+iobs0	viewc.c	/^int     iplx,iply,iplz,iobs0,iobs1,iobs2; \/* viewing data *\/$/;"	v
+iobs1	split3e.c	/^int iplx,iply,iplz,iobs1,iobs2,iobs3;$/;"	v
+iobs1	viewc.c	/^int     iplx,iply,iplz,iobs0,iobs1,iobs2; \/* viewing data *\/$/;"	v
+iobs2	split3e.c	/^int iplx,iply,iplz,iobs1,iobs2,iobs3;$/;"	v
+iobs2	viewc.c	/^int     iplx,iply,iplz,iobs0,iobs1,iobs2; \/* viewing data *\/$/;"	v
+iobs3	split3e.c	/^int iplx,iply,iplz,iobs1,iobs2,iobs3;$/;"	v
+iplx	split3e.c	/^int iplx,iply,iplz,iobs1,iobs2,iobs3;$/;"	v
+iplx	viewc.c	/^int     iplx,iply,iplz,iobs0,iobs1,iobs2; \/* viewing data *\/$/;"	v
+iply	split3e.c	/^int iplx,iply,iplz,iobs1,iobs2,iobs3;$/;"	v
+iply	viewc.c	/^int     iplx,iply,iplz,iobs0,iobs1,iobs2; \/* viewing data *\/$/;"	v
+iplz	split3e.c	/^int iplx,iply,iplz,iobs1,iobs2,iobs3;$/;"	v
+iplz	viewc.c	/^int     iplx,iply,iplz,iobs0,iobs1,iobs2; \/* viewing data *\/$/;"	v
+ipr	prfrm.c	/^ipr(x)$/;"	f
+ipr	shadoq.c	/^ipr(x)$/;"	f
+ipr	viewc.c	/^ipr(x)$/;"	f
+item	led.cpp	/^   int item;$/;"	m	struct:Segment	file:
+j	lintel.cpp	/^int j;               \/\/ counter through symbols$/;"	v
+j	lintelref.cpp	/^int j;               \/\/ counter through symbols$/;"	v
+j	shadoq.c	/^int f,h,j,m,n ;$/;"	v
+ja	lintel.cpp	/^int ja;                  \/\/ TRUE = 0 if already done$/;"	v
+ja	lintelref.cpp	/^int ja;                  \/\/ TRUE = 0 if already done$/;"	v
+jb	lintel.cpp	/^int jb;                  \/\/ bendedness of current symbol$/;"	v
+jb	lintelref.cpp	/^int jb;                  \/\/ bendedness of current symbol$/;"	v
+jc	lintel.cpp	/^int jc;                  \/\/ current symbol column$/;"	v
+jc	lintelref.cpp	/^int jc;                  \/\/ current symbol column$/;"	v
+jcount	lintel.cpp	/^int jcount ;$/;"	v
+jcount	lintelref.cpp	/^int jcount ;$/;"	v
+jcount	prfrm.c	/^int     jcount ;$/;"	v
+jd	lintel.cpp	/^int jd;                  \/\/ current symbol shading$/;"	v
+jd	lintelref.cpp	/^int jd;                  \/\/ current symbol shading$/;"	v
+jh	lintel.cpp	/^int jh;                  \/\/ current symbol height$/;"	v
+jh	lintelref.cpp	/^int jh;                  \/\/ current symbol height$/;"	v
+ji	lintel.cpp	/^int ji;                  \/\/ current symbol item in menu$/;"	v
+ji	lintelref.cpp	/^int ji;                  \/\/ current symbol item in menu$/;"	v
+jl	lintel.cpp	/^int jl;                  \/\/ line of current symbol$/;"	v
+jl	lintelref.cpp	/^int jl;                  \/\/ line of current symbol$/;"	v
+jline	split3e.c	/^char jline[EMAX][BMAX];$/;"	v
+jlist	lintel.cpp	/^int jlist[EMAX];     \/\/ array for lists of joints in current action$/;"	v
+jlist	lintelref.cpp	/^int jlist[EMAX];     \/\/ array for lists of joints in current action$/;"	v
+jlist	prfrm.c	/^int     jlist[EMAX] ;$/;"	v
+jm	lintel.cpp	/^char jm;                 \/\/ current symbol menu$/;"	v
+jm	lintelref.cpp	/^char jm;                 \/\/ current symbol menu$/;"	v
+jname	lintel.cpp	/^char jname[EMAX][BMAX];    \/\/ joint names$/;"	v
+jname	lintelref.cpp	/^char jname[EMAX][BMAX];    \/\/ joint names$/;"	v
+jname	prfrm.c	/^char    jname[EMAX][BMAX];$/;"	v
+jname	shadoq.c	/^char jname[EMAX][BMAX];$/;"	v
+jname	viewc.c	/^char    jname[EMAX][BMAX];$/;"	v
+jnames	frad3c.c	/^char jnames[EMAX][BMAX];$/;"	v
+jnt	compln.c	/^float jnt[EMAX][3];      \/* coordinates of the joints *\/$/;"	v
+jnt	frad3c.c	/^int jnt[EMAX][5];$/;"	v
+jnt	lintel.cpp	/^double  jnt[EMAX][3];          \/\/ coordinates of joints between ellipsoids$/;"	v
+jnt	lintelref.cpp	/^double  jnt[EMAX][3];          \/\/ coordinates of joints between ellipsoids$/;"	v
+jnt	prfrm.c	/^double  jnt[EMAX][3] ;$/;"	v
+jnt	shadoq.c	/^int jnt[EMAX][3];$/;"	v
+jnt	viewc.c	/^double  jnt[EMAX][3]; \/* coordinates of joints between ellipsoids *\/$/;"	v
+jntlen	compln.c	/^int jntlen[EMAX];$/;"	v
+jntlen	lintel.cpp	/^int jntlen[EMAX];$/;"	v
+jntlen	lintelref.cpp	/^int jntlen[EMAX];$/;"	v
+jntnam	compln.c	/^char jntnam[EMAX][BMAX]; \/* joint names *\/$/;"	v
+jntsav	lintel.cpp	/^double  jntsav[EMAX][3];$/;"	v
+jntsav	lintelref.cpp	/^double  jntsav[EMAX][3];$/;"	v
+jntsav	prfrm.c	/^double  jntsav[EMAX][3] ;$/;"	v
+join	compln.c	/^join()$/;"	f
+join	lintel.cpp	/^int join;            \/\/ joint for current bend command$/;"	v
+join	lintelref.cpp	/^int join;            \/\/ joint for current bend command$/;"	v
+join	prfrm.c	/^int     join;$/;"	v
+joined	compln.c	/^int joined = 3;   \/* code of 'joint' declaration *\/$/;"	v
+joint	prfrm.c	/^   int joint  = 3;$/;"	v
+joint_keyword_code	lintel.cpp	/^   int joint_keyword_code=  3;$/;"	v
+joint_keyword_code	lintelref.cpp	/^   int joint_keyword_code=  3;$/;"	v
+js	lintel.cpp	/^int js;                  \/\/ current symbol step size$/;"	v
+js	lintelref.cpp	/^int js;                  \/\/ current symbol step size$/;"	v
+junk	lintel.cpp	/^char* junk[BMAX];$/;"	v
+junk	lintelref.cpp	/^char* junk[BMAX];$/;"	v
+jw	lintel.cpp	/^int jw;                  \/\/ current symbol width$/;"	v
+jw	lintelref.cpp	/^int jw;                  \/\/ current symbol width$/;"	v
+jx	led.cpp	/^int jx;               \/* postscript offset for filled pins *\/$/;"	v
+jx	lintel.cpp	/^int jx;                  \/\/ current symbol x bottom$/;"	v
+jx	lintelref.cpp	/^int jx;                  \/\/ current symbol x bottom$/;"	v
+jx2	lintel.cpp	/^int jx2;                 \/\/ current symbol x top$/;"	v
+jx2	lintelref.cpp	/^int jx2;                 \/\/ current symbol x top$/;"	v
+jy	lintel.cpp	/^int jy;                  \/\/ current symbol y bottom$/;"	v
+jy	lintelref.cpp	/^int jy;                  \/\/ current symbol y bottom$/;"	v
+jy2	lintel.cpp	/^int jy2;                 \/\/ current symbol y top$/;"	v
+jy2	lintelref.cpp	/^int jy2;                 \/\/ current symbol y top$/;"	v
+k	lintel.cpp	/^int k;$/;"	v
+k	lintelref.cpp	/^int k;$/;"	v
+k	prfrm.c	/^int     k;$/;"	v
+keep	nudes.c	/^int keep;           \/* true if intermediate files to be kept *\/$/;"	v
+keptf	lintel.cpp	/^int keptf;           \/\/ last frame when last position kept$/;"	v
+keptf	lintelref.cpp	/^int keptf;           \/\/ last frame when last position kept$/;"	v
+key	led.cpp	/^char  key[NSYMS]= { '1','2','3','4','5','[',']','C',$/;"	v
+keydx	led.cpp	/^int   keydx[NSYMS][LINES] = { {0},$/;"	v
+keydy	led.cpp	/^int   keydy[NSYMS][LINES] = { {0},$/;"	v
+keylen	compln.c	/^int keylen[EMAX];$/;"	v
+keylen	lintel.cpp	/^int keylen[NKEYS];$/;"	v
+keylen	lintelref.cpp	/^int keylen[NKEYS];$/;"	v
+keymenudx	led.cpp	/^int   keymenudx[5] = { 0, MSIZE, 0, -MSIZE, 0};$/;"	v
+keymenudy	led.cpp	/^int   keymenudy[5] = { 0, 0, MSIZE, 0, -MSIZE};$/;"	v
+keymx	led.cpp	/^int   keymx;$/;"	v
+keymy	led.cpp	/^int   keymy;$/;"	v
+keynam	compln.c	/^char keynam[EMAX][BMAX] = {$/;"	v
+keynam	lintel.cpp	/^char keynam[NKEYS][BMAX] = {$/;"	v
+keynam	lintelref.cpp	/^char keynam[NKEYS][BMAX] = {$/;"	v
+keystep	led.cpp	/^int   keystep = 2;$/;"	v
+keyx	led.cpp	/^int   keyx[NSYMS] = { 0, 5, 17, 29, 41, 53, 65, 77, 84,$/;"	v
+keyy	led.cpp	/^int   keyy[NSYMS] = { 0, 20, 20, 20, 20, 20, 20, 20, 20,$/;"	v
+kmess	nudes.c	/^char kmess[BMAX];   \/* message to anaglyphe re keeping intermediate files *\/$/;"	v
+knee	compln.c	/^int knee[EMAX];          \/* true if joint is a knee and flexes backwards *\/$/;"	v
+knee	lintel.cpp	/^int knee[EMAX];      \/\/ knee[j] - true if jth joint is a knee i.e. flexes backwards$/;"	v
+knee	lintelref.cpp	/^int knee[EMAX];      \/\/ knee[j] - true if jth joint is a knee i.e. flexes backwards$/;"	v
+knee	prfrm.c	/^int     knee[EMAX] ;$/;"	v
+kx	led.cpp	/^int   kx[NSYMS] = { 0, 0, 0, 0, 0, 0, 0, 0,$/;"	v
+ky	led.cpp	/^int   ky[NSYMS] = { 0, 0, 0, 0, 0, 0, 0, 0,$/;"	v
+l	lintel.cpp	/^	int l;       \/\/ lbn file line number$/;"	m	struct:Symbol	file:
+l	lintelref.cpp	/^	int l;       \/\/ lbn file line number$/;"	m	struct:Symbol	file:
+laction	lintel.cpp	/^void laction(void)$/;"	f
+laction	lintelref.cpp	/^void laction(void)$/;"	f
+lassign	lintel.cpp	/^void lassign(void)$/;"	f
+lassign	lintelref.cpp	/^void lassign(void)$/;"	f
+lbent	lintel.cpp	/^void lbent(void)$/;"	f
+lbent	lintelref.cpp	/^void lbent(void)$/;"	f
+lblur	raselr.c	/^int    lblur;              \/* number of lines to be blurred together *\/$/;"	v
+lbn	lintel.cpp	/^struct Symbol lbn[LMAX]; \/\/ laban score entries$/;"	v	typeref:struct:Symbol
+lbn	lintelref.cpp	/^struct Symbol lbn[LMAX]; \/\/ laban score entries$/;"	v	typeref:struct:Symbol
+lbn_bpm	lintel.cpp	/^int lbn_bpm = -1;$/;"	v
+lbn_bpm	lintelref.cpp	/^int lbn_bpm = -1;$/;"	v
+lbn_figures	lintel.cpp	/^int lbn_figures = 1;     \/\/ number of staves to be interpreted$/;"	v
+lbn_figures	lintelref.cpp	/^int lbn_figures = 1;     \/\/ number of staves to be interpreted$/;"	v
+lbn_fpp	lintel.cpp	/^double lbn_fpp;      \/\/ frames per pixel$/;"	v
+lbn_fpp	lintelref.cpp	/^double lbn_fpp;      \/\/ frames per pixel$/;"	v
+lbn_fps	lintel.cpp	/^int lbn_fps = -1;$/;"	v
+lbn_fps	lintelref.cpp	/^int lbn_fps = -1;$/;"	v
+lbn_ppb	lintel.cpp	/^int lbn_ppb = 23;$/;"	v
+lbn_ppb	lintelref.cpp	/^int lbn_ppb = 23;$/;"	v
+lbnline	lintel.cpp	/^char lbnline[LMAX][BMAX];  \/\/ lbn file lines$/;"	v
+lbnline	lintelref.cpp	/^char lbnline[LMAX][BMAX];  \/\/ lbn file lines$/;"	v
+lbnread	led.cpp	/^void lbnread(void)$/;"	f
+lbnread	lintel.cpp	/^void lbnread(void)$/;"	f
+lbnread	lintelref.cpp	/^void lbnread(void)$/;"	f
+lbnsort	led.cpp	/^void lbnsort(void)$/;"	f
+lbnwrite	led.cpp	/^void lbnwrite(void)$/;"	f
+lbows	lintel.cpp	/^void lbows(void)$/;"	f
+lbows	lintelref.cpp	/^void lbows(void)$/;"	f
+lcentre	lintel.cpp	/^int lcentre;         \/\/ x position of centre staff line$/;"	v
+lcentre	lintelref.cpp	/^int lcentre;         \/\/ x position of centre staff line$/;"	v
+lchange	lintel.cpp	/^void lchange(char d)$/;"	f
+lchange	lintelref.cpp	/^void lchange(char d)$/;"	f
+lcolx	lintel.cpp	/^void lcolx(int lcentre)$/;"	f
+lcolx	lintelref.cpp	/^void lcolx(int lcentre)$/;"	f
+lcoords	lintel.cpp	/^void lcoords(char jm, int ji)$/;"	f
+lcoords	lintelref.cpp	/^void lcoords(char jm, int ji)$/;"	f
+lcopyfigs	lintel.cpp	/^void lcopyfigs(char* renOrfile)$/;"	f
+lcopyfigs	lintelref.cpp	/^void lcopyfigs(void)$/;"	f
+ldoarms	lintel.cpp	/^void ldoarms(void)$/;"	f
+ldoarms	lintelref.cpp	/^void ldoarms(void)$/;"	f
+ldoarmsorhead	lintelref.cpp	/^void ldoarmsorhead(int j)$/;"	f
+ldobar	lintel.cpp	/^void ldobar(void)$/;"	f
+ldobar	lintelref.cpp	/^void ldobar(void)$/;"	f
+ldochest	lintel.cpp	/^void ldochest(int piv)$/;"	f
+ldochest	lintelref.cpp	/^void ldochest(int piv)$/;"	f
+ldohead	lintel.cpp	/^void ldohead()$/;"	f
+ldohold	lintel.cpp	/^void ldohold(void)$/;"	f
+ldohold	lintelref.cpp	/^void ldohold(void)$/;"	f
+ldojump	lintelref.cpp	/^void ldojump(int column, int yrange, int ystart)$/;"	f
+ldokeep	lintel.cpp	/^void ldokeep(void)$/;"	f
+ldokeep	lintelref.cpp	/^void ldokeep(void)$/;"	f
+ldolimb	lintel.cpp	/^void ldolimb(void)$/;"	f
+ldolimb	lintelref.cpp	/^void ldolimb(void)$/;"	f
+ldopivot	lintel.cpp	/^void ldopivot(void)$/;"	f
+ldopivot	lintelref.cpp	/^void ldopivot(void)$/;"	f
+ldoposn	lintel.cpp	/^void ldoposn(void)$/;"	f
+ldoposn	lintelref.cpp	/^void ldoposn(void)$/;"	f
+ldostep	lintel.cpp	/^void ldostep(void)$/;"	f
+ldostep	lintelref.cpp	/^void ldostep(void)$/;"	f
+ldosupport	lintelref.cpp	/^void ldosupport(int j)$/;"	f
+ldotoetaps	lintel.cpp	/^void ldotoetaps ( void )\/*$/;"	f
+ldotoetaps	lintelref.cpp	/^void ldotoetaps ( void )\/*$/;"	f
+led_opena	lintel.cpp	/^bool led_opena ( int min_fps, int max_fps, int min_beats, int max_beats )$/;"	f
+led_opena	lintelref.cpp	/^bool led_opena ( int min_fps, int max_fps, int min_beats, int max_beats )$/;"	f
+led_param	lintel.cpp	/^void led_param ( void )$/;"	f
+led_param	lintelref.cpp	/^void led_param ( void )$/;"	f
+leg	lintel.cpp	/^int   leg[12][3]   \/* quaternion angles of 11 direction symbols *\/$/;"	v
+leg	lintelref.cpp	/^int   leg[12][3]   \/* quaternion angles of 11 direction symbols *\/$/;"	v
+len	split3e.c	/^int len;$/;"	v
+length	compln.c	/^int length;              \/* length of next input string *\/$/;"	v
+length	led.cpp	/^   int length;        \/* length of text *\/$/;"	m	struct:Segment	file:
+length	lintel.cpp	/^int length;          \/\/ length of next input string$/;"	v
+length	lintelref.cpp	/^int length;          \/\/ length of next input string$/;"	v
+length	nudes.c	/^int length;         \/* number of frames of a script to interpret *\/$/;"	v
+level	led.cpp	/^   char level;        \/* low, middle, high, or blank *\/$/;"	m	struct:Segment	file:
+lfindnext	lintel.cpp	/^int lfindnext(int c, int y1, int y2)$/;"	f
+lfindnext	lintelref.cpp	/^int lfindnext(int c, int y1, int y2)$/;"	f
+lfindstaff	lintel.cpp	/^void lfindstaff(char* gen)$/;"	f
+lfindstaff	lintelref.cpp	/^void lfindstaff(void)$/;"	f
+lfindystart	lintel.cpp	/^void lfindystart(void)$/;"	f
+lfindystart	lintelref.cpp	/^void lfindystart(void)$/;"	f
+lfinish	lintel.cpp	/^void lfinish(void)$/;"	f
+lfinish	lintelref.cpp	/^void lfinish(void)$/;"	f
+lg2	lintel.cpp	/^double  lg2;                   \/\/logarithm of 2$/;"	v
+lg2	lintelref.cpp	/^double  lg2;                   \/\/logarithm of 2$/;"	v
+lg2	prfrm.c	/^double  lg2;$/;"	v
+lgetout	lintel.cpp	/^void lgetout(int allok)$/;"	f
+lgetout	lintelref.cpp	/^void lgetout(int allok)$/;"	f
+lgetpin	lintel.cpp	/^int lgetpin(void)$/;"	f
+lgetpin	lintelref.cpp	/^int lgetpin(void)$/;"	f
+lghtng_keyword_code	lintel.cpp	/^   int lghtng_keyword_code= 61;$/;"	v
+lghtng_keyword_code	lintelref.cpp	/^   int lghtng_keyword_code= 61;$/;"	v
+lhasgesture	lintel.cpp	/^int lhasgesture(int j)$/;"	f
+lhasgesture	lintelref.cpp	/^int lhasgesture(int j)$/;"	f
+lhastap	lintel.cpp	/^int lhastap(int j)$/;"	f
+lhastap	lintelref.cpp	/^int lhastap(int j)$/;"	f
+lighting_rgb	lintel.cpp	/^double  lighting_rgb[3];$/;"	v
+lighting_rgb	lintelref.cpp	/^double  lighting_rgb[3];$/;"	v
+lim	compln.c	/^float lim[EMAX][3][2];   \/* angular limits on the joints *\/$/;"	v
+lim	lintel.cpp	/^double  lim[EMAX][3][2];$/;"	v
+lim	lintelref.cpp	/^double  lim[EMAX][3][2];$/;"	v
+lim	prfrm.c	/^double  lim[EMAX][3][2];$/;"	v
+limdx	led.cpp	/^int   limdx[NSYMS][LINES] = { {0},$/;"	v
+limdy	led.cpp	/^int   limdy[NSYMS][LINES] = { {0},$/;"	v
+limits	compln.c	/^int limits = 54;  \/* code for 'limits' declaration *\/$/;"	v
+limits	prfrm.c	/^   int limits = 54;$/;"	v
+limits_keyword_code	lintel.cpp	/^   int limits_keyword_code= 54;$/;"	v
+limits_keyword_code	lintelref.cpp	/^   int limits_keyword_code= 54;$/;"	v
+limmenudx	led.cpp	/^int   limmenudx[5] = { 0, MSIZE, 0, -MSIZE, 0};$/;"	v
+limmenudy	led.cpp	/^int   limmenudy[5] = { 0, 0, 2*MSIZE, 0, -2*MSIZE};$/;"	v
+limmx	led.cpp	/^int   limmx;$/;"	v
+limmy	led.cpp	/^int   limmy;$/;"	v
+limstep	led.cpp	/^int   limstep = 4;$/;"	v
+limx	led.cpp	/^int   limx[NSYMS] = { 0,  5, 20, 40, 60, 80, 5,  20, 40, 60, 80,$/;"	v
+limy	led.cpp	/^int   limy[NSYMS] = { 0, 10, 10, 10, 10, 10, 30, 35, 40, 45, 50,$/;"	v
+line	compln.c	/^char line[BMAX];         \/* input buffer *\/$/;"	v
+line	lintel.cpp	/^char line[BMAX];           \/\/ compl input buffer$/;"	v
+line	lintelref.cpp	/^char line[BMAX];           \/\/ compl input buffer$/;"	v
+lineabs	led.cpp	/^void lineabs(int x, int y)$/;"	f
+linear	prfrm.c	/^   int linear = 25;$/;"	v
+linear_keyword_code	lintel.cpp	/^   int linear_keyword_code= 25;$/;"	v
+linear_keyword_code	lintelref.cpp	/^   int linear_keyword_code= 25;$/;"	v
+linerel	led.cpp	/^void linerel(int x, int y)$/;"	f
+lines	run.py	/^lines = f.readlines()$/;"	v
+linkx	prfrm.c	/^   int linkx  = 49;$/;"	v
+linkx_keyword_code	lintel.cpp	/^   int linkx_keyword_code= 49;$/;"	v
+linkx_keyword_code	lintelref.cpp	/^   int linkx_keyword_code= 49;$/;"	v
+linter	lintel.cpp	/^void linter(char* renOrfile,char* gen)$/;"	f
+linter	lintelref.cpp	/^void linter(void)$/;"	f
+lkneesupport	lintelref.cpp	/^void lkneesupport()$/;"	f
+lleggesture	lintel.cpp	/^void lleggesture(void)$/;"	f
+lleggesture	lintelref.cpp	/^void lleggesture(void)$/;"	f
+llength	compln.c	/^int llength()$/;"	f
+llength	lintel.cpp	/^int llength(void)$/;"	f
+llength	lintelref.cpp	/^int llength(void)$/;"	f
+lline	compln.c	/^int lline;               \/* length of next input line *\/$/;"	v
+lline	lintel.cpp	/^int lline;           \/\/ length of next input line$/;"	v
+lline	lintelref.cpp	/^int lline;           \/\/ length of next input line$/;"	v
+loverlap	lintel.cpp	/^int loverlap(int p1j, int p2j, int p1k, int p2k)$/;"	f
+loverlap	lintelref.cpp	/^int loverlap(int p1j, int p2j, int p1k, int p2k)$/;"	f
+low	led.cpp	/^char low = 'L';$/;"	v
+lrelease	lintel.cpp	/^void lrelease(void)$/;"	f
+lrelease	lintelref.cpp	/^void lrelease(void)$/;"	f
+lseeksym	lintel.cpp	/^int lseeksym(char m, int i, int x1, int x2, int y3, int y4)$/;"	f
+lseeksym	lintelref.cpp	/^int lseeksym(char m, int i, int x1, int x2, int y3, int y4)$/;"	f
+lselectfig	lintel.cpp	/^void lselectfig(void)$/;"	f
+lselectfig	lintelref.cpp	/^void lselectfig(void)$/;"	f
+lsetcoords	lintel.cpp	/^void lsetcoords(void)$/;"	f
+lsetcoords	lintelref.cpp	/^void lsetcoords(void)$/;"	f
+lsetframes	lintel.cpp	/^void lsetframes(void)$/;"	f
+lsetframes	lintelref.cpp	/^void lsetframes(void)$/;"	f
+lsetframes2	lintelref.cpp	/^void lsetframes2(int jy,int jh)$/;"	f
+lsethold	lintel.cpp	/^void lsethold(void)$/;"	f
+lsethold	lintelref.cpp	/^void lsethold(void)$/;"	f
+lsetrange	lintel.cpp	/^   void lsetrange(void)$/;"	f
+lsetrange	lintelref.cpp	/^   void lsetrange(void)$/;"	f
+lsortx	lintel.cpp	/^void lsortx(int stff[LMAX][2], int nstff)$/;"	f
+lsortx	lintelref.cpp	/^void lsortx(int stff[LMAX][2], int nstff)$/;"	f
+lsorty	lintel.cpp	/^void lsorty(void)$/;"	f
+lsorty	lintelref.cpp	/^void lsorty(void)$/;"	f
+lspotturn	lintel.cpp	/^void lspotturn(int j, int piv, int fstart, int fend, int g)$/;"	f
+lspotturn	lintelref.cpp	/^void lspotturn(int j, int piv, int fstart, int fend, int g)$/;"	f
+lstart	lintel.cpp	/^void lstart(void)$/;"	f
+lstart	lintelref.cpp	/^void lstart(void)$/;"	f
+m	lintel.cpp	/^	char m;      \/\/ menu$/;"	m	struct:Symbol	file:
+m	lintelref.cpp	/^	char m;      \/\/ menu$/;"	m	struct:Symbol	file:
+m	nudes.c	/^int m;              \/* index into buf array *\/$/;"	v
+m	raselr.c	/^int    m,n;$/;"	v
+m	shadoq.c	/^int f,h,j,m,n ;$/;"	v
+m1	nudes.c	/^int m1,m2;          \/* parameters to density program densf *\/$/;"	v
+m2	nudes.c	/^int m1,m2;          \/* parameters to density program densf *\/$/;"	v
+main	compln.c	/^main(argc,argv)$/;"	f
+main	frad3c.c	/^main(argc,argv)$/;"	f
+main	led.cpp	/^int main(int argc, char* argv[])$/;"	f
+main	lintel.cpp	/^int main(int argc, char* argv[])$/;"	f
+main	lintelref.cpp	/^int main(int argc, char* argv[])$/;"	f
+main	nudes.c	/^main(argc,argv)$/;"	f
+main	prfrm.c	/^main(argc,argv)$/;"	f
+main	raselr.c	/^main(argc,argv)$/;"	f
+main	shadoq.c	/^main(argc,argv)$/;"	f
+main	split3e.c	/^main (argc,argv)$/;"	f
+main	viewc.c	/^main(argc,argv)$/;"	f
+makebar	led.cpp	/^void makebar(int s, int j, int x, int y, int w, char l)$/;"	f
+makeseq	nudes.c	/^makeseq(f)$/;"	f
+makestaff	led.cpp	/^void makestaff(void)$/;"	f
+map	raselr.c	/^unsigned char map[XMAX*XMAX*3];$/;"	v
+mapdone	raselr.c	/^int    mapdone[EMAX];      \/* 1 if map done already *\/$/;"	v
+maps	raselr.c	/^char   *maps[EMAX][10];    \/* pointers to texture maps *\/$/;"	v
+mapsdone	raselr.c	/^int mapsdone(width)$/;"	f
+mapsizes	raselr.c	/^int    mapsizes[EMAX][10]; \/* size of each map *\/$/;"	v
+match	compln.c	/^int match(names,nnames,lengths)$/;"	f
+match	lintel.cpp	/^int match(int nnames, int lengths[EMAX], char names[EMAX][BMAX])$/;"	f
+match	lintelref.cpp	/^int match(int nnames, int lengths[EMAX], char names[EMAX][BMAX])$/;"	f
+matmul	lintel.cpp	/^void matmul(double a[3][3], double b[3][3], double c[3][3])$/;"	f
+matmul	lintelref.cpp	/^void matmul(double a[3][3], double b[3][3], double c[3][3])$/;"	f
+matmul	prfrm.c	/^matmul(a,b,ans)$/;"	f
+matmul	raselr.c	/^matmul(a,b,c)$/;"	f
+matmul	shadoq.c	/^matmul(a,b,ans)$/;"	f
+matmul	viewc.c	/^matmul(a,b,ans)$/;"	f
+matrot	lintel.cpp	/^void matrot(double r[3][3], int n)$/;"	f
+matrot	lintelref.cpp	/^void matrot(double r[3][3], int n)$/;"	f
+matrot	prfrm.c	/^matrot(r,n)$/;"	f
+matrot	viewc.c	/^matrot(r,n)$/;"	f
+max	raselr.c	92;"	d	file:
+max_ini	lintel.cpp	/^int max_ini = 256;$/;"	v
+max_ini	lintelref.cpp	/^int max_ini = 256;$/;"	v
+max_ini_len	lintel.cpp	/^int max_ini_len = 32;$/;"	v
+max_ini_len	lintelref.cpp	/^int max_ini_len = 32;$/;"	v
+maxax	lintel.cpp	/^double  maxax[EMAX];           \/\/ maxax[j] - largest semiaxis of jth ellipsoid$/;"	v
+maxax	lintelref.cpp	/^double  maxax[EMAX];           \/\/ maxax[j] - largest semiaxis of jth ellipsoid$/;"	v
+maxax	prfrm.c	/^double  maxax[EMAX];$/;"	v
+maxax	shadoq.c	/^double maxax[EMAX+1];$/;"	v
+maxint	lintel.cpp	/^int maxint;          \/\/ largest representable integer$/;"	v
+maxint	lintelref.cpp	/^int maxint;          \/\/ largest representable integer$/;"	v
+menu	led.cpp	/^   int menu;$/;"	m	struct:Segment	file:
+menutext	led.cpp	/^char menutext[NSYMS][4] = {$/;"	v
+menutext	lintel.cpp	/^char menutext[NSYMS][4] = {$/;"	v
+menutext	lintelref.cpp	/^char menutext[NSYMS][4] = {$/;"	v
+mfac	led.cpp	/^float mfac;           \/* scales positions of symbols in menus *\/$/;"	v
+mface	lintel.cpp	/^int mface,wface;     \/\/ facing directions of man and woman$/;"	v
+mface	lintelref.cpp	/^int mface,wface;     \/\/ facing directions of man and woman$/;"	v
+middle	led.cpp	/^char middle = 'M';$/;"	v
+middle	split3e.c	/^char middle[2];$/;"	v
+min	raselr.c	91;"	d	file:
+minax	lintel.cpp	/^double  minax[EMAX];$/;"	v
+minax	lintelref.cpp	/^double  minax[EMAX];$/;"	v
+minax	prfrm.c	/^double  minax[EMAX];$/;"	v
+misdx	led.cpp	/^int   misdx[NSYMS][LINES] = { {0},$/;"	v
+misdy	led.cpp	/^int   misdy[NSYMS][LINES] = { {0},$/;"	v
+mismenudx	led.cpp	/^int   mismenudx[5] = { 0, MSIZE, 0, -MSIZE, 0};$/;"	v
+mismenudy	led.cpp	/^int   mismenudy[5] = { 0, 0, MSIZE, 0, -MSIZE};$/;"	v
+mismx	led.cpp	/^int   mismx;$/;"	v
+mismy	led.cpp	/^int   mismy;$/;"	v
+misstep	led.cpp	/^int   misstep = 4;$/;"	v
+misx	led.cpp	/^int   misx[NSYMS] = { 0, 20, 10, 10, 35, 40, 55, 55, 75, 75 };$/;"	v
+misy	led.cpp	/^int   misy[NSYMS] = { 0, 10, 40, 70, 40, 70, 45, 73, 40, 70 };$/;"	v
+mkang	lintel.cpp	/^void mkang(int n)$/;"	f
+mkang	lintelref.cpp	/^void mkang(int n)$/;"	f
+mkang	prfrm.c	/^mkang(n)$/;"	f
+mkang	shadoq.c	/^mkang(n)$/;"	f
+mkang	viewc.c	/^mkang(n)$/;"	f
+mkquat	lintel.cpp	/^void mkquat(int n, double a1, double a2, double a3)$/;"	f
+mkquat	lintelref.cpp	/^void mkquat(int n, double a1, double a2, double a3)$/;"	f
+mkquat	prfrm.c	/^mkquat(n,a1,a2,a3)$/;"	f
+mkquat	viewc.c	/^mkquat(n,a1,a2,a3)$/;"	f
+mkrotn	raselr.c	/^mkrotn(rotn,a1,a2,a3)$/;"	f
+mkrotn	shadoq.c	/^mkrotn(n,a1,a2,a3)$/;"	f
+mnames	raselr.c	/^char   mnames[EMAX][BMAX]; \/* names of texture files for ellipsoids *\/$/;"	v
+mod_larm	lintelref.cpp	/^int mod_larm = NOMOD;$/;"	v
+mod_larm_type	lintelref.cpp	/^char mod_larm_type = 'z';$/;"	v
+mod_lsupport	lintelref.cpp	/^int mod_lsupport = NOMOD;$/;"	v
+mod_lsupport_type	lintelref.cpp	/^char mod_lsupport_type = 'z';$/;"	v
+mod_rarm	lintelref.cpp	/^int mod_rarm = NOMOD;$/;"	v
+mod_rarm_type	lintelref.cpp	/^char mod_rarm_type = 'z';$/;"	v
+mod_rhead	lintelref.cpp	/^int mod_rhead = NOMOD;$/;"	v
+mod_rhead_type	lintelref.cpp	/^char mod_rhead_type = 'z';$/;"	v
+mod_rsupport	lintelref.cpp	/^int mod_rsupport = NOMOD;$/;"	v
+mod_rsupport_type	lintelref.cpp	/^char mod_rsupport_type = 'z';$/;"	v
+mode	led.cpp	/^int mode;$/;"	v
+modifier	lintelref.cpp	/^	int modifier;\/\/if the symbol has a modifier : 2015 Persistent$/;"	m	struct:Symbol	file:
+more	lintel.cpp	/^int more;            \/\/ if > 0 means more actions for which stp>=fr$/;"	v
+more	lintelref.cpp	/^int more;            \/\/ if > 0 means more actions for which stp>=fr$/;"	v
+more	prfrm.c	/^int     more ;$/;"	v
+mouseclick	led.cpp	/^void mouseclick(GLint b, GLint action, GLint mx, GLint mmy)$/;"	f
+mousetrack	led.cpp	/^void mousetrack(GLint mx, GLint mmy)$/;"	f
+mousex	led.cpp	/^int mousex,mousey;    \/* mouse position *\/$/;"	v
+mousey	led.cpp	/^int mousex,mousey;    \/* mouse position *\/$/;"	v
+move	nudes.c	/^int move;           \/* true if files to be moved from temp directory *\/$/;"	v
+moveabs	led.cpp	/^void moveabs(int x, int y)$/;"	f
+moveby	prfrm.c	/^   int moveby = 13;$/;"	v
+moveby_keyword_code	lintel.cpp	/^   int moveby_keyword_code= 13;$/;"	v
+moveby_keyword_code	lintelref.cpp	/^   int moveby_keyword_code= 13;$/;"	v
+moverel	led.cpp	/^void moverel(int x, int y)$/;"	f
+moveto	prfrm.c	/^   int moveto = 27;$/;"	v
+moveto_keyword_code	lintel.cpp	/^   int moveto_keyword_code= 27;$/;"	v
+moveto_keyword_code	lintelref.cpp	/^   int moveto_keyword_code= 27;$/;"	v
+movjnt	prfrm.c	/^   int movjnt = 56;$/;"	v
+movjnt_keyword_code	lintel.cpp	/^   int movjnt_keyword_code= 56;$/;"	v
+movjnt_keyword_code	lintelref.cpp	/^   int movjnt_keyword_code= 56;$/;"	v
+mpg	nudes.c	/^int mpg;            \/* true if mpg movie wanted *\/$/;"	v
+mspace	lintel.cpp	/^bool mspace,wspace;$/;"	v
+mspace	lintelref.cpp	/^bool mspace,wspace;$/;"	v
+mtexture	raselr.c	/^mtexture(n)$/;"	f
+multip	prfrm.c	/^   int multip = 44;$/;"	v
+multip_keyword_code	lintel.cpp	/^   int multip_keyword_code= 44;$/;"	v
+multip_keyword_code	lintelref.cpp	/^   int multip_keyword_code= 44;$/;"	v
+n	nudes.c	/^int n;              \/* current frame count *\/$/;"	v
+n	raselr.c	/^int    m,n;$/;"	v
+n	shadoq.c	/^int f,h,j,m,n ;$/;"	v
+name	lintel.cpp	/^char name[BMAX];           \/\/ name of input file$/;"	v
+name	lintelref.cpp	/^char name[BMAX];           \/\/ name of input file$/;"	v
+narea	led.cpp	/^int   narea = 9;$/;"	v
+nbar	lintel.cpp	/^int nbar;            \/\/ number of current bar$/;"	v
+nbar	lintelref.cpp	/^int nbar;            \/\/ number of current bar$/;"	v
+nblur	nudes.c	/^int nblur;          \/* number of ellipsoids to be blurred *\/$/;"	v
+nblur	raselr.c	/^int    nblur;              \/* number of ellipsoids to be blurred *\/$/;"	v
+ncols	raselr.c	/^int    ncols;              \/* number of colours used *\/$/;"	v
+ncomments	led.cpp	/^int ncomments;$/;"	v
+ndir	led.cpp	/^int ndir = 11;$/;"	v
+ne	lintel.cpp	/^int ne;              \/\/ number of ellipsoids in current frame$/;"	v
+ne	lintelref.cpp	/^int ne;              \/\/ number of ellipsoids in current frame$/;"	v
+negate	prfrm.c	/^   int negate = 41;$/;"	v
+negate_keyword_code	lintel.cpp	/^   int negate_keyword_code= 41;$/;"	v
+negate_keyword_code	lintelref.cpp	/^   int negate_keyword_code= 41;$/;"	v
+nels	compln.c	/^int nels;                \/* number of ellipsoids *\/$/;"	v
+nels	frad3c.c	/^int nels;$/;"	v
+nels	lintel.cpp	/^int nels[FMAX];      \/\/ number of ellipsoids in each frame$/;"	v
+nels	lintelref.cpp	/^int nels[FMAX];      \/\/ number of ellipsoids in each frame$/;"	v
+nels	prfrm.c	/^int     nels;$/;"	v
+nels	raselr.c	/^int    nels;               \/* number of ellipsoids in current frame *\/$/;"	v
+nels	shadoq.c	/^int nels ;$/;"	v
+nels	split3e.c	/^int nels,nfr;$/;"	v
+nels	viewc.c	/^int     nels;            \/* number of ellipsoids  *\/$/;"	v
+nerrs	prfrm.c	/^int     nerrs;$/;"	v
+nesave	lintel.cpp	/^int nesave;$/;"	v
+nesave	lintelref.cpp	/^int nesave;$/;"	v
+newcol	lintel.cpp	/^int newcol[3];$/;"	v
+newcol	lintelref.cpp	/^int newcol[3];$/;"	v
+newcol	prfrm.c	/^int     newcol[3] ;$/;"	v
+newton	lintel.cpp	/^double newton(int n, double start, double a[])$/;"	f
+newton	lintelref.cpp	/^double newton(int n, double start, double a[])$/;"	f
+newton	prfrm.c	/^double newton(n,start,a)$/;"	f
+next	compln.c	/^next()$/;"	f
+nextcount	lintel.cpp	/^int nextcount = 0;$/;"	v
+nextcount	lintelref.cpp	/^int nextcount = 0;$/;"	v
+nextmap	raselr.c	/^nextmap(map,suff,msize,infile)$/;"	f
+nexts	lintel.cpp	/^void nexts(void)$/;"	f
+nexts	lintelref.cpp	/^void nexts(void)$/;"	f
+nexts_a	lintel.cpp	/^int nexts_a ( char c )$/;"	f
+nexts_a	lintelref.cpp	/^int nexts_a ( char c )$/;"	f
+nf	split3e.c	/^int nf;$/;"	v
+nfac	led.cpp	/^int   nfac = 9;$/;"	v
+nfaces	lintel.cpp	/^int nfaces;          \/\/ number of faces on sphere$/;"	v
+nfaces	lintelref.cpp	/^int nfaces;          \/\/ number of faces on sphere$/;"	v
+nfigs	compln.c	/^int nfigs;               \/* number of figures *\/$/;"	v
+nfigs	lintel.cpp	/^int nfigs;           \/\/ number of figures$/;"	v
+nfigs	lintelref.cpp	/^int nfigs;           \/\/ number of figures$/;"	v
+nfigs	prfrm.c	/^int     nfigs;$/;"	v
+nfiles	compln.c	/^int nfiles;              \/* number of texture map files *\/$/;"	v
+nfiles	lintel.cpp	/^int nfiles;          \/\/ number of texture map files$/;"	v
+nfiles	lintelref.cpp	/^int nfiles;          \/\/ number of texture map files$/;"	v
+nfiles	prfrm.c	/^int     nfiles;$/;"	v
+nfr	frad3c.c	/^int nfr;$/;"	v
+nfr	nudes.c	/^int nfr;            \/* current frame number *\/$/;"	v
+nfr	raselr.c	/^int    nfr = 0;$/;"	v
+nfr	split3e.c	/^int nels,nfr;$/;"	v
+nframes	nudes.c	/^int nframes;        \/* number of frames in NUDES.3 file *\/$/;"	v
+njts	compln.c	/^int njts;                \/* number of joints *\/$/;"	v
+njts	frad3c.c	/^int njts;$/;"	v
+njts	lintel.cpp	/^int njts;            \/\/ number of joints$/;"	v
+njts	lintelref.cpp	/^int njts;            \/\/ number of joints$/;"	v
+njts	prfrm.c	/^int     njts;$/;"	v
+njts	shadoq.c	/^int njts;$/;"	v
+njts	split3e.c	/^int njts;$/;"	v
+njts	viewc.c	/^int     njts;            \/* number of joints *\/$/;"	v
+nkey	led.cpp	/^int   nkey = 24;$/;"	v
+nkeys	prfrm.c	/^int     nkeys ;$/;"	v
+nlabs	lintel.cpp	/^int nlabs;           \/\/ number of laban score entries$/;"	v
+nlabs	lintelref.cpp	/^int nlabs;           \/\/ number of laban score entries$/;"	v
+nlim	led.cpp	/^int   nlim = 22;$/;"	v
+nline	compln.c	/^int nline = -2;   \/* number of current line of input file *\/$/;"	v
+nline	lintel.cpp	/^int nline;           \/\/ number of current nudes file line$/;"	v
+nline	lintelref.cpp	/^int nline;           \/\/ number of current nudes file line$/;"	v
+nm	lintel.cpp	/^int nm;              \/\/ number of men$/;"	v
+nm	lintelref.cpp	/^int nm;              \/\/ number of men$/;"	v
+nmisc	led.cpp	/^int   nmisc = 9;$/;"	v
+nmw	lintel.cpp	/^int nmw;             \/\/ nm * nw$/;"	v
+nmw	lintelref.cpp	/^int nmw;             \/\/ nm * nw$/;"	v
+norm	lintel.cpp	/^double  norm[4*SMAX*SMAX][3];  \/\/ normals at sphere faces$/;"	v
+norm	lintelref.cpp	/^double  norm[4*SMAX*SMAX][3];  \/\/ normals at sphere faces$/;"	v
+npfs	compln.c	/^int npfs;                \/* number of actions *\/$/;"	v
+npfs	lintel.cpp	/^int npfs;            \/\/ number of actions$/;"	v
+npfs	lintelref.cpp	/^int npfs;            \/\/ number of actions$/;"	v
+npfs	prfrm.c	/^int     npfs ;$/;"	v
+npin	led.cpp	/^int   npin = 8;$/;"	v
+npins	lintel.cpp	/^int npins;           \/\/ number of pins below first barline$/;"	v
+npins	lintelref.cpp	/^int npins;           \/\/ number of pins below first barline$/;"	v
+nrot	led.cpp	/^int   nrot = 8;$/;"	v
+nsph	lintel.cpp	/^int nsph;            \/\/ number of chords around sphere$/;"	v
+nsph	lintelref.cpp	/^int nsph;            \/\/ number of chords around sphere$/;"	v
+nstaff	lintel.cpp	/^int nstaff;          \/\/ number of staves$/;"	v
+nstaff	lintelref.cpp	/^int nstaff;          \/\/ number of staves$/;"	v
+nsteps	nudes.c	/^int nsteps;         \/* number of chords around ellipse outline *\/$/;"	v
+nsubs	compln.c	/^int nsubs;               \/* number of action subroutines *\/$/;"	v
+nsubs	lintel.cpp	/^int nsubs;           \/\/ number of subroutines$/;"	v
+nsubs	lintelref.cpp	/^int nsubs;           \/\/ number of subroutines$/;"	v
+nsubs	prfrm.c	/^int     nsubs;$/;"	v
+nudes	compln.c	/^char nudes[6] = {'n','u','d','e','s'};$/;"	v
+nudes	lintel.cpp	/^char nudes[6] = {'n','u','d','e','s'};$/;"	v
+nudes	lintelref.cpp	/^char nudes[6] = {'n','u','d','e','s'};$/;"	v
+nudesfile	lintel.cpp	/^FILE *nudesfile;$/;"	v
+nudesfile	lintelref.cpp	/^FILE *nudesfile;$/;"	v
+nudesname	lintel.cpp	/^char nudesname[BMAX];      \/\/ name of intermediate nudes file$/;"	v
+nudesname	lintelref.cpp	/^char nudesname[BMAX];      \/\/ name of intermediate nudes file$/;"	v
+null	compln.c	/^char null  = '\\0';$/;"	v
+null	lintel.cpp	/^char null  = '\\0';$/;"	v
+null	lintelref.cpp	/^char null  = '\\0';$/;"	v
+number_ini	lintel.cpp	/^int number_ini;$/;"	v
+number_ini	lintelref.cpp	/^int number_ini;$/;"	v
+nvals	compln.c	/^int nvals;               \/* number of values in 'val' *\/$/;"	v
+nvals	lintel.cpp	/^int nvals;           \/\/ number of values in 'val'$/;"	v
+nvals	lintelref.cpp	/^int nvals;           \/\/ number of values in 'val'$/;"	v
+nvars	compln.c	/^int nvars;               \/* number of variables in 'varname' *\/$/;"	v
+nvars	lintel.cpp	/^int nvars;           \/\/ number of variables in array val$/;"	v
+nvars	lintelref.cpp	/^int nvars;           \/\/ number of variables in array val$/;"	v
+nvars	prfrm.c	/^int     nvars;$/;"	v
+nvol	led.cpp	/^int   nvol = 7;$/;"	v
+nw	lintel.cpp	/^int nw;              \/\/ number of women$/;"	v
+nw	lintelref.cpp	/^int nw;              \/\/ number of women$/;"	v
+nway	led.cpp	/^int   nway = 7;$/;"	v
+nxy	raselr.c	/^int    nxy[XMAX][XMAX];    \/* blur ellipsoid buffer *\/$/;"	v
+ob3	lintel.cpp	/^double  ob3[FMAX][3];          \/\/ observation angles of each frame$/;"	v
+ob3	lintelref.cpp	/^double  ob3[FMAX][3];          \/\/ observation angles of each frame$/;"	v
+obs	lintel.cpp	/^double  obs[3][3];             \/\/ rotation matrix applied to all ellipsoids to obtain observers view$/;"	v
+obs	lintelref.cpp	/^double  obs[3][3];             \/\/ rotation matrix applied to all ellipsoids to obtain observers view$/;"	v
+obs	prfrm.c	/^double  obs[3][3];$/;"	v
+obs	viewc.c	/^double  obs[3][3];    \/* rotation matrix applied to all ellipsoids$/;"	v
+obsang	lintel.cpp	/^double  obsang[3];$/;"	v
+obsang	lintelref.cpp	/^double  obsang[3];$/;"	v
+observ	prfrm.c	/^   int observ = 26;$/;"	v
+observ_keyword_code	lintel.cpp	/^   int observ_keyword_code= 26;$/;"	v
+observ_keyword_code	lintelref.cpp	/^   int observ_keyword_code= 26;$/;"	v
+ok	compln.c	/^int ok;                  \/* true if last set of characters$/;"	v
+ok	led.cpp	/^   int ok;$/;"	m	struct:Segment	file:
+ok	lintel.cpp	/^int ok;              \/\/ ok = 0 if ok, else problem reference number$/;"	v
+ok	lintelref.cpp	/^int ok;              \/\/ ok = 0 if ok, else problem reference number$/;"	v
+ok	prfrm.c	/^int     ok[7] ;$/;"	v
+ok	shadoq.c	/^int ok;$/;"	v
+oldang	lintel.cpp	/^double  oldang[3];$/;"	v
+oldang	lintelref.cpp	/^double  oldang[3];$/;"	v
+oldang	prfrm.c	/^double  oldang[3];$/;"	v
+oldkeys	led.cpp	/^char oldkeys[25] = {'#',$/;"	v
+oldmode	led.cpp	/^int oldmode;$/;"	v
+opacty_keyword_code	lintel.cpp	/^   int opacty_keyword_code= 60;$/;"	v
+opacty_keyword_code	lintelref.cpp	/^   int opacty_keyword_code= 60;$/;"	v
+openfile	lintel.cpp	/^void openfile(void)$/;"	f
+openfile	lintelref.cpp	/^void openfile(void)$/;"	f
+openin	led.cpp	/^int openin = FALSE;$/;"	v
+openin	nudes.c	/^openin(f)$/;"	f
+openout	led.cpp	/^int openout = FALSE;$/;"	v
+openout	nudes.c	/^openout(f,outf,endf)$/;"	f
+openout	split3e.c	/^openout(n)$/;"	f
+openpost	led.cpp	/^int openpost = FALSE;$/;"	v
+opnin	raselr.c	/^opnin(argc,argv)$/;"	f
+opnout	raselr.c	/^opnout()$/;"	f
+opp	lintel.cpp	/^int   opp[12]       \/* opposite direction to a movement *\/$/;"	v
+opp	lintelref.cpp	/^int   opp[12]       \/* opposite direction to a movement *\/$/;"	v
+opts	nudes.c	/^char opts[BMAX];    \/* temporary store for each optional parameter *\/$/;"	v
+order	lintel.cpp	/^int order[3][3][3] = {$/;"	v
+order	lintelref.cpp	/^int order[3][3][3] = {$/;"	v
+order	shadoq.c	/^int     order[3][3][3] = {$/;"	v
+order	viewc.c	/^int     order[3][3][3] = {$/;"	v
+oriented	lintel.cpp	/^int oriented;        \/\/ true after orientation$/;"	v
+oriented	lintelref.cpp	/^int oriented;        \/\/ true after orientation$/;"	v
+outfile	led.cpp	/^char outfile[BMAX];$/;"	v
+outfile	nudes.c	/^char outfile[BMAX]; \/* name of output file containing frame number *\/$/;"	v
+outfile	raselr.c	/^char   outfile[BMAX];$/;"	v
+outfile	split3e.c	/^FILE *outfile;$/;"	v
+output	nudes.c	/^char output; \/* code for type of output required -$/;"	v
+output_file_id	lintel.cpp	/^bool output_file_id;$/;"	v
+output_file_id	lintelref.cpp	/^bool output_file_id;$/;"	v
+p	lintel.cpp	/^int p;               \/\/ counter through actions$/;"	v
+p	lintelref.cpp	/^int p;               \/\/ counter through actions$/;"	v
+p	run.py	/^p = subprocess.Popen(['.\/nudes',userinput])$/;"	v
+pair	nudes.c	/^int pair;           \/* true if stereo pairs wanted *\/$/;"	v
+par	compln.c	/^int par[EMAX][6] =  {$/;"	v
+par	lintel.cpp	/^int par[NKEYS][6] =  {$/;"	v
+par	lintelref.cpp	/^int par[NKEYS][6] =  {$/;"	v
+parset	compln.c	/^int parset(contrl)$/;"	f
+parset	lintel.cpp	/^int parset(int contrl)$/;"	f
+parset	lintelref.cpp	/^int parset(int contrl)$/;"	f
+pause	lintel.cpp	/^int pause;           \/\/ TRUE if pausing on 1st and last frames$/;"	v
+pause	lintelref.cpp	/^int pause;           \/\/ TRUE if pausing on 1st and last frames$/;"	v
+pause	nudes.c	/^int pause;          \/* true if 25 frame pause wanted at start and end *\/$/;"	v
+pend	lintel.cpp	/^int pend;            \/\/ last frame of previous action$/;"	v
+pend	lintelref.cpp	/^int pend;            \/\/ last frame of previous action$/;"	v
+perfrm	prfrm.c	/^perfrm(sub,fr,fstart,fend)$/;"	f
+perm	lintel.cpp	/^int perm[3][3][3] = {$/;"	v
+perm	lintelref.cpp	/^int perm[3][3][3] = {$/;"	v
+perm	prfrm.c	/^int     perm[3][3][3] = {$/;"	v
+pf	compln.c	/^int pf[PMAX][6];         \/* action parameters, coded as-$/;"	v
+pf	lintel.cpp	/^int pf[PMAX][6];     \/\/ pf[i][j] - jth parameter of ith action-  +ve: itself, -ve: index into array val$/;"	v
+pf	lintelref.cpp	/^int pf[PMAX][6];     \/\/ pf[i][j] - jth parameter of ith action-  +ve: itself, -ve: index into array val$/;"	v
+pf	prfrm.c	/^int     pf[PMAX][6];$/;"	v
+pfont	led.cpp	/^int pfont = 2;       \/* size of previous font *\/$/;"	v
+phi	shadoq.c	/^double cphi,sphi,phi;$/;"	v
+pi	lintel.cpp	/^double  pi;                    \/\/ 3.142...etc \/$/;"	v
+pi	lintelref.cpp	/^double  pi;                    \/\/ 3.142...etc \/$/;"	v
+pi	prfrm.c	/^double  pi;$/;"	v
+pi	raselr.c	/^double pi;$/;"	v
+pi	shadoq.c	/^double inv2,doub0,ten,rad10,pi,piby2 ;$/;"	v
+piby2	lintel.cpp	/^double  piby2;$/;"	v
+piby2	lintelref.cpp	/^double  piby2;$/;"	v
+piby2	prfrm.c	/^double  piby2;$/;"	v
+piby2	shadoq.c	/^double inv2,doub0,ten,rad10,pi,piby2 ;$/;"	v
+pindx	led.cpp	/^int   pindx[NSYMS][LINES] = { {0},$/;"	v
+pindy	led.cpp	/^int   pindy[NSYMS][LINES] = { {0},$/;"	v
+pinmenudx	led.cpp	/^int   pinmenudx[5] = { 0, MSIZE, 0, -MSIZE, 0};$/;"	v
+pinmenudy	led.cpp	/^int   pinmenudy[5] = { 0, 0, MSIZE, 0, -MSIZE};$/;"	v
+pinmx	led.cpp	/^int   pinmx;$/;"	v
+pinmy	led.cpp	/^int   pinmy;$/;"	v
+pins	lintel.cpp	/^int pins[TMAX][2];   \/\/ index and use of initial pins$/;"	v
+pins	lintelref.cpp	/^int pins[TMAX][2];   \/\/ index and use of initial pins$/;"	v
+pinstep	led.cpp	/^int   pinstep = 1;$/;"	v
+pinx	led.cpp	/^int   pinx[NSYMS] = { 0, 35, 55, 65, 60, 35, 15, 5, 15,$/;"	v
+piny	led.cpp	/^int   piny[NSYMS] = { 0, 65, 60, 40, 15, 10, 15, 40, 60,$/;"	v
+pl3	lintel.cpp	/^double  pl3[FMAX][3];          \/\/ centre of view of each frame$/;"	v
+pl3	lintelref.cpp	/^double  pl3[FMAX][3];          \/\/ centre of view of each frame$/;"	v
+place	nudes.c	/^char place  = 'u';$/;"	v
+place	prfrm.c	/^   int place  = 47;$/;"	v
+place	viewc.c	/^double  place[3];     \/* position of centre of observers attention *\/$/;"	v
+place_keyword_code	lintel.cpp	/^   int place_keyword_code= 47;$/;"	v
+place_keyword_code	lintelref.cpp	/^   int place_keyword_code= 47;$/;"	v
+plane	raselr.c	/^double plane[EMAX][3];$/;"	v
+pmove	led.cpp	/^int pmove = TRUE;    \/* TRUE if previous command was moveto *\/$/;"	v
+point	lintel.cpp	/^double point[SMAX][2*SMAX+1][3];$/;"	v
+point	lintelref.cpp	/^double point[SMAX][2*SMAX+1][3];$/;"	v
+pok	compln.c	/^int pok;                 \/* true if positive integer read *\/$/;"	v
+pok	lintel.cpp	/^int pok;             \/\/ true if positive integer read$/;"	v
+pok	lintelref.cpp	/^int pok;             \/\/ true if positive integer read$/;"	v
+polylineabs	led.cpp	/^void polylineabs(int xarray[], int yarray[], int n)$/;"	f
+polylinerel	led.cpp	/^void polylinerel(int xarray[], int yarray[], int n)$/;"	f
+postfile	led.cpp	/^char postfile[BMAX]; $/;"	v
+pp	lintel.cpp	/^int pp;$/;"	v
+pp	lintelref.cpp	/^int pp;$/;"	v
+pp	prfrm.c	/^int     pp;$/;"	v
+ppb	lintel.cpp	/^int ppb;             \/\/ pixels per beat (= 23 );$/;"	v
+ppb	lintelref.cpp	/^int ppb;             \/\/ pixels per beat (= 23 );$/;"	v
+pplace	lintel.cpp	/^double  pplace[3];             \/\/ position of centre of observers attention$/;"	v
+pplace	lintelref.cpp	/^double  pplace[3];             \/\/ position of centre of observers attention$/;"	v
+pplace	prfrm.c	/^double  pplace[3] ;$/;"	v
+prdone	lintel.cpp	/^int prdone;          \/\/ TRUE if diagnostic printing already done$/;"	v
+prdone	lintelref.cpp	/^int prdone;          \/\/ TRUE if diagnostic printing already done$/;"	v
+pres	lintel.cpp	/^double  pres[EMAX];$/;"	v
+pres	lintelref.cpp	/^double  pres[EMAX];$/;"	v
+pres	prfrm.c	/^double  pres[EMAX];$/;"	v
+pres_time	lintel.cpp	/^int pres_time;       \/\/ clock reading of current frame$/;"	v
+pres_time	lintelref.cpp	/^int pres_time;       \/\/ clock reading of current frame$/;"	v
+prev_time	lintel.cpp	/^int prev_time;       \/\/ clock reading of previous frame$/;"	v
+prev_time	lintelref.cpp	/^int prev_time;       \/\/ clock reading of previous frame$/;"	v
+prevc	led.cpp	/^int prevc = COPY;    \/* previous command *\/$/;"	v
+prevc	lintel.cpp	/^int prevc;           \/\/ column of previous support symbol$/;"	v
+prevc	lintelref.cpp	/^int prevc;           \/\/ column of previous support symbol$/;"	v
+prevhold	lintel.cpp	/^int prevhold;        \/\/ previous hold$/;"	v
+prevhold	lintelref.cpp	/^int prevhold;        \/\/ previous hold$/;"	v
+previ	lintel.cpp	/^int previ;           \/\/ item of previous support symbol$/;"	v
+previ	lintelref.cpp	/^int previ;           \/\/ item of previous support symbol$/;"	v
+prevlfend	lintelref.cpp	/^int prevlfend = 0;$/;"	v
+prevly	lintelref.cpp	/^int prevly = BASEY;$/;"	v
+prevmove	led.cpp	/^char prevmove[BMAX];    \/* previous domove command *\/$/;"	v
+prevrfend	lintelref.cpp	/^int prevrfend = 0;$/;"	v
+prevry	lintelref.cpp	/^int prevry = BASEY;$/;"	v
+prinel	prfrm.c	/^prinel()$/;"	f
+print	prfrm.c	/^   int print  = 51;$/;"	v
+print_keyword_code	lintel.cpp	/^   int print_keyword_code= 51;$/;"	v
+print_keyword_code	lintelref.cpp	/^   int print_keyword_code= 51;$/;"	v
+prinvl	compln.c	/^prinvl()$/;"	f
+prmess	nudes.c	/^prmess()$/;"	f
+prname	compln.c	/^prname(names,no)$/;"	f
+prop	lintel.cpp	/^double  prop;                  \/\/ proportion of action yet to be done$/;"	v
+prop	lintelref.cpp	/^double  prop;                  \/\/ proportion of action yet to be done$/;"	v
+prop	prfrm.c	/^double  prop;$/;"	v
+pstart	lintel.cpp	/^int pstart;          \/\/ first fame of previous action$/;"	v
+pstart	lintelref.cpp	/^int pstart;          \/\/ first fame of previous action$/;"	v
+pswrite	led.cpp	/^void pswrite(void)$/;"	f
+psx	led.cpp	/^int psx,psy;         \/* previous postscript moveto *\/$/;"	v
+psy	led.cpp	/^int psx,psy;         \/* previous postscript moveto *\/$/;"	v
+ptitle	led.cpp	/^char ptitle[BMAX];     \/\/ program title$/;"	v
+ptitle	lintel.cpp	/^char ptitle[BMAX];         \/\/ program title$/;"	v
+ptitle	lintelref.cpp	/^char ptitle[BMAX];         \/\/ program title$/;"	v
+ptype	compln.c	/^int ptype;               \/* code of current action *\/$/;"	v
+ptype	lintel.cpp	/^int ptype;           \/\/ code of current action$/;"	v
+ptype	lintelref.cpp	/^int ptype;           \/\/ code of current action$/;"	v
+putells	frad3c.c	/^putells()$/;"	f
+putfram3	split3e.c	/^putfram3()$/;"	f
+putjnts	frad3c.c	/^putjnts()$/;"	f
+qu3	lintel.cpp	/^double  qu3[FMAX][EMAX][4];    \/\/ quaternions of ellipsoids$/;"	v
+qu3	lintelref.cpp	/^double  qu3[FMAX][EMAX][4];    \/\/ quaternions of ellipsoids$/;"	v
+quadra	prfrm.c	/^   int quadra = 24;$/;"	v
+quadra_keyword_code	lintel.cpp	/^   int quadra_keyword_code= 24;$/;"	v
+quadra_keyword_code	lintelref.cpp	/^   int quadra_keyword_code= 24;$/;"	v
+quasav	lintel.cpp	/^double  quasav[EMAX+2][5];$/;"	v
+quasav	lintelref.cpp	/^double  quasav[EMAX+2][5];$/;"	v
+quasav	prfrm.c	/^double  quasav[EMAX+2][5];$/;"	v
+quat	lintel.cpp	/^double  quat[EMAX+2][5];       \/\/ quat[i][j] - angle of ith ellipsoid$/;"	v
+quat	lintelref.cpp	/^double  quat[EMAX+2][5];       \/\/ quat[i][j] - angle of ith ellipsoid$/;"	v
+quat	prfrm.c	/^double  quat[EMAX+2][5];$/;"	v
+quat	viewc.c	/^double  quat[EMAX+2][5]; \/* angles of ellipsoids  *\/$/;"	v
+r	led.cpp	/^float r=0.0;          \/* amount of red in segment *\/$/;"	v
+rad	lintel.cpp	/^double  rad;                   \/\/ conversion factor from degrees to radians$/;"	v
+rad	lintelref.cpp	/^double  rad;                   \/\/ conversion factor from degrees to radians$/;"	v
+rad10	shadoq.c	/^double inv2,doub0,ten,rad10,pi,piby2 ;$/;"	v
+rad10	viewc.c	/^double  rad10;        \/* conversion factor from tenths of a degree$/;"	v
+radian	lintel.cpp	/^double  radian;                \/\/ number of radians in a degree$/;"	v
+radian	lintelref.cpp	/^double  radian;                \/\/ number of radians in a degree$/;"	v
+radian	prfrm.c	/^double  radian;     \/* number of radians in a degree *\/$/;"	v
+radten	lintel.cpp	/^double  radten;                \/\/ conversion factor from tenths of a degree to radians$/;"	v
+radten	lintelref.cpp	/^double  radten;                \/\/ conversion factor from tenths of a degree to radians$/;"	v
+readells	raselr.c	/^readells()$/;"	f
+red	led.cpp	/^   float red;         \/* amount of red *\/$/;"	m	struct:Segment	file:
+refell	lintel.cpp	/^int refell;          \/\/ ellipsoid used as angular reference$/;"	v
+refell	lintelref.cpp	/^int refell;          \/\/ ellipsoid used as angular reference$/;"	v
+refell	prfrm.c	/^int     refell;$/;"	v
+rell	raselr.c	/^double rell[EMAX][3][3];$/;"	v
+repeat	compln.c	/^int repeat = 23;  \/* code for 'repeat' command *\/$/;"	v
+repeat	prfrm.c	/^   int repeat = 23;$/;"	v
+repeat_keyword_code	lintel.cpp	/^   int repeat_keyword_code= 23;$/;"	v
+repeat_keyword_code	lintelref.cpp	/^   int repeat_keyword_code= 23;$/;"	v
+restore	lintel.cpp	/^void restore(void)$/;"	f
+restore	lintelref.cpp	/^void restore(void)$/;"	f
+restore	prfrm.c	/^restore()$/;"	f
+rise	lintel.cpp	/^int rise;            \/\/ height of previous step;$/;"	v
+rise	lintelref.cpp	/^int rise;            \/\/ height of previous step;$/;"	v
+risesub	lintel.cpp	/^char risesub[3][5] = {{'f','l','o','w'},$/;"	v
+risesub	lintelref.cpp	/^char risesub[3][5] = {{'f','l','o','w'},$/;"	v
+rootname	led.cpp	/^char rootname[BMAX] = {'l','e','d','\\0'};$/;"	v
+rotate	prfrm.c	/^   int rotate = 39;$/;"	v
+rotate_keyword_code	lintel.cpp	/^   int rotate_keyword_code= 39;$/;"	v
+rotate_keyword_code	lintelref.cpp	/^   int rotate_keyword_code= 39;$/;"	v
+rotdx	led.cpp	/^int   rotdx[NSYMS][LINES] = { {0},$/;"	v
+rotdy	led.cpp	/^int   rotdy[NSYMS][LINES] = { {0},$/;"	v
+rotget	lintel.cpp	/^void rotget(double r[3][3], double unr[3][3], int n)$/;"	f
+rotget	lintelref.cpp	/^void rotget(double r[3][3], double unr[3][3], int n)$/;"	f
+rotget	prfrm.c	/^rotget(r,unr,n)$/;"	f
+rotget	raselr.c	/^rotget(rotn,r,unr)$/;"	f
+rotget	shadoq.c	/^rotget(r,unr,n)$/;"	f
+rotget	viewc.c	/^rotget(r,unr,n)$/;"	f
+rotmenudx	led.cpp	/^int   rotmenudx[5] = { 0, MSIZE, 0, -MSIZE, 0};$/;"	v
+rotmenudy	led.cpp	/^int   rotmenudy[5] = { 0, 0, MSIZE, 0, -MSIZE};$/;"	v
+rotmx	led.cpp	/^int   rotmx;$/;"	v
+rotmy	led.cpp	/^int   rotmy;$/;"	v
+rotn	shadoq.c	/^double cen[EMAX+1][4],ax[EMAX+1][4],rotn[EMAX+1][6] ;$/;"	v
+rotput	lintel.cpp	/^void rotput(double r[3][3], int n)$/;"	f
+rotput	lintelref.cpp	/^void rotput(double r[3][3], int n)$/;"	f
+rotput	prfrm.c	/^rotput(r,n)$/;"	f
+rotput	shadoq.c	/^rotput(r,n)$/;"	f
+rotput	viewc.c	/^rotput(r,n)$/;"	f
+rotstep	led.cpp	/^int   rotstep = STEP\/2;$/;"	v
+rotx	led.cpp	/^int   rotx[9] = { 0, 8, 30, 55, 80, 8, 30, 55, 80 };$/;"	v
+roty	led.cpp	/^int   roty[9] = { 0, 57, 57, 57, 57, 7, 7, 7, 7 };$/;"	v
+rset	lintel.cpp	/^void rset(double r[3][3], double angl, int axis)$/;"	f
+rset	lintelref.cpp	/^void rset(double r[3][3], double angl, int axis)$/;"	f
+rset	prfrm.c	/^rset(r,angl,axis)$/;"	f
+rset	shadoq.c	/^rset(r,angl,axis)$/;"	f
+rset	viewc.c	/^rset(r,angl,axis)$/;"	f
+rt3	lintel.cpp	/^double  rt3;$/;"	v
+rt3	lintelref.cpp	/^double  rt3;$/;"	v
+rt3	prfrm.c	/^double  rt3;$/;"	v
+s	lintel.cpp	/^	int s;       \/\/ drawing step size$/;"	m	struct:Symbol	file:
+s	lintelref.cpp	/^	int s;       \/\/ drawing step size$/;"	m	struct:Symbol	file:
+save	lintel.cpp	/^void save(void)$/;"	f
+save	lintelref.cpp	/^void save(void)$/;"	f
+save	prfrm.c	/^save()$/;"	f
+saveas	led.cpp	/^void saveas(void)$/;"	f
+saving	led.cpp	/^int saving;$/;"	v
+scale	led.cpp	/^void scale(int n)$/;"	f
+scale	lintel.cpp	/^double  scale;                 \/\/ interactive scaling factor$/;"	v
+scale	lintelref.cpp	/^double  scale;                 \/\/ interactive scaling factor$/;"	v
+scale	prfrm.c	/^double scale(x)$/;"	f
+scalex	led.cpp	/^float scalex;$/;"	v
+scaley	led.cpp	/^float scaley;$/;"	v
+scoretop	led.cpp	/^int scoretop;$/;"	v
+scrollstaff	led.cpp	/^void scrollstaff(void)$/;"	f
+segs	led.cpp	/^struct Segment segs[SMAX+1];$/;"	v	typeref:struct:Segment
+semiax	compln.c	/^float semiax[3];         \/* coordinate triple read from input *\/$/;"	v
+semiax	lintel.cpp	/^double  semiax[3];             \/\/ coordinate triple read from input$/;"	v
+semiax	lintelref.cpp	/^double  semiax[3];             \/\/ coordinate triple read from input$/;"	v
+sepn	lintel.cpp	/^double sepn(void)$/;"	f
+sepn	lintelref.cpp	/^double sepn(void)$/;"	f
+sepn	nudes.c	/^int sepn;           \/* overlap of freeview pairs *\/$/;"	v
+sepn	prfrm.c	/^double sepn()$/;"	f
+set	prfrm.c	/^   int set    = 20;$/;"	v
+set_keyword_code	lintel.cpp	/^   int set_keyword_code= 20;$/;"	v
+set_keyword_code	lintelref.cpp	/^   int set_keyword_code= 20;$/;"	v
+setaxe	lintel.cpp	/^void setaxe(int n, double axe[3], double coef[7])$/;"	f
+setaxe	lintelref.cpp	/^void setaxe(int n, double axe[3], double coef[7])$/;"	f
+setaxe	shadoq.c	/^setaxe(axe,coef)$/;"	f
+setbarsp	led.cpp	/^void setbarsp(void)$/;"	f
+setcns	shadoq.c	/^setcns()$/;"	f
+setcof	lintel.cpp	/^void setcof(double coef[7], double el[3][3] )$/;"	f
+setcof	lintelref.cpp	/^void setcof(double coef[7], double el[3][3] )$/;"	f
+setcof	raselr.c	/^setcof(n)$/;"	f
+setcof	shadoq.c	/^setcof(coef,el)$/;"	f
+setdebug	compln.c	/^setdebug(argc,argv)$/;"	f
+setell	raselr.c	/^setell()$/;"	f
+setels	lintel.cpp	/^void setels(int ellpsd, int jthis)$/;"	f
+setels	lintelref.cpp	/^void setels(int ellpsd, int jthis)$/;"	f
+setels	prfrm.c	/^setels(ellpsd,jthis)$/;"	f
+setfrc	lintel.cpp	/^void setfrc(int frame, int start, int stp)$/;"	f
+setfrc	lintelref.cpp	/^void setfrc(int frame, int start, int stp)$/;"	f
+setfrc	prfrm.c	/^setfrc(frame,start,stp)$/;"	f
+setinfile	led.cpp	/^void setinfile(void)$/;"	f
+setjnt	lintel.cpp	/^void setjnt(int ellpsd, int jthis)$/;"	f
+setjnt	lintelref.cpp	/^void setjnt(int ellpsd, int jthis)$/;"	f
+setjnt	prfrm.c	/^setjnt(ellpsd,jthis)$/;"	f
+setlevel	led.cpp	/^void setlevel(int n, char lev)$/;"	f
+setmaps	raselr.c	/^setmaps(n)$/;"	f
+setmat	lintel.cpp	/^void setmat ( int n, double el[3][3], double el1[3][3], double unel1[3][3] )$/;"	f
+setmat	lintelref.cpp	/^void setmat ( int n, double el[3][3], double el1[3][3], double unel1[3][3] )$/;"	f
+setmat	raselr.c	/^setmat(r,n,ell,ax3,den)$/;"	f
+setmat	shadoq.c	/^setmat(n,el)$/;"	f
+setnup	lintel.cpp	/^double setnup(int n, double axe[3])$/;"	f
+setnup	lintelref.cpp	/^double setnup(int n, double axe[3])$/;"	f
+setnup	shadoq.c	/^setnup()$/;"	f
+setobs	lintel.cpp	/^void setobs(void)$/;"	f
+setobs	lintelref.cpp	/^void setobs(void)$/;"	f
+setobs	prfrm.c	/^setobs()$/;"	f
+setper	lintel.cpp	/^void setper ( int keyword_code )$/;"	f
+setper	lintelref.cpp	/^void setper ( int keyword_code )$/;"	f
+setper	prfrm.c	/^setper(t)$/;"	f
+setplc	prfrm.c	/^setplc()$/;"	f
+setpln	raselr.c	/^setpln(n)$/;"	f
+setpnt	raselr.c	/^setpnt(ir,ig,ib)$/;"	f
+setpro	lintel.cpp	/^double setpro(double coef[7])$/;"	f
+setpro	lintelref.cpp	/^double setpro(double coef[7])$/;"	f
+setpro	shadoq.c	/^setpro(axe,coef)$/;"	f
+setpsfile	led.cpp	/^void setpsfile(void)$/;"	f
+setsymbol	led.cpp	/^void setsymbol(int s, int m, int ax[NSYMS][LINES], int ay[NSYMS][LINES], int j, int d, char level)$/;"	f
+setup	compln.c	/^setup()$/;"	f
+setup	led.cpp	/^void setup(void)$/;"	f
+setup	nudes.c	/^setup()$/;"	f
+setup	prfrm.c	/^setup()$/;"	f
+setup	raselr.c	/^setup()$/;"	f
+setxy	led.cpp	/^void setxy(int s)$/;"	f
+shadel	raselr.c	/^shadel()$/;"	f
+shades	raselr.c	/^int    shades;             \/* number of requested shades of each primary *\/$/;"	v
+shadow	lintel.cpp	/^int shadow;          \/\/ TRUE if shadows wanted$/;"	v
+shadow	lintelref.cpp	/^int shadow;          \/\/ TRUE if shadows wanted$/;"	v
+shadow	nudes.c	/^int shadow;         \/* true if shadows wanted *\/$/;"	v
+shadow	shadoq.c	/^shadow()$/;"	f
+shift	lintel.cpp	/^void shift(double x, double y, double z)$/;"	f
+shift	lintelref.cpp	/^void shift(double x, double y, double z)$/;"	f
+shift	prfrm.c	/^shift(x,y,z)$/;"	f
+shift	viewc.c	/^shift(x,y,z)$/;"	f
+single	lintel.cpp	/^int single;          \/\/ either TODO or DONE when frozen$/;"	v
+single	lintelref.cpp	/^int single;          \/\/ either TODO or DONE when frozen$/;"	v
+size	nudes.c	/^int size;           \/* picture width (assumed square) *\/$/;"	v
+slow	compln.c	/^int slow;                \/* factor by which frames are to be cut *\/$/;"	v
+slow	lintel.cpp	/^int slow;            \/\/ number of pause calls between animating frames$/;"	v
+slow	lintelref.cpp	/^int slow;            \/\/ number of pause calls between animating frames$/;"	v
+sname	lintel.cpp	/^char sname[EMAX][BMAX];    \/\/ subroutine names$/;"	v
+sname	lintelref.cpp	/^char sname[EMAX][BMAX];    \/\/ subroutine names$/;"	v
+sname	prfrm.c	/^char    sname[EMAX][BMAX];$/;"	v
+snap	led.cpp	/^int snap;$/;"	v
+solid	nudes.c	/^char solid; \/* type of solid to be used -$/;"	v
+solve	lintel.cpp	/^double solve(double a, double b, int n)$/;"	f
+solve	lintelref.cpp	/^double solve(double a, double b, int n)$/;"	f
+solve	prfrm.c	/^double solve(a,b,n)$/;"	f
+sort	led.cpp	/^void sort(int a[LINES], int n)$/;"	f
+speed	nudes.c	/^int speed;          \/* add or omit frames *\/$/;"	v
+speed	prfrm.c	/^   int speed  = 30;$/;"	v
+speed_keyword_code	lintel.cpp	/^   int speed_keyword_code= 30;$/;"	v
+speed_keyword_code	lintelref.cpp	/^   int speed_keyword_code= 30;$/;"	v
+speedf	compln.c	/^int speedf = 30;  \/* code for action to alter 'fast' and 'slow' *\/$/;"	v
+sph	lintel.cpp	/^double  sph[4*SMAX*SMAX][4][3];\/\/ vertices of facets of  sphere$/;"	v
+sph	lintelref.cpp	/^double  sph[4*SMAX*SMAX][4][3];\/\/ vertices of facets of  sphere$/;"	v
+sphi	shadoq.c	/^double cphi,sphi,phi;$/;"	v
+spinby	prfrm.c	/^   int spinby = 17;$/;"	v
+spinby_keyword_code	lintel.cpp	/^   int spinby_keyword_code= 17;$/;"	v
+spinby_keyword_code	lintelref.cpp	/^   int spinby_keyword_code= 17;$/;"	v
+spinto	prfrm.c	/^   int spinto = 12;$/;"	v
+spinto_keyword_code	lintel.cpp	/^   int spinto_keyword_code= 12;$/;"	v
+spinto_keyword_code	lintelref.cpp	/^   int spinto_keyword_code= 12;$/;"	v
+sqr	lintel.cpp	/^double sqr(double x)$/;"	f
+sqr	lintelref.cpp	/^double sqr(double x)$/;"	f
+sqr	prfrm.c	/^double sqr(x)$/;"	f
+ssend	lintel.cpp	/^int ssend;           \/\/ ending score symbol$/;"	v
+ssend	lintelref.cpp	/^int ssend;           \/\/ ending score symbol$/;"	v
+sstart	lintel.cpp	/^int sstart;          \/\/ starting score symbol$/;"	v
+sstart	lintelref.cpp	/^int sstart;          \/\/ starting score symbol$/;"	v
+st	lintel.cpp	/^int st;              \/\/ current staff number$/;"	v
+st	lintelref.cpp	/^int st;              \/\/ current staff number$/;"	v
+staff	lintel.cpp	/^int staff[TMAX][6];  \/\/ index, x positions, gender, and use of staves$/;"	v
+staff	lintelref.cpp	/^int staff[TMAX][6];  \/\/ index, x positions, gender, and use of staves$/;"	v
+staffn	led.cpp	/^int staffn;          \/* number of staff lines *\/$/;"	v
+staffx	led.cpp	/^int staffx[LINES];   \/* x positions of staff lines *\/$/;"	v
+start	compln.c	/^int start;               \/* pointer to next character on current$/;"	v
+start	frad3c.c	/^int start[11] = {0, 6, 7, 11, 17, 20, 25, 29, 31, 39, 43};$/;"	v
+start	lintel.cpp	/^int start;           \/\/ pointer to next character on current input line$/;"	v
+start	lintelref.cpp	/^int start;           \/\/ pointer to next character on current input line$/;"	v
+start	nudes.c	/^int start;          \/* the frame of input file at which to start (default: 1)*\/$/;"	v
+start	split3e.c	/^int start;$/;"	v
+stem	nudes.c	/^char stem[BMAX];    \/* name of stem of temporary directory *\/$/;"	v
+step	led.cpp	/^   int step;$/;"	m	struct:Segment	file:
+step1	lintel.cpp	/^double  step1,step2;$/;"	v
+step1	lintelref.cpp	/^double  step1,step2;$/;"	v
+step1	prfrm.c	/^double  step1,step2;$/;"	v
+step2	lintel.cpp	/^double  step1,step2;$/;"	v
+step2	lintelref.cpp	/^double  step1,step2;$/;"	v
+step2	prfrm.c	/^double  step1,step2;$/;"	v
+stmiddle	lintel.cpp	/^int stmiddle;        \/\/ halfway across between L and R staves$/;"	v
+stmiddle	lintelref.cpp	/^int stmiddle;        \/\/ halfway across between L and R staves$/;"	v
+stop	prfrm.c	/^   int stop   = 16;$/;"	v
+stop_keyword_code	lintel.cpp	/^   int stop_keyword_code= 16;$/;"	v
+stop_keyword_code	lintelref.cpp	/^   int stop_keyword_code= 16;$/;"	v
+store3	lintel.cpp	/^void store3(int f)$/;"	f
+store3	lintelref.cpp	/^void store3(int f)$/;"	f
+store3	prfrm.c	/^store3(frame)$/;"	f
+store3	shadoq.c	/^store3()$/;"	f
+store3	viewc.c	/^store3()$/;"	f
+store4	compln.c	/^store4()$/;"	f
+storeang	lintel.cpp	/^void storeang(int f, int e, double a1, double a2, double a3)$/;"	f
+storeang	lintelref.cpp	/^void storeang(int f, int e, double a1, double a2, double a3)$/;"	f
+storepnt	raselr.c	/^storepnt(n,w,h,dr,dg,db)$/;"	f
+strcmpend	lintel.cpp	/^bool strcmpend ( char str1[], char str2[] )$/;"	f
+strcmpend	lintelref.cpp	/^bool strcmpend ( char str1[], char str2[] )$/;"	f
+string	compln.c	/^char string[BMAX];       \/* next set of non-blank characters$/;"	v
+string	lintel.cpp	/^char string[BMAX];         \/\/ next set of non-blank characters from data file *\/$/;"	v
+string	lintelref.cpp	/^char string[BMAX];         \/\/ next set of non-blank characters from data file *\/$/;"	v
+stt	lintel.cpp	/^int   stt[3][12][3] \/* quaternion angles of 11 direction symbols *\/$/;"	v
+stt	lintelref.cpp	/^int   stt[3][12][3] \/* quaternion angles of 11 direction symbols *\/$/;"	v
+subact	compln.c	/^int subact[EMAX][2];     \/* numbers of the first and last$/;"	v
+subact	lintel.cpp	/^int subact[PMAX][2]; \/\/ subact[i][] - action numbers of start and end of ith subroutine$/;"	v
+subact	lintelref.cpp	/^int subact[PMAX][2]; \/\/ subact[i][] - action numbers of start and end of ith subroutine$/;"	v
+subact	prfrm.c	/^int     subact[EMAX][2] ;$/;"	v
+sublen	compln.c	/^int sublen[EMAX];$/;"	v
+sublen	lintel.cpp	/^int sublen[PMAX];$/;"	v
+sublen	lintelref.cpp	/^int sublen[PMAX];$/;"	v
+subnam	compln.c	/^char subnam[EMAX][BMAX]; \/* subroutine names *\/$/;"	v
+subrou	compln.c	/^int subrou = 6;   \/* code of start of subroutine *\/$/;"	v
+subrou	prfrm.c	/^   int subrou = 6;$/;"	v
+subrou_keyword_code	lintel.cpp	/^   int subrou_keyword_code=  6;$/;"	v
+subrou_keyword_code	lintelref.cpp	/^   int subrou_keyword_code=  6;$/;"	v
+subtra	prfrm.c	/^   int subtra = 42;$/;"	v
+subtra_keyword_code	lintel.cpp	/^   int subtra_keyword_code= 42;$/;"	v
+subtra_keyword_code	lintelref.cpp	/^   int subtra_keyword_code= 42;$/;"	v
+surf	lintel.cpp	/^double surf(int ell1, int ell2)$/;"	f
+surf	lintelref.cpp	/^double surf(int ell1, int ell2)$/;"	f
+surf	prfrm.c	/^double surf()$/;"	f
+t	lintel.cpp	/^int t;               \/\/ type of current action$/;"	v
+t	lintelref.cpp	/^int t;               \/\/ type of current action$/;"	v
+t	prfrm.c	/^int     t;$/;"	v
+target	led.cpp	/^int target;          \/* segment hit by mouse *\/$/;"	v
+td	nudes.c	/^char td[BMAX];      \/* name of temporary subdirectory *\/$/;"	v
+ten	shadoq.c	/^double inv2,doub0,ten,rad10,pi,piby2 ;$/;"	v
+ten	viewc.c	/^double  ten;$/;"	v
+tenth	viewc.c	/^double  tenth;$/;"	v
+text	led.cpp	/^   char text[BMAX];   \/* associated text *\/$/;"	m	struct:Segment	file:
+text	led.cpp	/^void text(int s)$/;"	f
+textur	prfrm.c	/^   int textur = 52;$/;"	v
+textur_keyword_code	lintel.cpp	/^   int textur_keyword_code= 52;$/;"	v
+textur_keyword_code	lintelref.cpp	/^   int textur_keyword_code= 52;$/;"	v
+texture	raselr.c	/^texture(dx,dy,dz,n,red,green,blue)$/;"	f
+time	lintel.cpp	/^int time;$/;"	v
+time	lintelref.cpp	/^int time;$/;"	v
+tmp	raselr.c	/^int    tmp = FALSE;        \/* true if subdirectory tmp used *\/$/;"	v
+tn3	lintel.cpp	/^char tn3[FMAX][EMAX][BMAX];\/\/ names of reduced texture map files$/;"	v
+tn3	lintelref.cpp	/^char tn3[FMAX][EMAX][BMAX];\/\/ names of reduced texture map files$/;"	v
+tname	lintel.cpp	/^char tname[EMAX][BMAX];    \/\/ name of texture map file$/;"	v
+tname	lintelref.cpp	/^char tname[EMAX][BMAX];    \/\/ name of texture map file$/;"	v
+told	prfrm.c	/^double  told;$/;"	v
+tolr	lintel.cpp	/^double  tolr;$/;"	v
+tolr	lintelref.cpp	/^double  tolr;$/;"	v
+tolr	prfrm.c	/^float tolr;$/;"	v
+touch	prfrm.c	/^   int touch  = 15;$/;"	v
+touch_keyword_code	lintel.cpp	/^   int touch_keyword_code= 15;$/;"	v
+touch_keyword_code	lintelref.cpp	/^   int touch_keyword_code= 15;$/;"	v
+track	lintel.cpp	/^int track;           \/\/ TRUE when tracking viewpoint on main figure$/;"	v
+track	lintelref.cpp	/^int track;           \/\/ TRUE when tracking viewpoint on main figure$/;"	v
+trlx	lintel.cpp	/^int   trlx[3][12][3]  \/* quaternion angles of 11 direction symbols *\/$/;"	v
+trlx	lintelref.cpp	/^int   trlx[3][12][3]  \/* quaternion angles of 11 direction symbols *\/$/;"	v
+try	prfrm.c	/^double try(a)$/;"	f
+trying	lintel.cpp	/^double trying(double a)$/;"	f
+trying	lintelref.cpp	/^double trying(double a)$/;"	f
+twirl	lintel.cpp	/^void twirl(double x, double y, double z, double r[3][3])$/;"	f
+twirl	lintelref.cpp	/^void twirl(double x, double y, double z, double r[3][3])$/;"	f
+twirl	prfrm.c	/^twirl(x,y,z,r)$/;"	f
+twirl	viewc.c	/^twirl(x,y,z,r)$/;"	f
+twopi	lintel.cpp	/^double  twopi;$/;"	v
+twopi	lintelref.cpp	/^double  twopi;$/;"	v
+twopi	prfrm.c	/^double  twopi;$/;"	v
+twopi	raselr.c	/^double twopi;$/;"	v
+twopi	viewc.c	/^double  twopi;$/;"	v
+tx	lintel.cpp	/^double  tx,ty,tz;              \/\/ interactive translations$/;"	v
+tx	lintelref.cpp	/^double  tx,ty,tz;              \/\/ interactive translations$/;"	v
+ty	lintel.cpp	/^double  tx,ty,tz;              \/\/ interactive translations$/;"	v
+ty	lintelref.cpp	/^double  tx,ty,tz;              \/\/ interactive translations$/;"	v
+type	compln.c	/^int type[PMAX];          \/* the type codes of the actions *\/$/;"	v
+type	lintel.cpp	/^int type[PMAX];      \/\/ type of  action$/;"	v
+type	lintelref.cpp	/^int type[PMAX];      \/\/ type of  action$/;"	v
+type	nudes.c	/^char type; \/* code for type of output file $/;"	v
+type	prfrm.c	/^int     type[PMAX] ;$/;"	v
+tz	lintel.cpp	/^double  tx,ty,tz;              \/\/ interactive translations$/;"	v
+tz	lintelref.cpp	/^double  tx,ty,tz;              \/\/ interactive translations$/;"	v
+unbar	led.cpp	/^void unbar(void)$/;"	f
+userinput	run.py	/^userinput = raw_input("Enter the name of .n file created Eg(test.lbn_000.n)" )$/;"	v
+usevar	compln.c	/^int usevar[EMAX];        \/* zero if variable not used *\/$/;"	v
+usevar	lintel.cpp	/^int usevar[PMAX];    \/\/ 0 if variable not used$/;"	v
+usevar	lintelref.cpp	/^int usevar[PMAX];    \/\/ 0 if variable not used$/;"	v
+usey	raselr.c	/^int    usey;               \/* true if y component of surface normal  used *\/$/;"	v
+usez	nudes.c	/^char usez[BMAX];    \/* for use if z shading *\/$/;"	v
+v	lintel.cpp	/^double  v;$/;"	v
+v	lintelref.cpp	/^double  v;$/;"	v
+v	prfrm.c	/^double  v ;$/;"	v
+val	compln.c	/^float val[EMAX];         \/* constants used by data file *\/$/;"	v
+val	frad3c.c	/^int val[EMAX][12];$/;"	v
+val	lintel.cpp	/^double  val[VMAX];             \/\/ val[i] - if i <= nvals then value of ith constant$/;"	v
+val	lintelref.cpp	/^double  val[VMAX];             \/\/ val[i] - if i <= nvals then value of ith constant$/;"	v
+val	prfrm.c	/^double  val[EMAX] ;$/;"	v
+valadd	compln.c	/^int valadd(v)$/;"	f
+valadd	lintel.cpp	/^int valadd(double v)$/;"	f
+valadd	lintelref.cpp	/^int valadd(double v)$/;"	f
+value	compln.c	/^float value()$/;"	f
+value	lintel.cpp	/^double value(void)$/;"	f
+value	lintelref.cpp	/^double value(void)$/;"	f
+var0	lintel.cpp	/^int var0;$/;"	v
+var0	lintelref.cpp	/^int var0;$/;"	v
+var0	prfrm.c	/^int     var0;$/;"	v
+var1	lintel.cpp	/^int var1;$/;"	v
+var1	lintelref.cpp	/^int var1;$/;"	v
+var1	prfrm.c	/^int     var1;$/;"	v
+var2	lintel.cpp	/^int var2;$/;"	v
+var2	lintelref.cpp	/^int var2;$/;"	v
+var2	prfrm.c	/^int     var2;$/;"	v
+variab	compln.c	/^char variab[6]= {'v','a','r','i','a','b'};$/;"	v
+variab	lintel.cpp	/^char variab[6]= {'v','a','r','i','a','b'};$/;"	v
+variab	lintelref.cpp	/^char variab[6]= {'v','a','r','i','a','b'};$/;"	v
+variab	prfrm.c	/^   int variab = 32;$/;"	v
+variable_keyword_code	lintel.cpp	/^   int variable_keyword_code = 32;$/;"	v
+variable_keyword_code	lintelref.cpp	/^   int variable_keyword_code = 32;$/;"	v
+varlen	compln.c	/^int varlen[EMAX];$/;"	v
+varlen	lintel.cpp	/^int varlen[PMAX];$/;"	v
+varlen	lintelref.cpp	/^int varlen[PMAX];$/;"	v
+varnam	compln.c	/^char varnam[EMAX][BMAX]; \/* variable names *\/$/;"	v
+varval	lintel.cpp	/^double  varval;                \/\/ varval - value of variable$/;"	v
+varval	lintelref.cpp	/^double  varval;                \/\/ varval - value of variable$/;"	v
+varval	prfrm.c	/^double  varval;$/;"	v
+vecmat	lintel.cpp	/^void vecmat(double v[3], double m[3][3], double w[3])$/;"	f
+vecmat	lintelref.cpp	/^void vecmat(double v[3], double m[3][3], double w[3])$/;"	f
+vecmat	prfrm.c	/^vecmat(v,m,w)$/;"	f
+vecmat	viewc.c	/^vecmat(v,m,w)$/;"	f
+vecmul	lintel.cpp	/^void vecmul(double v[EMAX][3], double m[3][3], int n)$/;"	f
+vecmul	lintelref.cpp	/^void vecmul(double v[EMAX][3], double m[3][3], int n)$/;"	f
+vecmul	prfrm.c	/^vecmul(v,m,n)$/;"	f
+vecmul	viewc.c	/^vecmul(v,m,n)$/;"	f
+view	nudes.c	/^view(f)$/;"	f
+view	prfrm.c	/^   int view   = 33;$/;"	v
+view_keyword_code	lintel.cpp	/^   int view_keyword_code= 33;$/;"	v
+view_keyword_code	lintelref.cpp	/^   int view_keyword_code= 33;$/;"	v
+viewfr	compln.c	/^int viewfr = 33;  \/* code of a 'view' declaration *\/$/;"	v
+vname	lintel.cpp	/^char vname[EMAX][BMAX];    \/\/ variable names$/;"	v
+vname	lintelref.cpp	/^char vname[EMAX][BMAX];    \/\/ variable names$/;"	v
+vname	prfrm.c	/^char    vname[EMAX][BMAX];$/;"	v
+voldx	led.cpp	/^int   voldx[NSYMS][LINES] = { {0},$/;"	v
+voldy	led.cpp	/^int   voldy[NSYMS][LINES] = { {0},$/;"	v
+volmenudx	led.cpp	/^int   volmenudx[5] = { 0, MSIZE, 0, -MSIZE, 0};$/;"	v
+volmenudy	led.cpp	/^int   volmenudy[5] = { 0, 0, MSIZE, 0, -MSIZE};$/;"	v
+volmx	led.cpp	/^int   volmx;$/;"	v
+volmy	led.cpp	/^int   volmy;$/;"	v
+volstep	led.cpp	/^int   volstep = 1;$/;"	v
+volx	led.cpp	/^int   volx[NSYMS] = { 0, 15, 15, 45, 45, 75, 75, 36 };$/;"	v
+voly	led.cpp	/^int   voly[NSYMS] = { 0, 20, 70, 20, 70, 20, 70, 42 };$/;"	v
+vstart	lintel.cpp	/^int vstart;          \/\/ first frame from view command$/;"	v
+vstart	lintelref.cpp	/^int vstart;          \/\/ first frame from view command$/;"	v
+vstart	prfrm.c	/^int     vstart;$/;"	v
+vstop	compln.c	/^int vstrt,vstop;         \/* range of frame numbers to be drawn *\/$/;"	v
+vstop	lintel.cpp	/^int vstop;           \/\/ last frame from view command$/;"	v
+vstop	lintelref.cpp	/^int vstop;           \/\/ last frame from view command$/;"	v
+vstop	prfrm.c	/^int     vstop ;$/;"	v
+vstrt	compln.c	/^int vstrt,vstop;         \/* range of frame numbers to be drawn *\/$/;"	v
+vx	frad3c.c	/^int vx,vy,vz;$/;"	v
+vx	raselr.c	/^int    vx,vy,vz;$/;"	v
+vx	shadoq.c	/^int vx,vy,vz;$/;"	v
+vy	frad3c.c	/^int vx,vy,vz;$/;"	v
+vy	raselr.c	/^int    vx,vy,vz;$/;"	v
+vy	shadoq.c	/^int vx,vy,vz;$/;"	v
+vz	frad3c.c	/^int vx,vy,vz;$/;"	v
+vz	raselr.c	/^int    vx,vy,vz;$/;"	v
+vz	shadoq.c	/^int vx,vy,vz;$/;"	v
+w	led.cpp	/^   int w;             \/* width *\/$/;"	m	struct:Segment	file:
+w	lintel.cpp	/^	int w;       \/\/ width$/;"	m	struct:Symbol	file:
+w	lintelref.cpp	/^	int w;       \/\/ width$/;"	m	struct:Symbol	file:
+wait	led.cpp	/^void wait(int m)$/;"	f
+waydx	led.cpp	/^int   waydx[NSYMS][LINES] = { {0},$/;"	v
+waydy	led.cpp	/^int   waydy[NSYMS][LINES] = { {0},$/;"	v
+waymenudx	led.cpp	/^int   waymenudx[5] = { 0, MSIZE, 0, -MSIZE, 0};$/;"	v
+waymenudy	led.cpp	/^int   waymenudy[5] = { 0, 0, MSIZE, 0, -MSIZE};$/;"	v
+waymx	led.cpp	/^int   waymx;$/;"	v
+waymy	led.cpp	/^int   waymy;$/;"	v
+waystep	led.cpp	/^int   waystep = STEP\/2;$/;"	v
+wayx	led.cpp	/^int   wayx[9] = { 0, 30, 30, 50, 60, 60,  5, 80 };$/;"	v
+wayy	led.cpp	/^int   wayy[9] = { 0, 10, 60, 30, 12, 62, 15, 15 };$/;"	v
+wd	nudes.c	/^char wd[BMAX];      \/* name of original directory *\/$/;"	v
+wface	lintel.cpp	/^int mface,wface;     \/\/ facing directions of man and woman$/;"	v
+wface	lintelref.cpp	/^int mface,wface;     \/\/ facing directions of man and woman$/;"	v
+width	led.cpp	/^int width;           \/* width of window *\/$/;"	v
+width	lintel.cpp	/^int width = 512;     \/\/ height  of window$/;"	v
+width	lintelref.cpp	/^int width = 512;     \/\/ height  of window$/;"	v
+width	raselr.c	/^int    width;$/;"	v
+world	compln.c	/^char world[6] = {'w','o','r','l','d'};$/;"	v
+world	lintel.cpp	/^char world[6] = {'w','o','r','l','d'};$/;"	v
+world	lintelref.cpp	/^char world[6] = {'w','o','r','l','d'};$/;"	v
+wspace	lintel.cpp	/^bool mspace,wspace;$/;"	v
+wspace	lintelref.cpp	/^bool mspace,wspace;$/;"	v
+x	led.cpp	/^   int x;             \/* lower left corner x coordinate *\/$/;"	m	struct:Segment	file:
+x	lintel.cpp	/^	int x;       \/\/ horizontal position of left side$/;"	m	struct:Symbol	file:
+x	lintel.cpp	/^int x;$/;"	v
+x	lintelref.cpp	/^	int x;       \/\/ horizontal position of left side$/;"	m	struct:Symbol	file:
+x	lintelref.cpp	/^int x;$/;"	v
+x	prfrm.c	/^double  x[3];$/;"	v
+x1a	prfrm.c	/^double  x1a,x1b,x2a,x2b;$/;"	v
+x1b	prfrm.c	/^double  x1a,x1b,x2a,x2b;$/;"	v
+x1s	prfrm.c	/^double  x1s,x2s,y1s,y2s;$/;"	v
+x2	lintel.cpp	/^	int x2;      \/\/ horizontal position of right side$/;"	m	struct:Symbol	file:
+x2	lintelref.cpp	/^	int x2;      \/\/ horizontal position of right side$/;"	m	struct:Symbol	file:
+x2a	prfrm.c	/^double  x1a,x1b,x2a,x2b;$/;"	v
+x2b	prfrm.c	/^double  x1a,x1b,x2a,x2b;$/;"	v
+x2s	prfrm.c	/^double  x1s,x2s,y1s,y2s;$/;"	v
+xbot	led.cpp	/^int xbot,ybot;       \/* bottom left of displayed part of score *\/$/;"	v
+xfac	raselr.c	/^double xfac,yfac;$/;"	v
+xmax	lintel.cpp	/^int xmin,xmax;       \/\/ width range of score symbols$/;"	v
+xmax	lintelref.cpp	/^int xmin,xmax;       \/\/ width range of score symbols$/;"	v
+xmax3	raselr.c	/^double xmax3[EMAX];$/;"	v
+xmin	lintel.cpp	/^int xmin,xmax;       \/\/ width range of score symbols$/;"	v
+xmin	lintelref.cpp	/^int xmin,xmax;       \/\/ width range of score symbols$/;"	v
+xmin3	raselr.c	/^double xmin3[EMAX];$/;"	v
+xoffset	led.cpp	/^int xoffset=10;      \/* shift all to right *\/$/;"	v
+xoffset	raselr.c	/^int    xoffset[EMAX];      \/* x offset of centre of each map *\/$/;"	v
+xtop	led.cpp	/^int xtop,ytop;       \/* top right of displayed part of score *\/$/;"	v
+xtop	raselr.c	/^int    xtop,ytop;$/;"	v
+xw	led.cpp	/^int xw,yw;           \/* position of window *\/$/;"	v
+xw	lintel.cpp	/^int xw = 10;$/;"	v
+xw	lintelref.cpp	/^int xw = 10;$/;"	v
+xx	lintel.cpp	/^double  xx[3];                 \/\/ x,y and z values (x&y used for commands add, subtract,multiply,divide)$/;"	v
+xx	lintelref.cpp	/^double  xx[3];                 \/\/ x,y and z values (x&y used for commands add, subtract,multiply,divide)$/;"	v
+xyz	lintel.cpp	/^char xyz[2][10] = {{'m','x',' ','m','y',' ','m','z'},$/;"	v
+xyz	lintelref.cpp	/^char xyz[2][10] = {{'m','x',' ','m','y',' ','m','z'},$/;"	v
+y	led.cpp	/^   int y;             \/* lower left corner y coordinate *\/$/;"	m	struct:Segment	file:
+y	lintel.cpp	/^	int y;       \/\/ vertical position of bottom$/;"	m	struct:Symbol	file:
+y	lintelref.cpp	/^	int y;       \/\/ vertical position of bottom$/;"	m	struct:Symbol	file:
+y1a	prfrm.c	/^double  y1a,y1b,y2a,y2b;$/;"	v
+y1b	prfrm.c	/^double  y1a,y1b,y2a,y2b;$/;"	v
+y1s	prfrm.c	/^double  x1s,x2s,y1s,y2s;$/;"	v
+y2	lintel.cpp	/^	int y2;      \/\/ vertical position of top$/;"	m	struct:Symbol	file:
+y2	lintelref.cpp	/^	int y2;      \/\/ vertical position of top$/;"	m	struct:Symbol	file:
+y2a	prfrm.c	/^double  y1a,y1b,y2a,y2b;$/;"	v
+y2b	prfrm.c	/^double  y1a,y1b,y2a,y2b;$/;"	v
+y2s	prfrm.c	/^double  x1s,x2s,y1s,y2s;$/;"	v
+ybot	led.cpp	/^int xbot,ybot;       \/* bottom left of displayed part of score *\/$/;"	v
+yend	lintel.cpp	/^int yend;            \/\/ y position of last movement$/;"	v
+yend	lintelref.cpp	/^int yend;            \/\/ y position of last movement$/;"	v
+yfac	raselr.c	/^double xfac,yfac;$/;"	v
+yhigh	led.cpp	/^int yhigh;           \/* top of highest symbol that is not a bar or staff *\/$/;"	v
+yj	lintel.cpp	/^int yj[5*FMAX];      \/\/ symbols starting at given y positions$/;"	v
+yj	lintelref.cpp	/^int yj[5*FMAX];      \/\/ symbols starting at given y positions$/;"	v
+ymax	led.cpp	/^int ymax;            \/* top of score *\/$/;"	v
+ymax	lintel.cpp	/^int ymax;            \/\/ top of score$/;"	v
+ymax	lintelref.cpp	/^int ymax;            \/\/ top of score$/;"	v
+ymax3	raselr.c	/^double ymax3[EMAX];$/;"	v
+ymin3	raselr.c	/^double ymin3[EMAX];$/;"	v
+yoffset	raselr.c	/^int    yoffset[EMAX];      \/* y offset of centre of each map *\/$/;"	v
+ystart	lintel.cpp	/^int ystart;          \/\/ y position of start of movement$/;"	v
+ystart	lintelref.cpp	/^int ystart;          \/\/ y position of start of movement$/;"	v
+ytop	led.cpp	/^int xtop,ytop;       \/* top right of displayed part of score *\/$/;"	v
+ytop	raselr.c	/^int    xtop,ytop;$/;"	v
+yw	led.cpp	/^int xw,yw;           \/* position of window *\/$/;"	v
+yw	lintel.cpp	/^int yw = 10;         \/\/ lower left corner of window$/;"	v
+yw	lintelref.cpp	/^int yw = 10;         \/\/ lower left corner of window$/;"	v
+zdepth	raselr.c	/^zdepth(n,x,y,z,plan23,coef34,cof256)$/;"	f
+zmax	raselr.c	/^double zmax;$/;"	v
+zmax3	raselr.c	/^double zmax3[EMAX];$/;"	v
+zmin	raselr.c	/^double zmin;$/;"	v
+zmin3	raselr.c	/^double zmin3[EMAX];$/;"	v
