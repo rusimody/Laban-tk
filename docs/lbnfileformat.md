@@ -35,52 +35,52 @@ This document is a brief description of what .lbn File Format.
 ##### a) Bars:
 All Vertical Lines in LED is called as Bars.<br />
 All Bars have a key which is also it's Item number, Wich is increment order star form lower side is 0,1,.....<br />
-![Bars](https://rawgit.com/rusimody/Laban-tk/origin/pucsd_laban_project/docs/img/Bar.png)
+![Bars](https://rawgit.com/rusimody/Laban-tk/pucsd_laban_project/docs/img/Bar.png)
 
 ##### b) Stav:
 All Horizontal Lines in LED is calld Stav.<br />
 Stav have a Item number wich is 0,1,2.<br />
-![Stav](https://rawgit.com/rusimody/Laban-tk/origin/pucsd_laban_project/docs/img/Stav.png)
+![Stav](https://rawgit.com/rusimody/Laban-tk/pucsd_laban_project/docs/img/Stav.png)
 
 ##### c) Dirn:
 Dirn have  Following Symbol:<br />
-![Dirn](https://rawgit.com/rusimody/Laban-tk/origin/pucsd_laban_project/docs/img/Dirn.png)
+![Dirn](https://rawgit.com/rusimody/Laban-tk/pucsd_laban_project/docs/img/Dirn.png)
 
 ##### d) Limb:
 Limb have  Following Symbol:<br />
-![Limb](https://rawgit.com/rusimody/Laban-tk/origin/pucsd_laban_project/docs/img/Limb.png)
+![Limb](https://rawgit.com/rusimody/Laban-tk/pucsd_laban_project/docs/img/Limb.png)
 
 ##### e) Area:
 Area have  Following Symbol:<br />
-![Area](https://rawgit.com/rusimody/Laban-tk/origin/pucsd_laban_project/docs/img/Area.png)
+![Area](https://rawgit.com/rusimody/Laban-tk/pucsd_laban_project/docs/img/Area.png)
 
 ##### f) Volm:
 Volm have  Following Symbol:<br />
-![Volm](https://rawgit.com/rusimody/Laban-tk/origin/pucsd_laban_project/docs/img/Volm.png)
+![Volm](https://rawgit.com/rusimody/Laban-tk/pucsd_laban_project/docs/img/Volm.png)
 
 ##### g) Ways:
 Ways have  Following Symbol:<br />
-![Ways](https://rawgit.com/rusimody/Laban-tk/origin/pucsd_laban_project/docs/img/Ways.png)
+![Ways](https://rawgit.com/rusimody/Laban-tk/pucsd_laban_project/docs/img/Ways.png)
 
 ##### h) Face:
 Face have  Following Symbol:<br />
-![Face](https://rawgit.com/rusimody/Laban-tk/origin/pucsd_laban_project/docs/img/Face.png)
+![Face](https://rawgit.com/rusimody/Laban-tk/pucsd_laban_project/docs/img/Face.png)
 
 ##### i) Misc:
 Misc have  Following Symbol:<br />
-![Misc](https://rawgit.com/rusimody/Laban-tk/origin/pucsd_laban_project/docs/img/Misc.png)
+![Misc](https://rawgit.com/rusimody/Laban-tk/pucsd_laban_project/docs/img/Misc.png)
 
 ##### j) Pins:
 Pins have  Following Symbol:<br />
-![Pins](https://rawgit.com/rusimody/Laban-tk/origin/pucsd_laban_project/docs/img/Pins.png)
+![Pins](https://rawgit.com/rusimody/Laban-tk/pucsd_laban_project/docs/img/Pins.png)
 
 ##### k) Rotn:
 Rotn have  Following Symbol:<br />
-![Rotn](https://rawgit.com/rusimody/Laban-tk/origin/pucsd_laban_project/docs/img/Rotn.png)
+![Rotn](https://rawgit.com/rusimody/Laban-tk/pucsd_laban_project/docs/img/Rotn.png)
 
 ##### l) Keys:
 Keys have  Following Symbol:<br />
-![Keys](https://rawgit.com/rusimody/Laban-tk/origin/pucsd_laban_project/docs/img/Keys.png)
+![Keys](https://rawgit.com/rusimody/Laban-tk/pucsd_laban_project/docs/img/Keys.png)
 
 <br /><br />
 
@@ -249,7 +249,7 @@ It is only filled if symbol is bar otherwise it is empty. and It is Seprayed by 
  
 
 ## Example of .lbn File:
-![Eg](https://rawgit.com/rusimody/Laban-tk/origin/pucsd_laban_project/docs/img/eg.png)
+![Eg](https://rawgit.com/rusimody/Laban-tk/pucsd_laban_project/docs/img/eg.png)
 
 
 \# This is a example of .lbn File <br />
