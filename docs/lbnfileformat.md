@@ -44,7 +44,7 @@ Stav have a Item number wich is 0,1,2.<br />
 
 ##### c) Dirn:
 Dirn have  Following Symbol:<br />
-![Dirn](https://rawgit.com/rusimody/Laban-tk/pucsd_laban_project/docs/img/Dirn.png)
+![Dirn](https://rawgit.com/rusimody/Laban-tk/pucsd_laban_project/docs/img/Drin.png)
 
 ##### d) Limb:
 Limb have  Following Symbol:<br />
