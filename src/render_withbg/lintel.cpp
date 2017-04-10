@@ -1,606 +1,9 @@
-/* lintel version 84
-
-   This set of routines reads a specifications of actions
-   to be performed in a LED .lbn file in Labanotation,
-   or a NUDES .n file, and performs them
-   producing an interactive 3D animated display.
-
-   If there are two or more staves in labanotation,
-   it assumes   man on the left, woman on the right
-
-   written in C++ for
-       Microsoft Visual Studio .NET 2003, Opengl, and Glut32.
-
-  		and optionally	lintel.ini
-
-    7 Nov 2008 lintel084- added 'limit' to declaration comments
-   27 Nov 2007 lintel084- oriented, laction, lsethold, ldochest
-   14 Nov 2007 lintel083- chest twist: laction, ldolimb
-   14 Nov 2007 lintel082- lbn_figures: option of 1 stave
-    5 May 2007 lintel081- angsep, dotouch, surf,
-    3 Apr 2007 lintel080- fix middle relaxed arms, donum
-    6 Dec 2006 lintel079- ptitle, reading lintel.ini
-    4 Dec 2006 lintel078- lintel066 + lintel077, lsetcoords
-   16 Sep 2006 lintel077- dotouch seeks min sqr(surf())
-   19 Aug 2006 lintel076- toe taps use dodrag
-   14 Aug 2006 lintel075- binary search for dodrag
-   13 Aug 2006 lintel074- forbid, allow
-    8 Aug 2006 lintel073- cutting
-   21 Jun 2006 lintel069- lleggesture
-    1 Jun 2006 lintel068- input frame rate, beats per minute
-                          bpm,fps,ppb,initialise,lgetfiles,
-                          doub60,fac,FACTOR
-   15 May 2006 lintel066- default .lbn,
-                          staves 1 2, track, spot turn
-   12 May 2006 lintel065- allow non-alphanumerics in names
-    9 May 2006 lintel064- fix arm angles arlx arlx
-    8 May 2006 lintel063- fix lbows
-    7 May 2006 lintel062- fix lselectfig
-    2 May 2006 lintel061- fix semishadow hold,
-   21 Apr 2006 lintel060- accommodating chest directions
-   19 Apr 2006 lintel059- fixing feet angles
-   18 Apr 2006 lintel058- adding ldoposn, ldokeep
-   15 Apr 2006 lintel057- using only lintel.n
-   14 Mar 2006 lintel056- fix lleggesture,
-   12 Mar 2006 lintel055- fix action (ground: t18 frac -> prop)
-   19 Jan 2006 lintel054- fix globals, dodrag, doground, elow,
-	                  inperf, help, checkeys, image,
-   14 Jan 2006 lintel054- fix lleggesture, ldostep,
-   11 Jan 2006 lintel053- fix lselectfig, lgetfiles, lleggesture
-    7 Jan 2006 lintel052- fix lspotturn, laction, lsethold, hold constants, face indicators
-    5 Jan 2006 lintel051- cut forward, back, settle, lside, rename lleggesture
-   26 Dec 2005 lintel050- fix lforward, ssend, ssmall, radten
-   23 Dec 2005 lintel049- fix loverlap, ldopivot, lbent, ldoarms, remove lhaspivot, diagnostics
-   21 Dec 2005 lintel048- fix laction, lback, ldohold, fclh
-   20 Dec 2005 lintel047- fix back step, diagonal aerials
-    5 Dec 2005 lintel046- fix back step
-    4 Dec 2005 lintel045- fix overlapping facing symbols
-    4 Dec 2005 lintel044- fix kept,keptf
-   16 Nov 2005 lintel043- fix closed position
-   11 Nov 2005 lintel042- fix promenade position, bent arms
-    8 Nov 2005 lintel041- fix rotary chasses
-    8 Nov 2005 lintel040- clean up
-    5 Nov 2005 lintel039- fix spot turns in Charmaine
-    1 Nov 2005 lintel038- fix closed and shadow holds
-    1 Nov 2005 lintel037- fix associating pins with rotation signs
-   31 Oct 2005 lintel036- include shadow hold, fix back step
-    3 Oct 2005 lintel035- fix closed and semishadow holds
-    3 Oct 2005 lintel034- fix starting positions man and woman
-    3 Oct 2005 lintel033- syncronise man and woman
-   30 Sep 2005 lintel032- request new file in event of an error
-   28 Sep 2005 lintel031- fix subroutine counting bug
-   27 Sep 2005 lintel030- fix counting bugs (off by 1)
-   26 Sep 2005 lintel029- rewrote setels
-   21 Sep 2005 lintel027- able to run .n files also
-   17 Sep 2005 lintel026- drag limited to high ankle position
-    9 Sep 2005 lintel025- use Lintel.figs.n and Lintel.subs.n
-   13 Aug 2005 lintel024- import ballroom hold from rev18.n
-    8 Aug 2005 lintel023- set holds
-    7 Aug 2005 lintel022- set starting spacing
-    1 Aug 2005 lintel021- set starting positions
-   31 Jul 2005 lintel020- animate both man and woman NBG
-   29 Jul 2005 lintel019- move calls to setman/setwoman
-    6 Jul 2005 lintel018- fix undefined variables t,k,fname
-    5 Jul 2005 lintel017- fix leg-gesture/turn combination
-    4 Jul 2005 lintel016- tidy up
-    2 Jul 2005 lintel015- fix Charmaine spot turn
-    1 Jul 2005 lintel014- NBG
-   30 Jun 2005 lintel013- fix Boston 2 Step women end facing snag
-   29 Jun 2005 lintel012- fix La Bomba arms snag
-   26 Jun 2005 lintel011- accommodating XX (bent) sign
-   15 Jun 2005 lintel010- fix 'touch' problem in 'angsep'
-   14 Jun 2005 lintel009- add data file name to window title
-   13 Jun 2005 lintel008- use Linter.decs.n and Linter.subs.n
-    8 Jun 2005 lintel007- still fixing drag, luci.lbn, bar 25, fr 899
-    7 Jun 2005 lintel006- use 'drag' for toe/foot/heel taps, slowed pivots
-    6 Jun 2005 lintel005- fix Fred's 'drag' problem in luci.lbn
-    5 Jun 2005 lintel004- allow comment lines in .lbn file
-    4 Jun 2005 lintel003- display bar numbers
-    1 Jun 2005 lintel002- use only linter.subs.n and linter.decs.n
-    5 May 2005 lintel001- check number of staves
-    4 May 2005 drawel45- add linter50 for left/right staves
-    3 May 2005 linter  - convert to C++
-    2 May 2005 drawel43- delete input summary printout
-   26 Apr 2005 drawel42- add compl
-   26 Apr 2005 drawel41- add shadows
-   25 Apr 2005 complu  - fix view command
-   25 Apr 2005 complt  - fix final summary
-   24 Apr 2005 drawel40- correct shading
-   24 Apr 2005 drawel39- compress z axis
-   23 Apr 2005 drawel38- fix place/observe error
-   20 Apr 2005 compls  - change nels to ne
-   20 Apr 2005 drawel35- write errors to standard output
-    8 Apr 2005 drawel35- debug view transform
-    7 Apr 2005 drawel34- incorporate movement simulation (prfrm)
-    5 Apr 2005 drawel33- incorporate view transform (view)
-    4 Apr 2005 drawel32- scale about screen centre
-    3 Apr 2005 drawel31- input root of datafile name
-   28 Mar 2005 drawel30- improve vertical illumination
-   28 Mar 2005 drawel29- improve file name input
-   27 Mar 2005 drawel28- file name input
-   27 Mar 2005 drawel27- echo commands
-   27 Mar 2005 drawel26- slow pause, added 'v','w'
-   26 Mar 2005 drawel25- fix shading
-   26 Mar 2005 drawel24- fix visibility of frame numbers
-   22 Mar 2005 drawel23- fix x and y rotations
-   22 Mar 2005 drawel  - fix z rotation and help
-   22 Mar 2005 drawel  - show frame numbers
-   22 Mar 2005 drawel  - fix inter-frame delay
-   22 Mar 2005 drawel  - fix pausing on first and last frames
-   22 Mar 2005 drawel  - add single frame forward and back
-   21 Mar 2005 drawel  - add pause routine
-   19 Mar 2005 drawel  - separate setels routine.
-   13 Mar 2005 drawel  - translate to C++ for .NET
-    3 Apr 2005 complr  - list statistics at end
-    1 Apr 2005 complq  - read nudes filename root
-   29 Mar 2005 complp  - rewritten in C++ for .NET 2003
-    3 Jul 2004 linter  - restore upper case figure name initials
-   11 Oct 2003 linter  - ensure fend > fstart
-   10 Oct 2003 linter  - align output spacing
-    7 Oct 2003 linter  - use 'woman', 'man' variables
-   12 Sep 2003 prfrm   - error message contains frame number
-   10 Sep 2003 prfrm   - touch using nested search
-    7 Sep 2003 compl   - avoid expanding the 0-1 frame period with -e option
-   24 Jul 2003 prfrm   - extend drag search angle from 10 to 20 degrees
-   24 Jul 2003 linter  - use more drag on closing ankle
-   10 Jul 2003 linter  - use drag on closing ankle
-   16 Jun 2003 prfrm   - improve drag
-    6 Jun 2003 prfrm   - debug drag
-    6 Jun 2003 linter  - accommodate close sign for standing foot
-   29 May 2003 linter  - fixing leg compression
-    1 Feb 2003 linter  - optional 1 second pause at start and end
-   29 Jan 2003 linter  - use 'started' to fix initial orientation
-   18 Jan 2003 linter  - fix initial orientation
-   16 Jan 2003 linter  - still fixing arms
-   10 Jan 2003 linter  - accommodating menu abbreviations
-   10 Jan 2003 drawel12- fix batch flag descriptions
-   30 Nov 2002 linter  - fix  arms
-    8 Nov 2002 linter  - fix rise and fall again
-    2 Nov 2002 linter  - note bars
-   30 Oct 2002 linter  - fix misinterpretation of zero bar line
-   19 Oct 2002 linter  - fix misinterpretation of arms once more
-   27 Sep 2002 linter  - fix misinterpretation of arms again
-    5 Sep 2002 drawel  - make x rotation inwards
-    5 Sep 2002 drawel  - fix single frame bug
-    5 Sep 2002 linter  - fix rise and fall
-    5 Sep 2002 linter  - fix misinterpretation of arm columns
-   29 Aug 2002 linter  - fix misinterpretation of columns
-   16 Jan 2002 viewc   - double precision throughout
-   10 Jan 2002 linter  - fix close without weight
-   22 Nov 2001 drawel  - report when arrays limit animation length
-   28 Sep 2001 drawel  - fix shading to after rotation
-   23 Sep 2001 drawel  - fix delay routine
-   23 Sep 2001 drawel  - delay double buffer swap
-   21 Sep 2001 drawel  - fix CreateWindow bug
-   15 Aug 2001 drawel  - start with trigonal bipyramids
-    1 Aug 2001 drawel  - add variable display slow
-   14 Jun 2001 drawel  - fix shading
-    7 Jun 2001 drawel  - show frame numbers
-   24 May 2001 drawel  - slow down
-   24 May 2001 drawel  - try for animation
-   15 May 2001 drawel  - trying to get shading right
-    3 May 2001 drawel  - get rotations in right order
-    2 May 2001 drawel  - enable hidden surface testing
-   24 Mar 2001 drawel  - initsphere revised
-    7 Mar 2001 drawel  - opengl routine names inserted
-   22 Nov 2001 linter  - still trying to point foot in gestures
-   22 Nov 2001 linter  - report gestures in output file
-    8 Nov 2001 linter  - don't close at end of step
-    1 Nov 2001 linter  - fix pointed foot in gestures
-    1 Nov 2001 linter  - fix overturning
-   12 Oct 2001 linter  - fix stepping on toes
-   15 Aug 2001 linter  - fix floor
-   14 Feb 2001 linter  - fix closing without weight some more
-    7 Feb 2001 linter  - standard output
-    7 Feb 2001 linter  - stop calls to routines overlapping
-   31 Jan 2001 linter  - get left and right legs sorted out
-   31 Jan 2001 linter  - avoid straightening leg closing without weight
-   24 Jan 2001 drawel  - interactive and flag options removed for simplicity.
-   17 Aug 2000 drawel  - for gl on Viewsonic/Zondata machines.
-   12 Nov 1999 linter  - stop pointing toes when stepping diagonally forward
-    4 Sep 1998 linter  - comments about step directions added
-   28 Aug 1998 linter  - 'leg[]' used for legs
-   23 Aug 1998 linter  - 'stt[]' used for legs
-   31 Jul 1998 linter  - check next symbol in column
-   15 Jul 1998 linter  - add back routine
-   23 Apr 1998 drawel  - display slow
-   17 Apr 1998 drawel  - t for translate in z, +/- for slow
-   13 Apr 1998 linter  - add date, forward and compress routines
-   12 Apr 1998 linter  - simplified NUDES variables
-   23 Mar 1997 linter  - fix core dump on dor1234 file
-   23 Mar 1997 linter  - optional pixels per frame
-   23 Mar 1997 compl   - debug information hidden more
-   18 Mar 1997 compl   - optional warnings
-   13 Mar 1997 linter  - bent arms
-   17 Jul 1996 prfrm   - print command to standard error output
-    7 Feb 1996 prfrm   - clean up 'dotouch'
-    3 Feb 1996 prfrm   - clear floating exceptions
-    6 Oct 1996 linter  - relaxed arms
-    6 Oct 1996 linter  - optionally use rightmost staff
-    2 Oct 1996 linter  - start at specified bar
-   25 Sep 1996 linter  - use relaxed knees
-   13 Sep 1996 linter  - written (Don Herbison-Evans)
-   19 Aug 1994 prfrm   - remove some goto's
-   13 Aug 1994 prfrm   - clean up 'perfrm'
-   21 Jul 1994 compl   - fixed 'match' bug
-   29 Apr 1994 prfrm   - cleaning up 'drag'
-   28 Apr 1994 compl   - variable subroutines permitted
-   22 Sep 1993 prfrm   - cleaning up after 'detach' fixed up
-   10 Sep 1993 drawel  - accommodate joint information
-   10 Sep 1993 compl   - documentation improved
-   16 Aug 1993 compl   - 'movjnt' added
-    2 Aug 1993 viewb   - allow joint information
-   12 Mar 1993 compl   - 'abut' added
-   11 Mar 1993 compl   - repeat subroutine calls allowed
-    4 Mar 1993 compl   - keyword 'all' turned into 'every'
-   17 Feb 1993 prfrm   - 'touch' using Buckdale's algorithm
-    4 Feb 1993 prfrm   - 'touch' using scanning
-   28 Oct 1992 prfrm   - joint limits added
-   15 Oct 1992 prfrm   - viewing transformation separated (view)
-   12 Jun 1992 compl   - 'drag' added
-   17 Apr 1992 prfrm   - 'touch' fixed
-   26 Feb 1992 drawel  - written : for Silicon Graphics Iris
-   12 Feb 1992 compl   - allow cubic movements
-   29 Jul 1991 prfrm   - print variable values nicely
-   24 Nov 1988 prfrm   - more ellipsoids accommodated
-    7 Apr 1987 compl   - translate to C, 'copy' command deleted
-   10 Dec 1986 prfrm   - translate into C for Digital VAX 780
-   29 Nov 1986 prfrm   - write figure for Benesh interpreter
-   25 Nov 1986 compl   - write a complete figure
-   17 Oct 1986 prfrm   - texture for ellipsoids
-    7 Oct 1986 compl   - 'texture' statement added
-    8 Mar 1986 compl   - 'print' statement added
-   21 Jul 1985 compl   - ellipsoids declared on the fly
-   22 Jun 1985 prfrm   - 'grofig' scales about an ellipsoid (Peter Gummer)
-   14 Jun 1985 prfrm   - 'spinto' added (Peter Gummer)
-   15 Apr 1985 prfrm   - 'setels' simplified (Peter Gummer)
-   12 Apr 1985 compl   - simplify subroutine 'join' (Peter Gummer)
-    3 Apr 1985 compl   - 'world' added, 'refell' for 'spinby','moveby' (Peter Gummer)
-    3 Jan 1985 prfrm   - 'attach', 'detach' work properly (Peter Gummer)
-   23 May 1984 compl   - change parsing order
-    7 May 1984 prfrm   - 'multiply', 'subtract', 'divide', 'balance' added
-   22 Dec 1983 compl   - reduce number of constants in val
-   14 Dec 1983 compl   - variable frame numbers
-   12 Dec 1983 prfrm   - variable frame numbers
-   25 Nov 1983 prfrm   - rotations stored as twist about axis
-   22 Nov 1983 prfrm   - separate error message file
-    2 Nov 1983 compl   - move integer codes 11-19 to 21-29 (Danuta Kucharska)
-   15 Oct 1983 compl   - add 'colour' action (Danuta Kucharska)
-   15 Oct 1983 compl   - ellipsoid default colour to flesh (Danuta Kucharska)
-   16 Aug 1983 compl   - work out range of frames
-   19 Apr 1983 prfrm   - insert 'axes', 'link', fix 'detach', 'ground'
-   16 Sep 1982 prfrm   - ellipsoid names put in 1st frame
-   19 Jul 1982 prfrm   - tolerance put in subroutine rotput
-   31 Mar 1982 compl   - 'observe', 'all', 'par' array stored
-   26 Mar 1982 prfrm   - single precision version for speed
-   26 Mar 1982 nudes   - move to Digital PDP11/34
-    8 Oct 1981 prfrm   - make data structure of figure a list
-    2 Oct 1981 prfrm   - 'add','attach','detach','flex','extend', etc. added
-    1 Oct 1981 compl   - 'add','touch','attach','detach','flex',etc
-   28 Sep 1981 compl   - declare variables to PMAX
-   16 Jul 1981 compl   - to negate variables (Nora Neilands)
-   16 Jun 1981 compl   - to store orientations and positions (Nora Neilands)
-   29 May 1980 compl   - separate compile and perform
-   29 May 1980 nudes   - moved to CDC 1800
-   27 Jul 1979 nudes   - 'groell','grojnt' added
-   20 Feb 1979 nudes   - subroutines added
-    1 Apr 1977 nudes   - named constants introduced
-   17 Jan 1977 nudes   - bends use arbitrary reference ellipsoid (Bruce McNair)
-    4 Jun 1976 nudes   - made interpretive
-   10 May 1976 nudes   - input translation separated from drawing
-    1 Apr 1975 nudes   - frame numbers used in input language
-    1 Apr 1975 nudes   - translated in to Fortran for IBM 7040
-   28 Oct 1974 nudes   - use optionally the plotter
-   24 Sep 1974 nudes   - verbalize the input language
-   11 Aug 1973 nudes   - translated into Fortran for IBM 7040
-   11 Apr 1973 nudes   - allow more than one figure
-    1 Dec 1972 nudes   - remove hidden lines
-   11 Aug 1972 nudes   - originated in Algol on English Electric KDF9 (Don Herbison-Evans)
-
-     *******************************************************
-
-      Interactive commands :-
-          a - continue animating (opp. of 'i')
-          b - if frozen, go back one frame else run backwards (opp. of 'f')
-          c - continue through restart at full rate (opp. of 'p')
-          d - shift down 1% (opp. of 'u')
-          f - if frozen, show next forward frame else run forwards (opp.of 'b')
-          g - grow scene by 10% (opp. of 's')
-          h - show these instructions
-          i - freeze (opp. of 'a')
-          j - double the number of polygons per sphere {opp. of 'k')
-          k - halve the number of polygons per sphere {opp. of 'j')
-          l - shift scene left 1% (opp. of 'r')
-          n - display of frame numbers (opp. of 'o')
-          o - do not display frame numbers (opp. of 'n')
-          p - pause on first and last frames (opp. of 'c')
-          q - quit
-          r - shift scene right 1% (opp. of 'l')
-          s - shrink scene by 10% (opp. of 'g')
-          t - shift scene away by 10 (opp. of 'T')
-          u - shift up 1% (opp. of 'd')
-          v - shift away (opp. of 'w')
-          w - shift nearer (opp. of 'v')
-          x - rotate 10 degrees about x (left - right) axis (opp. of '1')
-          y - rotate 10 degrees about y (vertical) axis (opp. of '2')
-          z - rotate 10 degrees about z (front - back) axis  (opp. of '3')
-          0 - reset parameters to default values and freeze at start
-          - - delay more between frames
-          = - delay less between frames
-
-    *************************************
-
-  NUDES action commands:
-      key  no        description
-
-    debug  22 - set debug parameter to given value
-    speed  30 - delete or interpolate extra frames
-    view   33 - set range of frames actually to be drawn
-    figure  1 - declare ellipsoids that compose given figure
-    ellips  2 - declare semi-axis lengths of given ellipsoid
-    joint   3 - declare position of given joint
-    limit  54 - declare angle limits on joint movements
-    variab 32 - declare names of variables
-
-    repeat 23 - do the given action at each frame in given range
-    linear 25 - generate action over given frames at constant rate
-    quadra 24 - generate given action accelerating then decelerating
-                to rest quadratically
-    cubic  46 - generate given action accelerating then decelerating
-                to rest cubically
-    accele  5 - generate action linearly accelerating from rest
-    decele 10 - generate action linearly decelerating to rest
-
-    linkx  49 - store coordinates of a joint
-    axes   48 - store semiaxis lengths of an ellipsoid
-    angles 36 - store the current orientation angles of an ellipsoid
-    centre 37 - store current coordinates of centre of an ellipsoid
-    subrou  6 - start a subroutine definition
-    end    29 - end of subroutine or main program
-    call   28 - call a subroutine
-    stop   16 - no more commands after this
-
-    colour 50 - colour the named ellipsoid the red, green,
-                blue coordinates given
-    textur 52 - map given image file onto ellipsoid named
-    print  51 - print value of given variable
-    ground 18 - make lowest point of given figure touch ground plane
-    grofig 11 - scale given figure about centre of given
-                ellipsoid, multiplying all parts of figure
-                by given factor
-    groell 34 - scale a single ellipsoid in size keeping all
-                joints fixed
-    grojnt 35 - scale a single ellipsoid in size keeping a
-                nominated joint of it fixed, and allowing its
-                centre, other joints and connected ellipsoids
-                to move appropriately
-    moveby 13 - move given figure by given amounts parallel to
-                the axes of given reference ellipsoid
-    moveto 27 - move given figure so that centre of given
-                ellipsoid is at given position
-    movjnt 56 - move a joint relative to the centre of an
-                ellipsoid
-    spinby 17 - spin given figure about centre of given ellipsoid,
-                rotating by given angle about given axis in given
-                reference ellipsoid
-    spinto 12 - spin given figure about centre of given ellipsoid,
-                rotating given ellipsoid to given angles relative
-                to axes in given reference ellipsoid
-    bendby 19 - bend figure by given angle about given axis in
-                given reference ellipsoid at given joint,
-                rotating the given moving ellipsoid and all
-                those joined to it
-    bendto 21 - bend figure at given joint, rotating given
-                ellipsoid to given angles relative to axes in
-                given reference ellipsoid
-    flex   38 - bend given joint about x axis
-    rotate 39 - bend given joint about y axis inwards
-    abduct 40 - bend given joint about z axis away from body
-    drag   53 - bend second (moving) ellipsoid at given joint about
-                its given axis so that first ellipsoid
-                touches the ground, while ensuring that the rest
-                of the figure is grounded also
-    touch  15 - make first ellipsoid touch the second ellipsoid
-                by bending the third ellipsoid at the given joint
-                about the given axis of the third ellipsoid.
-    abut   55 - make ellipsoid1 touch ellipsoid2 by moving its
-                figure parallel to given axis of ellipsoid3
-    balanc  7 - bend at given joint about given axis of reference
-                ellipsoid to balance the moving set of ellipsoids
-                with respect to y axis gravity
-    set    20 - set a value to a named variable
-    invert 31 - divide 1 by value
-    negate 41 - negate the value of a named variable
-    add    14 - add two variables or values to give a variable
-    subtra 42 - subtract second value from first to give a variable
-    multip 44 - multiply two values to give a variable
-    divide 43 - divide second value into first to give a variable
-    attach  8 - join 2 figures at the point on the second
-                ellipsoid which is shifted from its centre
-                by the given coordinates
-    detach  9 - break a figure into 2 at given joint, naming
-                the figure containing the given ellipsoid by
-                the given name, and keeping the old figure name
-                for the other part of the old figure
-    observ 26 - set eulerian angles of direction of observer
-    place  47 - set centre of view of observer
-
-  ****************************************************
-
-  NUDES syntax:
-
-     (nudesscript) = (declarations) (movements) (stop)
-
-   where (declarations) =
-     (declaration)
-     (declarations)
-
-   where (declaration) =
-     debug   (integer)
-     speed   (multiplier)
-     view    (framestart) (framestop)
-     figure  (figurename) (ellipsoidcount) (ellipsoidnamelist)
-     ellips  (ellipsoidname) (xvalue) (yvalue) (zvalue)
-     joint   (jointname) (ellipsoidname) (xvalue) (yvalue) (zvalue)
-                      (ellipsoidname) (xvalue) (yvalue) (zvalue)
-     limit   (jointname)   (xvalue) (yvalue) (zvalue)
-     variab  (variablecount) (variablenamelist)
-     subrou  (subroutinename)
-     endsub  (subroutinename)
-
-   where (movements) =
-     (movement)
-     (movements)
-
-   where (movement) =
-     call    (framestart) (framestop) (sname)
-     repeat  (framestart) (framestop) (action)
-     linear  (framestart) (framestop) (action)
-     quadra  (framestart) (framestop) (action)
-     accele  (framestart) (framestop) (action)
-     decele  (framestart) (framestop) (action)
-     cubic   (framestart) (framestop) (action)
-
-   where (action) =
-     debug   (level)
-     call    (sname)
-     colour  (ename) (redvalue) (greenvalue) (bluevalue)
-     textur  (ename) (iname)   (xoffset) (yoffset)
-     grofig  (fname) (ename)   (xfactor) (yfactor) (zfactor)
-     groell  (ename) (xfactor) (yfactor) (zfactor)
-     grojnt  (ename) (jname)   (xfactor) (yfactor) (zfactor)
-     movjnt  (jname) (ename)   (x) (y) (z)
-     moveto  (fname) (ename)   (x) (y) (z)
-     moveby  (fname) (referenceellipsoid) (x) (y) (z)
-     ground  (fname)
-     spinto  (fname) (ename) (referenceellipsoid)
-                     (colatitude) (longditude) (twist)
-     spinby  (fname) (ename) (referenceellipsoid) (angle) (axis)
-     bendto  (movingellipsoid) (jname) (referenceellipsoid)
-                               (colatitude) (longditude) (twist)
-     bendby  (movingellipsoid) (jname) (referenceellipsoid)
-                               (angle) (axis)
-     flex    (movingellipsoid) (jname) (angle)
-     rotate  (movingellipsoid) (jname) (angle)
-     abduct  (movingellipsoid) (jname) (angle)
-     drag    (ename) (movingellipsoid) (jname)
-                               (referenceellipsoid) (axis)
-     touch   (mvell) (stillell) (movingellipsoid) (referenceellipsoid) (jname) (axis)
-     balanc  (movingellipsoid) (jname) (referenceellipsoid) (axis)
-     detach  (movingellipsoid) (jname) (fname)
-     attach  (ename)           (jname) (ename) (x) (y) (z)
-     set     (variablename) (anything)
-     invert  (variablename)
-     negate  (variablename)
-     add     (variablename) (x) (x)
-     subtra  (variablename) (x) (x)
-     multip  (variablename) (x) (x)
-     divide  (variablename) (x) (x)
-     angles  (ename) (referenceellipsoid)
-                  (variablename) (variablename) (variablename)
-     centre  (ename) (variablename) (variablename) (variablename)
-     axes    (ename) (variablename) (variablename) (variablename)
-     linkx   (jname) (variablename) (variablename) (variablename)
-     observe (angle) (angle) (angle)
-     place   (x) (y) (z)
-     write   (fname)
-     print   (variablename)
-
-   where (ellipsoidnamelist) =
-     (ellipsoidname) (ellipsoidnamelist)
-     (ellipsoidname)
-
-   where (subroutinenamelist) =
-     (subroutinename) (subroutinenamelist)
-     (subroutinename)
-
-   where (variablenamelist) =
-     (variablename) (variablenamelist)
-     (variablename)
-
-   where (x),(y),(z),(angle),
-      (colatitude),(longditude),(twist),
-      (xfactor),(yfactor),(zfactor),
-      (redvalue),(greenvalue),(bluevalue),
-      (xoffset),(yoffset) =
-     (variablename)
-     (value)
-
-   where  (framestart),(framestop) =
-     (positiveinteger)
-
-   where  (positiveinteger) =
-     (digit)(positiveinteger)
-     (digit)
-
-   where  (level),(multiplier) =
-     (integer)
-
-   where  (integer) =
-     (positiveinteger)
-     -(positiveinteger)
-
-   where  (value),(xvalue),(yvalue),(zvalue) =
-     (integer).(positiveinteger)
-     (integer)
-
-   where  (fname) =
-     every
-     world
-     (figurename)
-     (variablename)
-
-   where  (ename),(stillell),(mvell),
-       (movingellipsoid),(referenceellipsoid) =
-     world
-     (ellipsoidname)
-     (variablename)
-
-   where   (iname) =
-     (imagename)
-     (variablename)
-
-   where   (jname) =
-     (jointname)
-     (variablename)
-
-   where  (sname) =
-     (subroutinename)
-     (variablename)
-
-   where  (prefix) =
-     (non-space character)
-
-   where  (oldfigurename),(newfigurename),
-       (figurename),(ellipsoidname),
-       (jointname),(subroutinename),
-       (variablename),(imagename) =
-     (up to 6 non-space characters)
-
-   where (axis) =
-     (variablename)
-     x
-     y
-     z
-
-   where (anything) =
-     (value)
-     (axis)
-     (ellipsoidname)
-     (jointname)
-     (figurename)
-     (subroutinename)
-     (variablename)
-
-   where (stop) =
-     stop
-
-*************************************************************/
 
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <math.h>
+#include <Python.h>
 // #include "stdafx.h"
 #include <math.h>
 #include <ctype.h>
@@ -614,8 +17,10 @@ typedef char TCHAR;
 
 #define TRUE      0
 #define FALSE     1
+
 #define DONE      0
 #define TODO      1
+
 #define MAN       0
 #define WOMAN     1
 #define MAXINT 1073741824
@@ -629,7 +34,7 @@ typedef char TCHAR;
 #define PMAX   6000         // maximum number of actions to perform
 #define SMAX    100         // maximum number of chords around sphere
 #define SMIN      2         // minimum number of chords around sphere
-#define SSTART   20         // initial number of chords around sphere
+#define init_num_chord_sphere   20         // initial number of chords around sphere
 
 #define LMAX   5000         // max number of laban score entries
 #define TMAX     30         // max number of staff lines
@@ -687,18 +92,20 @@ int headcol6 = 0;
 int x;
 char ini_title[256][32];
 char ini_value[256][128];
-int max_ini = 256;
+/* int max_ini = 256;  "defined Locally" */
 int max_ini_len = 32;
 int number_ini;
-int ini_diag = 0;
-int input_file_type;
+/*int ini_diag = 0; "LOcal"  */
+
+int input_file_type;  // tells u type of file .nud or .lbn by its value 0 an 1
+
 int lbn_fps = -1;
 int lbn_bpm = -1;
 int lbn_ppb = 23;
 int lbn_figures = 1;     // number of staves to be interpreted
-int time;
-int nextcount = 0;
-bool output_file_id;
+/*int time; "nowhere used" */
+/*int nextcount = 0; "nowhere used" */
+/*bool output_file_id; "nowhere used" */
 
 // symbol menus-
 char Area ='A';
@@ -716,7 +123,13 @@ char Volm ='V';
 
 bool forbid[EMAX][EMAX];
 
+<<<<<<< HEAD
+/* defined in initialise function */ 
+
+double  doub0;
+=======
 double  doub0;//only for calculation, trying to remove it
+>>>>>>> f977da9c73a9c5ab99716ad9d716f6ba7f701c2c
 double  doub1;
 double  doub2;
 double  doub3;
@@ -732,6 +145,27 @@ double  doub255;
 double  doub360;
 double  doub500;
 double  doubmax;
+<<<<<<< HEAD
+double  inv2;
+double  inv3;
+double  inv4;
+double  inv5;
+double  inv6;
+double  inv10;
+double  inv256;
+double  inv1000;
+double  lg2;                   //logarithm of 2
+//double  rt3;
+double  tolr;
+//double  twopi;
+double  pi;                    // 3.142...etc /
+double  piby2;
+double  degree;                // number of degrees in a radian
+double  radian;                // number of radians in a degree
+double  rad;                   // conversion factor from degrees to radians
+//double  radten;                // conversion factor from tenths of a degree to radians
+double  angleInc;                 // basic interactive angle increment
+=======
 double  inv2;//used in aprox all functions
 double  inv3;//in 2 function
 double  inv4;// in one
@@ -751,10 +185,11 @@ double  radian;//in 3                // number of radians in a degree
 double  rad;                   // conversion factor from degrees to radians
 double  radten;//in 3                // conversion factor from tenths of a degree to radians
 double  alpha;                 // basic interactive angle increment
+>>>>>>> f977da9c73a9c5ab99716ad9d716f6ba7f701c2c
 double  anglex,angley,anglez;  // interactive rotation angles
 double  dangx,dangy,dangz;     // interactive rotation angle increments
 //double  fac;                   // lbn conversion factor from y to frames
-double  scale;                 // interactive scaling factor
+double  scaleFactor;                 // interactive scaling factor
 double  SCALE = 1.0;           // default scaling to fit window
 double  tx,ty,tz;              // interactive translations
 //double  x1a,x1b,x2a,x2b;
@@ -773,15 +208,22 @@ double  lighting_rgb[3];
 double  pplace[3];             // position of centre of observers attention
 double  semiax[3];             // coordinate triple read from input
 double  xx[3];                 // x,y and z values (x&y used for commands add, subtract,multiply,divide)
-double  val[VMAX];             // val[i] - if i <= nvals then value of ith constant
+
+double  val[VMAX];             // val[i] - if i <= num_val then value of ith constant
                                //           otherwise (s - i+1)th variable
+
 double  maxax[EMAX];           // maxax[j] - largest semiaxis of jth ellipsoid
 double  minax[EMAX];
 double  pres[EMAX];
 double  obs[3][3];             // rotation matrix applied to all ellipsoids to obtain observers view
-double  col[EMAX][3];          // col[i][j] - colour of ell i; j = 0 red, 1 green, 2 blue
+
+double  color[EMAX][3];          // color[i][j] - colour of ell i; j = 0 red, 1 green, 2 blue
+
 double  quasav[EMAX+2][5];
+
 double  ax[EMAX][3];           // ax3[i][j] - length of jth semiaxis of ith ellipsoid
+double  ax1[EMAX][3];
+
 double  cen[EMAX][3];          // cen[i][j] - jth coordinate of centre of ith ellipsoid
 double  censav[EMAX][3];
 double  dcon[EMAX][2][3];      // distances of joint from ellipsoid centres
@@ -796,9 +238,12 @@ double  co3[FMAX][EMAX][3];    // colours of ellipsoids
 double  ce3[FMAX][EMAX][3];    // coordinates of ellipsoid centres
 double  ax3[FMAX][EMAX][3];    // ellipsoid semiaxis lengths
 double  qu3[FMAX][EMAX][4];    // quaternions of ellipsoids
+
 double  quat[EMAX+2][5];       // quat[i][j] - angle of ith ellipsoid
                                // j = 0,1,2 - components of direction of rotation axis
                                // j = 3,4   - sine and cosine of rotation about axis
+
+
 double point[SMAX][2*SMAX+1][3];
 
 int system(const char *command);
@@ -838,7 +283,8 @@ int jd;                  // current symbol shading
 /*************************************************************/
 
 // linter variables -
-bool mspace,wspace;
+bool mspace;
+int wspace;
 
 double lbn_fpp;      // frames per pixel
 
@@ -857,11 +303,19 @@ int facess;          // facing score of semishadow position
 int fbegin,ffin,flen;// start,end, and length of a position
 int fend;            // frame number of end of current movement
 int fhalf;           // frame halfway through a movement
+<<<<<<< HEAD
+int max_Numframe;            // maximum frame number
+int fps;             // frames/second
+int frange;          // number of frames in an action
+int frperbar;        // frames per bar;
+int firstFrameNumAct;          // first frame number of action
+=======
 int f_max;  //in 5          // maximum frame number
 int fps;             // frames/second
 int frange;          // number of frames in an action
 int frperbar;        // frames per bar;
 int fstart; //in 8         // first frame number of action
+>>>>>>> f977da9c73a9c5ab99716ad9d716f6ba7f701c2c
 int gy,gh;           // arm gesture range disabled by contact bow
 int haslbn;          // TRUE if input is lbn file, FALSE for .n file
 int hold;            // one of the defined holds NO,CL,PR,CP,DB,OP,CR,OE,CO,SH,SS
@@ -874,7 +328,7 @@ int holdss;          // semishadow hold counter
 int j;               // counter through symbols
 int keptf;           // last frame when last position kept
 int mface,wface;     // facing directions of man and woman
-int nbar;            // number of current bar
+int num_curBar;            // number of current bar
 int nlabs;           // number of laban score entries
 int npins;           // number of pins below first barline
 int nm;              // number of men
@@ -882,6 +336,19 @@ int nw;              // number of women
 int nmw;             // nm * nw
 int nstaff;          // number of staves
 int oriented;        // true after orientation
+<<<<<<< HEAD
+
+int lastFramePrevAct;            // last frame of previous action
+int firstFramePrevAct;          // first fame of previous action
+
+int ppb;             // pixels per beat (= 23 );
+int prevFrame_time;       // clock reading of previous frame
+int pres_time;       // clock reading of current frame
+int item_prev;           // item of previous support symbol
+int col_prev;           // column of previous support symbol
+int prevhold;        // previous hold
+int height_prev;            // height of previous step;
+=======
 int pend;  // in 6          // last frame of previous action
 int pstart; //in 5         // first fame of previous action
 int ppb;             // pixels per beat (= 23 );
@@ -891,11 +358,12 @@ int previ;           // item of previous support symbol
 int prevc;           // column of previous support symbol
 int prevhold; // in 5       // previous hold
 int rise;            // height of previous step;
+>>>>>>> f977da9c73a9c5ab99716ad9d716f6ba7f701c2c
 int ssend;           // ending score symbol
 int sstart;          // starting score symbol
 int st;              // current staff number
 int stmiddle;        // halfway across between L and R staves
-int track;           // TRUE when tracking viewpoint on main figure
+int trackOnMainFig;           // TRUE when tracking viewpoint on main figure
 int xmin,xmax;       // width range of score symbols
 int ymax;            // top of score
 int yend;            // y position of last movement
@@ -907,18 +375,37 @@ char colm[NCOLM];    // limb presigns in the columns
 
 //nudes variables -
 int axis;            // axis of next rotation
-int bnums;           // TRUE if bar numbers to be displayed
+
+int barNumDisplay;           // TRUE if bar numbers to be displayed
+int frameNumDisplay;           // TRUE if frame numbers to be displayed
+
+
 int comand;          // counter through all commands.
-int df;              // interactive frame increment
+int frameInc;              // interactive frame increment
 int ecount;          // number of entries in 'elist'
 int ell1;            // ellipsoid to touch something
 int ell2;            // ellipsoid to be touched
 int ellpsd;          // active ellipsoid
+<<<<<<< HEAD
+int frameCount;               // counter through frames
+int frameNumMultiplier;            // multiplier of frame numbers
+=======
 int f;               // counter through frames
 int fast; // in 3           // multiplier of frame numbers
+>>>>>>> f977da9c73a9c5ab99716ad9d716f6ba7f701c2c
 int fig;             // current figure
-int fnums;           // TRUE if frame numbers to be displayed
+
 int forward;         // TRUE for animation to go forwards
+<<<<<<< HEAD
+int freezeAnimation;          // TRUE if animation frozen
+
+int lastFrameNumAct;           // last frame number of actions
+int fslow;
+int height = 512;    // height  of window in pixels
+int hstart;          // frame at start of hold
+int hend;            // frame at end of hold
+int nudes_inMain;          // TRUE if still in main NUDES program
+=======
 int freeze;          // TRUE if animation frozen
 int fstop; // in 4          // last frame number of actions
 int fslow; // in 2
@@ -926,17 +413,42 @@ int height = 512;    // height  of window in pixels
 int hstart;          // frame at start of hold
 int hend;            // frame at end of hold
 int inmain; // in 3         // TRUE if still in main NUDES program
+>>>>>>> f977da9c73a9c5ab99716ad9d716f6ba7f701c2c
 int intersect;
 int jcount ;
 int join;            // joint for current bend command
 int k;
 int length;          // length of next input string
+<<<<<<< HEAD
+int lenNextInpLine;           // length of next input line
+=======
 int lline;//in 2           // length of next input line
+>>>>>>> f977da9c73a9c5ab99716ad9d716f6ba7f701c2c
 int maxint;          // largest representable integer
 int more;            // if > 0 means more actions for which stp>=fr
-int ne;              // number of ellipsoids in current frame
+int num_ellip_curFrame;              // number of ellipsoids in current frame
 int nesave;
 int nfaces;          // number of faces on sphere
+<<<<<<< HEAD
+int num_figure;           // number of figures
+int num_file;          // number of texture map files
+int num_joint;            // number of joints
+int nline;           // number of current nudes file line
+int npfs;            // number of actions
+
+int num_chord_sphere;            // number of chords around sphere
+
+int num_subroutine;           // number of subroutines
+int num_val;           // number of values in 'val'
+int num_var;           // number of variables in array val
+int ok;              // ok = 0 if ok, else problem reference number
+int p;               // counter through actions
+
+int forPause;           // TRUE if pausing on 1st and last frames
+
+int pok;             // true if positive integer read
+int printDone;          // TRUE if diagnostic printing already done
+=======
 int nfigs;           // number of figures
 int nfiles;  // in 3        // number of texture map files
 int njts; // more then 6           // number of joints
@@ -951,10 +463,25 @@ int p;               // counter through actions
 int pause;  //in 2         // TRUE if pausing on 1st and last frames
 int pok;             // true if positive integer read
 //int prdone;          // TRUE if diagnostic printing already done
+>>>>>>> f977da9c73a9c5ab99716ad9d716f6ba7f701c2c
 int ptype;           // code of current action
 int pp;
 int donesurf;        // TRUE if 'surf' called from 'dotouch'
 int refell;          // ellipsoid used as angular reference
+<<<<<<< HEAD
+
+int shadowDisplay;          // TRUE if shadows wanted
+
+int single;          // either TODO or DONE when frozen
+int num_pauseCalls;            // number of forPause calls between animating frames
+int start;           // pointer to next character on current input line
+int typeCurAction;               // type of current action
+int var0;
+int var1;
+int var2;
+int view_firstframe;          // first frame from view command
+int view_lastframe;           // last frame from view command
+=======
 int shadow;  //in 2        // TRUE if shadows wanted
 int single;  //in 2        // either TODO or DONE when frozen
 int slow;            // number of pause calls between animating frames
@@ -965,6 +492,7 @@ int var1;
 int var2;
 int vstart;//in 3          // first frame from view command
 int vstop; // in 3          // last frame from view command
+>>>>>>> f977da9c73a9c5ab99716ad9d716f6ba7f701c2c
 int width = 512;     // height  of window
 int xw = 10;
 int yw = 10;         // lower left corner of window
@@ -977,10 +505,14 @@ int fillen[EMAX];
 int keylen[NKEYS];
 int sublen[PMAX];
 int varlen[PMAX];
+
 int called[PMAX];    // true if subroutine is called
+
 int cline[PMAX];     // line numbers in input file of each action
 int coel[EMAX][2];   // the 2 ellipsoids joined at a joint
+
 int defined[PMAX];   // TRUE if subroutine is defined
+
 int distrn[PMAX];    // how actions are distributed over frames
 int ellfig[EMAX];    // number of the figure containing each ellipsoid
 int elist[EMAX];     // array for lists of ellipsoids in current action
@@ -991,8 +523,10 @@ int frstop[PMAX];    // frstop[i] - frame number of end of ith action
 int jlist[EMAX];     // array for lists of joints in current action
 int knee[EMAX];      // knee[j] - true if jth joint is a knee i.e. flexes backwards
 int nels[FMAX];      // number of ellipsoids in each frame
-int type[PMAX];      // type of  action
+int typeAction[PMAX];      // typeAction of  action
+
 int pf[PMAX][6];     // pf[i][j] - jth parameter of ith action-  +ve: itself, -ve: index into array val
+
 int subact[PMAX][2]; // subact[i][] - action numbers of start and end of ith subroutine
 int usevar[PMAX];    // 0 if variable not used
 int order[3][3][3] = {
@@ -1089,14 +623,17 @@ char risesub[3][5] = {{'f','l','o','w'},
                       {'f','h','i','g','h'}};
 char xyz[2][10] = {{'m','x',' ','m','y',' ','m','z'},
                   {'w','x',' ','w','y',' ','w','z'}};
+
 char aline[PMAX][BMAX];    // nudes input lines
-char tname[EMAX][BMAX];    // name of texture map file
+char textMapFileName[EMAX][BMAX];    // name of texture map file
 char jname[EMAX][BMAX];    // joint names
 char sname[EMAX][BMAX];    // subroutine names
 char vname[EMAX][BMAX];    // variable names
-char axnam[EMAX][BMAX];    // first entry is the set of axis names 'x','y','z'. The rest are null
+char axisname[EMAX][BMAX];       // first entry is the set of axis names 'x','y','z'. The rest are null
 char ename[EMAX][BMAX];    // ellipsoid names
-char fname[EMAX][BMAX];    // figure names
+char figureName[EMAX][BMAX];    // figure names
+
+
 char tn3[FMAX][EMAX][BMAX];// names of reduced texture map files
 char null  = '\0';
 char blank = ' ';
@@ -1580,6 +1117,93 @@ void initialise(void)
    double a,b;
    int k,m,n;
 
+<<<<<<< HEAD
+//   printDone = FALSE;
+   //num_curBar = -1;   // number of current bar
+//   height_prev = 1;   // height of previous step;
+//   col_prev = 0;  // column of previous support symbol
+//   item_prev = 11;  // item of previous support symbol
+//   trackOnMainFig = TRUE;  // TRUE when tracking viewpoint on main figure
+
+//	mspace = false;
+//	wspace = FALSE;
+
+ //  doub0 = double(0);
+ //  doub1 = double(1);
+//   doub2 = double(2);
+ //  doub3 = double(3);
+ //  doub4 = double(4);
+
+ //  doub10 = double(10);
+//	doub60 = double(60);
+ //  doub90 = double(90);
+  // doub150 = double(150);
+ //  doub179 = double(179);
+ //  doub180 = double(180);
+ //  doub181 = double(181);
+ //  doub255 = double(255);
+ //  doub360 = double(360);
+ //  doub500 = double(500);
+
+
+//   inv2 = doub1/doub2;
+//   inv3 = doub1/doub3;
+//   inv4 = doub1/doub4;
+//   inv5 = doub1/double(5);
+//   inv6 = doub1/double(6);
+//   inv10 = doub1/doub10;
+//   inv256 = doub1/double(256);
+//   inv1000 = doub1/double(1000);
+
+//   rt3 = sqrt(doub3);
+//   piby2 = doub2*atan(doub1);
+   pi = 2 *( doub2*atan(doub1)  ) ;//no requirement of declaration in python some inbuilt function can be use
+//   twopi = pi+pi;
+//   radten = twopi/double(3600);
+
+   radian = (2*pi)/doub360;   //no requirement of declaration in python some inbuilt function can be use. 
+   degree = doub1/radian;   ///no requirement of declaration in python some inbuilt function can be use
+   lg2 = log(doub2);   ///no requirement of declaration in python some inbuilt function can be use
+ 
+
+//   freezeAnimation = FALSE; // TRUE if animation frozen
+//   forward = TRUE;
+//   single = DONE;
+
+//   forPause = FALSE;
+//   shadowDisplay = TRUE;
+//   frameNumDisplay = TRUE;
+//   barNumDisplay = TRUE;
+
+
+//   hold = NO;
+//   prevhold = -99;
+//   prevFrame_time = -1;
+//   firstFrameNumAct = 0;
+//   lastFrameNumAct = 0;
+//   firstFramePrevAct = 0;
+//   lastFramePrevAct = 0;
+//   max_Numframe = 0;
+//   view_firstframe = 0;
+//   view_lastframe = FMAX;
+//   nudes_inMain = TRUE;
+
+
+  // start = -1;
+  // lenNextInpLine = 0;
+
+  /// frameNumMultiplier = 1;
+  // num_pauseCalls = 1;
+  // fslow = 1;
+  // num_joint = 0;
+
+   //num_var = 0;
+   //num_file = 0;
+  // num_val = 0;
+
+//   axlen[0] = 1; axlen[1] = 1; axlen[2] = 1;
+
+=======
    //int  prdone = FALSE;
    nbar = -1;
    rise = 1;
@@ -1648,123 +1272,144 @@ void initialise(void)
    nfiles = 0;
    nvals = 0;
    axlen[0] = 1; axlen[1] = 1; axlen[2] = 1;
+>>>>>>> f977da9c73a9c5ab99716ad9d716f6ba7f701c2c
    for (  j = 0 ; j < EMAX ; ++ j )
    {
-      if ( j > 2) axlen[j] = -1;
-      keylen[j] = 0;
-      ellen[j] = -1;
-      jntlen[j] = -1;
-      fillen[j] = -1;
-      figlen[j] = -1;
-      sublen[j] = -1;
-      varlen[j] = -1;
-      knee[j] = 0 ;
-      figell[j] = 0;
-      ellfig[j] = 0;
-      usevar[j] = 0;
-      coel[j][0] = -1;
-      coel[j][1] = -1;
-      subact[j][0] = 0;
-      subact[j][1] = 0;
-      called[j] = FALSE;
-      defined[j] = FALSE;
-      val[j] = doub0 ;
+      //if ( j > 2) axlen[j] = -1;
+      //keylen[j] = 0;
+      //ellen[j] = jntlen[j] = fillen[j] = figlen[j] = sublen[j] = varlen[j]= -1;
+     // knee[j] = figell[j] =  ellfig[j]=  usevar[j] = 0;
+      //coel[j][0] = -1;
+      //coel[j][1] = -1;
+      //subact[j][0] = 0;
+      //subact[j][1] = 0;
+     //  called[j] = FALSE;
+      //defined[j] = FALSE;
 
+      //val[j] = doub0 ;
+    
+      //printf("%d",called[j]);
       for (  k = 0 ; k < 3 ; ++ k )
       {
-         cen[j][k] = doub3;
-         ax[j][k] = doub2;
+         //cen[j][k] = doub3;
+        //  ax[j][k] = doub2;
+
          lim[j][k][0] = -doub360;
          lim[j][k][1] =  doub360;
-         obs[k][0] = doub0;
-         obs[k][1] = doub0;
-         obs[k][2] = doub0;
-         obs[k][k] = doub1;
+
+       //   obs[k][0] = doub0;
+       //  obs[k][1] = doub0;
+       //  obs[k][2] = doub0;
+       //  obs[k][k] = doub1;
       }
-      col[j][0] = doub255;
-      col[j][1] = doub150;
-      col[j][2] = doub90;
-      quat[j][0] = doub1;
-      quat[j][1] = doub0;
-      quat[j][2] = doub0;
-      quat[j][3] = doub0;
-      quat[j][4] = doub1;
-      for (  k = 0 ; k < BMAX ; ++ k )
-      {
-         axnam[j][k] = NULL;
-         tname[j][k] = NULL;
-         fname[j][k] = NULL;
-         ename[j][k] = NULL;
-         jname[j][k] = NULL;
-         vname[j][k] = NULL;
-         sname[j][k] = NULL;
-      }
-   }
-   axnam[0][0] = 'x';
-   axnam[1][0] = 'y';
-   axnam[2][0] = 'z';
+      //color[j][0] = doub255;
+      //color[j][1] = doub150;
+      //color[j][2] = doub90;
+
+  //    quat[j][0] = doub1;
+  //    quat[j][1] = doub0;
+  //    quat[j][2] = doub0;
+  //    quat[j][3] = doub0;
+  //    quat[j][4] = doub1;
+      
+
+
+    //  for (  k = 0 ; k < BMAX ; ++ k )
+     // {
+   //      axisname[j][k] = NULL;
+  //       textMapFileName[j][k] = NULL;
+   //      figureName[j][k] = NULL;
+    //     ename[j][k] = NULL;
+
+     //    jname[j][k] = NULL;
+    //    vname[j][k] = NULL;
+    //     sname[j][k] = NULL;
+				       }
+  /// }
+  // axisname[0][0] = 'x';
+  // axisname[1][0] = 'y';
+  // axisname[2][0] = 'z';
 /*
      set all actions by default to stop
 */
-   for (  j = 0 ; j < PMAX ; ++ j )
-   {
-      type[j] = stop_keyword_code;
-      frstart[j] = 0;
-      frstop[j] = 0;
-      distrn[j] = 0;
-      cline[j] = 0;
+//   for (  j = 0 ; j < PMAX ; ++ j )
+//   {
+    //  typeAction[j] = stop_keyword_code;
+      //frstart[j] = frstop[j] = distrn[j] = cline[j] = 0;
 
-      for (  k = 0 ; k < 6 ; ++ k )
-         pf[j][k] = 0;
-   }
+  //    for (  k = 0 ; k < 6 ; ++ k )
+  //       pf[j][k] = 0;
+//  }
+  
+ 
 /*
      artificially set up subroutine "nudes",
      file "dummy", figures "every" and "world",
      variable "variable", and ellipsoid "world"-
 */
-   nsubs = 1;
-   nfigs = 2;
-   ne = 1;
-   figell[0] = 0;
-   figell[1] = 1;
+ //  num_subroutine = 1;
+ //  num_figure = 2;
+  // num_ellip_curFrame = 1;
 
-   for (  k = 0 ; k < 6 ; ++ k )
-   {
-      tname[0][k] = dummy[k];
-      sname[0][k] = nudes[k];
-      fname[0][k] = every[k];
-      fname[1][k] = world[k];
-      ename[0][k] = world[k];
-      vname[0][k] = variab[k];
-   }
-   fillen[0] = 5;
-   sublen[0] = 5;
-   figlen[0] = 5;
-   figlen[1] = 5;
-   ellen[0] = 5;
-   varlen[0] = 6;
-   ax[0][0] = doub1;
-   ax[0][1] = doub1;
-   ax[0][2] = doub1;
-   df = 1;
-   f = 0;
-   nsph = SSTART;
-   anglex = doub0; angley = doub0; anglez = doub0;
-   tx = doub0; ty = doub0; tz = doub0;
-   scale = doub1;
-   alpha = doub3;
-   t = 0;
-   more = 1;
-   ok = 0;
+ //  figell[0] = 0;
+ //  figell[1] = 1;
+
+//   for (  k = 0 ; k < 6 ; ++ k )
+ //  {
+     // textMapFileName[0][k] = dummy[k];
+    //  sname[0][k] = nudes[k];
+      //figureName[0][k] = every[k];
+      //figureName[1][k] = world[k];
+      //ename[0][k] = world[k];
+    //  vname[0][k] = variab[k];
+   //}
+   //fillen[0] = 5;
+   //sublen[0] = 5;
+   //figlen[0] = 5;
+   //figlen[1] = 5;
+   // ellen[0] = 5;
+   //varlen[0] = 6;
+   //ax[0][0] = doub1;
+   //ax[0][1] = doub1;
+   // ax[0][2] = doub1;
+
+   //frameInc = 1;
+
+  // frameCount = 0;
+//   num_chord_sphere = init_num_chord_sphere;
+
+  // anglex = doub0; 
+  // angley = doub0;
+  // anglez = doub0;
+  // tx = doub0;
+  // ty = doub0;
+  // tz = doub0;
+   //scaleFactor = doub1;
+   //angleInc = doub3;
+
+   //typeCurAction = 0;
+
+   //more = 1;
+ //   ok = 0;
+
+ 
+/*
+  for(j=0;j<(VMAX);j++)
+{
+   printf("%f " ,val[j]);  
+   printf("\n");
+}
+*/
 
 // find bits in double mantissa -
 	b = doub1;
 	m = 0;
 	for (a = inv2; doub1 + b > doub1 + a; a *= inv2)
-	{
+	{ 
 		b = a;
-		++ m;
+    		++ m;
 	}
+       
 	tolr = b+b;
 	j = 2;
 	n = 0;
@@ -1826,29 +1471,29 @@ int lfindnext(int c, int y1, int y2)
 void lsetframes(void)
 /*
     set the frames over which an action occurs :-
-    fstart, fhalf, frange, fend.
+    firstFrameNumAct, fhalf, frange, fend.
     lbn_fpp = double(lbn_fps)*doub60 / (double(lbn_bpm)*double(lbn_ppb)); calculated in function led_param
     called by laction,
 */
 {
-   if (nbar < 1)
+   if (num_curBar < 1)
    {
-      fstart = 0;
+      firstFrameNumAct = 0;
       frange = 1;
       fend = 1;
    }
    else
    {
-     fstart = int(inv2+lbn_fpp*double(jy-ystart));//inv2 is 0.5
-      if (fstart < 1) fstart = 1;
+     firstFrameNumAct = int(inv2+lbn_fpp*double(jy-ystart));//inv2 is 0.5
+      if (firstFrameNumAct < 1) firstFrameNumAct = 1;
       frange = int(inv2+lbn_fpp*double(jh));
       if (frange < 1) frange = 1;
-      fend = fstart + frange;
+      fend = firstFrameNumAct + frange;
    }
-   fhalf = fstart + frange/2;
-   if (fend <= fstart) fend = fhalf+1;
+   fhalf = firstFrameNumAct + frange/2;
+   if (fend <= firstFrameNumAct) fend = fhalf+1;
    if (fhalf > fend) fend = fhalf+1;
-   if (fend > f_max) f_max = fend;
+   if (fend > max_Numframe) max_Numframe = fend;
 } /* lsetframes */
 /************************************************/
 
@@ -2318,95 +1963,95 @@ void lchange(char d)
    if (d == 'L')
    {
       fprintf(nudesfile,
-         "repeat    %3d %3d set tcls1 tlow1\n",fstart,fend);
+         "repeat    %3d %3d set tcls1 tlow1\n",firstFrameNumAct,fend);
       fprintf(nudesfile,
-         "repeat    %3d %3d set tcls2 tlow2\n",fstart,fend);
+         "repeat    %3d %3d set tcls2 tlow2\n",firstFrameNumAct,fend);
       fprintf(nudesfile,
-         "repeat    %3d %3d set tcls3 tlow3\n",fstart,fend);
+         "repeat    %3d %3d set tcls3 tlow3\n",firstFrameNumAct,fend);
       fprintf(nudesfile,
-         "repeat    %3d %3d set lcls1 llow1\n",fstart,fend);
+         "repeat    %3d %3d set lcls1 llow1\n",firstFrameNumAct,fend);
       fprintf(nudesfile,
-         "repeat    %3d %3d set lcls2 llow2\n",fstart,fend);
+         "repeat    %3d %3d set lcls2 llow2\n",firstFrameNumAct,fend);
       fprintf(nudesfile,
-         "repeat    %3d %3d set lcls3 llow3\n",fstart,fend);
+         "repeat    %3d %3d set lcls3 llow3\n",firstFrameNumAct,fend);
       fprintf(nudesfile,
-         "repeat    %3d %3d set fcls1 flow1\n",fstart,fend);
+         "repeat    %3d %3d set fcls1 flow1\n",firstFrameNumAct,fend);
       fprintf(nudesfile,
-         "repeat    %3d %3d set fcls2 flow2\n",fstart,fend);
+         "repeat    %3d %3d set fcls2 flow2\n",firstFrameNumAct,fend);
       fprintf(nudesfile,
-         "repeat    %3d %3d set fcls3 flow3\n",fstart,fend);
+         "repeat    %3d %3d set fcls3 flow3\n",firstFrameNumAct,fend);
    }
    else if (d == 'M')
    {
       fprintf(nudesfile,
-         "repeat    %3d %3d set tcls1 trlx1\n",fstart,fend);
+         "repeat    %3d %3d set tcls1 trlx1\n",firstFrameNumAct,fend);
       fprintf(nudesfile,
-         "repeat    %3d %3d set tcls2 trlx2\n",fstart,fend);
+         "repeat    %3d %3d set tcls2 trlx2\n",firstFrameNumAct,fend);
       fprintf(nudesfile,
-         "repeat    %3d %3d set tcls3 trlx3\n",fstart,fend);
+         "repeat    %3d %3d set tcls3 trlx3\n",firstFrameNumAct,fend);
       fprintf(nudesfile,
-         "repeat    %3d %3d set lcls1 lrlx1\n",fstart,fend);
+         "repeat    %3d %3d set lcls1 lrlx1\n",firstFrameNumAct,fend);
       fprintf(nudesfile,
-         "repeat    %3d %3d set lcls2 lrlx2\n",fstart,fend);
+         "repeat    %3d %3d set lcls2 lrlx2\n",firstFrameNumAct,fend);
       fprintf(nudesfile,
-         "repeat    %3d %3d set lcls3 lrlx3\n",fstart,fend);
+         "repeat    %3d %3d set lcls3 lrlx3\n",firstFrameNumAct,fend);
       fprintf(nudesfile,
-         "repeat    %3d %3d set fcls1 frlx1\n",fstart,fend);
+         "repeat    %3d %3d set fcls1 frlx1\n",firstFrameNumAct,fend);
       fprintf(nudesfile,
-         "repeat    %3d %3d set fcls2 frlx2\n",fstart,fend);
+         "repeat    %3d %3d set fcls2 frlx2\n",firstFrameNumAct,fend);
       fprintf(nudesfile,
-         "repeat    %3d %3d set fcls3 frlx3\n",fstart,fend);
+         "repeat    %3d %3d set fcls3 frlx3\n",firstFrameNumAct,fend);
    }
    else if (d == 'H')
    {
       if ((ji != 1)&&(ji != 10))
       {
          fprintf(nudesfile,
-            "repeat    %3d %3d set tcls1 thig1\n",fstart,fend);
+            "repeat    %3d %3d set tcls1 thig1\n",firstFrameNumAct,fend);
          fprintf(nudesfile,
-            "repeat    %3d %3d set tcls2 thig2\n",fstart,fend);
+            "repeat    %3d %3d set tcls2 thig2\n",firstFrameNumAct,fend);
          fprintf(nudesfile,
-            "repeat    %3d %3d set tcls3 thig3\n",fstart,fend);
+            "repeat    %3d %3d set tcls3 thig3\n",firstFrameNumAct,fend);
          fprintf(nudesfile,
-            "repeat    %3d %3d set lcls1 lhig1\n",fstart,fend);
+            "repeat    %3d %3d set lcls1 lhig1\n",firstFrameNumAct,fend);
          fprintf(nudesfile,
-            "repeat    %3d %3d set lcls2 lhig2\n",fstart,fend);
+            "repeat    %3d %3d set lcls2 lhig2\n",firstFrameNumAct,fend);
          fprintf(nudesfile,
-            "repeat    %3d %3d set lcls3 lhig3\n",fstart,fend);
+            "repeat    %3d %3d set lcls3 lhig3\n",firstFrameNumAct,fend);
          fprintf(nudesfile,
-            "repeat    %3d %3d set fcls1 fmed1\n",fstart,fend);
+            "repeat    %3d %3d set fcls1 fmed1\n",firstFrameNumAct,fend);
          fprintf(nudesfile,
-            "repeat    %3d %3d set fcls2 fmed2\n",fstart,fend);
+            "repeat    %3d %3d set fcls2 fmed2\n",firstFrameNumAct,fend);
          fprintf(nudesfile,
-            "repeat    %3d %3d set fcls3 fmed3\n",fstart,fend);
+            "repeat    %3d %3d set fcls3 fmed3\n",firstFrameNumAct,fend);
       }
       else
       if ((ji != 5)&&(ji != 6))
       {
          fprintf(nudesfile,
-            "repeat    %3d %3d set tcls1 trlx1\n",fstart,fend);
+            "repeat    %3d %3d set tcls1 trlx1\n",firstFrameNumAct,fend);
          fprintf(nudesfile,
-            "repeat    %3d %3d set tcls2 trlx2\n",fstart,fend);
+            "repeat    %3d %3d set tcls2 trlx2\n",firstFrameNumAct,fend);
          fprintf(nudesfile,
-            "repeat    %3d %3d set tcls3 trlx3\n",fstart,fend);
+            "repeat    %3d %3d set tcls3 trlx3\n",firstFrameNumAct,fend);
          fprintf(nudesfile,
-            "repeat    %3d %3d set lcls1 lrlx1\n",fstart,fend);
+            "repeat    %3d %3d set lcls1 lrlx1\n",firstFrameNumAct,fend);
          fprintf(nudesfile,
-            "repeat    %3d %3d set lcls2 lrlx2\n",fstart,fend);
+            "repeat    %3d %3d set lcls2 lrlx2\n",firstFrameNumAct,fend);
          fprintf(nudesfile,
-            "repeat    %3d %3d set lcls3 lrlx3\n",fstart,fend);
+            "repeat    %3d %3d set lcls3 lrlx3\n",firstFrameNumAct,fend);
          fprintf(nudesfile,
-            "repeat    %3d %3d set fcls1 fhig1\n",fstart,fend);
+            "repeat    %3d %3d set fcls1 fhig1\n",firstFrameNumAct,fend);
          fprintf(nudesfile,
-            "repeat    %3d %3d set fcls2 fhig2\n",fstart,fend);
+            "repeat    %3d %3d set fcls2 fhig2\n",firstFrameNumAct,fend);
          fprintf(nudesfile,
-            "repeat    %3d %3d set fcls3 fhig3\n",fstart,fend);
+            "repeat    %3d %3d set fcls3 fhig3\n",firstFrameNumAct,fend);
       }
    }
    else
    {
       printf("linter: funny depth parameter, frame %d\n",
-		  fstart);
+		  firstFrameNumAct);
       lgetout(1);
    }
 } /* lchange */
@@ -2423,19 +2068,19 @@ void lsetcoords(void)
 	{
 		if (mspace == false)
 			fprintf( nudesfile, "repeat    %3d %3d set    coords mpelvis\n",
-				fstart, fend);
+				firstFrameNumAct, fend);
 		else
 			fprintf( nudesfile, "repeat    %3d %3d set    coords mspace\n",
-				fstart, fend);
+				firstFrameNumAct, fend);
 	}
 	else
 	{
 		if (wspace == FALSE)
 			fprintf( nudesfile, "repeat    %3d %3d set    coords wpelvis\n",
-				fstart, fend);
+				firstFrameNumAct, fend);
 		else
 			fprintf( nudesfile, "repeat    %3d %3d set    coords wspace\n",
-				fstart, fend);
+				firstFrameNumAct, fend);
 	}	/* dofig == WOMAN */
 } /* lsetcoords */
 /************************************************/
@@ -2467,7 +2112,7 @@ void ldostep(void)
 			( ( ji == 1 ) || ( ji == 5 ) || ( ji == 3 ) ) )
 		{
 			printf( "dostep: funny symbol in left support column, line %d, bar %d\n",
-				j, nbar );
+				j, num_curBar );
 			printf( "%3d %3d %3d %3d %3d %3d %d\n",
 				jm, ji, jy, js, jw, jh, jd );
 		}
@@ -2475,57 +2120,57 @@ void ldostep(void)
 			( ( ji == 10 ) || ( ji == 6 ) || ( ji == 8 ) ) )
 		{
 			printf( "dostep: funny  symbol in right support column, line %d, bar %d\n",
-				j, nbar );
+				j, num_curBar );
 			printf( "%3d %3d %3d %3d %3d %3d %d\n",
 				jm, ji, jy, js, jw, jh, jd );
 		}
 		else
 		{
 			fprintf( nudesfile, "repeat    %3d %3d set    fend  %d\n",
-				fstart, fend, frange );
+				firstFrameNumAct, fend, frange );
 			fprintf( nudesfile, "repeat    %3d %3d call   %s\n",
-				fstart, fend, risesub[jd] );
+				firstFrameNumAct, fend, risesub[jd] );
 			lsetcoords();
 			if ( jc > 0 )
 				fprintf( nudesfile, "repeat    %3d %3d call   forright\n",
-					fstart, fend );
+					firstFrameNumAct, fend );
 			else
 				fprintf( nudesfile, "repeat    %3d %3d call   forleft\n",
-					fstart, fend );
+					firstFrameNumAct, fend );
 			if ( ( ji == 1 ) || ( ji == 10 ) )
 				fprintf( nudesfile, "call      %3d %3d forward\n",
-					fstart, fend );
+					firstFrameNumAct, fend );
 			if ( ji == 3 )
 				fprintf( nudesfile, "call      %3d %3d rside\n",
-					fstart, fend );
+					firstFrameNumAct, fend );
 			if ( ji == 8 )
 				fprintf( nudesfile, "call      %3d %3d lside\n",
-					fstart, fend );
+					firstFrameNumAct, fend );
 			if ( ( ji == 5 ) || ( ji == 6 ) )
 				fprintf( nudesfile, "call      %3d %3d back\n",
-					fstart, fend );
+					firstFrameNumAct, fend );
 			if ( ji == 2 )
 				fprintf( nudesfile, "call      %3d %3d rfordiag\n",
-					fstart, fend );
+					firstFrameNumAct, fend );
 			if ( ji == 9 )
 				fprintf( nudesfile, "call      %3d %3d lfordiag\n",
-					fstart, fend );
+					firstFrameNumAct, fend );
 			if ( ji == 4 )
 				fprintf( nudesfile, "call      %3d %3d rbacdiag\n",
-					fstart, fend );
+					firstFrameNumAct, fend );
 			if ( ji == 7 )
 				fprintf( nudesfile, "call      %3d %3d lbacdiag\n",
-					fstart, fend );
+					firstFrameNumAct, fend );
 			if ( ji == 11 )
 				fprintf( nudesfile, "call      %3d %3d close\n",
-					fstart, fend );
+					firstFrameNumAct, fend );
 			lbn[j].a = DONE;
-			pstart = fstart;
-			pend = fend;
+			firstFramePrevAct = firstFrameNumAct;
+			lastFramePrevAct = fend;
 		}
-		rise = jd;
-		prevc = jc;
-		previ = ji;
+		height_prev = jd;
+		col_prev = jc;
+		item_prev = ji;
 	} /* column OK */
 }     /* ldostep */
 /****************************************************/
@@ -2668,7 +2313,7 @@ void lleggesture(void)
             } /* i wrong */
             fprintf(nudesfile,
                "repeat    %3d %3d call   forleft * left = b\n",
-                  fstart,fend);
+                  firstFrameNumAct,fend);
          } /* left side */
          else if (jc > 0)
          {
@@ -2682,27 +2327,27 @@ void lleggesture(void)
             } /* i wrong */
             fprintf(nudesfile,
                "repeat    %3d %3d call   forright * right = b\n",
-                  fstart,fend);
+                  firstFrameNumAct,fend);
          } /* right side */
 //
          fprintf(nudesfile,"repeat    %3d %3d centre afoot  %s\n",
-                  fstart,fend,xyz[dofig]);
+                  firstFrameNumAct,fend,xyz[dofig]);
 //
          if (ji == 11)
          {
             fprintf(nudesfile,"repeat    %3d %3d call   %s\n",
-                  fstart,fend,risesub[rise]);
+                  firstFrameNumAct,fend,risesub[height_prev]);
             fprintf(nudesfile,"repeat    %3d %3d set    fend  %d\n",
-                  fstart,fend,frange);
+                  firstFrameNumAct,fend,frange);
 				lsetcoords();
             fprintf(nudesfile,"call      %3d %3d close\n",
-                  fstart,fend);
+                  firstFrameNumAct,fend);
          } /* close without weight */
          else
          {
             fprintf(nudesfile,
                "quadratic %3d %3d bendto bthigh bhip   pelvis %d %d %d\n",
-                  fstart,fend,stt[jd][ji][0],stt[jd][ji][1],stt[jd][ji][2]);
+                  firstFrameNumAct,fend,stt[jd][ji][0],stt[jd][ji][1],stt[jd][ji][2]);
             if ((jd == LOW)&&((ji == 1)||(ji == 3)||(ji == 8)||(ji == 10))||(jb == 2)||(jb == 4))
                fprintf(nudesfile,
                   "linear    %3d %3d bendto bleg   bknee  bthigh lhig1 lhig2 lhig3\n",
@@ -2718,7 +2363,7 @@ void lleggesture(void)
          if ((ji != 11)&&(hold == NO)||(st < 1))
             fprintf(nudesfile,
                "repeat    %3d %3d moveto fig    afoot  %s\n",
-	            fstart,fend,xyz[dofig]);
+	            firstFrameNumAct,fend,xyz[dofig]);
          lbn[j].a = DONE;
       } /* no tap and pivot */
    } /* c OK */
@@ -2744,7 +2389,7 @@ void ldoarms(void)
          fprintf(nudesfile,"*\n* arms\n");
          if ((jd < 0) || (jd > 2))
          {
-            printf("ldoarms problem line %d, bar %d\n",j,nbar);
+            printf("ldoarms problem line %d, bar %d\n",j,num_curBar);
             printf("%c %3d %3d %3d %3d %3d %3d %d\n",
 	           jm,ji,jx,jy,js,jw,jh,jd);
             lgetout(1);
@@ -2756,21 +2401,21 @@ void ldoarms(void)
             {
 					fprintf(nudesfile,
                   "quadratic %3d %3d bendto luarm  lshldr shldrs %3d %3d %3d\n",
-                     fstart,fend,arlx[jd][ji][0],arlx[jd][ji][1],arlx[jd][ji][2]);
+                     firstFrameNumAct,fend,arlx[jd][ji][0],arlx[jd][ji][1],arlx[jd][ji][2]);
 					fprintf(nudesfile,
                   "quadratic %3d %3d bendto llarm  lelbow luarm  %3d %3d %3d\n",
-                     fstart,fend,0,0,45);
+                     firstFrameNumAct,fend,0,0,45);
                if (dofig == MAN)
 					{
 						fprintf(nudesfile,
                      "quadratic %3d %3d bendto lhand  lwrist llarm  %3d %3d %3d\n",
-                        fstart,fend,0,0,0);
+                        firstFrameNumAct,fend,0,0,0);
 					} /* man */
                else
                {
 						fprintf(nudesfile,
                      "quadratic %3d %3d bendto lhand  lwrist llarm  %3d %3d %3d\n",
-                        fstart,fend,270,0,150);
+                        firstFrameNumAct,fend,270,0,150);
 					} /* woman */
             }
             else
@@ -2780,29 +2425,29 @@ void ldoarms(void)
                {
                    fprintf(nudesfile,
                       "quadratic %3d %3d bendto luarm  lshldr shldrs %3d %3d %3d\n",
-                         fstart,fend,abnt[jd][0][0],abnt[jd][0][1],abnt[jd][0][2]);
+                         firstFrameNumAct,fend,abnt[jd][0][0],abnt[jd][0][1],abnt[jd][0][2]);
                    fprintf(nudesfile,
                       "quadratic %3d %3d bendto llarm  lelbow luarm  %3d %3d %3d\n",
-                         fstart,fend,0,0,70);
+                         firstFrameNumAct,fend,0,0,70);
                }
                else
                {
                    fprintf(nudesfile,
                       "quadratic %3d %3d bendto luarm  lshldr shldrs %3d %3d %3d\n",
-                         fstart,fend,abnt[jd][ji][0],abnt[jd][ji][1],abnt[jd][ji][2]);
+                         firstFrameNumAct,fend,abnt[jd][ji][0],abnt[jd][ji][1],abnt[jd][ji][2]);
                    fprintf(nudesfile,
                       "quadratic %3d %3d bendto llarm  lelbow luarm  %3d %3d %3d\n",
-                         fstart,fend,0,0,90);
+                         firstFrameNumAct,fend,0,0,90);
                } /* ji != 11 */
             }
             else
             {
                fprintf(nudesfile,
                   "quadratic %3d %3d bendto llarm  lelbow luarm  %3d %3d %3d\n",
-                     fstart,fend,0,0,0);
+                     firstFrameNumAct,fend,0,0,0);
                fprintf(nudesfile,
                   "quadratic %3d %3d bendto luarm  lshldr shldrs %3d %3d %3d\n",
-                     fstart,fend,stt[jd][ji][0],stt[jd][ji][1],stt[jd][ji][2]);
+                     firstFrameNumAct,fend,stt[jd][ji][0],stt[jd][ji][1],stt[jd][ji][2]);
             }
          }
          else // if (jc > 0) =  right arm
@@ -2811,21 +2456,21 @@ void ldoarms(void)
             {
 					fprintf(nudesfile,
                   "quadratic %3d %3d bendto ruarm  rshldr shldrs %3d %3d %3d\n",
-                     fstart,fend,arlx[jd][ji][0],arlx[jd][ji][1],arlx[jd][ji][2]);
+                     firstFrameNumAct,fend,arlx[jd][ji][0],arlx[jd][ji][1],arlx[jd][ji][2]);
 					fprintf(nudesfile,
                   "quadratic %3d %3d bendto rlarm  relbow ruarm  %3d %3d %3d\n",
-                     fstart,fend,0,0,45);
+                     firstFrameNumAct,fend,0,0,45);
                if (dofig == MAN)
 					{
 						fprintf(nudesfile,
                      "quadratic %3d %3d bendto rhand  rwrist rlarm  %3d %3d %3d\n",
-                        fstart,fend,0,0,0);
+                        firstFrameNumAct,fend,0,0,0);
 					} /* man */
                else
                {
 						fprintf(nudesfile,
                      "quadratic %3d %3d bendto rhand  rwrist rlarm  %3d %3d %3d\n",
-                        fstart,fend,270,0,150);
+                        firstFrameNumAct,fend,270,0,150);
 			      } /* woman */
 
             } /* relaxed */
@@ -2834,27 +2479,27 @@ void ldoarms(void)
             {
                fprintf(nudesfile,
                   "quadratic %3d %3d bendto ruarm  rshldr shldrs %3d %3d %3d\n",
-                     fstart,fend,abnt[jd][ji][0],abnt[jd][ji][1],abnt[jd][ji][2]);
+                     firstFrameNumAct,fend,abnt[jd][ji][0],abnt[jd][ji][1],abnt[jd][ji][2]);
                if (ji == 11)
                    fprintf(nudesfile,
                       "quadratic %3d %3d bendto rlarm  relbow ruarm  %3d %3d %3d\n",
-                         fstart,fend,0,0,70);
+                         firstFrameNumAct,fend,0,0,70);
                else
                    fprintf(nudesfile,
                       "quadratic %3d %3d bendto rlarm  relbow ruarm  %3d %3d %3d\n",
-                         fstart,fend,0,0,90);
+                         firstFrameNumAct,fend,0,0,90);
             } /* bent */
             else
             {
                fprintf(nudesfile,
                   "quadratic %3d %3d bendto rlarm  relbow ruarm  %3d %3d %3d\n",
-                     fstart,fend,0,0,0);
+                     firstFrameNumAct,fend,0,0,0);
                fprintf(nudesfile,
                   "quadratic %3d %3d bendto ruarm  rshldr shldrs %3d %3d %3d\n",
-                     fstart,fend,stt[jd][ji][0],stt[jd][ji][1],stt[jd][ji][2]);
+                     firstFrameNumAct,fend,stt[jd][ji][0],stt[jd][ji][1],stt[jd][ji][2]);
                fprintf(nudesfile,
                   "quadratic %3d %3d bendto rhand  rwrist rlarm  %3d %3d %3d\n",
-                     fstart,fend,0,0,0);
+                     firstFrameNumAct,fend,0,0,0);
             } /* not bent or relaxed */
          } /* right arm */
       } /* Dirn symbol */
@@ -2864,7 +2509,7 @@ rtrn: ;
 } /* ldoarms */
 /***************************************************/
 
-void lspotturn(int j, int piv, int fstart, int fend, int g)
+void lspotturn(int j, int piv, int firstFrameNumAct, int fend, int g)
 /*
   maintain straight non-standing foot with ground
   contact during turn.
@@ -2879,33 +2524,33 @@ void lspotturn(int j, int piv, int fstart, int fend, int g)
    fprintf(nudesfile,"*\n* spot turn-\n");
    if (gc < 0)
       fprintf(nudesfile,
-         "repeat    %3d %3d call   forleft * left = b\n",fstart,fend);
+         "repeat    %3d %3d call   forleft * left = b\n",firstFrameNumAct,fend);
    else
       fprintf(nudesfile,
-         "repeat    %3d %3d call   forright * right = b\n",fstart,fend);
+         "repeat    %3d %3d call   forright * right = b\n",firstFrameNumAct,fend);
    fprintf(nudesfile,
       "repeat    %3d %3d centre afoot  %s\n",
-         fstart,fend,xyz[dofig]);
+         firstFrameNumAct,fend,xyz[dofig]);
    fprintf(nudesfile,
       "linear    %3d %3d spinby fig    afoot  pelvis %d y\n",
-         fstart,fend,piv);
+         firstFrameNumAct,fend,piv);
    fprintf(nudesfile,
       "linear    %3d %3d bendto bthigh bhip   pelvis %d %d %d\n",
-	      fstart,fend,stt[0][ji][0],stt[0][ji][1],stt[0][ji][2]);
+	      firstFrameNumAct,fend,stt[0][ji][0],stt[0][ji][1],stt[0][ji][2]);
    fprintf(nudesfile,
-      "repeat    %3d %3d ground fig\n",fstart,fend);
+      "repeat    %3d %3d ground fig\n",firstFrameNumAct,fend);
    if ((hold == NO)||(st < 1))
       fprintf(nudesfile,
        "repeat    %3d %3d moveto fig    afoot  %s\n",
-         fstart,fend,xyz[dofig]);
+         firstFrameNumAct,fend,xyz[dofig]);
    fprintf(nudesfile,
       "linear    %3d %3d bendto bfoot  bankle bleg   fhig1 fhig2 fhig3\n",
-	     fstart,fhalf);
+	     firstFrameNumAct,fhalf);
    fprintf(nudesfile,
       "repeat    %3d %3d drag   bfoot  bfoot  bankle bleg  x\n",
          fhalf,fend);
    lbn[j].a = DONE;
-   lbn[t].a = DONE;
+   lbn[typeCurAction].a = DONE;
 } /* lspotturn */
 /******************************************************/
 
@@ -2960,42 +2605,42 @@ void ldopivot(void)
    int g,t;
    int piv;//angle of turn
 
-   if ( (jm == Rotn)&&(nbar > 0)&&
+   if ( (jm == Rotn)&&(num_curBar > 0)&&
 	 ((jc == -2)||(jc == -1)||(jc == 1)||(jc == 2)) )
    {
      piv = lgetpin();//finds the pin in the symbol and returns the angle
-      if (fstart < 1) fstart = 1;
+      if (firstFrameNumAct < 1) firstFrameNumAct = 1;
       g = lhasgesture(j);//checks the gesture column for (-3 +3)for ovelapping gestures
       t = lhastap(j);//checks if the j'th symbol has overlapping ground contact
       if ((g > 0)&&(t > 0))
       {
-         lspotturn(j,piv,fstart,fend,g);
-         pstart = fstart;
-         pend = fend;
+         lspotturn(j,piv,firstFrameNumAct,fend,g);
+         firstFramePrevAct = firstFrameNumAct;
+         lastFramePrevAct = fend;
       }
       else
       {
          fprintf(nudesfile,"*\n* pivot\n");
          if (jc < 0)
             fprintf(nudesfile,
-               "repeat    %3d %3d call   forleft * b = left\n",fstart,fend);
+               "repeat    %3d %3d call   forleft * b = left\n",firstFrameNumAct,fend);
          else
             fprintf(nudesfile,
-               "repeat    %3d %3d call   forright * b = right\n",fstart,fend);
+               "repeat    %3d %3d call   forright * b = right\n",firstFrameNumAct,fend);
          fprintf(nudesfile,
             "repeat    %3d %3d centre bfoot  %s\n",
-                fstart,fstart+1,xyz[dofig]);
+                firstFrameNumAct,firstFrameNumAct+1,xyz[dofig]);
          fprintf(nudesfile,
             "linear    %3d %3d spinby fig    bfoot  pelvis %d y\n",
-               fstart,fend,piv);
+               firstFrameNumAct,fend,piv);
          if ((hold == NO)||(st < 1))
 			 fprintf(nudesfile,
                 "repeat    %3d %3d moveto fig    bfoot  %s\n",
-                  fstart,fend,xyz[dofig]);
+                  firstFrameNumAct,fend,xyz[dofig]);
          if (hold == PR)
              hold = NO;
-         pstart = fend;
-         pend = fend+1;
+         firstFramePrevAct = fend;
+         lastFramePrevAct = fend+1;
       } /* spotturn == false */
    }
 } /* ldopivot */
@@ -3245,9 +2890,9 @@ void lstart(void)
 		 }
       }
    }
-   //f_max is total number of frames required for the dance
-   f_max = 2 + int(lbn_fpp*double(ymax));
-	printf("\n   lsetrange: pixels %d, frames %d\n",ymax,f_max);
+   //max_Numframe is total number of frames required for the dance
+   max_Numframe = 2 + int(lbn_fpp*double(ymax));
+	printf("\n   lsetrange: pixels %d, frames %d\n",ymax,max_Numframe);
 } /* lsetrange */
 /****************************************************/
 
@@ -3291,50 +2936,50 @@ void lfinish(void)
    calls lgetout,
 */
 {
-   f_max += 2;
+   max_Numframe += 2;
    fprintf(nudesfile,"*\n");
    fprintf(nudesfile,"**************************\n");
    fprintf(nudesfile,"*\n");
    if (nm > 0)
       fprintf(nudesfile,
-         "repeat      0 %3d ground man\n",f_max);
+         "repeat      0 %3d ground man\n",max_Numframe);
    else
       fprintf(nudesfile,
          "repeat      0   1 moveto man    mlfoot  10000 10000 10000\n");
    if (nw > 0)
       fprintf(nudesfile,
-         "repeat      0 %3d ground woman\n",f_max);
+         "repeat      0 %3d ground woman\n",max_Numframe);
    else
       fprintf(nudesfile,
          "repeat      0   1 moveto woman  wlfoot  10000 10000 10000\n");
    if (nm > 0)
       fprintf(nudesfile,
-         "repeat      0 %3d centre mpelvis fx fy fz\n",f_max);
+         "repeat      0 %3d centre mpelvis fx fy fz\n",max_Numframe);
    else
       fprintf(nudesfile,
-         "repeat      0 %3d centre wpelvis fx fy fz\n",f_max);
-   if (track == TRUE)
+         "repeat      0 %3d centre wpelvis fx fy fz\n",max_Numframe);
+   if (trackOnMainFig == TRUE)
    {
 	   fprintf(nudesfile,
-         "repeat      0 %3d add     fy -900 fz\n",f_max);
+         "repeat      0 %3d add     fy -900 fz\n",max_Numframe);
        fprintf(nudesfile,
-         "repeat      0 %3d place   fx  500 fy\n",f_max);
+         "repeat      0 %3d place   fx  500 fy\n",max_Numframe);
    }
    fprintf(nudesfile,
-       "repeat      0 %3d observe -9    0  0\n*\n",f_max);
+       "repeat      0 %3d observe -9    0  0\n*\n",max_Numframe);
    fprintf(nudesfile,
       "end dance\n****************************\n");
    fprintf(nudesfile,
       "*\nsubroutine setfmax\n");
    fprintf(nudesfile,
-      "*\nrepeat 0 1 set fmax %d\n",f_max);
+      "*\nrepeat 0 1 set fmax %d\n",max_Numframe);
    fprintf(nudesfile,
       "*\nend setfmax\n");
    fprintf(nudesfile,
       "****************************\n*\nstop\n");
    fclose(nudesfile);
-   if (nbar > 0)
-         frperbar = f_max/nbar;
+   if (num_curBar > 0)
+         frperbar = max_Numframe/num_curBar;
    else
          frperbar = 0;
 } /* lfinish */
@@ -3383,7 +3028,7 @@ again:
       if (lbn_figures == 2)
       {
          stv[0] = 1; stv[1] = 2;
-         track = TRUE;
+         trackOnMainFig = TRUE;
       }
       else // (lbn_figures != 2)
       {
@@ -3458,15 +3103,15 @@ again:
 rtrn:
    if (lbn_figures != 2)
    {
-       track = TRUE;
+       trackOnMainFig = TRUE;
        printf("Track main figure? Hit 'enter' for Yes, any other key for No\n");
        key = getchar();
        if (key != '\n')
-          track = FALSE;
+          trackOnMainFig = FALSE;
    }
    else
-     track = TRUE;//follows the figure while dance
-   if (track == FALSE)
+     trackOnMainFig = TRUE;//follows the figure while dance
+   if (trackOnMainFig == FALSE)
        printf("\n   tracking OFF\n");
    else
        printf("\n   tracking ON\n");
@@ -3482,11 +3127,11 @@ void ldobar(void)
 {
    if ((jm == Bars) && (jy < yend))
    {
-      ++nbar;
+      ++num_curBar;
       fprintf(nudesfile,"*\n");
       fprintf(nudesfile,"***************************\n");
       fprintf(nudesfile,"*\n");
-      fprintf(nudesfile,"*   bar %d\n",nbar);
+      fprintf(nudesfile,"*   bar %d\n",num_curBar);
       fprintf(nudesfile,"*\n");
    }
 } /* ldobar */
@@ -3628,7 +3273,7 @@ void lrelease(void)
       holdpr = 0;
       holdsh = 0;
       holdss = 0;
-      fbegin = pend;
+      fbegin = lastFramePrevAct;
       ffin = fend;
       if (ffin <= fbegin) ffin = fbegin + 1;
       fdif = ffin - fbegin;
@@ -3642,7 +3287,7 @@ void lrelease(void)
       hold = NO;
       fprintf(nudesfile,
          "* lreleasea %d %d %d %d %d %d\n",
-            fstart,fend,j,jb,hold,prevhold);
+            firstFrameNumAct,fend,j,jb,hold,prevhold);
       keptf = ffin;
    }
 } /* lrelease */
@@ -3655,7 +3300,7 @@ void ldoposn(void)
    called by lsethold, ldohold
 */
 {
-	  fbegin = fstart;
+	  fbegin = firstFrameNumAct;
 	  ffin = fend;
 	  	  fprintf(nudesfile,
 		"** ldoposn %3d %3d, %3d %3d\n",fbegin,ffin, st,hold);
@@ -3741,7 +3386,7 @@ void ldohold(void)
 */
 {
    fbegin = keptf;
-   ffin = pend;
+   ffin = lastFramePrevAct;
 		fprintf(nudesfile,
 		"** ldohold %3d %3d, %3d %3d\n",fbegin,ffin, hold,prevhold);
    if (prevhold == hold)
@@ -3928,24 +3573,24 @@ void ldochest(int piv)
    {
 	   fprintf(nudesfile,
          "quadratic %3d %3d bendto chest   ribs  stomach 0 0 0\n",
-             fstart,fend);
+             firstFrameNumAct,fend);
 	   fprintf(nudesfile,
          "quadratic %3d %3d bendto stomach waist pelvis 0 0 0\n",
-             fstart,fend);
+             firstFrameNumAct,fend);
    } /* piv == 0 */
    else
    {
       if (dofig == MAN)
          fprintf(nudesfile,
             "quadratic %3d %3d rotate chest   ribs %3d\n",
-             fstart,fend,-piv/2);
+             firstFrameNumAct,fend,-piv/2);
       else
 	      fprintf(nudesfile,
             "quadratic %3d %3d rotate chest   ribs %3d\n",
-             fstart,fend,piv/2);
+             firstFrameNumAct,fend,piv/2);
       fprintf(nudesfile,
          "quadratic %3d %3d rotate stomach waist %3d\n",
-          fstart,fend,piv/2);
+          firstFrameNumAct,fend,piv/2);
    } /* piv != 0 */
 } /* ldochest */
 /******************************************/
@@ -4034,14 +3679,14 @@ void lcoords(char jm, int ji)
 			{
 				fprintf(nudesfile,
 					"repeat %d %d bendto mspace jman joist 270 0 %d\n",
-					fstart, fend, piv);
+					firstFrameNumAct, fend, piv);
 			   mspace = true;
 			}
 			else
 			{
 				fprintf(nudesfile,
 					"repeat %d %d bendto wspace jwoman joist 270 0 %d\n",
-					fstart, fend, piv);
+					firstFrameNumAct, fend, piv);
 				wspace = TRUE;
 			}
 		} /* space stance found */
@@ -4101,19 +3746,19 @@ void ldotoetaps ( void )/*
 			{
 				if (mspace == false)
 					fprintf( nudesfile, "repeat    %3d %3d set    coords mpelvis\n",
-					fstart, fend );
+					firstFrameNumAct, fend );
 				else
 					fprintf( nudesfile, "repeat    %3d %3d set    coords mspace\n",
-					fstart, fend );
+					firstFrameNumAct, fend );
 			}
 			else
 			{
 				if (wspace == FALSE)
 					fprintf( nudesfile, "repeat    %3d %3d set    coords wpelvis\n",
-					fstart, fend );
+					firstFrameNumAct, fend );
 				else
 					fprintf( nudesfile, "repeat    %3d %3d set    coords wspace\n",
-					fstart, fend );
+					firstFrameNumAct, fend );
 			}
 			//
 			if ( jc < 0 )
@@ -4126,7 +3771,7 @@ void ldotoetaps ( void )/*
 					if ( ok == 1 ) return;
 				} /* i wrong */
 				fprintf ( nudesfile,
-					"repeat    %3d %3d call   forleft * left = b\n", fstart, fend );
+					"repeat    %3d %3d call   forleft * left = b\n", firstFrameNumAct, fend );
 			} /* left side */
 			else if ( jc > 0 )
 			{
@@ -4139,27 +3784,27 @@ void ldotoetaps ( void )/*
 					if ( ok == 1 ) return;
 				} /* i wrong */
 				fprintf ( nudesfile,
-					"repeat    %3d %3d call   forright * right = b\n",fstart, fend );
+					"repeat    %3d %3d call   forright * right = b\n",firstFrameNumAct, fend );
 			} /* right side */
 //
 			if ( ji == 11 )
 			{
 				fprintf ( nudesfile, "repeat    %3d %3d call   %s\n",
-					fstart, fend, risesub[rise] );
+					firstFrameNumAct, fend, risesub[height_prev] );
 				fprintf ( nudesfile,
 					"repeat    %3d %3d set    fend  %d\n",
-					fstart, fend, frange );
+					firstFrameNumAct, fend, frange );
 				fprintf ( nudesfile,
 					"linear    %3d %3d bendto bleg   bknee  bthigh lrlx1 lrlx2 lrlx3\n",
-					fstart, fend );
+					firstFrameNumAct, fend );
 			} /* close without weight */
 			else
 				fprintf ( nudesfile,
 					"linear    %3d %3d bendto bleg   bknee  bthigh lhig1 lhig2 lhig3\n",
-					fstart, fend );
+					firstFrameNumAct, fend );
 			fprintf ( nudesfile,
 				"linear    %3d %3d drag   bfoot  bfoot  bankle bleg  x\n",
-				fstart, fend );
+				firstFrameNumAct, fend );
 			lbn[j].a = DONE;
 	} /* c OK */
 } /* ldotoetaps */
@@ -4168,43 +3813,43 @@ void ldohead()
 {
   if(ji == 1)
           {
-            fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 x\n",fstart,fend);
+            fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 x\n",firstFrameNumAct,fend);
           }
         else if(ji == 5)
           {
-            fprintf(nudesfile,"quadratic %d %d bendby head throat neck 50 x\n",fstart,fend);
+            fprintf(nudesfile,"quadratic %d %d bendby head throat neck 50 x\n",firstFrameNumAct,fend);
           }
         else if(ji == 3)
           {
-                  fprintf(nudesfile,"quadratic %d %d bendby head throat neck 33 z\n",fstart,fend);
+                  fprintf(nudesfile,"quadratic %d %d bendby head throat neck 33 z\n",firstFrameNumAct,fend);
           }
         else if(ji == 8)
           {
-            fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 z\n",fstart,fend);
+            fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 z\n",firstFrameNumAct,fend);
           }
         else if(ji == 2)
           {
-            fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 x\n",fstart,fend);
-            fprintf(nudesfile,"quadratic %d %d bendby head throat neck 33 z\n",fstart,fend);
+            fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 x\n",firstFrameNumAct,fend);
+            fprintf(nudesfile,"quadratic %d %d bendby head throat neck 33 z\n",firstFrameNumAct,fend);
           }
         else if(ji == 4)
           {
-            fprintf(nudesfile,"quadratic %d %d bendby head throat neck 50 x\n",fstart,fend);
-            fprintf(nudesfile,"quadratic %d %d bendby head throat neck 33 z\n",fstart,fend);
+            fprintf(nudesfile,"quadratic %d %d bendby head throat neck 50 x\n",firstFrameNumAct,fend);
+            fprintf(nudesfile,"quadratic %d %d bendby head throat neck 33 z\n",firstFrameNumAct,fend);
           }
         else if(ji == 7)
           {
-            fprintf(nudesfile,"quadratic %d %d bendby head throat neck 50 x\n",fstart,fend);
-            fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 z\n",fstart,fend);
+            fprintf(nudesfile,"quadratic %d %d bendby head throat neck 50 x\n",firstFrameNumAct,fend);
+            fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 z\n",firstFrameNumAct,fend);
           }
         else if(ji == 9)
           {
-            fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 x\n",fstart,fend);
-            fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 z\n",fstart,fend);
+            fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 x\n",firstFrameNumAct,fend);
+            fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 z\n",firstFrameNumAct,fend);
           }
         else if(ji == 11)
           {
-            fprintf(nudesfile,"quadratic %d %d bendto head throat neck 0 0 0\n",fstart,fend);
+            fprintf(nudesfile,"quadratic %d %d bendto head throat neck 0 0 0\n",firstFrameNumAct,fend);
           }
 }
 
@@ -4259,20 +3904,20 @@ Relevant symbols:-
 	fprintf ( nudesfile, "*\n************************************\n" );
 	oriented = FALSE;
 	if ( dofig == MAN )
-		fprintf ( nudesfile, "*\nrepeat      0 %3d call   doman\n", f_max );
+		fprintf ( nudesfile, "*\nrepeat      0 %3d call   doman\n", max_Numframe );
 	else
-		fprintf ( nudesfile, "*\nrepeat      0 %3d call   dowoman\n", f_max );
+		fprintf ( nudesfile, "*\nrepeat      0 %3d call   dowoman\n", max_Numframe );
 	for ( j = 0; j < NCOLM; ++j )
 		colm[j] = ARM;
 	for ( j = 0; j < ssend; ++j )
 	{
 	  lassign ();//assigns the parameter of current symbol to temporary varibles
-	  lsetframes ();//sets the frame numbers for a particular symbol(fstart , fend, frange)
+	  lsetframes ();//sets the frame numbers for a particular symbol(firstFrameNumAct , fend, frange)
 		fprintf(nudesfile,"* %d %3d %s",lbn[j].a,jc,lbnline[j]);
 		if ( lbn[j].a == TODO )
 		{
 			if ( jm == Bars )
-			  ldobar ();//increments nbar
+			  ldobar ();//increments num_curBar
 			else if ( ( jm == Face ) || ( jm == Limb ) )
 			  lsethold ();
 			else if ( jm == Misc )
@@ -4317,8 +3962,8 @@ Relevant symbols:-
 		if (( (jm == Dirn)||(jm == Rotn) )&&(jc >= -6)&&(jc <= 6)
 			&&( nmw > 0 )&&( dofig == WOMAN ) )
 			ldohold ();
-		pstart = fstart;
-		pend = fend;
+		firstFramePrevAct = firstFrameNumAct;
+		lastFramePrevAct = fend;
 	} /* j */
 } /* laction */
 /*************************************************/
@@ -4341,7 +3986,7 @@ void linter(char* renOrfile,char* gen)
 
 int keptf;           // last frame when last position kept
 int mface,wface;     // facing directions of man and woman
-int nbar;            // number of current bar
+int num_curBar;            // number of current bar
 int nlabs;           // number of laban score entries
 int npins;           // number of pins below first barline
 int nm;              // number of men
@@ -4349,20 +3994,20 @@ int nw;              // number of women
 int nmw;             // nm * nw
 int nstaff;          // number of staves
 int oriented;        // true after orientation
-int pend;            // last frame of previous action
-int pstart;          // first fame of previous action
+int lastFramePrevAct;            // last frame of previous action
+int firstFramePrevAct;          // first fame of previous action
 int ppb;             // pixels per beat (= 23 );
-int prev_time;       // clock reading of previous frame
+int prevFrame_time;       // clock reading of previous frame
 int pres_time;       // clock reading of current frame
-int previ;           // item of previous support symbol
-int prevc;           // column of previous support symbol
+int item_prev;           // item of previous support symbol
+int col_prev;           // column of previous support symbol
 int prevhold;        // previous hold
-int rise;            // height of previous step;
+int height_prev;            // height of previous step;
 int ssend;           // ending score symbol
 int sstart;          // starting score symbol
 int st;              // current staff number
 int stmiddle;        // halfway across between L and R staves
-int track;           // TRUE when tracking viewpoint on main figure
+int trackOnMainFig;           // TRUE when tracking viewpoint on main figure
 int xmin,xmax;       // width range of score symbols
 int ymax;            // top of score
 int yend;            // y position of last movement
@@ -4399,15 +4044,15 @@ char colm[NCOLM];    // limb presigns in the columns
       facesh = 0;
       facess = 0;
       prevhold = -9;
-      prevc = 0;
-      pstart = -1;
-      pend = -1;
+      col_prev = 0;
+      firstFramePrevAct = -1;
+      lastFramePrevAct = -1;
       keptf = 0;
       gy = -1;
       gh = 0;
       if (staff[st][5] == TODO)
       {
-	nbar = -1;//number of bars processed
+	num_curBar = -1;//number of bars processed
          if (staff[st][4] == MAN)
             dofig = MAN;
          else
@@ -4831,8 +4476,8 @@ void dospinto(double xx[3], int refell, double ang[3], double pro)
       }
       else alfa = atan2(quat[EMAX+1][3],quat[EMAX+1][4]) ;
       nualfa = pro*alfa ;
-      if (alfa > pi ) nualfa = pro*(alfa - twopi);
-      if (alfa < -pi) nualfa = pro*(alfa + twopi);
+      if (alfa > pi ) nualfa = pro*(alfa - (2*pi));
+      if (alfa < -pi) nualfa = pro*(alfa + (2*pi));
       quat[EMAX+1][3] = sin(nualfa);
       quat[EMAX+1][4] = cos(nualfa);
       rotget(nu,mt,EMAX+1);
@@ -4908,8 +4553,8 @@ void mkang(int n)
 	  ang[2] = atan2(quat[n][3],quat[n][4]) ;
       for (j = 0; j < 3; ++j)
       {
-         if (ang[j] < doub0) ang[j] += twopi;
-         if (ang[j] > twopi) ang[j] -= twopi;
+         if (ang[j] < doub0) ang[j] += (2*pi);
+         if (ang[j] > (2*pi)) ang[j] -= (2*pi);
       }
 }  /* mkang */
 /*****************************************/
@@ -4982,7 +4627,7 @@ void dobend(double angle, int axis)
    int left ;
 
    refell = ellpsd ;
-   if (t == rotate_keyword_code) goto lab1 ;
+   if (typeCurAction == rotate_keyword_code) goto lab1 ;
    if (ellpsd == coel[join][0]) refell = coel[join][1] ;
    if (ellpsd == coel[join][1]) refell = coel[join][0] ;
 /*
@@ -4993,15 +4638,15 @@ lab1: if (((ellpsd-figell[fig])%2) == 0)
 /*
   flex-
 */
-   if ((t == flex_keyword_code)&&(knee[join])) angle = -angle ;
+   if ((typeCurAction == flex_keyword_code)&&(knee[join])) angle = -angle ;
 /*
   rotate-
 */
-   if ((t == rotate_keyword_code)&&( left == FALSE)) angle = -angle ;
+   if ((typeCurAction == rotate_keyword_code)&&( left == FALSE)) angle = -angle ;
 /*
   abduct-
 */
-   if ((t == abduct_keyword_code)&&(left == TRUE)) angle = -angle ;
+   if ((typeCurAction == abduct_keyword_code)&&(left == TRUE)) angle = -angle ;
    dospinby(xx,refell,angle,axis) ;
 }  /* dobend */
 /****************************************************/
@@ -5128,7 +4773,7 @@ void nexts(void)
 /*
      get a new line if required-
 */
-   if ((start < lline) && (start > 0)) goto lab17 ;
+   if ((start < lenNextInpLine) && (start > 0)) goto lab17 ;
 lab10:
    start = 0 ;
    if (fgets(line,BMAX,infile) == NULL)
@@ -5140,12 +4785,12 @@ lab10:
       goto rtrn;
    }
    ++nline ;
-   lline = llength();
+   lenNextInpLine = llength();
 /*
      find start of next string-
 */
 lab17:
-   for ( j = start ; j < lline ; ++ j )
+   for ( j = start ; j < lenNextInpLine ; ++ j )
    {
       if (line[j] == astk) goto lab10 ;
       if (line[j] == blank) goto lab1 ;
@@ -5170,7 +4815,7 @@ lab1: ;
      then move start to next blank-
 */
 lab3:
-   for ( start = j ; start < lline ; ++start )
+   for ( start = j ; start < lenNextInpLine ; ++start )
    {
       if (line[start] == '\n') goto rtrn ;
       if (line[start] == blank) goto rtrn ;
@@ -5326,7 +4971,7 @@ int addnam(int n, char names[EMAX][BMAX], int isvar, int lengths[EMAX])
      non-variables must first check variable list-
 */
    {
-      no = match(nvars,varlen,vname) ;
+      no = match(num_var,varlen,vname) ;
       if (no > 0)
       {
          printf(
@@ -5341,16 +4986,16 @@ int addnam(int n, char names[EMAX][BMAX], int isvar, int lengths[EMAX])
      variables must check all name lists-
 */
    {
-      no = match(nfigs,figlen,fname) ;
+      no = match(num_figure,figlen,figureName) ;
       if (no > 0)
       {
          printf("variable  %s  confusable with figure ",
             string);
-         for ( k = 0; fname[no][k] != null; ++ k)
-            printf("%c",fname[no][k]);
+         for ( k = 0; figureName[no][k] != null; ++ k)
+            printf("%c",figureName[no][k]);
          printf("\n");
       }
-      no = match(ne,ellen,ename) ;
+      no = match(num_ellip_curFrame,ellen,ename) ;
       if (no > 0)
       {
          printf("variable  %s  confusable with ellipsoid ",
@@ -5359,7 +5004,7 @@ int addnam(int n, char names[EMAX][BMAX], int isvar, int lengths[EMAX])
             printf("%c",ename[no][k]);
          printf("\n");
       }
-      no = match(njts,jntlen,jname) ;
+      no = match(num_joint,jntlen,jname) ;
       if (no > 0)
       {
          printf("variable  %s  confusable with joint ",
@@ -5368,7 +5013,7 @@ int addnam(int n, char names[EMAX][BMAX], int isvar, int lengths[EMAX])
             printf("%c",jname[no][k]);
          printf("\n");
       }
-      no = match(nsubs,sublen,sname) ;
+      no = match(num_subroutine,sublen,sname) ;
       if (no > 0)
       {
          printf("variable  %s  confusable with subroutine ",
@@ -5377,13 +5022,13 @@ int addnam(int n, char names[EMAX][BMAX], int isvar, int lengths[EMAX])
             printf("%c",sname[no][k]);
          printf("\n");
       }
-      no = match(nfiles,fillen,tname) ;
+      no = match(num_file,fillen,textMapFileName) ;
       if (no > 0)
       {
          printf("variable  %s  confusable with file name ",
             string);
-         for ( k = 0; tname[no][k] != null; ++ k)
-            printf("%c",tname[no][k]);
+         for ( k = 0; textMapFileName[no][k] != null; ++ k)
+            printf("%c",textMapFileName[no][k]);
          printf("\n");
       }
    }
@@ -5462,11 +5107,11 @@ int inells(void)
 	int el, k;
 
 	nexts();
-	el = match ( ne, ellen, ename );
+	el = match ( num_ellip_curFrame, ellen, ename );
 	if ( el < 0 )
 	{
-		ne = addnam ( ne, ename, 0, ellen );
-		el = ne - 1;
+		num_ellip_curFrame = addnam (num_ellip_curFrame , ename, 0, ellen );
+		el = num_ellip_curFrame - 1;
 	}
 	for ( k = 0; k < 3; ++ k )
 	{
@@ -5499,8 +5144,8 @@ void injts(void)
    char elet = 'e';
 
    nexts();
-   njts = addnam(njts,jname,0,jntlen);
-   jt = njts-1;
+   num_joint = addnam(num_joint,jname,0,jntlen);
+   jt = num_joint-1;
    if ( ok > 0 ) goto lab4 ;
 /*
      is it a knee -
@@ -5530,7 +5175,7 @@ void injts(void)
      snags-
 */
 lab5: printf("\nOOPS injts with %s \n",string);
-   njts = njts-1 ;
+   num_joint = num_joint-1 ;
    goto rtrn ;
 
 lab4: printf("\nOOPS : injts more joints than max %d\n",EMAX );
@@ -5551,7 +5196,7 @@ void inlims(void)
    int k,m,n;
 
    nexts();
-   n = match(njts,jntlen,jname);
+   n = match(num_joint,jntlen,jname);
    if (n < 0)
    {
       printf("limits given for nonexistent joint: %s\n",
@@ -5628,13 +5273,13 @@ void dojoin(void)
 /*
      clear found and put all ellipsoids at origin -
 */
-      for (  e = 0 ; e < ne ; ++ e )
+      for (  e = 0 ; e < num_ellip_curFrame ; ++ e )
       {
          cen[e][0] = 0; cen[e][1] = 0; cen[e][2] = 0;
          jfound[e] = FALSE ;
          efound[e] = FALSE ;
       }
-      if (njts >= 0)
+      if (num_joint >= 0)
       {
          ecount=0 ;
          elist[ecount]=0 ;
@@ -5647,7 +5292,7 @@ lab2:    for (  e = ecount ; e <= ecount ;  e ++ )
 
 /*   run through joints, adding to figure's ellipsoids - */
 
-            for (  j = 0 ; j <= njts ; ++ j )
+            for (  j = 0 ; j <= num_joint ; ++ j )
             {
                if ((jfound[j] == FALSE)
                    && ((coel[j][0] == elist[e])
@@ -5673,7 +5318,7 @@ lab2:    for (  e = ecount ; e <= ecount ;  e ++ )
    "cyclic joint structure - perhaps delete doub1 of the joints \n");
                         printf(
                            " %d %d %d %d %d %d %d %d %d %d\n",
-                        ecount,ne,njts,e,j,newc,old,k,oldel,newel);
+                        ecount, num_ellip_curFrame , num_joint ,e ,  j, newc,old,k,oldel,newel);
                         goto lab10 ;
                      }
                   }
@@ -5694,7 +5339,7 @@ lab2:    for (  e = ecount ; e <= ecount ;  e ++ )
 
 /* locate an ellipsoid in some other figure - */
 
-        for (newel = 0; newel < ne; ++ newel)
+        for (newel = 0; newel < num_ellip_curFrame; ++ newel)
         {
             if (efound[newel] == FALSE)
             {
@@ -5726,7 +5371,7 @@ void checkin(void)
 /*
      check for snags-
 */
-   for (  j = 0 ; j <= ne ; ++ j )
+   for (  j = 0 ; j <= num_ellip_curFrame ; ++ j )
    {
       if (ellfig[j] < 0)
       {
@@ -5741,13 +5386,13 @@ void checkin(void)
 	     ok = 80 ;
       }
    }
-   if (fstop < fstart)
+   if (lastFrameNumAct < firstFrameNumAct)
    {
       printf("\nOOPS  checkin: view %d %d - produces no frames\n",
-          fstart,fstop );
+          firstFrameNumAct,lastFrameNumAct );
       ok = 81;
    }
-   for (  j = 1 ; j <= nsubs ; ++ j )
+   for (  j = 1 ; j <= num_subroutine ; ++ j )
    {
       if ((ok == 0) && (called[j] == FALSE))
       {
@@ -5758,10 +5403,10 @@ void checkin(void)
 	     }
       }
    }
-   if ((nvals+nvars) > EMAX)
+   if ((num_val+num_var) > EMAX)
    {
       printf("\nOOPS  checkin %d  non-integer values + %d variables\n",
-             nvals,nvars);
+             num_val,num_var);
       printf(" give more than max of %d \n",EMAX);
 		ok = 82;
    }
@@ -5778,12 +5423,12 @@ int valadd(double v)
 {
    int j ;
 
-   for (  j = 1 ; j <= nvals ; ++ j )
+   for (  j = 1 ; j <= num_val ; ++ j )
       if (val[j] == v) goto lab2 ;
 
-   nvals = nvals+1 ;
-   if (nvals > EMAX) goto lab10 ;
-   j = nvals ;
+   num_val = num_val+1 ;
+   if (num_val > EMAX) goto lab10 ;
+   j = num_val ;
    val[j] = v ;
 
 lab2: ;
@@ -5792,7 +5437,7 @@ lab2: ;
      snag-
 */
 lab10: printf("\nOOPS in valadd: no. of constants %d > max %d\n",
-          nvals,EMAX );
+          num_val,EMAX );
    ok = 90 ;
 
 rtrn: return(j);
@@ -5847,11 +5492,11 @@ int parset(int contrl)
 lab1://pick an axis-
 	if ( ( contrl != 5 ) && ( contrl != 8 ) ) goto lab2;
 
-	k = match ( nax, axlen, axnam );
+	k = match ( nax, axlen, axisname );
 	if ( k >= 0 ) return( k );
 
 lab2://try for a variable-
-	k = match ( nvars, varlen, vname );
+	k = match ( num_var, varlen, vname );
 	if ( k < 0 ) goto lab3;
 	usevar[k] = 1;
 	if ( contrl != 7 ) k = k - EMAX + 1;
@@ -5859,23 +5504,23 @@ lab2://try for a variable-
 
 lab3://pick an ellipsoid-
 	if ( ( contrl != 2 ) && ( contrl != 8 ) ) goto lab4;
-	k = match ( ne, ellen, ename );
+	k = match ( num_ellip_curFrame, ellen, ename );
 	if ( k < 0 ) goto lab4;
 	return( k );
 
 lab4://pick a joint-
 	if ( ( contrl != 3 ) && ( contrl != 8 ) ) goto lab5;
-	k = match ( njts, jntlen, jname );
+	k = match ( num_joint, jntlen, jname );
 	if ( k >= 0 ) return( k );
 	if ( ptype != attach ) goto lab5;
 
-	njts = addnam ( njts, jname, 0, jntlen );
-	k = njts - 1;
+	num_joint = addnam ( num_joint, jname, 0, jntlen );
+	k = num_joint - 1;
 	return( k );
 
 lab5://pick a figure-
 	if ( ( contrl != 4 ) && ( contrl != 8 ) ) goto lab7;
-	k = match ( nfigs, figlen, fname );
+	k = match ( num_figure, figlen, figureName );
 	if ( ptype == detach ) goto lab6;
 	if ( k < 0 ) goto lab7;
 	return( k );
@@ -5883,27 +5528,27 @@ lab5://pick a figure-
 lab6://action detach- accept any figure but "all"-
 	if ( k == 0 ) goto lab7;
 	if ( k > 0 ) return( k );
-	nfigs = addnam ( nfigs, fname, 0, figlen );
-	k = nfigs - 1;
+	num_figure = addnam ( num_figure, figureName, 0, figlen );
+	k = num_figure - 1;
 	return( k );
 
 lab7://pick a subroutine call-
 	if ( ( contrl != 6 ) && ( contrl != 8 ) ) goto lab8;
-	k = match ( nsubs, sublen, sname );
+	k = match ( num_subroutine, sublen, sname );
 	if ( k <= 0 )
 	{
-		nsubs = addnam ( nsubs, sname, 0, sublen );
-		k = nsubs - 1;
+		num_subroutine = addnam ( num_subroutine, sname, 0, sublen );
+		k = num_subroutine - 1;
 	}
 	called[k] = TRUE;
 	return( k );
 
 lab8://pick a file name-
 	if ( ( contrl != 9 ) && ( contrl != 8 ) ) goto lab9;
-	k = match ( nfiles, fillen, tname );
+	k = match ( num_file, fillen, textMapFileName );
 	if ( k > 0 ) return( k );
-	nfiles = addnam ( nfiles, tname, 0, fillen );
-	k = nfiles - 1;
+	num_file = addnam ( num_file, textMapFileName, 0, fillen );
+	k = num_file - 1;
 	return( k );
 
 lab9://snag-
@@ -5972,10 +5617,10 @@ void inperf(void)
 		else if ( how == figure_keyword_code  )
 		{
 			nexts ();
-			nfigs = addnam ( nfigs, fname, FALSE, figlen );
-			nells = ne;
-			figell[nfigs-1] = ne;
-			ne = inname ( nells, 0, ellen, ename );
+			num_figure = addnam ( num_figure, figureName, FALSE, figlen );
+			nells = num_ellip_curFrame ;
+			figell[num_figure-1] = num_ellip_curFrame;
+			num_ellip_curFrame =inname ( nells, 0, ellen, ename );
 		}
 		else if ( how == ellips_keyword_code  )
 		{
@@ -5994,10 +5639,10 @@ void inperf(void)
 		}
 		else if ( how == variable_keyword_code )
 		{
-			nvars = inname ( nvars, 1, varlen, vname );
-			if ( ( nvars + nvals ) > EMAX )
+			num_var = inname ( num_var, 1, varlen, vname );
+			if ( ( num_var + num_val ) > EMAX )
 			{
-				printf ( "\nOOPS inperf nvars %d + nvals %d > EMAX %d\n", nvars, nvals, EMAX );
+				printf ( "\nOOPS inperf num_var %d + num_val %d > EMAX %d\n", num_var, num_val, EMAX );
 				bell ( 1, 1 );
 				ok = 87;
 			}
@@ -6006,8 +5651,8 @@ void inperf(void)
 		{
 			nexts ();
 			v = value ();
-			if ( v < doub0 ) slow = int ( -v + inv2 );
-			if ( v > doub0 ) fast = int ( v + inv2 );
+			if ( v < doub0 ) num_pauseCalls = int ( -v + inv2 );
+			if ( v > doub0 ) frameNumMultiplier = int ( v + inv2 );
 		}
 		else if ( how == view_keyword_code )
 		{
@@ -6015,11 +5660,11 @@ void inperf(void)
 			v = value ();
 			if ( pok == TRUE )
 			{
-				vstart = int ( v ) - 1;
-				if ( vstart < 0 ) vstart = 0;
+				view_firstframe = int ( v ) - 1;
+				if ( view_firstframe < 0 ) view_firstframe = 0;
 				nexts ();
 				v = value ();
-				if ( pok == TRUE ) vstop = int ( v );
+				if ( pok == TRUE ) view_lastframe = int ( v );
 			}
 			if ( pok == FALSE )
 			{
@@ -6030,14 +5675,14 @@ void inperf(void)
 		}
 		else if ( how == subrou_keyword_code  ) // start a subroutine
 		{
-			inmain = FALSE;
+			nudes_inMain = FALSE;
 			if ( thisub == 0 ) subact[0][1] = p - 1;
 			nexts ();
-			thisub = match ( nsubs, sublen, sname );
+			thisub = match ( num_subroutine, sublen, sname );
 			if ( thisub <= 0 )
 			{
-				nsubs = addnam ( nsubs, sname, 0, sublen );
-				if ( ok == 0 ) thisub = nsubs - 1;
+				num_subroutine = addnam ( num_subroutine, sname, 0, sublen );
+				if ( ok == 0 ) thisub = num_subroutine - 1;
 			}
 			defined[thisub] = TRUE;
 			subact[thisub][0] = p;
@@ -6045,7 +5690,7 @@ void inperf(void)
 		else if ( how == endsub_keyword_code )  //  end of a subroutine
 		{
 			nexts ();
-			k = match ( nsubs, sublen, sname );
+			k = match ( num_subroutine, sublen, sname );
 			if ( k == thisub )
 			{
 				subact[k][1] = p - 1;
@@ -6072,12 +5717,12 @@ void inperf(void)
 
 			frstart[p] = parset(1);
 			if ( ok == TRUE ) frstop[p] = parset ( 1 );
-			if ( inmain == TRUE )
+			if ( nudes_inMain == TRUE )
 			{
-				if ( frstart[p] < fstart )
-					fstart = frstart[p];
-				if ( frstop[p] > fstop )
-					fstop = frstop[p];
+				if ( frstart[p] < firstFrameNumAct )
+					firstFrameNumAct = frstart[p];
+				if ( frstop[p] > lastFrameNumAct )
+					lastFrameNumAct = frstop[p];
 			}
 			if ( ok == TRUE ) //call of a subroutine
 			{
@@ -6085,16 +5730,16 @@ void inperf(void)
 				{
 					distrn[p] = call_keyword_code;
 					ptype = call_keyword_code;
-					type[p] = call_keyword_code;
+					typeAction[p] = call_keyword_code;
 					nexts ();
-					k = match ( nvars, varlen, vname );
+					k = match ( num_var, varlen, vname );
 					if ( k < 0 )
 					{
-						k = match ( nsubs, sublen, sname );
+						k = match ( num_subroutine, sublen, sname );
 						if ( k < 0 )
 						{
-							nsubs = addnam ( nsubs, sname, 0, sublen );
-							k = nsubs - 1;
+							num_subroutine = addnam ( num_subroutine, sname, 0, sublen );
+							k = num_subroutine - 1;
 						}
 						called[k] = TRUE;
 						pf[p][0] = k;
@@ -6108,7 +5753,7 @@ void inperf(void)
 				{
 					nexts ();
 					ptype = match ( NKEYS, keylen, keynam );
-					type[p] = ptype;
+					typeAction[p] = ptype;
 					if ( ( ptype < 1 ) || ( ptype >= NKEYS ) )
 					{
 						printf ( "\nOOPS inperf: ptype %d\n", ptype );
@@ -6231,24 +5876,24 @@ void setels(int ellpsd, int jthis)
       int e,ee,j,jj ;
 
 
-      if (ellpsd >= ne)
+      if (ellpsd >= num_ellip_curFrame)
       {
           ok = 79;
           printf("\nOOPS setels: ellpsd %d %s >= ne %d\n",
-			  ellpsd,ename[ellpsd],ne);
+			  ellpsd,ename[ellpsd],num_ellip_curFrame);
           goto rtrn;
       }
       if (ellpsd <= 0) goto lab6;
       ecount = 1;
       elist[0] = ellpsd;
-      if (njts <= 0) goto rtrn;
+      if (num_joint <= 0) goto rtrn;
       jcount = 0;
       if (jthis < 0) goto again;
-      if (jthis >= njts)
+      if (jthis >= num_joint)
       {
           ok = 78;
-          printf("\nOOPS setels: jthis %d  %s > njts %d\n",
-			  jthis,jname[jthis],njts);
+          printf("\nOOPS setels: jthis %d  %s > num_joint %d\n",
+			  jthis,jname[jthis],num_joint);
           goto rtrn;
       }
       if ((coel[jthis][0] != ellpsd) && (coel[jthis][1] != ellpsd))
@@ -6268,7 +5913,7 @@ again: change = FALSE;
       {
 /*   seek joint not in jlist connected to ellipsoid elist[e]- */
 
-         for ( j=0; j < njts; ++j )
+         for ( j=0; j < num_joint; ++j )
          {
             if ((j == jthis) && (jthis > 0)) goto lab3;
             for (  jj=0; jj < jcount; ++jj )
@@ -6305,7 +5950,7 @@ lab6: jcount = 0 ;
 /*   all joints with non-null connections- */
 
       jcount = 0;
-      for (  j = 0 ; j <= njts ; ++ j )
+      for (  j = 0 ; j <= num_joint ; ++ j )
       {
          if (coel[j][0] >= 0)
          {
@@ -6316,8 +5961,8 @@ lab6: jcount = 0 ;
 
 /*   all ellipsoids except world- */
 
-      ecount = ne ;
-      for (  e = 1 ; e <= ne ; ++ e )
+      ecount = num_ellip_curFrame ;
+      for (  e = 1 ; e <= num_ellip_curFrame ; ++ e )
          elist[e-1] = e ;
 rtrn: ;
 }  /* setels */
@@ -6427,7 +6072,7 @@ double setpro(double coef[7])
    double phi ;
 
    phi = pi-inv2*atan2(coef[3], coef[1]-coef[2]) ;
-   if (phi < doub0) phi = phi+twopi ;
+   if (phi < doub0) phi = phi+(2*pi) ;
    return(phi);
 } /* setpro */
 /******************************************/
@@ -6559,8 +6204,8 @@ void doshadow()
 /*
      run thru ellipsoids to shadow each in turn -
 */
-    k = ne;
-    for (  n = 1 ; n < ne ; ++n )
+    k = num_ellip_curFrame;
+    for (  n = 1 ; n < num_ellip_curFrame ; ++n )
     {
          phi = setnup(n,axe);
          y = elground(n);
@@ -6574,13 +6219,13 @@ void doshadow()
             ax[k][2] = axe[2];
             rset(r,phi,1);
             rotput(r,k);
-            col[k][0] = doub1;
-            col[k][1] = doub1;
-            col[k][2] = doub1;
+            color[k][0] = doub1;
+            color[k][1] = doub1;
+            color[k][2] = doub1;
 			++k;
          } /* y > 0 */
     } /* end n loop */
-    ne = k;
+    num_ellip_curFrame = k;
 } /* doshadow */
 /******************************************/
 
@@ -6593,8 +6238,8 @@ void save(void)
 {
    int j,n;
 
-   nesave = ne;
-   for (n = 0; n <= ne; ++n)
+   nesave = num_ellip_curFrame;
+   for (n = 0; n <= num_ellip_curFrame; ++n)
    {
       for ( j = 0; j < 3; ++j)
       {
@@ -6616,8 +6261,8 @@ void restore(void)
 {
    int j,n;
 
-   ne = nesave;
-   for (n = 0; n <= ne; ++n)
+   num_ellip_curFrame = nesave;
+   for (n = 0; n <= num_ellip_curFrame; ++n)
    {
       for (j = 0; j < 3; ++j)
       {
@@ -6644,31 +6289,31 @@ void store3(int f)
    double invobs[3][3];
 
    save();
-   if (shadow == TRUE) doshadow();
+   if (shadowDisplay == TRUE) doshadow();
    setels(0,-1);
    twirl(pplace[0],pplace[1],pplace[2],obs);
    shift(-pplace[0],-pplace[1],-pplace[2]);
-   nels[f] = ne;
-   for (e = 0; e < ne; ++e)
+   nels[f] = num_ellip_curFrame;
+   for (e = 0; e < num_ellip_curFrame; ++e)
    {
       for (j = 0; j < 3; ++j)
       {
          qu3[f][e][j+1] = quat[e][j];
          ax3[f][e][j] = ax[e][j]*inv1000;
          ce3[f][e][j] = cen[e][j]*inv1000;
-         co3[f][e][j] = col[e][j]*inv256;
+         co3[f][e][j] = color[e][j]*inv256;
       } /* j*/
       qu3[f][e][3] = -qu3[f][e][3];
       qu3[f][e][0] = degree*atan2(quat[e][3], quat[e][4]);
       ce3[f][e][2] = doub1 - ce3[f][e][2];
-      if (col[e][0] < 0)
-            sprintf(tn3[f][e],"%s",tname[int(inv2-col[e][0])]);
+      if (color[e][0] < 0)
+            sprintf(tn3[f][e],"%s",textMapFileName[int(inv2-color[e][0])]);
    } /* e */
-   rotput(obs,ne);
-   mkang(ne);
-   storeang(f,ne,ang[0],ang[1],ang[2]);
-   mkquat(ne,ang[0],ang[1],ang[2]);
-   rotget(obs,invobs,ne);
+   rotput(obs,num_ellip_curFrame);
+   mkang(num_ellip_curFrame);
+   storeang(f, num_ellip_curFrame ,ang[0],ang[1],ang[2]);
+   mkquat(  num_ellip_curFrame ,ang[0],ang[1],ang[2]);
+   rotget(obs,invobs,num_ellip_curFrame);
    restore();
 }  /* store3 */
 /***********************************************/
@@ -6787,7 +6432,7 @@ double doground(void)
    double toty;
    double val;
 
-   if ((ecount < 1) || (ecount > ne))
+   if ((ecount < 1) || (ecount > num_ellip_curFrame))
    {
       ok = 38 ;
       printf("\nOOPS doground: ecount %d out of range\n",
@@ -6840,7 +6485,7 @@ again:  for (  e = 0 ; e < ecount ; ++ e )
 
 /*   seek joint not in jlist but connected to ellipsoid elist[e]- */
 
-         for (  jt = 0 ; jt < njts ; ++ jt )
+         for (  jt = 0 ; jt < num_joint ; ++ jt )
          {
             if (jt == jthis) goto lab3;
             if (jcount > 0)
@@ -7061,7 +6706,7 @@ int findfg(int ell)
    int e,f;
 
    setels(ell,-1) ;
-   for (  f = 1 ; f <= nfigs ; ++ f )
+   for (  f = 1 ; f <= num_figure ; ++ f )
    {
       for (  e = 0 ; e < ecount ; ++ e )
          if (figell[f] == elist[e]) return(f);
@@ -7083,18 +6728,18 @@ void checkpr(void)
   called by  setper,
 */
 {
-   if ((njts > 0)&&((join < 0) || (join > njts))) goto lab12 ;
+   if ((num_joint > 0)&&((join < 0) || (join > num_joint))) goto lab12 ;
    if ((axis < 0) || (axis > 2)) goto lab13 ;
-   if ((ellpsd < 0) || (ellpsd > ne)) goto lab14 ;
-   if ((refell < 0) || (refell > ne)) goto lab15 ;
-   if ((ell1 < 0) || (ell1 > ne)) goto lab20 ;
-   if ((ell2 < 0) || (ell2 > ne)) goto lab21 ;
-   if ((fig < 0) || (fig > nfigs)) goto lab16 ;
-   if (nvars <= 0) goto lab10 ;
+   if ((ellpsd < 0) || (ellpsd > num_ellip_curFrame)) goto lab14 ;
+   if ((refell < 0) || (refell > num_ellip_curFrame)) goto lab15 ;
+   if ((ell1 < 0) || (ell1 > num_ellip_curFrame)) goto lab20 ;
+   if ((ell2 < 0) || (ell2 > num_ellip_curFrame)) goto lab21 ;
+   if ((fig < 0) || (fig > num_figure)) goto lab16 ;
+   if (num_var <= 0) goto lab10 ;
    if ((var0 < 0) || (var0 >= EMAX)) goto lab17 ;
    if ((var1 < 0) || (var1 >= EMAX)) goto lab18 ;
    if ((var2 < 0) || (var2 >= EMAX)) goto lab19 ;
-   if (newcol[0] < -nfiles) goto lab45 ;
+   if (newcol[0] < -num_file) goto lab45 ;
    if (newcol[0] <= 0)
    {
       if (newcol[1] < 0) goto lab48 ;
@@ -7106,7 +6751,7 @@ void checkpr(void)
 */
 lab12: ok = 16 ;
    printf("\nOOPS checkpr: joint %d out of range 0 to  %d\n",
-      join,njts);
+      join,num_joint);
    goto lab10 ;
 
 lab13: ok = 17 ;
@@ -7116,42 +6761,42 @@ lab13: ok = 17 ;
 
 lab14: ok = 18 ;
    printf("\nOOPS checkpr: ellpsd %d out of range 0 to %d\n",
-      ellpsd,ne);
+      ellpsd,num_ellip_curFrame );
    goto lab10 ;
 
 lab15: ok = 19 ;
    printf("\nOOPS checkpr: refell %d out of range 0 to %d\n",
-      refell,ne);
+      refell,num_ellip_curFrame );
    goto lab10 ;
 
 lab16: ok = 20 ;
    printf("\nOOPS checkpr: fig %d out of range 0 to %d\n",
-      fig,nfigs);
+      fig,num_figure);
    goto lab10 ;
 
 lab17: ok = 21 ;
    printf("\nOOPS checkpr: var0 %d out of range 0 to %d\n",
-      var0,nvars);
+      var0,num_var);
    goto lab10 ;
 
 lab18: ok = 22 ;
    printf("\nOOPS checkpr: var1 %d out of range 0 to %d\n",
-      var1,nvars);
+      var1,num_var);
    goto lab10 ;
 
 lab19: ok = 23 ;
    printf("\nOOPS checkpr: var2 %d out of range 0 to %d\n",
-      var2,nvars);
+      var2,num_var);
    goto lab10 ;
 
 lab20: ok = 36 ;
    printf("\nOOPS checkpr: ell1 %d out of range 0 to %d\n",
-      ell1,ne);
+      ell1,num_ellip_curFrame);
    goto lab10 ;
 
 lab21: ok = 37 ;
    printf("\nOOPS checkpr: ell2 %d out of range 0 to %d\n",
-      ell2,ne);
+      ell2,num_ellip_curFrame);
    goto lab10 ;
 
 lab45: ok = 45 ;
@@ -7191,7 +6836,7 @@ void setper ( int keyword_code )
     10 - value for a variable
     11,12,13 - red, green and blue colour coords
     14 - the debug parameter
-    15 - reference to a file name in list 'fname'
+    15 - reference to a file name in list 'figureName'
     21 - axis
     22 - joint
     23 - reference ellipsoid
@@ -7361,7 +7006,7 @@ void setper ( int keyword_code )
 		xx[2] = cen[ellpsd][2];
 		return;
 	}
-   for (j = 0; j < ne; ++j)
+   for (j = 0; j < num_ellip_curFrame; ++j)
 	{
 		minax[j] = ax[j][0];
 		if (ax[j][1] < minax[j]) minax[j] = ax[j][1];
@@ -7392,10 +7037,10 @@ void docolour(double prop)
   called by  action,
 */
 {
-   col[ellpsd][0] += prop*(newcol[0]-col[ellpsd][0]) ;
-   col[ellpsd][1] += prop*(newcol[1]-col[ellpsd][1]) ;
-   col[ellpsd][2] += prop*(newcol[2]-col[ellpsd][2]) ;
-   if (t == 52) col[ellpsd][0] = -newcol[0] ;
+   color[ellpsd][0] += prop*(newcol[0]-color[ellpsd][0]) ;
+   color[ellpsd][1] += prop*(newcol[1]-color[ellpsd][1]) ;
+   color[ellpsd][2] += prop*(newcol[2]-color[ellpsd][2]) ;
+   if (typeCurAction == 52) color[ellpsd][0] = -newcol[0] ;
 }  /* docolour */
 /***************************************/
 
@@ -7515,7 +7160,7 @@ void dodetach(void)
    {
       ok = 43 ;
       printf("\nOOPS dodetach:  fig %d %s,  figell[fig] %d %s\n",
-              fig,fname[fig],figell[fig],ename[figell[fig]]);
+              fig,figureName[fig],figell[fig],ename[figell[fig]]);
       goto rtrn ;
    }
 /*
@@ -7536,7 +7181,7 @@ void dodetach(void)
 /*
    move all the joints down one -
 */
-   for (j = join; j < njts; ++j)
+   for (j = join; j < num_joint; ++j)
    {
       coel[j][0] = coel[j+1][0] ;
       coel[j][1] = coel[j+1][1] ;
@@ -7544,7 +7189,7 @@ void dodetach(void)
       jnt[j][1] = jnt[j+1][1];
       jnt[j][2] = jnt[j+1][2];
    }
-   --njts;
+   --num_joint;
 /*
    find representative ellipsoid of each figure -
 */
@@ -7646,7 +7291,7 @@ void dogrojnt(void)
    double x0,x1,x2;
    int jscan,othere,dim ;
 
-   if ((njts <= 0) || (njts > EMAX)) goto lab11 ;
+   if ((num_joint <= 0) || (num_joint > EMAX)) goto lab11 ;
    if ((coel[join][0] != ellpsd)&&(coel[join][1] != ellpsd))
       goto lab12 ;
 
@@ -7666,7 +7311,7 @@ void dogrojnt(void)
 /*
   now shift everything connected to ellpsd-
 */
-   for ( jscan = 0 ; jscan < njts ; ++ jscan )
+   for ( jscan = 0 ; jscan < num_joint ; ++ jscan )
    {
       if (jscan != join)
       {
@@ -7698,7 +7343,7 @@ void dogrojnt(void)
   snags-
 */
 lab11: ok = 40 ;
-   printf("\nOOPS dogrojnt:  njts %d\n",njts);
+   printf("\nOOPS dogrojnt:  num_joint %d\n",num_joint);
    goto lab10 ;
 
 lab12: ok = 41 ;
@@ -7721,7 +7366,7 @@ void domovjnt(void)
    double d[EMAX][3],r[3][3],unr[3][3] ;
    int othere,dim ;
 
-   if ((njts <= 0) || (njts > EMAX)) goto lab11 ;
+   if ((num_joint <= 0) || (num_joint > EMAX)) goto lab11 ;
    othere = 0 ;
    if (coel[join][0] == ellpsd) othere = coel[join][1] ;
    if (coel[join][1] == ellpsd) othere = coel[join][0] ;
@@ -7757,7 +7402,7 @@ void dobalanc(void)
   calls      rotget, rset, matmul, vecmat, dospinby,
 */
 {
-   double wsum,wmod,uw,vw,alpha,beta,phi,mass;
+   double wsum,wmod,uw,vw,angleInc,beta,phi,mass;
    double dx[3],u[3],u1[3],u2[3],v[3],w[3],w1[3],ww[3];
    double ro[3][3],unro[3][3],rph[3][3],ralph[3][3],rb[3][3];
    double usq;
@@ -7809,10 +7454,10 @@ void dobalanc(void)
    u1[1] = u[1];
    u1[2] = doub0;
    if ((uw < -doub1) || (uw > doub1))
-	   alpha = doub0;
+	   angleInc = doub0;
    else
-	   alpha = acos(uw);
-   rset(ralph,alpha,2);
+	   angleInc = acos(uw);
+   rset(ralph,angleInc,2);
    vecmat(u1,ralph,u2);
    phi = -atan2(u[2],u[0]);
    rset(rph,phi,1);
@@ -7965,7 +7610,11 @@ void dodrag(void)
 //f,prop*xd,ename[ell1],cen[ell1][0],cen[ell1][1],cen[ell1][2]);
 //printf("            %s   %f %f %f\n\n",
 //ename[fixde],cen[fixde][0],cen[fixde][1],cen[fixde][2]);
+<<<<<<< HEAD
+			printDone = TRUE;
+=======
 		//	prdone = TRUE;
+>>>>>>> f977da9c73a9c5ab99716ad9d716f6ba7f701c2c
 		} /* joint OK */
 	}  /* connections  OK */
 } /* dodrag */
@@ -8216,21 +7865,21 @@ static void initsphere(void)
    double xval,yval,zval;
    double ssmall;
 
-   if (nsph >= SMAX)
+   if (num_chord_sphere >= SMAX)
    {
-      printf("initsphere oops %d > max, reset to %d\n",nsph,SMAX);
-	  nsph = SMAX-2;
+      printf("initsphere oops %d > max, reset to %d\n",num_chord_sphere,SMAX);
+	  num_chord_sphere = SMAX-2;
    }
-   if (nsph < SMIN)
+   if (num_chord_sphere < SMIN)
    {
-      printf("initsphere oops %d < min, reset to %d\n",nsph,SMIN);
-		nsph = SMIN;
+      printf("initsphere oops %d < min, reset to %d\n",num_chord_sphere,SMIN);
+		num_chord_sphere = SMIN;
    }
-   dlat = pi/(double)nsph;
+   dlat = pi/(double)num_chord_sphere;
    dlong = dlat;
-   nlong = nsph+nsph;
-   nlat = nsph;
-   lat = -piby2;
+   nlong = num_chord_sphere+num_chord_sphere;
+   nlat = num_chord_sphere;
+   lat = -( doub2*atan(doub1));
 /*
    set up vertices -
 */
@@ -8272,7 +7921,7 @@ static void initsphere(void)
          if (m >= 4*SMAX*SMAX)
          {
             printf("initsphere faces (%d)  %d > %d\n",
-				nsph,m,4*SMAX*SMAX);
+				num_chord_sphere,m,4*SMAX*SMAX);
             getout(1);
             if (ok == 1) goto rtrn;
          }
@@ -8349,21 +7998,21 @@ void cutting ( void )
 	char key;
 
 	ncut = 5;
-	ntemp = nsph;
-	nsph = ncut;
-	if (2*nsph*nsph > EMAX)
-		nsph = int(sqrt(double(EMAX-1)*inv2));
+	ntemp = num_chord_sphere;
+	num_chord_sphere = ncut;
+	if (2*num_chord_sphere*num_chord_sphere > EMAX)
+		num_chord_sphere = int(sqrt(double(EMAX-1)*inv2));
 	printf("cuttinga %d %d\n",ntemp,ncut);
 	initsphere ( );
-	for (el1 = 1; el1 < (ne-1); ++el1)
+	for (el1 = 1; el1 < (num_ellip_curFrame - 1); ++el1)
 	{
 		setmat ( el1, m, m1, unm1 );
 		for (j = 0; j < 3; ++j)
 			c1[j] = cen[el1][j];
 		s = 0;
-		for (j = 0; j <= nsph; ++j)
+		for (j = 0; j <= num_chord_sphere; ++j)
 		{
-			for ( k = 0;  k <= (nsph+nsph); ++k)
+			for ( k = 0;  k <= (num_chord_sphere+num_chord_sphere); ++k)
 			{
 				e1c[s][0] = point[j][k][0];
 				e1c[s][1] = point[j][k][1];
@@ -8377,7 +8026,7 @@ void cutting ( void )
 				{
 					printf("snag in 'cutting'\n");
 					printf(" no. vertices %d, max %d\n",
-						2*nsph*nsph,EMAX);
+						2*num_chord_sphere*num_chord_sphere,EMAX);
 					ok = 66;
 					getout(ok);
 				}
@@ -8385,7 +8034,7 @@ void cutting ( void )
 		} /* j loop */
 		smax = s;
 		smin = -1;
-		for (el2 = el1+1; el2 < ne; ++el2)
+		for (el2 = el1+1; el2 < num_ellip_curFrame; ++el2)
 		{
 			if (forbid[el1][el2] == true)
 			{
@@ -8393,25 +8042,25 @@ void cutting ( void )
 				if (dmin < doub0)
 				{
 					printf("frame %d: ellipsoid %s cuts ellpsoid %s\n",
-						f,ename[el1],ename[el2]);
+						frameCount,ename[el1],ename[el2]);
 					printf ( "\n carry on regardless? Hit 'enter' for Yes, 'no' then 'enter' for No: " );
 					key = getchar();
 					if ( key == '\n' )
 					{
-						for (j = 0; j < ne; ++j)
-							for (k = 0; k < ne; ++k)
+						for (j = 0; j < num_ellip_curFrame; ++j)
+							for (k = 0; k < num_ellip_curFrame; ++k)
 								forbid[j][k] = false;
 					}
 					else
 					{
-						pause = true;
-						fstop = f-1;
+						forPause = true;
+						lastFrameNumAct = frameCount-1;
 					}
 				} // dmin
 			} /* ell2 forbidden */
 		} /* el2 */
 	} /* el1 */
-	nsph = ntemp;
+	num_chord_sphere = ntemp;
 	printf("cuttingb %d %d\n",el1,el2);
 	initsphere ( );
 } /* cutting */
@@ -8457,7 +8106,7 @@ double fun(double xarg)
    double dx[3];
 
    ans = doub0;
-   if (t == drag_keyword_code)
+   if (typeCurAction == drag_keyword_code)
    {
       setels(ellpsd,join);
       restore();
@@ -8467,7 +8116,7 @@ double fun(double xarg)
       return(ans);
    }
    else
-   if (t == abut_keyword_code)
+   if (typeCurAction == abut_keyword_code)
    {
       dx[0]=doub0;
       dx[1]=doub0;
@@ -8682,7 +8331,7 @@ double trying(double a)
 {
    double dx[3],s;
 
-   if (t == abut_keyword_code)
+   if (typeCurAction == abut_keyword_code)
    {
       dx[0] = doub0; dx[1] = doub0; dx[2] = doub0;
       dx[axis] = a;
@@ -8869,7 +8518,7 @@ out: ;
       doframes    - simulates and stores each frame in turn
       help        - list interactive commands
       initsphere  - set up polyhedral approximation to a sphere
-      dopause     - do nothing for a while
+      dopause1     - do nothing for a while
       donum       - write numbers on the animation window
       image       - draw the ellipsoids
       animate     - update interactive variables
@@ -8924,8 +8573,8 @@ void doopacity ( void )
 
 	// run thru ellipsoids to shadow each in turn -
 
-	k = ne;
-	for ( n = 1; n < ne; ++n )
+	k = num_ellip_curFrame;
+	for ( n = 1; n < num_ellip_curFrame; ++n )
 	{
 		phi = setnup ( n, axe );
 		y = elground ( n );
@@ -8939,15 +8588,15 @@ void doopacity ( void )
 			ax[k][2] = axe[2];
 			rset ( r, phi, 1 );
 			rotput ( r, k );
-			col[k][0] = doub1;
-			col[k][1] = doub1;
-			col[k][2] = doub1;
-			col[k][3] = 100;  // transparency 0-100 flags 101-255
+			color[k][0] = doub1;
+			color[k][1] = doub1;
+			color[k][2] = doub1;
+			color[k][3] = 100;  // transparency 0-100 flags 101-255
 
 			++k;
 		} /* y > 0 */
 	}	  /* end n loop */
-	ne = k;
+	num_ellip_curFrame = k;
 } /* doopacity */
 /*****************************************/
 
@@ -9216,7 +8865,7 @@ void action ( int keyword_code )
 	if ( keyword_code == colour_keyword_code ||
 		keyword_code == color_keyword_code ) docolour ( prop );
 
-	if ( keyword_code == print_keyword_code ) printf ( "frame %d, %s %9g\n", f, vname[EMAX-var0-1], val[var0] );
+	if ( keyword_code == print_keyword_code ) printf ( "frame %d, %s %9g\n", frameCount, vname[EMAX-var0-1], val[var0] );
 
 	if ( keyword_code == textur_keyword_code ) docolour ( doub1 );
 
@@ -9251,10 +8900,10 @@ void action ( int keyword_code )
 }  /* action */
 /*********************************************************/
 
-void doperfrm(int sub, int fr, int fstart, int fend)
+void doperfrm(int sub, int fr, int firstFrameNumAct, int fend)
 /*
    perform actions of subroutine 'sub' for frame 'fr'
-   between frames 'fstart' and 'fend'
+   between frames 'firstFrameNumAct' and 'fend'
 
    called by  doframes,
    calls      getvalu, setfrc, setper, action,
@@ -9263,41 +8912,41 @@ void doperfrm(int sub, int fr, int fstart, int fend)
    int frame;
    int newsub;
    int p;
-   int pstart,pend;
+   int firstFramePrevAct,lastFramePrevAct;
    int fsstart;
    int fstrt,fstp;
    int fsubstart ;
 
-   pstart = subact[sub][0] ;
-   pend = subact[sub][1] ;
+   firstFramePrevAct = subact[sub][0] ;
+   lastFramePrevAct = subact[sub][1] ;
 /*
   find 'subfrm', the earliest formal frame number in
   current subroutine ignoring unset variable
   frame numbers ( == -1) -
 */
    fsubstart = MAXINT ;
-   for (p = pstart ; p <= pend ; ++p )
+   for (p = firstFramePrevAct ; p <= lastFramePrevAct ; ++p )
    {
       fsstart = getvalu(frstart[p]) ;
       if (ok != 0) goto snag ;
       if (fsstart >= 0)
       {
-         fsstart *= fast ;
+         fsstart *= frameNumMultiplier ;
          if (fsstart < fsubstart) fsubstart = fsstart ;
       }
    }
-   frame = fr + fsubstart - fstart;
-   if (fr >= fstop) fstop = fr+1;
+   frame = fr + fsubstart - firstFrameNumAct;
+   if (fr >= lastFrameNumAct) lastFrameNumAct = fr+1;
 /*
   run through actions in the subroutine -
 */
-  for (p = pstart; p <= pend; ++p)
+  for (p = firstFramePrevAct; p <= lastFramePrevAct; ++p)
   {
       pp = p;
-      t = type[p] ;
-      if ((t != stop_keyword_code)
-			&&(t != subrou_keyword_code)
-			&&(t != endsub_keyword_code))
+      typeCurAction = typeAction[p] ;
+      if ((typeCurAction != stop_keyword_code)
+			&&(typeCurAction != subrou_keyword_code)
+			&&(typeCurAction != endsub_keyword_code))
       {
          fstrt = getvalu(frstart[p]) ;
          if (fstrt < 0)
@@ -9316,12 +8965,12 @@ void doperfrm(int sub, int fr, int fstart, int fend)
          }
          if (ok != 0) goto snag ;
          if (fstrt == fstp) ++fstp;
-         fstrt *= fast ;
-         fstp *= fast ;
+         fstrt *= frameNumMultiplier ;
+         fstp *= frameNumMultiplier ;
          if ((fstp > frame) && (fr < fend)) ++more;
          if ((frame > fstrt) && (frame <= fstp))
          {
-            if (t == call_keyword_code)
+            if (typeCurAction == call_keyword_code)
             {
                newsub = getvalu(pf[p][0]);
                if ((newsub <= 0) || (newsub > PMAX))
@@ -9344,9 +8993,9 @@ void doperfrm(int sub, int fr, int fstart, int fend)
             {
                setfrc(frame,fstrt,fstp) ;
                if (ok != 0) goto snag ;
-               setper(t);
+               setper(typeCurAction);
                if (ok != 0) goto snag ;
-               action(t);
+               action(typeCurAction);
                if (ok != 0) goto snag ;
             } /* t not call */
          } /* frame f in range of action p */
@@ -9358,7 +9007,7 @@ void doperfrm(int sub, int fr, int fstart, int fend)
 */
 snag:
       printf("error in doperfrm, frame %d, action %d\n",
-	      f,p+1);
+	      frameCount,p+1);
 	  getout(ok);
 rtrn: ;
 }  /* doperfrm */
@@ -9374,7 +9023,7 @@ void doframes(void)
 {
    int j;
 
-   t = 1;
+   typeCurAction = 1;
    axis = 1;
    join = 1;
    var0 = 1;
@@ -9397,15 +9046,15 @@ void doframes(void)
 /*
   simulate and store each frame of movie-
 */
-   for (f = 1; more > 0; ++f)
+   for (frameCount = 1; more > 0; ++frameCount)
    {
       more = 0;
-      doperfrm(0,f,0,fstop);
-      if ((fslow == 1) || (f%fslow == 1))
-         store3(f);
+      doperfrm(0,frameCount,0,lastFrameNumAct);
+      if ((fslow == 1) || (frameCount % fslow == 1))
+         store3(frameCount);
    }
-   if (vstart > fstart) fstart = vstart;
-   if ((vstop > 0) && (vstop < fstop)) fstop = vstop;
+   if (view_firstframe > firstFrameNumAct) firstFrameNumAct = view_firstframe;
+   if ((view_lastframe > 0) && (view_lastframe < lastFrameNumAct)) lastFrameNumAct = view_lastframe;
 } /* doframes */
 /*********************************************/
 
@@ -9420,14 +9069,14 @@ void help(void)
   printf("\n  Interactive commands :-\n\n");
 
   printf("\n\n   animation parameters\n");
-  printf("    i - freeze (opp. of 'a')\n");
+  printf("    i - freezeAnimation (opp. of 'a')\n");
   printf("    a - continue animating (opp. of 'i')\n");
   printf("    c - continue through restart at full rate (opp. of 'p')\n");
-  printf("    p - pause on first and last frames (opp. of 'c')\n");
+  printf("    p - pause1 on first and last frames (opp. of 'c')\n");
   printf("    b - if frozen, go back 1 frame else run backwards (opp. of 'f')\n");
   printf("    f - if frozen, go forward 1 frame else run forwards (opp.of 'b')\n");
-  printf("    0 - reset parameters to defaults, and freeze at start\n");
-  printf("    - - slow down the animation \n");
+  printf("    0 - reset parameters to defaults, and freezeAnimation at start\n");
+  printf("    - - num_pauseCalls down the animation \n");
   printf("    = - speed up the animation \n");
 
   printf("\n\n   scene movement parameters\n");
@@ -9477,9 +9126,9 @@ void help(void)
 /********************************************/
 
 
-void dopause(int t)
+void dopause1(int t)
 /*
-   pause for a while
+   pause1 for a while
 
    called by  image, animate,
 */
@@ -9496,7 +9145,7 @@ void dopause(int t)
       }
    }
    if (a < 0.0) printf("%d\n",t);
-} /* dopause */
+} /* dopause1 */
 /*****************************************/
 
 void donum(int f)
@@ -9509,7 +9158,7 @@ void donum(int f)
    char nstr[BMAX];
    int b,c,nlngth;
 
-   if (bnums == TRUE)
+   if (barNumDisplay == TRUE)
    {
       b = int(doub1 + inv2 + double(f)/double(frperbar));
       sprintf(nstr,"bar %d",b);
@@ -9519,7 +9168,7 @@ void donum(int f)
       for (c = 0; c < nlngth; c++)
          glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, nstr[c]);
    }
-   if (fnums == TRUE)
+   if (frameNumDisplay == TRUE)
    {
       sprintf(nstr,"frame %d",f);
       nlngth = strlen(nstr);
@@ -9529,11 +9178,11 @@ void donum(int f)
          glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, nstr[c]);
 
 	  //pres_time = clock();
-	  //rate = CLOCKS_PER_SEC/(pres_time - prev_time);
-	  //prev_time = pres_time;
+	  //rate = CLOCKS_PER_SEC/(pres_time - prevFrame_time);
+	  //prevFrame_time = pres_time;
 	  //glRasterPos3f(0.9,0.05,0.999999);
 	  //printf("%d fr/sec  %d %d %d\n",
-		  //rate,pres_time,prev_time,CLOCKS_PER_SEC);
+		  //rate,pres_time,prevFrame_time,CLOCKS_PER_SEC);
 	  //sprintf(nstr, "%d fr/sec",rate);
 	  //nlngth = strlen(nstr);
 	  //for (c = 0; c < nlngth; c++)
@@ -9584,7 +9233,7 @@ void ellmat(double r[3][3], int e, int f)
 void image(void)
 /*
    called by  main,
-   calls      donum, dopause, ellmat,
+   calls      donum, dopause1, ellmat,
 */
 {
     int e,j,k;
@@ -9592,14 +9241,14 @@ void image(void)
     double r[3][3];
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    for (e = 1; e < nels[f]; ++e)
+    for (e = 1; e < nels[frameCount]; ++e)
     {
          glPushMatrix();
 
          // interactive parameters -
 
          glScalef(doub1,doub1,inv10);
-         glScalef(scale,scale,scale);
+         glScalef(scaleFactor,scaleFactor,scaleFactor);
          glTranslatef(tx,ty,tz);
          glTranslatef(inv2,inv2,inv2);
          glRotatef(anglez,0,0,1);
@@ -9608,10 +9257,10 @@ void image(void)
 
          // ellipsoid parameters -
 
-         glTranslatef(ce3[f][e][0], ce3[f][e][1], ce3[f][e][2]);
-         glRotatef(qu3[f][e][0], qu3[f][e][1], qu3[f][e][2], qu3[f][e][3]);
-         glScalef(ax3[f][e][0], ax3[f][e][1], ax3[f][e][2]);
-         ellmat(r,e,f);
+         glTranslatef(ce3[frameCount][e][0], ce3[frameCount][e][1], ce3[frameCount][e][2]);
+         glRotatef(qu3[frameCount][e][0], qu3[frameCount][e][1], qu3[frameCount][e][2], qu3[frameCount][e][3]);
+         glScalef(ax3[frameCount][e][0], ax3[frameCount][e][1], ax3[frameCount][e][2]);
+         ellmat(r,e,frameCount);
          glPolygonMode(GL_FRONT, GL_FILL);
          glBegin(GL_QUADS);
          amb = 0.7;
@@ -9621,7 +9270,7 @@ void image(void)
             for (k = 0; k < 3; ++k)
                 illum += r[k][1]*norm[j][k];
             shade = amb + (doub1 - amb)*illum;
-            glColor3f(shade*co3[f][e][0], shade*co3[f][e][1], shade*co3[f][e][2]);
+            glColor3f(shade*co3[frameCount][e][0], shade*co3[frameCount][e][1], shade*co3[frameCount][e][2]);
             for (k = 0; k < 4; ++k)
             {
                glVertex3f(sph[j][k][0],sph[j][k][1],sph[j][k][2]);
@@ -9630,42 +9279,42 @@ void image(void)
          glEnd();
          glPopMatrix();
     } /* e ellipsoids */
-    if ((fnums == TRUE)||(bnums == TRUE)) donum(f);
+    if ((frameNumDisplay == TRUE)||(barNumDisplay == TRUE)) donum(frameCount);
     glutSwapBuffers();
     glFlush();
-    if (slow < 0) slow = 0;
-    if (slow > 0) dopause(slow);
+    if (num_pauseCalls < 0) num_pauseCalls = 0;
+    if (num_pauseCalls > 0) dopause1(num_pauseCalls);
 } /* image */
 /***************************************/
 
 void animate(void)
 /*
    called by  main,
-   calls      dopause,
+   calls      dopause1,
 */
 {
-    if (freeze == TRUE)
+    if (freezeAnimation == TRUE)
     {
          if (single == TODO)
          {
             if (forward == TRUE)
-               df = 1;
+              frameInc = 1;
             else
-               df = -1;
+              frameInc = -1;
          }
          else
-            df = 0;
+           frameInc = 0;
     }
     else
     if (forward == TRUE)
-         df = 1;
+        frameInc = 1;
     else
-         df = -1;
-    f += df;
-    if (f < 1) f = fstop-1;
-    if (f >= fstop) f = fstart+1;
-    if (((f == (fstart+2)) || (f == (fstart+1))) && (pause == TRUE))
-         dopause(100);
+        frameInc = -1;
+    frameCount +=frameInc;
+    if (frameCount < 1) frameCount = lastFrameNumAct-1;
+    if (frameCount >= lastFrameNumAct) frameCount = firstFrameNumAct+1;
+    if (((frameCount == (firstFrameNumAct+2)) || (frameCount == (firstFrameNumAct+1))) && (forPause == TRUE))
+         dopause1(100);
     anglex += dangx;
     angley += dangy;
     anglez += dangz;
@@ -9697,104 +9346,104 @@ void checkeys(unsigned char key, int x, int y)
    if (key == 'h') help();
    if (key == 'j')
    {
-         nsph +=1;
-         printf("'j' more facets %d (opp. 'k')\n", nsph);
+         num_chord_sphere +=1;
+         printf("'j' more facets %d (opp. 'k')\n", num_chord_sphere);
 			printf("checkeysa %c\n",key);
          initsphere();
          if (ok == 1) main(0,junk);
    }
    if (key == 'k')
    {
-         nsph -=1;
-         printf("'k' fewer facets %d (opp. 'j')\n", nsph);
+         num_chord_sphere -=1;
+         printf("'k' fewer facets %d (opp. 'j')\n", num_chord_sphere);
 			printf("checkeysb %c\n",key);
          initsphere();
          if (ok == 1)  main(0,junk);
    }
    if (key == 'a')
    {
-         df = 1;
+        frameInc = 1;
          printf("'a' animate (opp. 'i')\n");
-         if (forward == FALSE) df = -1;
-         freeze = FALSE;
+         if (forward == FALSE)frameInc = -1;
+         freezeAnimation = FALSE;
    }
    if (key == 'i')
    {
-         freeze = TRUE;
-         printf("'i' freeze (opp. 'a')\n");
+         freezeAnimation = TRUE;
+         printf("'i' freezeAnimation (opp. 'a')\n");
    }
    if (key == 'f')
    {
-         if (freeze == TRUE) single = TODO;
+         if (freezeAnimation == TRUE) single = TODO;
          printf("'f' forwards (opp. 'b')\n");
          forward = TRUE;
    }
    if (key == 'b')
    {
-         if (freeze == TRUE) single = TODO;
+         if (freezeAnimation == TRUE) single = TODO;
          printf("'b' backwards (opp. 'f')\n");
          forward = FALSE;
    }
-   if (key == 'p') { pause = TRUE; printf("'p' pause on first and last frames (opp. 'c')\n"); }
-   if (key == 'c') { pause = FALSE; printf("'c' continuous looping (opp. 'p')\n"); }
-   if (key == 'g') { scale *= 1.1; printf("'g' grow %f (opp.'s')\n", scale); }
-   if (key == 's') { scale /= 1.1; printf("'s' shrink %f (opp. 'g')\n", scale); }
+   if (key == 'p') { forPause = TRUE; printf("'p' forPause on first and last frames (opp. 'c')\n"); }
+   if (key == 'c') { forPause = FALSE; printf("'c' continuous looping (opp. 'p')\n"); }
+   if (key == 'g') { scaleFactor *= 1.1; printf("'g' grow %f (opp.'s')\n", scaleFactor); }
+   if (key == 's') { scaleFactor /= 1.1; printf("'s' shrink %f (opp. 'g')\n", scaleFactor); }
    if (key == 'l') { tx -= 0.1; printf("'l' shift left %f (opp. 'r')\n", tx); }
    if (key == 'r') { tx += 0.1; printf("'r' shift right %f (opp. 'l')\n", tx); }
    if (key == 'd') { ty -= 0.1; printf("'d' shift down %f (opp. 'u')\n", ty); }
    if (key == 'u') { ty += 0.1; printf("'u' shift up %f (opp. 'd')\n", ty); }
    if (key == 'v') { tz -= 0.1; printf("'v' shift in %f (opp. 'w')\n", tz); }
    if (key == 'w') { tz += 0.1; printf("'w' shift away %f (opp. 'v')\n", tz); }
-   if (key == 'x') { dangx = alpha; printf("'x' rotate x %f (opp. '1')\n", anglex); }
-   if (key == '1') { dangx = -alpha; printf("'1' rotate x %f (opp. 'x')\n", anglex); }
-   if (key == 'y') { dangy = alpha; printf("'y' rotate y %f (opp. '2')\n", angley); }
-   if (key == '2') { dangy = -alpha; printf("'2' rotate y %f (opp. 'y')\n", angley); }
-   if (key == 'z') { dangz = alpha; printf("'z' rotate z %f (opp. '3')\n", anglez); }
-   if (key == '3') { dangz = -alpha; printf("'3' rotate z %f (opp. 'z')\n", anglez); }
-   if (key == '-') { slow += 2; printf("'-' slower %d (opp. '=')\n", slow); }
-   if (key == '=') { slow -= 2; printf("'=' faster %d (opp. '-')\n", slow); }
+   if (key == 'x') { dangx = angleInc; printf("'x' rotate x %f (opp. '1')\n", anglex); }
+   if (key == '1') { dangx = -angleInc; printf("'1' rotate x %f (opp. 'x')\n", anglex); }
+   if (key == 'y') { dangy = angleInc; printf("'y' rotate y %f (opp. '2')\n", angley); }
+   if (key == '2') { dangy = -angleInc; printf("'2' rotate y %f (opp. 'y')\n", angley); }
+   if (key == 'z') { dangz = angleInc; printf("'z' rotate z %f (opp. '3')\n", anglez); }
+   if (key == '3') { dangz = -angleInc; printf("'3' rotate z %f (opp. 'z')\n", anglez); }
+   if (key == '-') { num_pauseCalls += 2; printf("'-' slower %d (opp. '=')\n", num_pauseCalls); }
+   if (key == '=') { num_pauseCalls -= 2; printf("'=' faster %d (opp. '-')\n", num_pauseCalls); }
    if (key == 'n')
    {
-	   if (fnums == TRUE)
+	   if (frameNumDisplay == TRUE)
 	   {
-		   fnums = FALSE;
+		   frameNumDisplay = FALSE;
 		   printf("'n' hide frame numbers (toggle)\n");
 	   }
 	   else
 	   {
-		   fnums = TRUE;
+		   frameNumDisplay = TRUE;
 		   printf("'n' show frame numbers (toggle)\n");
 	   }
    }
    if (key == 'o')
    {
-	   if (bnums == TRUE)
+	   if (barNumDisplay == TRUE)
 	   {
-		   bnums = FALSE;
+		   barNumDisplay = FALSE;
 		   printf("'n' hide bar numbers (toggle)\n");
 	   }
 	   else
 	   {
-		   bnums = TRUE;
+		   barNumDisplay = TRUE;
 		   printf("'n' show bar numbers (toggle)\n");
 	   }
    }
    if (key == '0')
    {
       printf("'0' reset parameters and freeze at frame 1\n");
-      f = fstart+1;
-      freeze = TRUE;
+      frameCount = firstFrameNumAct+1;
+      freezeAnimation = TRUE;
       forward = TRUE;
-      df = 1;
-      scale = SCALE;
+     frameInc = 1;
+      scaleFactor = SCALE;
       tx = doub0;
       ty = doub0;
       tz = doub0;
       anglex = doub0;
       angley = doub0;
       anglez = doub0;
-      slow = 1;
-      nsph = SSTART;
+      num_pauseCalls = 1;
+      num_chord_sphere = init_num_chord_sphere;
    } /* key = '0' */
 } /* checkeys */
 /***************************************/
@@ -9866,11 +9515,14 @@ void get_ini_dump ( void )
 } /* get_ini_dump */
 /************************************************/
 
+/*
 bool get_if_ini ( void )
 {
 	if ( number_ini > 0 ) return( true );
 	return( false );
-} /* get_if_ini */
+}  */
+
+/* Can be done by normal comparision:*/
 /************************************************/
 
 bool get_ini_bool ( char title[] )
@@ -9949,7 +9601,7 @@ double get_ini_double ( char title[] )
 	ini_no = find_ini_title ( title );
 	if ( ini_no < 0 ) return( NULL );
 	value = strtod ( &ini_value[ini_no][0], NULL );
-	return( value );
+return( value );
 } /* get_ini_double */
 /************************************************/
 
@@ -9987,7 +9639,11 @@ void get_ini ( int dump )
 
    called by main,
 */
-{
+{ 
+        /* we can make two list one for storing tiles and second for storing corresponding values in python*/
+ 
+        int ini_diag = 0;
+        int max_ini = 256;
 	FILE *ini_file_unit;
 	int ini_no;
 	int j;
@@ -10000,6 +9656,7 @@ void get_ini ( int dump )
 	char comma = ',';
 	char semi = ';';
 	bool getout;
+        
 
 	for ( ini_no = 0; ini_no < max_ini; ini_no++ )
 	{
@@ -10007,7 +9664,7 @@ void get_ini ( int dump )
 		ini_value[ini_no][0] = NULL;
 	}
 
-	number_ini = -1;
+	number_ini = -1;  // if it couldnt found lintel.ini file its value will be -1 else >0 equals to no.of parameters in .ini file`
 	ini_diag = 0;
 	ini_file_unit = NULL;
 
@@ -10030,7 +9687,7 @@ void get_ini ( int dump )
 			ini_value[ini_no][0] = NULL;
 
 			if ( fgets ( buf, BMAX, ini_file_unit ) != NULL )
-			{
+			{        
 				if ( ini_diag >= 1 )
 					printf ( " ini_no %2d buf %s", ini_no, buf );
 				if ( buf[0] != asterisk )
@@ -10041,7 +9698,11 @@ void get_ini ( int dump )
 					loc_semi = -1;
 					getout = false;
 					len = (int)strlen( buf );
+
+                                        /*printf("\n length %d \n" , len);  */
+
 					if ( ini_diag >= 1 ) printf ( " len %d\n", len );
+
 					for ( j = 0; j < len; j++ )
 					{
 						if ( buf[j] == comma && loc_semi == -1 ) loc_comma = j;
@@ -10066,8 +9727,8 @@ void get_ini ( int dump )
 							ini_title[ini_no][k] = buf[j];
 							k = k + 1;
 						}
-
 					}
+
 					ini_title[ini_no][k] = NULL;
 
 					// get parameter value
@@ -10100,6 +9761,7 @@ void get_ini ( int dump )
 		while ( !feof( ini_file_unit ) && len != 0 );
 		number_ini = ini_no;
 	}
+
 	if ( dump == 1 ) get_ini_dump ();
 } /* get_ini */
 /************************************************/
@@ -10195,7 +9857,7 @@ void get_files ( char file[] )
 		if ( key == '.' ) loc_dot = i;
 	} while ( key != NULL );
 
-	if ( loc_dot >= 0 ) loc_dot = last - loc_dot;
+	if ( loc_dot >= 0 ) loc_dot = last - loc_dot;  // loc_dot is the size of the extenxion.. it can be .lbn or .nud
 
 	input_file_type = -1;
 	haslbn = FALSE;
@@ -10211,7 +9873,7 @@ void get_files ( char file[] )
 			{
 				input_file_type = 0;
 				haslbn = FALSE;
-			}
+		}
 			// .lbn extention
 			if ( strcmpend ( name, ".lbn" ) )
 			{
@@ -10374,7 +10036,7 @@ void led_param ( void )
 	max_beats = 250;
 	lbn_default = false;
 	lbn_figures = 1;
-	if ( get_if_ini () == true )
+	if (number_ini > 0)     //( get_if_ini () == true )
 	{
 		lbn_figures_in = get_ini_int ( "lbn_figures" );
 		lbn_default = get_ini_bool ( "lbn_default" );
@@ -10413,7 +10075,7 @@ void led_param ( void )
 					lbn_fps, lbn_bpm );
 				get_out = true;
 			}
-		} while ( get_out == false );
+		} while ( get_out == false ); //get_out variable is only checking that user is giving valid lbn_fps nd lbn_bpm or not..
 	}
 	lbn_fpp = double(lbn_fps)*doub60
 					/ (double(lbn_bpm)*double(lbn_ppb));
@@ -10449,6 +10111,366 @@ void initgraphics(void)
    glEnable(GL_DEPTH_TEST);
 } /* initgraphics */
 /***************************************/
+void ForUpdatingListInt(PyObject* myobject , char* attrName , int nameList[])
+{
+  PyObject* iterator, *item, *attr;
+  int value;
+  int j = 0;
+  attr = PyObject_GetAttrString(myobject, attrName );
+  iterator = PyObject_GetIter(attr);
+
+  while (item = PyIter_Next(iterator))
+  {
+  PyArg_Parse(item , "i" , &value);
+  nameList[j] = value;
+  j = j + 1;
+  Py_DECREF(item);
+  
+}
+}
+
+void ForUpdatingListdoub(PyObject* myobject , char* attrName , double nameList[])
+{
+  PyObject* iterator, *item, *attr;
+  double value;
+  int j = 0;
+  attr = PyObject_GetAttrString(myobject, attrName );
+  iterator = PyObject_GetIter(attr);
+
+  while (item = PyIter_Next(iterator))
+  {
+  PyArg_Parse(item , "f" , &value);
+  nameList[j] = value;
+  j = j + 1;
+  Py_DECREF(item);
+  
+}
+}
+
+void ForUpdatingArray2Int(PyObject* myobject , char* attrName , int* arr ,int row,int col)
+{
+  PyObject* iterator, *item, *attr , *iterator2 , *item2;
+  int value;
+  int i = 0;
+
+  attr = PyObject_GetAttrString(myobject, attrName );
+  iterator = PyObject_GetIter(attr);
+  while (item = PyIter_Next(iterator))
+  {
+ 
+    iterator2 = PyObject_GetIter(item);
+    int j = 0;
+    while (item2 = PyIter_Next(iterator2))
+    {
+      PyArg_Parse(item2 , "i" , &value);
+      *((arr + i * col) + j) = value;
+      Py_DECREF(item2);
+      j = j + 1 ;
+     }
+      i = i + 1;
+      Py_DECREF(item);
+  }
+}
+ 
+
+void ForUpdatingArray2DoubValue(PyObject* myobject , char* attrName , double nameList[][5])
+{
+  PyObject* iterator, *item, *attr , *iterator2 , *item2;
+  float value;
+  int j = 0;
+
+  attr = PyObject_GetAttrString(myobject, attrName );
+  iterator = PyObject_GetIter(attr);
+  while (item = PyIter_Next(iterator))
+  {
+ 
+    iterator2 = PyObject_GetIter(item);
+    int i = 0;
+    while (item2 = PyIter_Next(iterator2))
+    {
+      PyArg_Parse(item2 , "f" , &value);
+      nameList[j][i] = value;
+      Py_DECREF(item2);
+      i = i + 1 ;
+     }
+      j = j + 1;
+      Py_DECREF(item);
+  }
+}
+
+
+void ForNameList(PyObject* myobject , char* attrName ,char *arr ,int row ,int col )
+{
+  PyObject* iterator, *item, *attr , *item2;
+  char* rvalue;
+  int r = 0;
+  int k = 0;
+  attr = PyObject_GetAttrString(myobject, attrName );
+  iterator = PyObject_GetIter(attr);
+  while (item = PyIter_Next(iterator))
+  {
+ 
+      PyArg_Parse(item , "s" , &rvalue);
+      int length = strlen(rvalue);
+      int c = 0 ;
+      for(k=0;k<BMAX;k++)
+     {  
+       if( k < length)
+       *((arr + r * col) + k) = rvalue[k];
+       else
+       *((arr + r * col) + k) = NULL;
+     }  
+      Py_DECREF(item);
+    r = r +1;
+   }
+
+  while (r < row)
+  {
+       for(k=0;k<BMAX;k++)
+       *((arr + r * col) + k) = NULL;
+ 
+   
+   r = r + 1 ;
+  }
+}
+ 
+
+/*
+void ForNameListValue(PyObject* myobject , char* attrName )//, double nameList[][3])
+{
+   PyObject* attr;
+   float value;   
+   attr = PyObject_GetAttrString(myobject, attrName );
+   PyArg_Parse(attr , "f" , &value); 
+   printf("%f",value); 
+}
+*/
+
+
+void ForArray(PyObject* myobject , char* attrName ,double *arr ,int row,int col )
+{
+  PyObject* iterator, *item, *attr , *iterator2 , *item2;
+  float value;
+  int i = 0;
+
+  attr = PyObject_GetAttrString(myobject, attrName );
+  iterator = PyObject_GetIter(attr);
+  while (item = PyIter_Next(iterator))
+  {
+ 
+    iterator2 = PyObject_GetIter(item);
+    int j = 0;
+    while (item2 = PyIter_Next(iterator2))
+    {
+      PyArg_Parse(item2 , "f" , &value);
+      *((arr + i * col) + j) = value;
+      Py_DECREF(item2);
+      j = j + 1 ;
+     }
+      i = i + 1;
+      Py_DECREF(item);
+  }
+}
+
+void  ForUpdatingVarInt(PyObject* myobject ,char* attrName, int* varName)
+{
+  PyObject* attr;
+  int value;
+  attr = PyObject_GetAttrString(myobject, attrName );
+  PyArg_Parse(attr , "i" , &value); 
+  *varName = value;
+}
+
+void  ForUpdatingVardoub(PyObject* myobject ,char* attrName, double* varName)
+{
+  PyObject* attr;
+  float value;
+  attr = PyObject_GetAttrString(myobject, attrName );
+  PyArg_Parse(attr , "f" , &value); 
+  *varName = value;
+}
+
+void  ForUpdatingBool(PyObject* myobject ,char* attrName,bool* varName)
+{
+  PyObject* attr;
+  int value;
+  attr = PyObject_GetAttrString(myobject, attrName );
+  PyArg_Parse(attr , "i" , &value);
+  if(value==1)
+  *varName = true;
+  else
+  *varName = false;
+}
+
+void  ForPrint(PyObject* myobject ,char* attrName)
+{
+  PyObject* attr;
+  int value;
+  attr = PyObject_GetAttrString(myobject, attrName );
+  PyArg_Parse(attr , "i" , &value);
+  printf("djhweh%i", value);
+}
+
+
+void funcConvInitialise()
+  {
+  PyObject *result1,*mymod, *myobject ,*mymodString , *myFunction , *attr , *iterator , *item = NULL;
+  Py_Initialize();
+
+  /* Load our module */
+  int i;
+  PySys_SetPath(".");
+  mymodString = PyString_FromString((char*)("globalVar"));
+  mymod = PyImport_Import(mymodString);
+  myobject = PyObject_GetAttrString(mymod , "GV");
+
+  ForUpdatingListInt(myobject ,"keylen",keylen);
+  ForUpdatingListInt(myobject ,"ellen",ellen);
+  ForUpdatingListInt(myobject ,"jntlen",jntlen);
+  ForUpdatingListInt(myobject ,"fillen",fillen);
+  ForUpdatingListInt(myobject ,"figlen",figlen);
+  ForUpdatingListInt(myobject ,"sublen",sublen);
+  ForUpdatingListInt(myobject ,"varlen",varlen);
+  ForUpdatingListInt(myobject ,"knee",knee);
+  ForUpdatingListInt(myobject ,"figell",figell);
+  ForUpdatingListInt(myobject ,"ellfig",ellfig);
+  ForUpdatingListInt(myobject ,"usevar",usevar);
+  ForUpdatingListInt(myobject ,"frstart",frstart);
+  ForUpdatingListInt(myobject ,"frstop",frstop);
+  ForUpdatingListInt(myobject ,"distrn",distrn);
+  ForUpdatingListInt(myobject ,"cline",cline);
+  ForUpdatingListInt(myobject ,"typeAction",typeAction);
+  ForUpdatingListInt(myobject ,"axlen",axlen);
+  ForUpdatingListInt(myobject ,"defined",defined);
+  ForUpdatingListInt(myobject ,"called",called);
+  ForUpdatingListdoub(myobject ,"val",val);
+  
+
+
+ // for(i=0;i<	PMAX;i++)
+ //  printf("%d\n",called[i]);
+
+
+
+  ForUpdatingArray2Int(myobject ,"coel",(int*)coel,EMAX,2);
+  ForUpdatingArray2Int(myobject ,"subact",(int*)subact,EMAX,2);
+  ForUpdatingArray2Int(myobject ,"pf",(int*)pf,PMAX,6);
+
+
+  ForArray(myobject ,"obs",(double*)obs ,3,3);  //for array[][3]
+  ForArray(myobject ,"cen",(double*)cen , EMAX,3);
+  ForArray(myobject ,"ax",(double*)ax,EMAX,3);
+  ForArray(myobject ,"color",(double*)color, EMAX,3);
+  ForArray(myobject ,"quat",(double*) quat , EMAX+2,5);
+
+  ForNameList(myobject ,"axisname",(char*)axisname  ,EMAX,BMAX);
+  ForNameList(myobject ,"textMapFileName",(char*)textMapFileName  ,EMAX,BMAX);
+  ForNameList(myobject ,"figureName",(char*)figureName  ,EMAX,BMAX);
+  ForNameList(myobject ,"ename",(char*)ename  ,EMAX,BMAX);
+
+  ForNameList(myobject ,"jname",(char*)jname  ,EMAX,BMAX);
+  ForNameList(myobject ,"vname",(char*)vname  ,EMAX,BMAX);
+  ForNameList(myobject ,"sname",(char*)sname  ,EMAX,BMAX);
+
+  ForUpdatingVarInt(myobject , "frameInc",&frameInc);
+  ForUpdatingVarInt(myobject , "typeCurAction", &typeCurAction);
+  
+    ForUpdatingVarInt(myobject , "more", &more);
+  ForUpdatingVarInt(myobject , "ok", &ok);
+  ForUpdatingVarInt(myobject , "frameCount", &frameCount);
+  ForUpdatingVarInt(myobject , "num_chord_sphere", &num_chord_sphere);
+  ForUpdatingVarInt(myobject , "num_subroutine", &num_subroutine);
+  ForUpdatingVarInt(myobject , "num_figure", &num_figure);
+  ForUpdatingVarInt(myobject , "num_ellip_curFrame", &num_ellip_curFrame);
+  ForUpdatingVarInt(myobject , "num_var", &num_var);
+  ForUpdatingVarInt(myobject , "num_val", &num_val);
+  ForUpdatingVarInt(myobject , "num_file", &num_file);
+  ForUpdatingVarInt(myobject , "printDone", &printDone);
+  ForUpdatingVarInt(myobject , "num_curBar", &num_curBar);
+  ForUpdatingVarInt(myobject , "height_prev", &height_prev);
+  ForUpdatingVarInt(myobject , "col_prev", &col_prev);
+  ForUpdatingVarInt(myobject , "item_prev", &item_prev);
+  ForUpdatingVarInt(myobject , "trackOnMainFig", &trackOnMainFig);
+  ForUpdatingVarInt(myobject , "start",&start);
+  ForUpdatingVarInt(myobject , "lenNextInpLine",&lenNextInpLine);
+  ForUpdatingVarInt(myobject , "frameNumMultiplier",&frameNumMultiplier);
+  ForUpdatingVarInt(myobject , "num_pauseCalls",&num_pauseCalls);
+  ForUpdatingVarInt(myobject , "fslow",&fslow);
+  ForUpdatingVarInt(myobject , "num_joint",&num_joint);
+  ForUpdatingVarInt(myobject , "wspace",&wspace);
+ 
+
+  ForUpdatingVarInt(myobject , "hold"  , &hold  );
+  ForUpdatingVarInt(myobject , "prevhold" , &prevhold  );
+  ForUpdatingVarInt(myobject , "prevFrame_time"  , &prevFrame_time   );
+  ForUpdatingVarInt(myobject , "firstFrameNumAct"  , &firstFrameNumAct  );
+  ForUpdatingVarInt(myobject , "lastFrameNumAct"  , &lastFrameNumAct  );
+  ForUpdatingVarInt(myobject , "firstFramePrevAct" , &firstFramePrevAct );
+  ForUpdatingVarInt(myobject , "lastFramePrevAct" , &lastFramePrevAct  );
+  ForUpdatingVarInt(myobject , "max_Numframe" ,     &max_Numframe   );
+  ForUpdatingVarInt(myobject , "view_firstframe" ,  &view_firstframe   );
+  ForUpdatingVarInt(myobject , "view_lastframe" ,   &view_lastframe   );
+  ForUpdatingVarInt(myobject , "nudes_inMain" ,     &nudes_inMain   );
+
+  ForUpdatingVarInt(myobject , "forPause" , &forPause);
+  ForUpdatingVarInt(myobject , "shadowDisplay" , &shadowDisplay);
+  ForUpdatingVarInt(myobject , "frameNumDisplay", &frameNumDisplay);
+  ForUpdatingVarInt(myobject , "barNumDisplay" , &barNumDisplay);
+
+  ForUpdatingVarInt(myobject ,"freezeAnimation" , &freezeAnimation) ;
+  ForUpdatingVarInt(myobject ,"forward" , &forward);
+  ForUpdatingVarInt(myobject ,"single" , &single);
+
+  ForUpdatingBool(myobject ,"mspace" , &mspace);
+
+ 
+  ForUpdatingVardoub(myobject , "doub0" , &doub0);
+  ForUpdatingVardoub(myobject , "doub1" , &doub1);
+  ForUpdatingVardoub(myobject , "doub2" , &doub2);
+  ForUpdatingVardoub(myobject , "doub3" , &doub3);
+  ForUpdatingVardoub(myobject , "doub4" , &doub4);
+
+  ForUpdatingVardoub(myobject , "doub10" , &doub10);
+  ForUpdatingVardoub(myobject , "doub60" , &doub60);
+  ForUpdatingVardoub(myobject , "doub90" , &doub90);
+  ForUpdatingVardoub(myobject , "doub150" , &doub150);
+  ForUpdatingVardoub(myobject , "doub179" , &doub179);
+
+  ForUpdatingVardoub(myobject , "doub180" , &doub180);
+  ForUpdatingVardoub(myobject , "doub181" , &doub181);
+  ForUpdatingVardoub(myobject , "doub255" , &doub255);
+  ForUpdatingVardoub(myobject , "doub360" , &doub360);
+  ForUpdatingVardoub(myobject , "doub500" , &doub500);
+
+  ForUpdatingVardoub(myobject , "inv2" , &inv2);
+  ForUpdatingVardoub(myobject , "inv3" , &inv3);
+  ForUpdatingVardoub(myobject , "inv4" , &inv4);
+  ForUpdatingVardoub(myobject , "inv5" , &inv5);
+  ForUpdatingVardoub(myobject , "inv6" , &inv6);
+  ForUpdatingVardoub(myobject , "inv10" , &inv10);
+  ForUpdatingVardoub(myobject , "inv256" , &inv256);
+  ForUpdatingVardoub(myobject , "inv1000" , &inv1000);
+
+
+
+
+
+
+
+
+  ForUpdatingVardoub(myobject , "anglex" , &anglex);
+  ForUpdatingVardoub(myobject , "angley" , &angley);
+  ForUpdatingVardoub(myobject , "anglez" , &anglez);
+  ForUpdatingVardoub(myobject , "tx" , &tx);
+  ForUpdatingVardoub(myobject , "ty" , &ty);
+  ForUpdatingVardoub(myobject , "tz" , &tz);
+  ForUpdatingVardoub(myobject , "scaleFactor" , &scaleFactor);
+  ForUpdatingVardoub(myobject , "angleInc" , &angleInc);
+ 
+
+
+  Py_Finalize();
+  }
 
 int main(int argc, char* argv[])
 /*
@@ -10464,7 +10486,30 @@ int main(int argc, char* argv[])
 	printf("\n   %s running\n",ptitle);
 
 more:
+       PyObject *mymodString , *mymod , *myfunc , *myobject;
+       FILE* file;
+
+       Py_Initialize();
+       PySys_SetPath(".");
+       file = fopen("globalVar.py" ,"r");       
+       PyRun_SimpleFile(file,"globalVar.py");
+       Py_Finalize();
+
+       funcConvInitialise();
+  
+        //  printf("%f",scaleFactor);
+
+ //     for(j=0;j<3;j++)
+ //     {
+ //      for(k=0;k<3;k++)
+ //      printf("%c",textMapFileName[j][k]);
+ //      printf("\n");
+ //     }
+
+
+
 	initialise();
+
 	get_ini ( 0 );
 	led_param();
 	get_files ( argv[1] );
@@ -10478,7 +10523,7 @@ more:
 	}
 	if(argv[2][0] == 'r')
 	{
-		fstart = 0;
+		firstFrameNumAct = 0;
 		if (ok == 0) openfile();
 			 else
 					if (ok != 1) getout(1);
