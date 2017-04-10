@@ -2081,5 +2081,21 @@ repeat    0     1 set fcls3 fhig3
 end fhigh
 ************************************************
 *
+subroutine leftkneebend
+linear 0 77 bendto aleg aknee athigh 0 0 -90
+linear 0 77 bendto afoot aankle aleg 0 0 10
+repeat 0 77 moveto fig  afoot 30 0 0
+repeat 0 77 ground fig
+end leftkneebend
+*
+*
+subroutine rightkneebend
+linear 0 77 bendto bleg bknee bthigh 0 0 -90
+linear 0 77 bendto bfoot bankle bleg 0 0 10
+repeat 0 77 moveto fig  bfoot 30 0 0
+repeat 0 77 ground fig
+end rightkneebend
+*
+*********************************************************
 subroutine dance
 *

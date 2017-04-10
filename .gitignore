@@ -32,3 +32,10 @@ lintelref
 *.tmp
 *.mpg
 *~*
+HTML
+GPATH
+GRTAGS
+GSYMS
+GTAGS
+*.swp
+

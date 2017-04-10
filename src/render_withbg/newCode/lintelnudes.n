@@ -1,6 +1,5 @@
 *
 * lintel.n
-repeat 0 1 allow world world
 *
 *   5 May 2007 - oeposn, oekeep
 *   2 May 2007 - add hands and wrists
@@ -15,7 +14,7 @@ repeat 0 1 allow world world
 *  18 Aug 2006 - allow wcen-wstomach and wcen-wpelvis
 *   5 Aug 2006 - step routines use coords instead of pelvis
 *   5 Aug 2006 - bend man R arm late in clposn
-*  30 Jul 2006 - jamn and jwoman: joints of mspace and wspace to joist 
+*  30 Jul 2006 - jamn and jwoman: joints of mspace and wspace to joist
 *  28 Jul 2006 - offset changed to 0.0001 degrees
 *  25 Jul 2006 - space, mspace, wspace, coords added
 *   9 Jul 2006 - chackras removed, back improved
@@ -48,7 +47,7 @@ repeat 0 1 allow world world
 *   1 Nov 2005 - calculated woman's position in shadow hold
 *  31 Oct 2005 - added shadow hold
 *  31 Oct 2005 - added counter open extended hold
-*  30 Oct 2005 - added open extended hold 
+*  30 Oct 2005 - added open extended hold
 *   8 Oct 2005 - negated head angles in closed position
 *   4 Oct 2005 - added different strides for man and woman
 *   3 Oct 2005 - minimised wpos, added dx dy dz
@@ -90,10 +89,10 @@ repeat 0 1 allow world world
 * subroutines:
 *
 *   setup,    zero,
-*   clset,    coset,              oeset,    prset,    shset,  ssset,    
-*   clposn,   coposn,   noposn,   oeposn,   prposn,   shposn, ssposn,  
-*   clkeep,   cokeep,   nokeep,   oekeep,   prkeep,   shkeep, sskeep,  
-*   forright, forleft,  doman,    dowoman,  forward,  back,   
+*   clset,    coset,              oeset,    prset,    shset,  ssset,
+*   clposn,   coposn,   noposn,   oeposn,   prposn,   shposn, ssposn,
+*   clkeep,   cokeep,   nokeep,   oekeep,   prkeep,   shkeep, sskeep,
+*   forright, forleft,  doman,    dowoman,  forward,  back,
 *   lside,    rside,    lfordiag, rfordiag, bacdiag,  rbacdiag,
 *   mclowow,  close,    flow,     fmed,     fhigh,
 *
@@ -103,7 +102,7 @@ repeat 0 1 allow world world
 *
 *   1 Oct 2005 - added stomach (Stephanie Kim, Honours Project 1994)
 *  28 Jun 2005 - fixed 'palm', 'thumb' joint to 'hand'
-*   6 Oct 1996 - Don Herbison-Evans 
+*   6 Oct 1996 - Don Herbison-Evans
 *
 figure fred 22 *
        mlfoot  mrfoot  mlleg   mrleg   mlthigh mrthigh  *
@@ -153,13 +152,8 @@ joint mthroat  mhead     0 -100    0  mneck    0  +10   0
 joint mspine   mshldrs   0  +50    0  mneck    0  -20   0
 joint mthorax  mshldrs   0    0    0  mchest   0 +155   0
 joint mwaist   mpelvis   0  +25    0  mstomach 0 -100   0
-joint mribs    mstomach  0  +80    0  mchest   0  -80   0 
+joint mribs    mstomach  0  +80    0  mchest   0  -80   0
 *
-repeat 0 1 allow mlthigh mstomach
-repeat 0 1 allow mrthigh mstomach
-repeat 0 1 allow mhair   mneck
-repeat 0 1 allow mhead   mchest
-repeat 0 1 allow mpelvis mchest
 limit mlknee -1 1 -1 1 -130 0
 limit mrknee -1 1 -1 1 -130 0
 *
@@ -212,7 +206,7 @@ repeat 0 1 ground man
 *   1 Oct 2005 - added stomach (Stephanie Kim, Honours Project 1994)
 *  28 Jun 2005 - fixed joint thumb to hand (palm)
 *  12 Jun 2005 - scaled to be 10% shorter than Fred
-*   6 Oct 1996 - Don Herbison-Evans 
+*   6 Oct 1996 - Don Herbison-Evans
 *
 figure ginger 29 *
  wlfoot   wrfoot wlheel  wrheel wlleg  wrleg  wlthigh wrthigh *
@@ -244,15 +238,15 @@ ellipsoid wrthumb   10  50  10
 ellipsoid wlbrst    41  40  60
 ellipsoid wrbrst    41  40  60
 ellipsoid wpelvis  120  75  75
-ellipsoid wstomach 120 150  75 
-ellipsoid wchest   130 230  75 
-ellipsoid wshldrs  155  50  40 
-ellipsoid wneck     30  60  30 
-ellipsoid whead     73 100  80 
-ellipsoid wnose     20  20  60 
+ellipsoid wstomach 120 150  75
+ellipsoid wchest   130 230  75
+ellipsoid wshldrs  155  50  40
+ellipsoid wneck     30  60  30
+ellipsoid whead     73 100  80
+ellipsoid wnose     20  20  60
 *
-ellipsoid whair     76  98  84 
-ellipsoid wbun      50  25  50 
+ellipsoid whair     76  98  84
+ellipsoid wbun      50  25  50
 *
 joint wlmeta   wltoe     0    0    0  wlfoot   0  -79   0
 joint wrmeta   wrtoe     0    0    0  wrfoot   0  -79   0
@@ -275,7 +269,7 @@ joint wlpalm   wlhand  -20  +40    0  wlthumb  0  +40   0
 joint wrpalm   wrhand  +20  +40    0  wrthumb  0  +40   0
 *
 joint wwaist   wpelvis   0  +25    0  wstomach 0 -100   0
-joint wribs    wstomach  0  +80    0  wchest   0  -80   0 
+joint wribs    wstomach  0  +80    0  wchest   0  -80   0
 joint wlchest  wchest  -50 +100  +50  wlbrst   0    0   0
 joint wrchest  wchest  +50 +100  +50  wrbrst   0    0   0
 joint wthorax  wchest    0 +155    0  wshldrs  0    0   0
@@ -288,18 +282,7 @@ joint wribbon  whair     0  +80  -60  wbun     0    0   0
 *
 limit wlknee -1 1 -1 1 -130 0
 limit wrknee -1 1 -1 1 -130 0
-repeat 0 1 allow wlthigh wstomach
-repeat 0 1 allow wrthigh wstomach
-repeat 0 1 allow wlfoot  wlheel
-repeat 0 1 allow wrfoot  wrheel
-repeat 0 1 allow wnose   whair
-repeat 0 1 allow wneck   whair
-repeat 0 1 allow wneck   wchest
-repeat 0 1 allow wpelvis wchest
-repeat 0 1 allow wluarm  wchest
-repeat 0 1 allow wruarm  wchest
-repeat 0 1 allow wlbrst  wshldrs
-repeat 0 1 allow wrbrst  wshldrs
+*
 *
 linear 0 1 colour wlfoot   255 100 100
 linear 0 1 colour wrfoot   255 100 100
@@ -352,9 +335,7 @@ repeat 0 1 ground woman
 *
 figure wpos 1 wcen
 ellipsoid wcen   1 1 1
-repeat 0 1 allow wcen wstomach
-repeat 0 1 allow wcen wpelvis
-repeat 0 1 allow wcen mpelvis
+*
 *
 **************************************************
 *            room.n
@@ -365,7 +346,7 @@ repeat 0 1 allow wcen mpelvis
 *   1 Feb 1996 - Don Herbison-Evans
 *
 figure room 35 *
- joist floor mspace wspace wallz * 
+ joist floor mspace wspace wallz *
  bdx00 bdx01 bdx02 bdx03 bdx04 bdx05 bdx06 bdx07 bdx08 bdx09 *
  bdx10 bdx11 bdx12 bdx13 bdx14 bdx15 bdx16 bdx17 bdx18 bdx19 *
  brdz0 brdz1 brdz2 brdz3 brdz4 brdz5 brdz6 brdz7 brdz8 brdz9 *
@@ -408,8 +389,8 @@ ellipsoid brdz9  220    1 6000
 joint nail   floor  0 0 0 joist 0 -5 1800
 joint joinz  wallz  0 0 0 joist -3402 1 3000
 joint jman   mspace 0 0 0 joist 0  0  0
-joint jwoman wspace 0 0 0 joist 0  0  0 
-repeat 0 1 allow mspace wspace
+joint jwoman wspace 0 0 0 joist 0  0  0
+*
 *
 joint crkx00 bdx00 0 0 0 joist 500  0    0
 joint crkx01 bdx01 0 0 0 joist 500  0  800
@@ -441,7 +422,7 @@ joint crkz15 brdz5 0 0 0 joist   800 -3 1000
 joint crkz16 brdz6 0 0 0 joist  1600 -3 1000
 joint crkz17 brdz7 0 0 0 joist  2400 -3 1000
 joint crkz18 brdz8 0 0 0 joist  3200 -3 1000
-joint crkz19 brdz9 0 0 0 joist  4000 -3 1000 
+joint crkz19 brdz9 0 0 0 joist  4000 -3 1000
 *
 repeat 0 1 colour wallz  64 255  64
 repeat 0 1 colour floor 150 150   0
@@ -484,11 +465,11 @@ repeat 0 1 moveto room joist 0 -2 0
 *
 * variable declarations
 *
-variables 4 fig     pelvis  track   coords 
+variables 4 fig     pelvis  track   coords
 *
 variables 6 rfoot   lfoot   rleg    lleg   rthigh lthigh
 variables 6 ruarm   luarm   rlarm   llarm  rhand  lhand
-variables 5 chest   waist   stomach pelvis ribs 
+variables 5 chest   waist   stomach pelvis ribs
 variables 5 shldrs  neck    spine   head   throat
 variables 6 rankle  lankle  rknee   lknee  rhip   lhip
 variables 6 rwrist lwrist   relbow  lelbow rshldr lshldr
@@ -497,42 +478,42 @@ variables 6 afoot   bfoot   aleg    bleg   athigh bthigh
 variables 6 aankle  bankle  aknee   bknee  ahip   bhip
 variables 6 apelvis ashldrs auarm   buarm  ashldr bshldr
 variables 6 pang    nang    qang    aang   wang   mang
-variables 6 p2ang   n2ang   hpang   hnang  hf     lopang 
+variables 6 p2ang   n2ang   hpang   hnang  hf     lopang
 variables 2 mstride wstride
 *
-variables 3 tlow1  tlow2  tlow3  
-variables 3 trlx1  trlx2  trlx3  
-variables 3 tmed1  tmed2  tmed3 
-variables 3 thig1  thig2  thig3  
-variables 3 tfor1  tfor2  tfor3 
-variables 3 tbac1  tbac2  tbac3  
-variables 3 tcls1  tcls2  tcls3  
-variables 3 tlef1  tlef2  tlef3  
-variables 3 trig1  trig2  trig3  
+variables 3 tlow1  tlow2  tlow3
+variables 3 trlx1  trlx2  trlx3
+variables 3 tmed1  tmed2  tmed3
+variables 3 thig1  thig2  thig3
+variables 3 tfor1  tfor2  tfor3
+variables 3 tbac1  tbac2  tbac3
+variables 3 tcls1  tcls2  tcls3
+variables 3 tlef1  tlef2  tlef3
+variables 3 trig1  trig2  trig3
 *
 variables 3 lvlo1  lvlo2  lvlo3
-variables 3 llow1  llow2  llow3  
-variables 3 lrlx1  lrlx2  lrlx3  
-variables 3 lmed1  lmed2  lmed3  
-variables 3 lhig1  lhig2  lhig3  
+variables 3 llow1  llow2  llow3
+variables 3 lrlx1  lrlx2  lrlx3
+variables 3 lmed1  lmed2  lmed3
+variables 3 lhig1  lhig2  lhig3
 variables 3 lcls1  lcls2  lcls3
-variables 3 lbac1  lbac2  lbac3   
+variables 3 lbac1  lbac2  lbac3
 *
-variables 3 fvlo1  fvlo2  fvlo3  
-variables 3 flow1  flow2  flow3  
-variables 3 frlx1  frlx2  frlx3 
-variables 3 fmed1  fmed2  fmed3  
-variables 3 fhig1  fhig2  fhig3  
-variables 3 fcls1  fcls2  fcls3  
+variables 3 fvlo1  fvlo2  fvlo3
+variables 3 flow1  flow2  flow3
+variables 3 frlx1  frlx2  frlx3
+variables 3 fmed1  fmed2  fmed3
+variables 3 fhig1  fhig2  fhig3
+variables 3 fcls1  fcls2  fcls3
 *
 variables 6 wtlow1  wtlow2  wtlow3  mtlow1  mtlow2  mtlow3
-variables 6 wtrlx1  wtrlx2  wtrlx3  mtrlx1  mtrlx2  mtrlx3 
+variables 6 wtrlx1  wtrlx2  wtrlx3  mtrlx1  mtrlx2  mtrlx3
 variables 6 wtmed1  wtmed2  wtmed3  mtmed1  mtmed2  mtmed3
 variables 6 wthig1  wthig2  wthig3  mthig1  mthig2  mthig3
 variables 6 wtfor1  wtfor2  wtfor3  mtfor1  mtfor2  mtfor3
 variables 6 wtbac1  wtbac2  wtbac3  mtbac1  mtbac2  mtbac3
 variables 6 wtcls1  wtcls2  wtcls3  mtcls1  mtcls2  mtcls3
-variables 6 wtlef1  wtlef2  wtlef3  mtlef1  mtlef2  mtlef3 
+variables 6 wtlef1  wtlef2  wtlef3  mtlef1  mtlef2  mtlef3
 variables 6 wtrig1  wtrig2  wtrig3  mtrig1  mtrig2  mtrig3
 *
 variables 6 wlvlo1  wlvlo2  wlvlo3  mlvlo1  mlvlo2  mlvlo3
@@ -540,19 +521,19 @@ variables 6 wllow1  wllow2  wllow3  mllow1  mllow2  mllow3
 variables 6 wlrlx1  wlrlx2  wlrlx3  mlrlx1  mlrlx2  mlrlx3
 variables 6 wlmed1  wlmed2  wlmed3  mlmed1  mlmed2  mlmed3
 variables 6 wlhig1  wlhig2  wlhig3  mlhig1  mlhig2  mlhig3
-variables 6 wlcls1  wlcls2  wlcls3  mlcls1  mlcls2  mlcls3 
-variables 6 wlbac1  wlbac2  wlbac3  mlbac1  mlbac2  mlbac3 
+variables 6 wlcls1  wlcls2  wlcls3  mlcls1  mlcls2  mlcls3
+variables 6 wlbac1  wlbac2  wlbac3  mlbac1  mlbac2  mlbac3
 *
 variables 6 wfvlo1  wfvlo2  wfvlo3  mfvlo1  mfvlo2  mfvlo3
 variables 6 wfcls1  wfcls2  wfcls3  mfcls1  mfcls2  mfcls3
-variables 6 wfhig1  wfhig2  wfhig3  mfhig1  mfhig2  mfhig3    
-variables 6 wfmed1  wfmed2  wfmed3  mfmed1  mfmed2  mfmed3  
-variables 6 wfrlx1  wfrlx2  wfrlx3  mfrlx1  mfrlx2  mfrlx3  
+variables 6 wfhig1  wfhig2  wfhig3  mfhig1  mfhig2  mfhig3
+variables 6 wfmed1  wfmed2  wfmed3  mfmed1  mfmed2  mfmed3
+variables 6 wfrlx1  wfrlx2  wfrlx3  mfrlx1  mfrlx2  mfrlx3
 variables 6 wflow1  wflow2  wflow3  mflow1  mflow2  mflow3
 *
-variables 6 afhig1  afhig2  afhig3  bfhig1  bfhig2  bfhig3 
-variables 6 afmed1  afmed2  afmed3  bfmed1  bfmed2  bfmed3 
-variables 6 afrlx1  afrlx2  afrlx3  bfrlx1  bfrlx2  bfrlx3   
+variables 6 afhig1  afhig2  afhig3  bfhig1  bfhig2  bfhig3
+variables 6 afmed1  afmed2  afmed3  bfmed1  bfmed2  bfmed3
+variables 6 afrlx1  afrlx2  afrlx3  bfrlx1  bfrlx2  bfrlx3
 variables 6 aflow1  aflow2  aflow3  bflow1  bflow2  bflow3
 *
 variables 3 bacang  fang    mang
@@ -594,53 +575,36 @@ variables 9 sswlu1 sswlu2 sswlu3  sswla1 sswla2 sswla3  sswlh1 sswlh2 sswlh3
 variables 9 sswru1 sswru2 sswru3  sswra1 sswra2 sswra3  sswrh1 sswrh2 sswrh3
 *
 variables 9 oemlu1 oemlu2 oemlu3  oemla1 oemla2 oemla3  oemlh1 oemlh2 oemlh3
-variables 9 oemru1 oemru2 oemru3  oemra1 oemra2 oemra3  oemrh1 oemrh2 oemrh3 
+variables 9 oemru1 oemru2 oemru3  oemra1 oemra2 oemra3  oemrh1 oemrh2 oemrh3
 variables 9 oewlu1 oewlu2 oewlu3  oewla1 oewla2 oewla3  oewlh1 oewlh2 oewlh3
-variables 9 oewru1 oewru2 oewru3  oewra1 oewra2 oewra3  oewrh1 oewrh2 oewrh3 
+variables 9 oewru1 oewru2 oewru3  oewra1 oewra2 oewra3  oewrh1 oewrh2 oewrh3
 *
 variables 9 comlu1 comlu2 comlu3  comla1 comla2 comla3  comlh1 comlh2 comlh3
-variables 9 comru1 comru2 comru3  comra1 comra2 comra3  comrh1 comrh2 comrh3 
+variables 9 comru1 comru2 comru3  comra1 comra2 comra3  comrh1 comrh2 comrh3
 variables 9 cowlu1 cowlu2 cowlu3  cowla1 cowla2 cowla3  cowlh1 cowlh2 cowlh3
-variables 9 cowru1 cowru2 cowru3  cowra1 cowra2 cowra3  cowrh1 cowrh2 cowrh3 
+variables 9 cowru1 cowru2 cowru3  cowra1 cowra2 cowra3  cowrh1 cowrh2 cowrh3
 *
 variables 9 shmlu1 shmlu2 shmlu3  shmla1 shmla2 shmla3  shmlh1 shmlh2 shmlh3
-variables 9 shmru1 shmru2 shmru3  shmra1 shmra2 shmra3  shmrh1 shmrh2 shmrh3 
+variables 9 shmru1 shmru2 shmru3  shmra1 shmra2 shmra3  shmrh1 shmrh2 shmrh3
 variables 9 shwlu1 shwlu2 shwlu3  shwla1 shwla2 shwla3  shwlh1 shwlh2 shwlh3
-variables 9 shwru1 shwru2 shwru3  shwra1 shwra2 shwra3  shwrh1 shwrh2 shwrh3 
+variables 9 shwru1 shwru2 shwru3  shwra1 shwra2 shwra3  shwrh1 shwrh2 shwrh3
 *
 *****************************************
 *
 *  main program -
 *
-repeat 0     1 allow mlfoot  wlfoot
-repeat 0     1 allow mrfoot  wlfoot
-repeat 0     1 allow mlfoot  wrfoot
-repeat 0     1 allow mrfoot  wrfoot
-*
-repeat 0     1 allow mlleg   wlleg
-repeat 0     1 allow mrleg   wlleg
-repeat 0     1 allow mlleg   wrleg
-repeat 0     1 allow mrleg   wrleg
-*
-repeat 0     1 allow mlthigh wlthigh
-repeat 0     1 allow mrthigh wlthigh
-repeat 0     1 allow mlthigh wrthigh
-repeat 0     1 allow mrthigh wrthigh
-*
-repeat 0     1 allow mlthigh wpelvis
-repeat 0     1 allow mrthigh wpelvis
 *
 * turn to face to viewer's diagonally right -
 *
 linear 0     1 spinby every  floor   world  95 y
 *
 * turn slightly to avoid float overflows -
-* 
+*
 linear 0     1 spinby every  floor   world  0.0001 y
 linear 0     1 spinby every  floor   world  0.0001 x
 *
 linear 0     1 moveby every  world 0 -2 -200
-* 
+*
 call   0     1 setup
 repeat 0     1 set pelvis mpelvis
 repeat 0     1 set coords mpelvis
@@ -651,7 +615,7 @@ repeat 2  fmax set track 15
 call   0  fmax dance
 repeat 0  fmax call locate
 repeat 0  fmax observe -9  0  0
-* 
+*
 * end main program
 *
 ********************************************
@@ -792,10 +756,10 @@ repeat 0 1 set mang 90
 repeat 0 1 set wang 75
 repeat 0 1 set fpos  1
 call   0 1 ssset
-call   0 1 clset 
-call   0 1 prset 
-call   0 1 oeset 
-call   0 1 coset 
+call   0 1 clset
+call   0 1 prset
+call   0 1 oeset
+call   0 1 coset
 call   0 1 shset
 call   0 1 zero
 *
@@ -873,8 +837,8 @@ linear 0 1 bendto mrlarm  mrelbow mruarm  0 0 0
 linear 0 1 flex   mrlarm  mrelbow   90
 repeat 0 1 angles mrlarm  mruarm  clmra1 clmra2 clmra3
 linear 0 1 bendto mrhand  mrwrist mrlarm  0 0 0
-linear 0 1 flex   mrhand  mrwrist   50 
-linear 0 1 rotate mrhand  mrwrist   10 
+linear 0 1 flex   mrhand  mrwrist   50
+linear 0 1 rotate mrhand  mrwrist   10
 repeat 0 1 angles mrhand  mrlarm  clmrh1 clmrh2 clmrh3
 *
 repeat 0 1 set    clmn1  90
@@ -1055,8 +1019,8 @@ linear 0 1 bendto mrlarm  mrelbow mruarm  0 0 0
 linear 0 1 flex   mrlarm  mrelbow   70
 repeat 0 1 angles mrlarm  mruarm  prmra1 prmra2 prmra3
 linear 0 1 bendto mrhand  mrwrist mrlarm  0 0 0
-linear 0 1 flex   mrhand  mrwrist   40 
-linear 0 1 rotate mrhand  mrwrist   10 
+linear 0 1 flex   mrhand  mrwrist   40
+linear 0 1 rotate mrhand  mrwrist   10
 repeat 0 1 angles mrhand  mrlarm  prmrh1 prmrh2 prmrh3
 *
 linear 0 1 bendto mneck   mspine  mshldrs 0 0 0
@@ -1132,7 +1096,7 @@ repeat 0 1 angles mrhand  mrlarm   shmrh1 shmrh2 shmrh3
 linear 0 1 abduct wluarm  wlshldr      90
 repeat 0 1 angles wluarm  wshldrs  shwlu1 shwlu2 shwlu3
 linear 0 1 flex   wllarm  wlelbow      10
-linear 0 1 rotate wllarm  wlelbow      90 
+linear 0 1 rotate wllarm  wlelbow      90
 repeat 0 1 angles wllarm  wluarm   shwla1 shwla2 shwla3
 linear 0 1 bendto wlhand  wlwrist  wllarm  0 0 0
 repeat 0 1 angles wlhand  wllarm   shwlh1 shwlh2 shwlh3
@@ -1141,7 +1105,7 @@ linear 0 1 abduct wruarm  wrshldr      90
 linear 0 1 rotate wruarm  wrshldr     -90
 repeat 0 1 angles wruarm  wshldrs  shwru1 shwru2 shwru3
 linear 0 1 flex   wrlarm  wrelbow      30
-linear 0 1 rotate wrlarm  wrelbow     180 
+linear 0 1 rotate wrlarm  wrelbow     180
 repeat 0 1 angles wrlarm  wruarm   shwra1 shwra2 shwra3
 linear 0 1 bendto wrhand  wrwrist  wrlarm  0 0 0
 repeat 0 1 angles wrhand  wrlarm   shwrh1 shwrh2 shwrh3
@@ -1429,7 +1393,7 @@ linear  0 1 moveto woman   wpelvis jx jy jz
 *
 repeat 0 1 ground man
 repeat 0 1 ground woman
-* 
+*
 repeat 0 1 touch  mlhand  wrhand   mllarm mluarm mlelbow x
 *
 end clkeep
@@ -1509,7 +1473,7 @@ linear  0 1 moveto woman   wpelvis jx jy jz
 *
 repeat  0 1 ground man
 repeat  0 1 ground woman
-* 
+*
 repeat 0 1 touch  mlhand  wrhand   mllarm mluarm mlelbow x
 repeat 0 1 touch  wlhand  mruarm   wllarm wluarm wlelbow y
 *
@@ -1561,7 +1525,7 @@ repeat 0 1 moveby woman    wpelvis ssxsepn 0 sszsepn
 *repeat 0 1 abut   wpelvis  mpelvis mpelvis z
 repeat 0 1 ground man
 repeat 0 1 ground woman
-* 
+*
 *repeat 0 1 touch  mrhand  wpelvis mruarm mshldrs mrshldr x
 *repeat 0 1 touch  wrhand  mrhand  wruarm wshldrs wrshldr x
 *repeat 0 1 touch  wlhand  mlhand  wluarm wshldrs wlshldr y
@@ -1663,54 +1627,54 @@ repeat 0 1 set ribs    mribs
 *
 repeat 0 1 set tlow1   mtlow1
 repeat 0 1 set tlow2   mtlow2
-repeat 0 1 set tlow3   mtlow3  
+repeat 0 1 set tlow3   mtlow3
 repeat 0 1 set trlx1   mtrlx1
 repeat 0 1 set trlx2   mtrlx2
-repeat 0 1 set trlx3   mtrlx3 
+repeat 0 1 set trlx3   mtrlx3
 repeat 0 1 set tmed1   mtmed1
 repeat 0 1 set tmed2   mtmed2
-repeat 0 1 set tmed3   mtmed3 
+repeat 0 1 set tmed3   mtmed3
 repeat 0 1 set thig1   mthig1
 repeat 0 1 set thig2   mthig2
-repeat 0 1 set thig3   mthig3 
+repeat 0 1 set thig3   mthig3
 repeat 0 1 set tfor1   mtfor1
 repeat 0 1 set tfor2   mtfor2
-repeat 0 1 set tfor3   mtfor3 
+repeat 0 1 set tfor3   mtfor3
 repeat 0 1 set tbac1   mtbac1
 repeat 0 1 set tbac2   mtbac2
-repeat 0 1 set tbac3   mtbac3  
+repeat 0 1 set tbac3   mtbac3
 repeat 0 1 set tcls1   mtcls1
 repeat 0 1 set tcls2   mtcls2
-repeat 0 1 set tcls3   mtcls3  
+repeat 0 1 set tcls3   mtcls3
 repeat 0 1 set tlef1   mtlef1
 repeat 0 1 set tlef2   mtlef2
-repeat 0 1 set tlef3   mtlef3  
+repeat 0 1 set tlef3   mtlef3
 repeat 0 1 set trig1   mtrig1
 repeat 0 1 set trig2   mtrig2
-repeat 0 1 set trig3   mtrig3  
+repeat 0 1 set trig3   mtrig3
 *
 repeat 0 1 set lvlo1   mlvlo1
 repeat 0 1 set lvlo2   mlvlo2
 repeat 0 1 set lvlo3   mlvlo3
 repeat 0 1 set llow1   mllow1
 repeat 0 1 set llow2   mllow2
-repeat 0 1 set llow3   mllow3  
+repeat 0 1 set llow3   mllow3
 repeat 0 1 set lrlx1   mlrlx1
 repeat 0 1 set lrlx2   mlrlx2
-repeat 0 1 set lrlx3   mlrlx3  
+repeat 0 1 set lrlx3   mlrlx3
 repeat 0 1 set lmed1   mlmed1
 repeat 0 1 set lmed2   mlmed2
-repeat 0 1 set lmed3   mlmed3  
+repeat 0 1 set lmed3   mlmed3
 repeat 0 1 set lhig1   mlhig1
 repeat 0 1 set lhig2   mlhig2
-repeat 0 1 set lhig3   mlhig3  
+repeat 0 1 set lhig3   mlhig3
 repeat 0 1 set lcls1   mlcls1
 repeat 0 1 set lcls2   mlcls2
 repeat 0 1 set lcls3   mlcls3
 repeat 0 1 set lbac1   mlbac1
 repeat 0 1 set lbac2   mlbac2
-repeat 0 1 set lbac3   mlbac3   
-* 
+repeat 0 1 set lbac3   mlbac3
+*
 repeat 0 1 set fhig1   mfhig1
 repeat 0 1 set fhig2   mfhig2
 repeat 0 1 set fhig3   mfhig3
@@ -1771,54 +1735,54 @@ repeat 0 1 set ribs    wribs
 *
 repeat 0 1 set tlow1   wtlow1
 repeat 0 1 set tlow2   wtlow2
-repeat 0 1 set tlow3   wtlow3  
+repeat 0 1 set tlow3   wtlow3
 repeat 0 1 set trlx1   wtrlx1
 repeat 0 1 set trlx2   wtrlx2
-repeat 0 1 set trlx3   wtrlx3 
+repeat 0 1 set trlx3   wtrlx3
 repeat 0 1 set tmed1   wtmed1
 repeat 0 1 set tmed2   wtmed2
-repeat 0 1 set tmed3   wtmed3 
+repeat 0 1 set tmed3   wtmed3
 repeat 0 1 set thig1   wthig1
 repeat 0 1 set thig2   wthig2
-repeat 0 1 set thig3   wthig3 
+repeat 0 1 set thig3   wthig3
 repeat 0 1 set tfor1   wtfor1
 repeat 0 1 set tfor2   wtfor2
-repeat 0 1 set tfor3   wtfor3 
+repeat 0 1 set tfor3   wtfor3
 repeat 0 1 set tbac1   wtbac1
 repeat 0 1 set tbac2   wtbac2
-repeat 0 1 set tbac3   wtbac3  
+repeat 0 1 set tbac3   wtbac3
 repeat 0 1 set tcls1   wtcls1
 repeat 0 1 set tcls2   wtcls2
-repeat 0 1 set tcls3   wtcls3  
+repeat 0 1 set tcls3   wtcls3
 repeat 0 1 set tlef1   wtlef1
 repeat 0 1 set tlef2   wtlef2
-repeat 0 1 set tlef3   wtlef3  
+repeat 0 1 set tlef3   wtlef3
 repeat 0 1 set trig1   wtrig1
 repeat 0 1 set trig2   wtrig2
-repeat 0 1 set trig3   wtrig3  
+repeat 0 1 set trig3   wtrig3
 *
 repeat 0 1 set lvlo1   wlvlo1
 repeat 0 1 set lvlo2   wlvlo2
 repeat 0 1 set lvlo3   wlvlo3
 repeat 0 1 set llow1   wllow1
 repeat 0 1 set llow2   wllow2
-repeat 0 1 set llow3   wllow3  
+repeat 0 1 set llow3   wllow3
 repeat 0 1 set lrlx1   wlrlx1
 repeat 0 1 set lrlx2   wlrlx2
-repeat 0 1 set lrlx3   wlrlx3  
+repeat 0 1 set lrlx3   wlrlx3
 repeat 0 1 set lmed1   wlmed1
 repeat 0 1 set lmed2   wlmed2
-repeat 0 1 set lmed3   wlmed3  
+repeat 0 1 set lmed3   wlmed3
 repeat 0 1 set lhig1   wlhig1
 repeat 0 1 set lhig2   wlhig2
-repeat 0 1 set lhig3   wlhig3  
+repeat 0 1 set lhig3   wlhig3
 repeat 0 1 set lcls1   wlcls1
 repeat 0 1 set lcls2   wlcls2
-repeat 0 1 set lcls3   wlcls3 
+repeat 0 1 set lcls3   wlcls3
 repeat 0 1 set lbac1   wlbac1
 repeat 0 1 set lbac2   wlbac2
-repeat 0 1 set lbac3   wlbac3  
-* 
+repeat 0 1 set lbac3   wlbac3
+*
 repeat 0 1 set fhig1   wfhig1
 repeat 0 1 set fhig2   wfhig2
 repeat 0 1 set fhig3   wfhig3
@@ -2081,5 +2045,21 @@ repeat    0     1 set fcls3 fhig3
 end fhigh
 ************************************************
 *
+subroutine leftkneebend
+linear 0 77 bendto aleg aknee athigh 0 0 -90
+linear 0 77 bendto afoot aankle aleg 0 0 10
+repeat 0 77 moveto fig  afoot 30 0 0
+repeat 0 77 ground fig
+end leftkneebend
+*
+*
+subroutine rightkneebend
+linear 0 77 bendto bleg bknee bthigh 0 0 -90
+linear 0 77 bendto bfoot bankle bleg 0 0 10
+repeat 0 77 moveto fig  bfoot 30 0 0
+repeat 0 77 ground fig
+end rightkneebend
+*
+*********************************************************
 subroutine dance
 *
