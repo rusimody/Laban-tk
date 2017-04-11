@@ -123,13 +123,10 @@ char Volm ='V';
 
 bool forbid[EMAX][EMAX];
 
-<<<<<<< HEAD
+
+double  doub0;//only for calculation, trying to remove it
 /* defined in initialise function */ 
 
-double  doub0;
-=======
-double  doub0;//only for calculation, trying to remove it
->>>>>>> f977da9c73a9c5ab99716ad9d716f6ba7f701c2c
 double  doub1;
 double  doub2;
 double  doub3;
@@ -145,7 +142,6 @@ double  doub255;
 double  doub360;
 double  doub500;
 double  doubmax;
-<<<<<<< HEAD
 double  inv2;
 double  inv3;
 double  inv4;
@@ -165,27 +161,6 @@ double  radian;                // number of radians in a degree
 double  rad;                   // conversion factor from degrees to radians
 //double  radten;                // conversion factor from tenths of a degree to radians
 double  angleInc;                 // basic interactive angle increment
-=======
-double  inv2;//used in aprox all functions
-double  inv3;//in 2 function
-double  inv4;// in one
-double  inv5;//in 2
-double  inv6;// in 2
-double  inv10;//in 3
-double  inv256;//in 2
-double  inv1000;//in 3
-double  lg2; //in 2      //logarithm of 2
-double  rt3; //in in 1
-double  tolr;//
-double  twopi;//in 3
-double  pi;//in 2                    // 3.142...etc /
-double  piby2;//in 2
-double  degree;  //in 3              // number of degrees in a radian
-double  radian;//in 3                // number of radians in a degree
-double  rad;                   // conversion factor from degrees to radians
-double  radten;//in 3                // conversion factor from tenths of a degree to radians
-double  alpha;                 // basic interactive angle increment
->>>>>>> f977da9c73a9c5ab99716ad9d716f6ba7f701c2c
 double  anglex,angley,anglez;  // interactive rotation angles
 double  dangx,dangy,dangz;     // interactive rotation angle increments
 //double  fac;                   // lbn conversion factor from y to frames
@@ -303,19 +278,11 @@ int facess;          // facing score of semishadow position
 int fbegin,ffin,flen;// start,end, and length of a position
 int fend;            // frame number of end of current movement
 int fhalf;           // frame halfway through a movement
-<<<<<<< HEAD
 int max_Numframe;            // maximum frame number
 int fps;             // frames/second
 int frange;          // number of frames in an action
 int frperbar;        // frames per bar;
 int firstFrameNumAct;          // first frame number of action
-=======
-int f_max;  //in 5          // maximum frame number
-int fps;             // frames/second
-int frange;          // number of frames in an action
-int frperbar;        // frames per bar;
-int fstart; //in 8         // first frame number of action
->>>>>>> f977da9c73a9c5ab99716ad9d716f6ba7f701c2c
 int gy,gh;           // arm gesture range disabled by contact bow
 int haslbn;          // TRUE if input is lbn file, FALSE for .n file
 int hold;            // one of the defined holds NO,CL,PR,CP,DB,OP,CR,OE,CO,SH,SS
@@ -336,7 +303,6 @@ int nw;              // number of women
 int nmw;             // nm * nw
 int nstaff;          // number of staves
 int oriented;        // true after orientation
-<<<<<<< HEAD
 
 int lastFramePrevAct;            // last frame of previous action
 int firstFramePrevAct;          // first fame of previous action
@@ -348,17 +314,13 @@ int item_prev;           // item of previous support symbol
 int col_prev;           // column of previous support symbol
 int prevhold;        // previous hold
 int height_prev;            // height of previous step;
-=======
-int pend;  // in 6          // last frame of previous action
-int pstart; //in 5         // first fame of previous action
-int ppb;             // pixels per beat (= 23 );
-int prev_time;//in 1       // clock reading of previous frame
-int pres_time;       // clock reading of current frame
-int previ;           // item of previous support symbol
-int prevc;           // column of previous support symbol
-int prevhold; // in 5       // previous hold
-int rise;            // height of previous step;
->>>>>>> f977da9c73a9c5ab99716ad9d716f6ba7f701c2c
+int lastFramePrevAct;            // last frame of previous action
+int firstFramePrevAct;          // first fame of previous action
+
+int item_prev;           // item of previous support symbol
+int col_prev;           // column of previous support symbol
+int prevhold;        // previous hold
+int height_prev;            // height of previous step;
 int ssend;           // ending score symbol
 int sstart;          // starting score symbol
 int st;              // current staff number
@@ -386,17 +348,11 @@ int ecount;          // number of entries in 'elist'
 int ell1;            // ellipsoid to touch something
 int ell2;            // ellipsoid to be touched
 int ellpsd;          // active ellipsoid
-<<<<<<< HEAD
 int frameCount;               // counter through frames
 int frameNumMultiplier;            // multiplier of frame numbers
-=======
-int f;               // counter through frames
-int fast; // in 3           // multiplier of frame numbers
->>>>>>> f977da9c73a9c5ab99716ad9d716f6ba7f701c2c
 int fig;             // current figure
 
 int forward;         // TRUE for animation to go forwards
-<<<<<<< HEAD
 int freezeAnimation;          // TRUE if animation frozen
 
 int lastFrameNumAct;           // last frame number of actions
@@ -405,15 +361,6 @@ int height = 512;    // height  of window in pixels
 int hstart;          // frame at start of hold
 int hend;            // frame at end of hold
 int nudes_inMain;          // TRUE if still in main NUDES program
-=======
-int freeze;          // TRUE if animation frozen
-int fstop; // in 4          // last frame number of actions
-int fslow; // in 2
-int height = 512;    // height  of window in pixels
-int hstart;          // frame at start of hold
-int hend;            // frame at end of hold
-int inmain; // in 3         // TRUE if still in main NUDES program
->>>>>>> f977da9c73a9c5ab99716ad9d716f6ba7f701c2c
 int intersect;
 int jcount ;
 int join;            // joint for current bend command
@@ -421,14 +368,12 @@ int k;
 int length;          // length of next input string
 <<<<<<< HEAD
 int lenNextInpLine;           // length of next input line
-=======
-int lline;//in 2           // length of next input line
->>>>>>> f977da9c73a9c5ab99716ad9d716f6ba7f701c2c
 int maxint;          // largest representable integer
 int more;            // if > 0 means more actions for which stp>=fr
 int num_ellip_curFrame;              // number of ellipsoids in current frame
 int nesave;
 int nfaces;          // number of faces on sphere
+<<<<<<< HEAD
 <<<<<<< HEAD
 int num_figure;           // number of figures
 int num_file;          // number of texture map files
@@ -452,23 +397,41 @@ int printDone;          // TRUE if diagnostic printing already done
 int nfigs;           // number of figures
 int nfiles;  // in 3        // number of texture map files
 int njts; // more then 6           // number of joints
+=======
+
+int num_figure;           // number of figures
+int num_file;          // number of texture map files
+int num_joint;            // number of joints
+>>>>>>> 6875e7515f48db3ed7f477f370a50c74d948ff09
 int nline;           // number of current nudes file line
 int npfs;            // number of actions
-int nsph;            // number of chords around sphere
-int nsubs;           // number of subroutines
-int nvals; // in 3          // number of values in 'val'
-int nvars; // in 4          // number of variables in array val
+
+int num_chord_sphere;            // number of chords around sphere
+
+int num_subroutine;           // number of subroutines
+int num_val;           // number of values in 'val'
+int num_var;           // number of variables in array val
 int ok;              // ok = 0 if ok, else problem reference number
 int p;               // counter through actions
-int pause;  //in 2         // TRUE if pausing on 1st and last frames
+
+int forPause;           // TRUE if pausing on 1st and last frames
+
 int pok;             // true if positive integer read
+<<<<<<< HEAD
 //int prdone;          // TRUE if diagnostic printing already done
 >>>>>>> f977da9c73a9c5ab99716ad9d716f6ba7f701c2c
+=======
+int printDone;          // TRUE if diagnostic printing already done
+>>>>>>> 6875e7515f48db3ed7f477f370a50c74d948ff09
 int ptype;           // code of current action
 int pp;
 int donesurf;        // TRUE if 'surf' called from 'dotouch'
 int refell;          // ellipsoid used as angular reference
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6875e7515f48db3ed7f477f370a50c74d948ff09
 
 int shadowDisplay;          // TRUE if shadows wanted
 
@@ -476,6 +439,7 @@ int single;          // either TODO or DONE when frozen
 int num_pauseCalls;            // number of forPause calls between animating frames
 int start;           // pointer to next character on current input line
 int typeCurAction;               // type of current action
+<<<<<<< HEAD
 int var0;
 int var1;
 int var2;
@@ -493,6 +457,13 @@ int var2;
 int vstart;//in 3          // first frame from view command
 int vstop; // in 3          // last frame from view command
 >>>>>>> f977da9c73a9c5ab99716ad9d716f6ba7f701c2c
+=======
+int var0;
+int var1;
+int var2;
+int view_firstframe;          // first frame from view command
+int view_lastframe;           // last frame from view command
+>>>>>>> 6875e7515f48db3ed7f477f370a50c74d948ff09
 int width = 512;     // height  of window
 int xw = 10;
 int yw = 10;         // lower left corner of window
@@ -1118,6 +1089,9 @@ void initialise(void)
    int k,m,n;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 6875e7515f48db3ed7f477f370a50c74d948ff09
 //   printDone = FALSE;
    //num_curBar = -1;   // number of current bar
 //   height_prev = 1;   // height of previous step;
@@ -1203,6 +1177,7 @@ void initialise(void)
 
 //   axlen[0] = 1; axlen[1] = 1; axlen[2] = 1;
 
+<<<<<<< HEAD
 =======
    //int  prdone = FALSE;
    nbar = -1;
@@ -1273,6 +1248,9 @@ void initialise(void)
    nvals = 0;
    axlen[0] = 1; axlen[1] = 1; axlen[2] = 1;
 >>>>>>> f977da9c73a9c5ab99716ad9d716f6ba7f701c2c
+=======
+   //int  prdone = FALSE;
+>>>>>>> 6875e7515f48db3ed7f477f370a50c74d948ff09
    for (  j = 0 ; j < EMAX ; ++ j )
    {
       //if ( j > 2) axlen[j] = -1;
@@ -7611,10 +7589,14 @@ void dodrag(void)
 //printf("            %s   %f %f %f\n\n",
 //ename[fixde],cen[fixde][0],cen[fixde][1],cen[fixde][2]);
 <<<<<<< HEAD
+<<<<<<< HEAD
 			printDone = TRUE;
 =======
 		//	prdone = TRUE;
 >>>>>>> f977da9c73a9c5ab99716ad9d716f6ba7f701c2c
+=======
+			printDone = TRUE;
+>>>>>>> 6875e7515f48db3ed7f477f370a50c74d948ff09
 		} /* joint OK */
 	}  /* connections  OK */
 } /* dodrag */
@@ -10509,18 +10491,30 @@ more:
 
 
 	initialise();
+<<<<<<< HEAD
 
+=======
+   
+>>>>>>> 6875e7515f48db3ed7f477f370a50c74d948ff09
 	get_ini ( 0 );
 	led_param();
 	get_files ( argv[1] );
-	if ( ok != 0 ) goto more;
-	if (haslbn == TRUE)
+ 
+        if ( ok != 0 ) goto more;
+
+
+
+        if (haslbn == TRUE)
 	{
-         fprintf(nudesfile,
+
+        fprintf(nudesfile,
             "*\n* created %s from %s using %s\n*\n",
             nudesname,name,ptitle);
          linter(argv[2],argv[3]);
 	}
+
+
+
 	if(argv[2][0] == 'r')
 	{
 		firstFrameNumAct = 0;
@@ -10553,5 +10547,5 @@ more:
 		sprintf(figsname,"./nudes %s",nudesname);
 		system(figsname);
 	}
-
 }
+

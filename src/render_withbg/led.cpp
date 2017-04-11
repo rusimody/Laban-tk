@@ -1332,9 +1332,10 @@ void delseg(int s)
    called by  mouseclick, dosymbol, clear, setlevel,
               scale, fixscore, createbars,
 */
-{
+{  
     if (s >= SCORE)
     {
+       
        glDeleteLists(s,1);
        segs[s].ok = FALSE;
        segs[s].menu = -1;
@@ -1410,6 +1411,7 @@ void lbnsort(void)
    int k;
 
    prevbar = -1;
+ 
    for (j = SCORE; j < (scoretop-1); ++j)
    {
       if (segs[j].ok == TRUE)
@@ -1523,7 +1525,7 @@ void createsegment(int s)
              drawstaff, createhelp,
    calls     moveabs,
 */
-{  
+{ 
    if ( ((segs[s].y+segs[s].h) > ybot)
      && ((segs[s].y-segs[s].h) < ytop) )
    {
@@ -1542,11 +1544,12 @@ void createsegment(int s)
       //target = s;
       segs[s].ok = TRUE;
       moveabs(segs[s].x,segs[s].y);
- 
+
       glNewList(s,GL_COMPILE);
       glBegin(GL_LINES);
 	  glClearColor(1.0,1.0,1.0,0.0);
       glColor3f(segs[s].red, 0.0, 0.0);
+
    }
 } /*  createsegment */
 /******************************************/
@@ -2225,13 +2228,16 @@ void lbnwrite(void)
    int j;
    int s;
    int nbar;
+   int i;
 
    count = 0;
    nbar = 0;
    fixscore();
    lbnsort();
+
    for (s = 0; s < ncomments; ++s)
       fprintf(OUTFILE,"%s",comments[s]);
+
    for (s = SCORE; s < scoretop; ++s)
    {
       j = segs[s].menu/NSYMS;
@@ -2239,7 +2245,6 @@ void lbnwrite(void)
          &&(((segs[s].y+segs[s].h) <= yhigh)
          ||(segs[s].menu == MSTAF)))
       {
-            ++count;
             fprintf(OUTFILE,
                "%c%c%c%c %3d %3d %4d %3d %3d %4d %c %s # %d",
                menutext[j][0],menutext[j][1],
@@ -2247,10 +2252,15 @@ void lbnwrite(void)
                segs[s].item,segs[s].x,segs[s].y,
                segs[s].step,segs[s].w,segs[s].h,segs[s].level,
                segs[s].text,count);
+
+
+
+
             if (segs[s].menu == MBARS)
                fprintf(OUTFILE," # bar %d\n",nbar++);
             else
                fprintf(OUTFILE,"\n");
+
        } /* seg OK */
     } /* s */
     if (count == 1)
@@ -2576,6 +2586,7 @@ void createclear(void)
    linerel(-segs[CLEAR].w,0);
    linerel(0,-segs[CLEAR].h);
    closesegment(CLEAR);
+   printf("%d",segs[CLEAR].length);
 } /* createclear */
 /**********************************************/
 
@@ -2871,7 +2882,7 @@ void createdirmenu(int x, int y)
 
    dirmx = x;
    dirmy = y;
-   segs[MDIRN].x = dirmx;
+   segs[MDIRN].x = dirmx ;
    segs[MDIRN].y = dirmy;
    segs[MDIRN].w = MSIZE;
    segs[MDIRN].h = 2*MSIZE;
@@ -2954,7 +2965,7 @@ void createpinmenu(int x, int y)
    pinmx = x;
    pinmy = y;
    segs[MPINS].x = pinmx;
-   segs[MPINS].y = pinmy;
+   segs[MPINS].y = pinmy ;
    segs[MPINS].w = MSIZE;
    segs[MPINS].h = 2*MSIZE;
    segs[MPINS].step = pinstep;
@@ -2994,7 +3005,7 @@ void createlimmenu(int x, int y)
 
    limmx = x;
    limmy = y;
-   segs[MLIMB].x = limmx;
+   segs[MLIMB].x = limmx ;
    segs[MLIMB].y = limmy;
    segs[MLIMB].step = limstep;
    segs[MLIMB].w = MSIZE;
@@ -3076,7 +3087,7 @@ void createaremenu(int x, int y)
 
    aremx = x;
    aremy = y;
-   segs[MAREA].x = aremx;
+   segs[MAREA].x = aremx ;
    segs[MAREA].y = aremy;
    segs[MAREA].w = MSIZE;
    segs[MAREA].h = MSIZE;
@@ -3117,7 +3128,7 @@ void createrotmenu(int x, int y)
 
    rotmx = x;
    rotmy = y;
-   segs[MROTN].x = rotmx;
+   segs[MROTN].x = rotmx ;
    segs[MROTN].y = rotmy;
    segs[MROTN].w = MSIZE;
    segs[MROTN].h = MSIZE;
@@ -3161,19 +3172,21 @@ void createkeymenu(int x, int y)
 
    keymx = x;
    keymy = y;
-   segs[MKEYS].x = keymx;
-   segs[MKEYS].y = keymy;
+   segs[MKEYS].x = keymx ;
+   segs[MKEYS].y = keymy ;
    segs[MKEYS].w = MSIZE;
    segs[MKEYS].h = MSIZE;
    segs[MKEYS].menu = MKEYS;
-   segs[MKEYS].item = 0;
-   segs[MKEYS].step = keystep;
+   segs[MKEYS].item = 0 ;
+   segs[MKEYS].step = keystep ;
+
+
    sprintf(segs[MKEYS].text,"");
    segs[MKEYS].length = 0;
    createsegment(MKEYS);
    polylinerel(keymenudx,keymenudy,5);
    closesegment(MKEYS);
-
+  
    for (j = 1; j <= nkey; j++)
    {
       s = j + MKEYS;
@@ -3428,6 +3441,8 @@ void createmenus(void)
    createscroll();
 
    x1 = xtop + MSIZE + 5;
+   printf("%d",x1);
+
    x2 = xtop;
    createkeymenu(x1,2);
    createpinmenu(x1,keymy+MSIZE+2);
@@ -4377,7 +4392,7 @@ void makestaff(void)
       xstart = 0;
       staffn = 3;
    }
-   drawstaff(s,staffn-3,(xstart+8*STEP),STEP,h,blank);
+    drawstaff(s,staffn-3,(xstart+8*STEP),STEP,h,blank);  
    s = scoretop++;
    y = STEP;
    if (barn > 0)
@@ -4385,11 +4400,11 @@ void makestaff(void)
       y = bary[0];
       h = height - y;
    }
-   drawstaff(s,staffn-2,(staffx[staffn-3]+3*STEP+1),y,h,low);
+   drawstaff(s,staffn-2,(staffx[staffn-3]+3*STEP+1),y,h,low);   /* for making vertical lines */ 
 
    h = height - STEP;
    s = scoretop++;
-   drawstaff(s,staffn-1,(staffx[staffn-2]+3*STEP+1),STEP,h,blank);
+    drawstaff(s,staffn-1,(staffx[staffn-2]+3*STEP+1),STEP,h,blank);  
 } /* makestaff */
 /**********************************************/
 
@@ -4911,6 +4926,7 @@ int checkhit(int mx, int my)
          }
       }
    }
+   printf("hitseg %d ", hitseg);
    return(hitseg);
 } /* checkhit */
 /*************************************************/
@@ -4924,17 +4940,20 @@ void mouseclick(GLint b, GLint action, GLint mx, GLint mmy)
 	called by main, (gluMouseFunc)
 */
 {
+   
    int n;
    int my;
    int s;
    int segdown;
    int segup;
    int tj,tm;
-
+  
    my = height-mmy;
    mousey = my;
    mousex = mx;
    n = scoretop;
+   printf("ScrollUp  %d" , SCROLLUP);
+   printf("Xtop %d "    , xtop );
    if ((mx > segs[SCROLLUP].w) && (mx < xtop)) 
       my += ybot;
    if (action == GLUT_DOWN)
@@ -5095,6 +5114,7 @@ int main(int argc, char* argv[])
    createmenus();
    segs[COPY].red = 1.0;
    create(COPY);
+
    if (openin == TRUE)
 	   lbnread();
    glutDisplayFunc(displayscore);/* register Display handler */ 
@@ -5102,8 +5122,11 @@ int main(int argc, char* argv[])
    glutMotionFunc(mousetrack);   /* register Mouse tracker */
    glutKeyboardFunc(checkeys);   /* register Keyboard handler */
    glutIdleFunc(doscroll);
+
+
    glutMainLoop();
    getout(0);
+  
    return(0);
 }
 

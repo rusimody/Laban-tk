@@ -10,7 +10,7 @@ led: led.cpp
 	$(CXX) -I /usr/include/GL led.cpp -o led -lm -lglut -lGL
 
 lintel: lintel.cpp
-	$(CXX) -g -I /usr/include/GL lintel.cpp -o lintel -lm -lglut -lGL
+	$(CXX) -g -I /usr/include/GL lintel.cpp -o lintel -lm -lglut -lGL -I/usr/include/python2.7 -lpython2.7
 
 compln: compln.c
 	$(CC) compln.c -o compln -lm
