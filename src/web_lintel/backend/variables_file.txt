@@ -1,4 +1,4 @@
-comment 7
+comment 8
 # file structure
 # integer - int name value/_
 # character - char name value/_
@@ -6,7 +6,7 @@ comment 7
 # one_dimensional_array - int/char_array name 1 size
 # two_dimensional_array - int/char_array name 2  one two
 # double - double name value/_
-
+# lbn[NLABS] created at program time
 # Global variables required for conversion of .lbn file to .n file
 #no_variable 50 hashGlobal
 Bool  TRUE         0

@@ -56,7 +56,18 @@ def createLinterVariable(lLines):
     dictOfVariable = dict()
     
     while (len(lLines) > 1 ) and (lLines[0][0] == '#') :
+      print lLines
       dictSpec = map(lambda Token : Token.strip()  ,lLines[1].split(' ')) 
       dictOfVariable[dictSpec[2]] = reduce( lambda dic,line :createDict(dic,map(lambda dictKV : dictKV.strip() ,line.split())) , lLines[2:int(dictSpec[1])],{}) 
-      lLines = lLines[int(dictSpec[1])+2:] 
+      lLines = lLines[int(dictSpec[1])+2:]
+
+    #adding lbn[LMAX]
+    dictOfVariable['fileStorage']['lbn'] = [dictOfVariable['symbolStruct'] for x in range(dictOfVariable['hashGlobal']['LMAX'])]                               
+    dictOfVariable.pop('')
     return dictOfVariable
+
+
+
+
+ldata = readFile(sys.argv[1])
+globalVariableForLinter = createLinterVariable(ldata)
