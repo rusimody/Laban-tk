@@ -1,4 +1,5 @@
 from initialise import initialise
+from get_ini import get_ini
 
 class GlobalVar():
    def __init__(self):
@@ -153,7 +154,13 @@ class GlobalVar():
                  #         otherwise (s - i+1)th variable
      self.mspace = False
      self.wspace = self.FALSE
- 
- 
+############
+#####15 apr######
+     self.ini_title = [['0']*32]*256
+     self.ini_value = [['0']*128]*256
+     self.numberOfParameterInIni = None
+     self.buffer = []
+
 GV = GlobalVar()
 initialise(GV)
+get_ini(GV,0)

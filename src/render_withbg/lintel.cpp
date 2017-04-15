@@ -94,7 +94,7 @@ char ini_title[256][32];
 char ini_value[256][128];
 /* int max_ini = 256;  "defined Locally" */
 int max_ini_len = 32;
-int number_ini;
+int numberOfParameterInIni;
 /*int ini_diag = 0; "LOcal"  */
 
 int input_file_type;  // tells u type of file .nud or .lbn by its value 0 an 1
@@ -517,7 +517,7 @@ FILE *figsfile;
 
 char* junk[BMAX];
 
-char buf[BMAX];            // input buffer
+char buffer[BMAX];            // input buffer
 char line[BMAX];           // compl input buffer
 char lbnline[LMAX][BMAX];  // lbn file lines
 char string[BMAX];         // next set of non-blank characters from data file */
@@ -1407,10 +1407,10 @@ A structure Symbol is created as follows:
 		printf("lbnread oops\n");
 a: goto a;
 	}
-   while ((j < LMAX) && (fgets(buf,BMAX,infile) != NULL))
+   while ((j < LMAX) && (fgets(buffer,BMAX,infile) != NULL))
    {
-		strcpy(lbnline[j],buf);
-		sscanf(buf,"%c%c%c%c %d %d %d %d %d %d %c",
+		strcpy(lbnline[j],buffer);
+		sscanf(buffer,"%c%c%c%c %d %d %d %d %d %d %c",
              &m0,&m1,&m2,&m3,&i,&x,&y,&s,&w,&h,&d);
 		if (m0 != '#')
 		{
@@ -1520,9 +1520,9 @@ void lsorty(void)
             lbn[k].y = jy;
             lbn[k].x2 = jx2;
             lbn[k].y2 = jy2;
-            strcpy(buf,lbnline[j]);
+            strcpy(buffer,lbnline[j]);
             strcpy(lbnline[j],lbnline[k]);
-            strcpy(lbnline[k],buf);
+            strcpy(lbnline[k],buffer);
          }
       }
    }
@@ -2760,8 +2760,8 @@ void lcopyfigs(char* renOrfile)
       lgetout(1);
       if (ok == 1) goto rtrn;
    }
-   while (fgets(buf,BMAX,figsfile) != NULL)
-      fprintf(nudesfile,"%s",buf);
+   while (fgets(buffer,BMAX,figsfile) != NULL)
+      fprintf(nudesfile,"%s",buffer);
 rtrn: ;
 } /* lcopyfigs */
 /********************************************/
@@ -2871,14 +2871,14 @@ again:
       else // (lbn_figures != 2)
       {
          printf("\nPlease type the number of staves to be interpreted\n");
-         if (gets(buf) == NULL)
+         if (gets(buffer) == NULL)
          {
             printf("OOPS: cannot open standard input\n");
             lgetout(1);
             nogo = TRUE;
             if (ok == 1) goto rtrn;
          }
-         sscanf(buf,"%d",&lbn_figures);
+         sscanf(buffer,"%d",&lbn_figures);
          if (lbn_figures > 2)
          {
             printf("sorry; this program can only interpret 2 staves at a time\n");
@@ -2892,7 +2892,7 @@ again:
             printf("Please enter staff numbers to be interpreted\n");
             printf("separated by a space, and followed by the 'enter' key.\n\n");
          }
-         if (gets(buf) == NULL)
+         if (gets(buffer) == NULL)
          {
             printf("OOPS: cannot read staff numbers\n");
             lgetout(1);
@@ -2901,12 +2901,12 @@ again:
          }
          if (lbn_figures == 1)
          {
-            sscanf(buf,"%d",&stv0);
+            sscanf(buffer,"%d",&stv0);
             stv[0] = stv0; stv[1] = -1;
          }
          else
          {
-            sscanf(buf,"%d %d",&stv0,&stv1);
+            sscanf(buffer,"%d %d",&stv0,&stv1);
             stv[0] = stv0; stv[1] = stv1;
          }
       } /* lbn_figures != 2 */
@@ -9315,8 +9315,8 @@ int find_ini_title ( char title[] )
 	int j;
 	int plen;
 	int iplen;
-	if ( number_ini <= 0 ) return( NULL );
-	for ( ini_no = 0; ini_no < number_ini; ini_no++ )
+	if ( numberOfParameterInIni <= 0 ) return( NULL );
+	for ( ini_no = 0; ini_no < numberOfParameterInIni; ini_no++ )
 	{
 		plen = (int)strlen ( title );
 		iplen = 0;
@@ -9339,9 +9339,9 @@ int find_ini_title ( char title[] )
 void get_ini_dump ( void )
 {
 	int ini_no;
-	printf ( "  number ini %d\n", number_ini );
-	if ( number_ini <= 0 ) return;
-	for ( ini_no = 0; ini_no < number_ini; ini_no++ )
+	printf ( "  number ini %d\n", numberOfParameterInIni );
+	if ( numberOfParameterInIni <= 0 ) return;
+	for ( ini_no = 0; ini_no < numberOfParameterInIni; ini_no++ )
 	{
 		printf ( " ini_no %2d title %s value %s\n",
 			ini_no, &ini_title[ini_no][0], &ini_value[ini_no][0] );
@@ -9352,7 +9352,7 @@ void get_ini_dump ( void )
 /*
 bool get_if_ini ( void )
 {
-	if ( number_ini > 0 ) return( true );
+	if ( numberOfParameterInIni > 0 ) return( true );
 	return( false );
 }  */
 
@@ -9364,7 +9364,7 @@ bool get_ini_bool ( char title[] )
 	bool value;
 	int ini_no;
 	value = -1;NULL;
-	if ( number_ini <= 0 ) return( NULL );
+	if ( numberOfParameterInIni <= 0 ) return( NULL );
 	ini_no = find_ini_title ( title );
 	if ( ini_no < 0 ) return( NULL );
 	if ( toupper( ini_value[ini_no][0] ) == 'T' )
@@ -9384,7 +9384,7 @@ char* get_ini_char ( char title[] )
 	char* value;
 	int ini_no;
 	value = NULL;
-	if ( number_ini <= 0 ) return( NULL );
+	if ( numberOfParameterInIni <= 0 ) return( NULL );
 	ini_no = find_ini_title ( title );
 	if ( ini_no < 0 ) return( NULL );
 	return( &ini_value[ini_no][0] );
@@ -9399,7 +9399,7 @@ int get_ini_int ( char title[] )
 {
 	int value = 0;
 	int ini_no;
-	if ( number_ini <= 0 ) return( NULL );
+	if ( numberOfParameterInIni <= 0 ) return( NULL );
 	ini_no = find_ini_title ( title );
 	if ( ini_no < 0 ) return( NULL );
 	value = atoi ( &ini_value[ini_no][0] );
@@ -9416,7 +9416,7 @@ float get_ini_float ( char title[] )
 {
 	float value = 0.0f;
 	int ini_no;
-	if ( number_ini <= 0 ) return( NULL );
+	if ( numberOfParameterInIni <= 0 ) return( NULL );
 	ini_no = find_ini_title ( title );
 	if ( ini_no < 0 ) return( NULL );
 	value = atof ( &ini_value[ini_no][0] );
@@ -9431,7 +9431,7 @@ double get_ini_double ( char title[] )
 {
 	double value = 0.0;
 	int ini_no;
-	if ( number_ini <= 0 ) return( NULL );
+	if ( numberOfParameterInIni <= 0 ) return( NULL );
 	ini_no = find_ini_title ( title );
 	if ( ini_no < 0 ) return( NULL );
 	value = strtod ( &ini_value[ini_no][0], NULL );
@@ -9450,7 +9450,7 @@ bool get_ini_str ( char title[], char value[] )
 	int len;
 
 	value[0] = NULL;
-	if ( number_ini <= 0 ) return( false );
+	if ( numberOfParameterInIni <= 0 ) return( false );
 	ini_no = find_ini_title ( title );
 	if ( ini_no < 0 ) return( false );
 	len = (int)strlen( &ini_value[ini_no][0] );
@@ -9478,7 +9478,7 @@ void get_ini ( int dump )
  
         int ini_diag = 0;
         int max_ini = 256;
-	FILE *ini_file_unit;
+	FILE *intFilePointer;
 	int ini_no;
 	int j;
 	int k;
@@ -9498,40 +9498,40 @@ void get_ini ( int dump )
 		ini_value[ini_no][0] = NULL;
 	}
 
-	number_ini = -1;  // if it couldnt found lintel.ini file its value will be -1 else >0 equals to no.of parameters in .ini file`
+	numberOfParameterInIni = -1;  // if it couldnt found lintel.ini file its value will be -1 else >0 equals to no.of parameters in .ini file`
 	ini_diag = 0;
-	ini_file_unit = NULL;
+	intFilePointer = NULL;
 
 	// open ini file - check if it exists
 
-	if ( ( ini_file_unit = fopen ( "lintel.ini", "r" ) ) == NULL )
+	if ( ( intFilePointer = fopen ( "lintel.ini", "r" ) ) == NULL )
 	{
-		if ( ini_file_unit ) fclose ( ini_file_unit );
+		if ( intFilePointer ) fclose ( intFilePointer );
 		printf ( "\n\n    %s\n\n",
 			"lintel.ini not available - will continue" );
 	}
 	else
 	{
 		ini_no = 0;
-		number_ini = ini_no;
+		numberOfParameterInIni = ini_no;
 		len = -1;
 		do
 		{
-			ini_title[ini_no][0] = NULL;
+                    ini_title[ini_no][0] = NULL;
 			ini_value[ini_no][0] = NULL;
 
-			if ( fgets ( buf, BMAX, ini_file_unit ) != NULL )
-			{        
+			if ( fgets ( buffer, BMAX, intFilePointer ) != NULL )
+			{   
 				if ( ini_diag >= 1 )
-					printf ( " ini_no %2d buf %s", ini_no, buf );
-				if ( buf[0] != asterisk )
+					printf ( " ini_no %2d buffer %s", ini_no, buffer );
+				if ( buffer[0] != asterisk )
 				{
 					if ( ini_diag >= 1 )
-						printf ( " ini_no %2d buf %s", ini_no, buf );
+						printf ( " ini_no %2d buffer %s", ini_no, buffer );
 					loc_comma = -1;
 					loc_semi = -1;
 					getout = false;
-					len = (int)strlen( buf );
+					len = (int)strlen( buffer );
 
                                         /*printf("\n length %d \n" , len);  */
 
@@ -9539,8 +9539,8 @@ void get_ini ( int dump )
 
 					for ( j = 0; j < len; j++ )
 					{
-						if ( buf[j] == comma && loc_semi == -1 ) loc_comma = j;
-						if ( buf[j] == semi  )
+						if ( buffer[j] == comma && loc_semi == -1 ) loc_comma = j;
+						if ( buffer[j] == semi  )
 						{
 							loc_semi = j;
 							getout = true;
@@ -9556,12 +9556,13 @@ void get_ini ( int dump )
 					k = 0;
 					for ( j = 0; j < loc_comma; j++ )
 					{
-						if ( buf[j] != blank )
+						if ( buffer[j] != blank )
 						{
-							ini_title[ini_no][k] = buf[j];
+							ini_title[ini_no][k] = buffer[j];
 							k = k + 1;
 						}
 					}
+
 
 					ini_title[ini_no][k] = NULL;
 
@@ -9570,13 +9571,13 @@ void get_ini ( int dump )
 					k = 0;
 					for ( j = loc_comma + 1; j < loc_semi; j++ )
 					{
-						if ( buf[j] != blank )
+						if ( buffer[j] != blank )
 						{
-							ini_value[ini_no][k] = buf[j];
+							ini_value[ini_no][k] = buffer[j];
 							if ( ini_diag > 1 )
 							{
-								printf( " j %d k %d buf[j] %c ini %c\n",
-									j, k, buf[j],ini_value[ini_no][k] );
+								printf( " j %d k %d buffer[j] %c ini %c\n",
+									j, k, buffer[j],ini_value[ini_no][k] );
 							}
 							k = k + 1;
 						}
@@ -9586,17 +9587,17 @@ void get_ini ( int dump )
 				}
 				else
 				{
-					if ( buf[1] == 'd' && buf[2] == 'u'
-						&& buf[3] == 'm' && buf[4] == 'p' )
+					if ( buffer[1] == 'd' && buffer[2] == 'u'
+						&& buffer[3] == 'm' && buffer[4] == 'p' )
 						dump = 1;
 				}
 			}
 		}
-		while ( !feof( ini_file_unit ) && len != 0 );
-		number_ini = ini_no;
+		while ( !feof( intFilePointer ) && len != 0 );
+		numberOfParameterInIni = ini_no;
 	}
 
-	if ( dump == 1 ) get_ini_dump ();
+	//if ( dump == 1 ) get_ini_dump (); // only for printing so ignore it
 } /* get_ini */
 /************************************************/
 
@@ -9870,7 +9871,7 @@ void led_param ( void )
 	max_beats = 250;
 	lbn_default = false;
 	lbn_figures = 1;
-	if (number_ini > 0)     //( get_if_ini () == true )
+	if (numberOfParameterInIni > 0)     //( get_if_ini () == true )
 	{
 		lbn_figures_in = get_ini_int ( "lbn_figures" );
 		lbn_default = get_ini_bool ( "lbn_default" );
@@ -9895,9 +9896,9 @@ void led_param ( void )
 			printf ( "\n   Please enter frames/second (%d-%d)", min_fps, max_fps );
 			printf ( "\n            and beats/minute (%d-%d)", min_beats, max_beats );
 			printf ( "\n            separated by a space\n   :" );
-			if ( gets ( buf ) != NULL && buf[0] != 0 )
+			if ( gets ( buffer ) != NULL && buffer[0] != 0 )
 			{
-				sscanf ( buf, "%d %d", &lbn_fps, &lbn_bpm );
+				sscanf ( buffer, "%d %d", &lbn_fps, &lbn_bpm );
 				get_out = led_opena ( min_fps, max_fps, min_beats, max_beats);
 			}
 			else
@@ -10209,7 +10210,7 @@ void funcConvInitialise()
   ForUpdatingVarInt(myobject , "frameInc",&frameInc);
   ForUpdatingVarInt(myobject , "typeCurAction", &typeCurAction);
   
-    ForUpdatingVarInt(myobject , "more", &more);
+  ForUpdatingVarInt(myobject , "more", &more);
   ForUpdatingVarInt(myobject , "ok", &ok);
   ForUpdatingVarInt(myobject , "frameCount", &frameCount);
   ForUpdatingVarInt(myobject , "num_chord_sphere", &num_chord_sphere);

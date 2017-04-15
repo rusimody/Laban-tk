@@ -1,0 +1,23 @@
+
+   lintel084 running
+
+   tolr 2.22045e-16 (53 bits), maxint 1073741824 (30 bits)
+
+   frames/pixel 0.525947, fps 25, bpm 124, ppb 23
+   number of figures 2
+
+    
+   opened input file aman.lbn
+
+   created nudes file aman.lbn_009.n
+
+   lbnread: 54 lbn symbols
+
+
+   lsetrange: pixels 340, frames 180
+
+   tracking ON
+
+   opened aman.lbn_009.n
+For interactive command list:
+    click in animation window, then press 'h' key
