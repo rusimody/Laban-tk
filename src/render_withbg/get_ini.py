@@ -1,10 +1,10 @@
 import os
 
 def get_ini(GV,dump):
-    max_ini = 256
-    GV.ini_title = map(lambda x: [None]+x[1:],GV.ini_title)
-    GV.ini_value = map(lambda x: [None]+x[1:],GV.ini_value)
-    GV.numberOfParameterInIni = -1 # -1 if lintel.ini is not found else > 0
+    #max_ini = 256
+    #GV.ini_title = map(lambda x: [None]+x[1:],GV.ini_title)
+    #GV.ini_value = map(lambda x: [None]+x[1:],GV.ini_value)
+    #GV.numberOfParameterInIni = -1 # -1 if lintel.ini is not found else > 0
     try:
         iniFilePointer = open("lintel.ini","r")
     except IOError:
