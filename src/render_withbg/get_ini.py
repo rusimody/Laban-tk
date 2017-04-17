@@ -16,9 +16,9 @@ def get_ini(GV,dump):
 
         GV.ini_title = []
         GV.ini_value = []
-        GV.buffer = iniFilePointer.readlines()
+        GV.bufferList = iniFilePointer.readlines()
         prefix = ('*',' ')
-        for i in GV.buffer:
+        for i in GV.bufferList:
             if i[0]=='*' or i[0]==' ':
                 continue
             else:
@@ -26,4 +26,5 @@ def get_ini(GV,dump):
                 if len(temp)>1:
                     GV.ini_title.append(temp[0])
                     GV.ini_value.append(temp[1].split(';')[0].strip())
-
+        GV.numberOfParameterInIni = len(GV.ini_title)
+        

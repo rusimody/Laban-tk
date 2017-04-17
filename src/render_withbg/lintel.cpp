@@ -9491,6 +9491,21 @@ void get_ini ( int dump )
 	char semi = ';';
 	bool getout;
         
+  printf("print ini_value\n");
+  for(j = 0 ; j < 256; j++)
+  {
+    for( k = 0; k< 128 ; k++)
+    {
+        printf("%c",ini_value[j][k]);
+    }
+    printf("\n");
+  }
+
+
+
+
+  printf("value before of numberOfParameterInIni %d  " , numberOfParameterInIni );
+
 
 	for ( ini_no = 0; ini_no < max_ini; ini_no++ )
 	{
@@ -9595,6 +9610,7 @@ void get_ini ( int dump )
 		}
 		while ( !feof( intFilePointer ) && len != 0 );
 		numberOfParameterInIni = ini_no;
+
 	}
 
 	//if ( dump == 1 ) get_ini_dump (); // only for printing so ignore it
@@ -10207,6 +10223,12 @@ void funcConvInitialise()
   ForNameList(myobject ,"vname",(char*)vname  ,EMAX,BMAX);
   ForNameList(myobject ,"sname",(char*)sname  ,EMAX,BMAX);
 
+  ForNameList(myobject ,"ini_title",(char*)ini_title  ,256,32);
+  ForNameList(myobject ,"ini_value",(char*)ini_value  ,256,128);
+
+
+
+
   ForUpdatingVarInt(myobject , "frameInc",&frameInc);
   ForUpdatingVarInt(myobject , "typeCurAction", &typeCurAction);
   
@@ -10255,6 +10277,12 @@ void funcConvInitialise()
   ForUpdatingVarInt(myobject ,"freezeAnimation" , &freezeAnimation) ;
   ForUpdatingVarInt(myobject ,"forward" , &forward);
   ForUpdatingVarInt(myobject ,"single" , &single);
+
+  ForUpdatingVarInt(myobject ,"numberOfParameterInIni",&numberOfParameterInIni);
+
+
+
+
 
   ForUpdatingBool(myobject ,"mspace" , &mspace);
 
@@ -10331,8 +10359,8 @@ more:
        Py_Finalize();
 
        funcConvInitialise();
-  
-        //  printf("%f",scaleFactor);
+ 
+               //  printf("%f",scaleFactor);
 
  //     for(j=0;j<3;j++)
  //     {
@@ -10343,9 +10371,10 @@ more:
 
 
 
-	initialise();
-   
-	get_ini ( 0 );
+	    initialise();
+//    get_ini ( 0 );
+
+
 	led_param();
 	get_files ( argv[1] );
  
@@ -10359,10 +10388,9 @@ more:
         fprintf(nudesfile,
             "*\n* created %s from %s using %s\n*\n",
             nudesname,name,ptitle);
-         linter(argv[2],argv[3]);
-	}
 
-
+        linter(argv[2],argv[3]);
+}
 
 	if(argv[2][0] == 'r')
 	{

@@ -156,11 +156,14 @@ class GlobalVar():
      self.wspace = self.FALSE
 ############
 #####15 apr######
-     self.ini_title = [['0']*32]*256
-     self.ini_value = [['0']*128]*256
-     self.numberOfParameterInIni = None
-     self.buffer = []
+     self.ini_title =  [] #[['0']*32]*256
+     self.ini_value =  []  #[['0']*128]*256
+     self.numberOfParameterInIni = -1  #-1 if lintel.ini file not found else equals to number of parameters in lintel.ini file
+     self.bufferList = []
 
 GV = GlobalVar()
 initialise(GV)
 get_ini(GV,0)
+#ini_reader()
+
+
