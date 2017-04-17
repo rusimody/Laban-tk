@@ -9467,154 +9467,154 @@ bool get_ini_str ( char title[], char value[] )
 } /* get_ini_str */
 /************************************************/
 
-void get_ini ( int dump )
-/*
-   open  and decode .ini file
-
-   called by main,
-*/
-{ 
-        /* we can make two list one for storing tiles and second for storing corresponding values in python*/
- 
-        int ini_diag = 0;
-        int max_ini = 256;
-	FILE *intFilePointer;
-	int ini_no;
-	int j;
-	int k;
-	int len;
-	int loc_comma;
-	int loc_semi;
-	char asterisk = '*';
-	char blank = ' ';
-	char comma = ',';
-	char semi = ';';
-	bool getout;
-        
-  printf("print ini_value\n");
-  for(j = 0 ; j < 256; j++)
-  {
-    for( k = 0; k< 128 ; k++)
-    {
-        printf("%c",ini_value[j][k]);
-    }
-    printf("\n");
-  }
-
-
-
-
-  printf("value before of numberOfParameterInIni %d  " , numberOfParameterInIni );
-
-
-	for ( ini_no = 0; ini_no < max_ini; ini_no++ )
-	{
-		ini_title[ini_no][0] = NULL;
-		ini_value[ini_no][0] = NULL;
-	}
-
-	numberOfParameterInIni = -1;  // if it couldnt found lintel.ini file its value will be -1 else >0 equals to no.of parameters in .ini file`
-	ini_diag = 0;
-	intFilePointer = NULL;
-
-	// open ini file - check if it exists
-
-	if ( ( intFilePointer = fopen ( "lintel.ini", "r" ) ) == NULL )
-	{
-		if ( intFilePointer ) fclose ( intFilePointer );
-		printf ( "\n\n    %s\n\n",
-			"lintel.ini not available - will continue" );
-	}
-	else
-	{
-		ini_no = 0;
-		numberOfParameterInIni = ini_no;
-		len = -1;
-		do
-		{
-                    ini_title[ini_no][0] = NULL;
-			ini_value[ini_no][0] = NULL;
-
-			if ( fgets ( buffer, BMAX, intFilePointer ) != NULL )
-			{   
-				if ( ini_diag >= 1 )
-					printf ( " ini_no %2d buffer %s", ini_no, buffer );
-				if ( buffer[0] != asterisk )
-				{
-					if ( ini_diag >= 1 )
-						printf ( " ini_no %2d buffer %s", ini_no, buffer );
-					loc_comma = -1;
-					loc_semi = -1;
-					getout = false;
-					len = (int)strlen( buffer );
-
-                                        /*printf("\n length %d \n" , len);  */
-
-					if ( ini_diag >= 1 ) printf ( " len %d\n", len );
-
-					for ( j = 0; j < len; j++ )
-					{
-						if ( buffer[j] == comma && loc_semi == -1 ) loc_comma = j;
-						if ( buffer[j] == semi  )
-						{
-							loc_semi = j;
-							getout = true;
-						}
-						if ( getout == true ) break;
-					}
-					if ( ini_diag >= 1 )
-						printf ( " loc_comma %d loc_semi %d\n",
-							loc_comma, loc_semi );
-
-					// get parameter title
-
-					k = 0;
-					for ( j = 0; j < loc_comma; j++ )
-					{
-						if ( buffer[j] != blank )
-						{
-							ini_title[ini_no][k] = buffer[j];
-							k = k + 1;
-						}
-					}
-
-
-					ini_title[ini_no][k] = NULL;
-
-					// get parameter value
-
-					k = 0;
-					for ( j = loc_comma + 1; j < loc_semi; j++ )
-					{
-						if ( buffer[j] != blank )
-						{
-							ini_value[ini_no][k] = buffer[j];
-							if ( ini_diag > 1 )
-							{
-								printf( " j %d k %d buffer[j] %c ini %c\n",
-									j, k, buffer[j],ini_value[ini_no][k] );
-							}
-							k = k + 1;
-						}
-					}
-					ini_value[ini_no][k] = NULL;
-					ini_no = ini_no + 1;
-				}
-				else
-				{
-					if ( buffer[1] == 'd' && buffer[2] == 'u'
-						&& buffer[3] == 'm' && buffer[4] == 'p' )
-						dump = 1;
-				}
-			}
-		}
-		while ( !feof( intFilePointer ) && len != 0 );
-		numberOfParameterInIni = ini_no;
-
-	}
-
+//void get_ini ( int dump )
+///*
+//   open  and decode .ini file
+//
+//   called by main,
+//*/
+//{ 
+//        /* we can make two list one for storing tiles and second for storing corresponding values in python*/
+// 
+//        int ini_diag = 0;
+//        int max_ini = 256;
+//	FILE *intFilePointer;
+//	int ini_no;
+//	int j;
+//	int k;
+//	int len;
+//	int loc_comma;
+//	int loc_semi;
+//	char asterisk = '*';
+//	char blank = ' ';
+//	char comma = ',';
+//	char semi = ';';
+//	bool getout;
+//        
+//  printf("print ini_value\n");
+//  for(j = 0 ; j < 256; j++)
+//  {
+//    for( k = 0; k< 128 ; k++)
+//    {
+//        printf("%c",ini_value[j][k]);
+//    }
+//    printf("\n");
+//  }
+//
+//
+//
+//
+//  printf("value before of numberOfParameterInIni %d  " , numberOfParameterInIni );
+//
+//
+//	for ( ini_no = 0; ini_no < max_ini; ini_no++ )
+//	{
+//		ini_title[ini_no][0] = NULL;
+//		ini_value[ini_no][0] = NULL;
+//	}
+//
+//	numberOfParameterInIni = -1;  // if it couldnt found lintel.ini file its value will be -1 else >0 equals to no.of parameters in .ini file`
+//	ini_diag = 0;
+//	intFilePointer = NULL;
+//
+//	// open ini file - check if it exists
+//
+//	if ( ( intFilePointer = fopen ( "lintel.ini", "r" ) ) == NULL )
+//	{
+//		if ( intFilePointer ) fclose ( intFilePointer );
+//		printf ( "\n\n    %s\n\n",
+//			"lintel.ini not available - will continue" );
+//	}
+//	else
+//	{
+//		ini_no = 0;
+//		numberOfParameterInIni = ini_no;
+//		len = -1;
+//		do
+//		{
+//                    ini_title[ini_no][0] = NULL;
+//			ini_value[ini_no][0] = NULL;
+//
+//			if ( fgets ( buffer, BMAX, intFilePointer ) != NULL )
+//			{   
+//				if ( ini_diag >= 1 )
+//					printf ( " ini_no %2d buffer %s", ini_no, buffer );
+//				if ( buffer[0] != asterisk )
+//				{
+//					if ( ini_diag >= 1 )
+//						printf ( " ini_no %2d buffer %s", ini_no, buffer );
+//					loc_comma = -1;
+//					loc_semi = -1;
+//					getout = false;
+//					len = (int)strlen( buffer );
+//
+//                                        /*printf("\n length %d \n" , len);  */
+//
+//					if ( ini_diag >= 1 ) printf ( " len %d\n", len );
+//
+//					for ( j = 0; j < len; j++ )
+//					{
+//						if ( buffer[j] == comma && loc_semi == -1 ) loc_comma = j;
+//						if ( buffer[j] == semi  )
+//						{
+//							loc_semi = j;
+//							getout = true;
+//						}
+//						if ( getout == true ) break;
+//					}
+//					if ( ini_diag >= 1 )
+//						printf ( " loc_comma %d loc_semi %d\n",
+//							loc_comma, loc_semi );
+//
+//					// get parameter title
+//
+//					k = 0;
+//					for ( j = 0; j < loc_comma; j++ )
+//					{
+//						if ( buffer[j] != blank )
+//						{
+//							ini_title[ini_no][k] = buffer[j];
+//							k = k + 1;
+//						}
+//					}
+//
+//
+//					ini_title[ini_no][k] = NULL;
+//
+//					// get parameter value
+//
+//					k = 0;
+//					for ( j = loc_comma + 1; j < loc_semi; j++ )
+//					{
+//						if ( buffer[j] != blank )
+//						{
+//							ini_value[ini_no][k] = buffer[j];
+//							if ( ini_diag > 1 )
+//							{
+//								printf( " j %d k %d buffer[j] %c ini %c\n",
+//									j, k, buffer[j],ini_value[ini_no][k] );
+//							}
+//							k = k + 1;
+//						}
+//					}
+//					ini_value[ini_no][k] = NULL;
+//					ini_no = ini_no + 1;
+//				}
+//				else
+//				{
+//					if ( buffer[1] == 'd' && buffer[2] == 'u'
+//						&& buffer[3] == 'm' && buffer[4] == 'p' )
+//						dump = 1;
+//				}
+//			}
+//		}
+//		while ( !feof( intFilePointer ) && len != 0 );
+//		numberOfParameterInIni = ini_no;
+//
+//	}
+//
 	//if ( dump == 1 ) get_ini_dump (); // only for printing so ignore it
-} /* get_ini */
+//} /* get_ini */
 /************************************************/
 
 bool strcmpend ( char str1[], char str2[] )
@@ -9904,6 +9904,7 @@ void led_param ( void )
 		}
 	}
 
+                ////printf(">>>>>>>>>>>>>>>>> %s\n",buffer);
 	if ( lbn_default == false )
 	{
 		get_out = false;
@@ -9919,6 +9920,7 @@ void led_param ( void )
 			}
 			else
 			{
+                printf("@@@@@@@@@@@@@@@@@@@@");
 				lbn_fps = 25;
 				lbn_bpm = 120;
 				printf ( "\n   Oops: cannot read fps and bpm" );
@@ -10279,7 +10281,10 @@ void funcConvInitialise()
   ForUpdatingVarInt(myobject ,"single" , &single);
 
   ForUpdatingVarInt(myobject ,"numberOfParameterInIni",&numberOfParameterInIni);
-
+  ForUpdatingVarInt(myobject,"lbn_fps",&lbn_fps);
+  ForUpdatingVarInt(myobject,"lbn_bpm",&lbn_bpm);
+  ForUpdatingVarInt(myobject,"lbn_ppb",&lbn_ppb);
+  ForUpdatingVarInt(myobject,"lbn_figures",&lbn_figures);
 
 
 
@@ -10329,7 +10334,7 @@ void funcConvInitialise()
   ForUpdatingVardoub(myobject , "tz" , &tz);
   ForUpdatingVardoub(myobject , "scaleFactor" , &scaleFactor);
   ForUpdatingVardoub(myobject , "angleInc" , &angleInc);
- 
+  ForUpdatingVardoub(myobject,"lbn_fpp",&lbn_fpp); 
 
 
   Py_Finalize();
