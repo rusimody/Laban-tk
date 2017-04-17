@@ -9304,37 +9304,37 @@ void add_id_num ( char name[], char outname[], char ext[] )
 } /* add_id_num */
 /*******************************************/
 
-int find_ini_title ( char title[] )
-/*
-   called by get_ini_str, get_ini_bool,
-	          get_ini_char,
-*/
-{
-	int value = -1;
-	int ini_no;
-	int j;
-	int plen;
-	int iplen;
-	if ( numberOfParameterInIni <= 0 ) return( NULL );
-	for ( ini_no = 0; ini_no < numberOfParameterInIni; ini_no++ )
-	{
-		plen = (int)strlen ( title );
-		iplen = 0;
-		for ( j = 0; j < plen; j++ )
-		{
-			if ( title[j] == ini_title[ini_no][j] )
-			{
-				iplen = iplen + 1;
-			}
-		}
-		if ( iplen == plen )
-		{
-			return( ini_no );
-		}
-	}
-	return( value );
-} /* find_ini_title */
-/************************************************/
+//int find_ini_title ( char title[] )
+///*
+//   called by get_ini_str, get_ini_bool,
+//	          get_ini_char,
+//*/
+//{
+//	int value = -1;
+//	int ini_no;
+//	int j;
+//	int plen;
+//	int iplen;
+//	if ( numberOfParameterInIni <= 0 ) return( NULL );
+//	for ( ini_no = 0; ini_no < numberOfParameterInIni; ini_no++ )
+//	{
+//		plen = (int)strlen ( title );
+//		iplen = 0;
+//		for ( j = 0; j < plen; j++ )
+//		{
+//			if ( title[j] == ini_title[ini_no][j] )
+//			{
+//				iplen = iplen + 1;
+//			}
+//		}
+//		if ( iplen == plen )
+//		{
+//			return( ini_no );
+//		}
+//	}
+//	return( value );
+//} /* find_ini_title */
+///************************************************/
 
 void get_ini_dump ( void )
 {
@@ -9359,113 +9359,113 @@ bool get_if_ini ( void )
 /* Can be done by normal comparision:*/
 /************************************************/
 
-bool get_ini_bool ( char title[] )
-{
-	bool value;
-	int ini_no;
-	value = -1;NULL;
-	if ( numberOfParameterInIni <= 0 ) return( NULL );
-	ini_no = find_ini_title ( title );
-	if ( ini_no < 0 ) return( NULL );
-	if ( toupper( ini_value[ini_no][0] ) == 'T' )
-		return( true );
-	if ( toupper( ini_value[ini_no][0] ) == 'F' )
-		return( false );
-	return( NULL );
-
-} /* get_ini_bool */
-/************************************************/
-
-char* get_ini_char ( char title[] )
-/*
-   calls find_ini_title, ini_value
-*/
-{
-	char* value;
-	int ini_no;
-	value = NULL;
-	if ( numberOfParameterInIni <= 0 ) return( NULL );
-	ini_no = find_ini_title ( title );
-	if ( ini_no < 0 ) return( NULL );
-	return( &ini_value[ini_no][0] );
-
-} /* get_ini_char */
-/************************************************/
-
-int get_ini_int ( char title[] )
-/*
-   calls find_ini_title, ini_value
-*/
-{
-	int value = 0;
-	int ini_no;
-	if ( numberOfParameterInIni <= 0 ) return( NULL );
-	ini_no = find_ini_title ( title );
-	if ( ini_no < 0 ) return( NULL );
-	value = atoi ( &ini_value[ini_no][0] );
-	//printf ( " ini_no %d value %d\n", ini_no, value );
-	return( value );
-
-} /* get_ini_int */
-/************************************************/
-
-float get_ini_float ( char title[] )
-/*
-   calls find_ini_title, ini_value
-*/
-{
-	float value = 0.0f;
-	int ini_no;
-	if ( numberOfParameterInIni <= 0 ) return( NULL );
-	ini_no = find_ini_title ( title );
-	if ( ini_no < 0 ) return( NULL );
-	value = atof ( &ini_value[ini_no][0] );
-	return( value );
-} /* get_ini_float */
-/************************************************/
-
-double get_ini_double ( char title[] )
-/*
-   calls find_ini_title, ini_value
-*/
-{
-	double value = 0.0;
-	int ini_no;
-	if ( numberOfParameterInIni <= 0 ) return( NULL );
-	ini_no = find_ini_title ( title );
-	if ( ini_no < 0 ) return( NULL );
-	value = strtod ( &ini_value[ini_no][0], NULL );
-return( value );
-} /* get_ini_double */
-/************************************************/
-
-bool get_ini_str ( char title[], char value[] )
-/*
-   calls find_ini_title, ini_value
-*/
-{
-	//char* value;
-	int ini_no;
-	int i;
-	int len;
-
-	value[0] = NULL;
-	if ( numberOfParameterInIni <= 0 ) return( false );
-	ini_no = find_ini_title ( title );
-	if ( ini_no < 0 ) return( false );
-	len = (int)strlen( &ini_value[ini_no][0] );
-	if ( len <= 0 )  return( false );
-	i = -1;
-	do
-	{
-		i = i + 1;
-		value[i] = ini_value[ini_no][i];
-	} while ( ini_value[ini_no][i] != NULL );
-
-	return( true );
-
-} /* get_ini_str */
-/************************************************/
+//bool get_ini_bool ( char title[] )
+//{
+//	bool value;
+//	int ini_no;
+//	value = -1;NULL;
+//	if ( numberOfParameterInIni <= 0 ) return( NULL );
+//	ini_no = find_ini_title ( title );
+//	if ( ini_no < 0 ) return( NULL );
+//	if ( toupper( ini_value[ini_no][0] ) == 'T' )
+//		return( true );
+//	if ( toupper( ini_value[ini_no][0] ) == 'F' )
+//		return( false );
+//	return( NULL );
+//
+//} /* get_ini_bool */
+///************************************************/
+//
+//char* get_ini_char ( char title[] )
+///*
+//   calls find_ini_title, ini_value
+//*/
+//{
+//	char* value;
+//	int ini_no;
+//	value = NULL;
+//	if ( numberOfParameterInIni <= 0 ) return( NULL );
+//	ini_no = find_ini_title ( title );
+//	if ( ini_no < 0 ) return( NULL );
+//	return( &ini_value[ini_no][0] );
+//
+//} /* get_ini_char */
+///************************************************/
+//
+//int get_ini_int ( char title[] )
+///*
+//   calls find_ini_title, ini_value
+//*/
+//{
+//	int value = 0;
+//	int ini_no;
+//	if ( numberOfParameterInIni <= 0 ) return( NULL );
+//	ini_no = find_ini_title ( title );
+//	if ( ini_no < 0 ) return( NULL );
+//	value = atoi ( &ini_value[ini_no][0] );
+//	//printf ( " ini_no %d value %d\n", ini_no, value );
+//	return( value );
+//
+//} /* get_ini_int */
+///************************************************/
+//
+//float get_ini_float ( char title[] )
+///*
+//   calls find_ini_title, ini_value
+//*/
+//{
+//	float value = 0.0f;
+//	int ini_no;
+//	if ( numberOfParameterInIni <= 0 ) return( NULL );
+//	ini_no = find_ini_title ( title );
+//	if ( ini_no < 0 ) return( NULL );
+//	value = atof ( &ini_value[ini_no][0] );
+//	return( value );
+//} /* get_ini_float */
+///************************************************/
+//
+//double get_ini_double ( char title[] )
+///*
+//   calls find_ini_title, ini_value
+//*/
+//{
+//	double value = 0.0;
+//	int ini_no;
+//	if ( numberOfParameterInIni <= 0 ) return( NULL );
+//	ini_no = find_ini_title ( title );
+//	if ( ini_no < 0 ) return( NULL );
+//	value = strtod ( &ini_value[ini_no][0], NULL );
+//return( value );
+//} /* get_ini_double */
+///************************************************/
+//
+//bool get_ini_str ( char title[], char value[] )
+///*
+//   calls find_ini_title, ini_value
+//*/
+//{
+//	//char* value;
+//	int ini_no;
+//	int i;
+//	int len;
+//
+//	value[0] = NULL;
+//	if ( numberOfParameterInIni <= 0 ) return( false );
+//	ini_no = find_ini_title ( title );
+//	if ( ini_no < 0 ) return( false );
+//	len = (int)strlen( &ini_value[ini_no][0] );
+//	if ( len <= 0 )  return( false );
+//	i = -1;
+//	do
+//	{
+//		i = i + 1;
+//		value[i] = ini_value[ini_no][i];
+//	} while ( ini_value[ini_no][i] != NULL );
+//
+//	return( true );
+//
+//} /* get_ini_str */
+///************************************************/
 
 //void get_ini ( int dump )
 ///*
@@ -9836,107 +9836,107 @@ void get_files ( char file[] )
 } /* get_files */
 /************************************************/
 
-bool led_opena ( int min_fps, int max_fps, int min_beats, int max_beats )
-{
-	bool get_out;
-	get_out = true;
-	if ( lbn_fps < min_fps || lbn_fps > max_fps )
-	{
-		printf ( "\n   Oops: fps value is %d but must be between %d and %d\n", lbn_fps, min_fps, max_fps );
-		get_out = false;
-	}
-	if ( lbn_bpm < min_beats || lbn_bpm > max_beats )
-	{
-		if ( lbn_bpm < 0 )
-		{
-			printf ( "\n   Oops: bpm value missing\n" );
-		}
-		else
-		{
-			printf ( "\n   Oops: bpm value is %d but must be between %d and %d\n", lbn_bpm, min_beats, max_beats  );
-		}
-		get_out = false;
-	}
-	return( get_out );
-} /* led_opena */
-/********************************************/
+//bool led_opena ( int min_fps, int max_fps, int min_beats, int max_beats )
+//{
+//	bool get_out;
+//	get_out = true;
+//	if ( lbn_fps < min_fps || lbn_fps > max_fps )
+//	{
+//		printf ( "\n   Oops: fps value is %d but must be between %d and %d\n", lbn_fps, min_fps, max_fps );
+//		get_out = false;
+//	}
+//	if ( lbn_bpm < min_beats || lbn_bpm > max_beats )
+//	{
+//		if ( lbn_bpm < 0 )
+//		{
+//			printf ( "\n   Oops: bpm value missing\n" );
+//		}
+//		else
+//		{
+//			printf ( "\n   Oops: bpm value is %d but must be between %d and %d\n", lbn_bpm, min_beats, max_beats  );
+//		}
+//		get_out = false;
+//	}
+//	return( get_out );
+//} /* led_opena */
+///********************************************/
 
-void led_param ( void )
-/*
-   set up parameters of .lbn interpretation from .ini file
-
-   called by main
-*/
-{
-	bool get_out;
-	int min_fps;
-	int max_fps;
-	int min_beats;
-	int max_beats;
-	int lbn_figures_in;
-	bool lbn_default;
-	int lbn_fps_in;
-	int lbn_bpm_in;
-
-	lbn_fps = -1;
-	lbn_bpm = -1;
-	lbn_ppb = 23;
-	min_fps = 1;
-	max_fps = 250;
-	min_beats = 25;
-	max_beats = 250;
-	lbn_default = false;
-	lbn_figures = 1;
-	if (numberOfParameterInIni > 0)     //( get_if_ini () == true )
-	{
-		lbn_figures_in = get_ini_int ( "lbn_figures" );
-		lbn_default = get_ini_bool ( "lbn_default" );
-		lbn_fps_in = get_ini_int ( "lbn_fps" );
-		lbn_bpm_in = get_ini_int ( "lbn_bpm" );
-
-		if ( lbn_fps_in < min_fps || lbn_fps_in > max_fps || lbn_bpm_in < min_beats || lbn_bpm_in > max_beats )
-				lbn_default = false;
-		if ( lbn_default == true )
-		{
-			lbn_fps = lbn_fps_in;
-			lbn_bpm = lbn_bpm_in;
-			lbn_figures = lbn_figures_in;
-		}
-	}
-
-                ////printf(">>>>>>>>>>>>>>>>> %s\n",buffer);
-	if ( lbn_default == false )
-	{
-		get_out = false;
-		do
-		{
-			printf ( "\n   Please enter frames/second (%d-%d)", min_fps, max_fps );
-			printf ( "\n            and beats/minute (%d-%d)", min_beats, max_beats );
-			printf ( "\n            separated by a space\n   :" );
-			if ( gets ( buffer ) != NULL && buffer[0] != 0 )
-			{
-				sscanf ( buffer, "%d %d", &lbn_fps, &lbn_bpm );
-				get_out = led_opena ( min_fps, max_fps, min_beats, max_beats);
-			}
-			else
-			{
-                printf("@@@@@@@@@@@@@@@@@@@@");
-				lbn_fps = 25;
-				lbn_bpm = 120;
-				printf ( "\n   Oops: cannot read fps and bpm" );
-				printf ( "\n   values set to %d and %d respectively\n",
-					lbn_fps, lbn_bpm );
-				get_out = true;
-			}
-		} while ( get_out == false ); //get_out variable is only checking that user is giving valid lbn_fps nd lbn_bpm or not..
-	}
-	lbn_fpp = double(lbn_fps)*doub60
-					/ (double(lbn_bpm)*double(lbn_ppb));
-	printf("\n   frames/pixel %g, fps %d, bpm %d, ppb %d\n",
-				lbn_fpp, lbn_fps, lbn_bpm, lbn_ppb );
-	printf("   number of figures %d\n",lbn_figures);
-}/* led_param */
-/************************************************/
+//void led_param ( void )
+///*
+//   set up parameters of .lbn interpretation from .ini file
+//
+//   called by main
+//*/
+//{
+//	bool get_out;
+//	int min_fps;
+//	int max_fps;
+//	int min_beats;
+//	int max_beats;
+//	int lbn_figures_in;
+//	bool lbn_default;
+//	int lbn_fps_in;
+//	int lbn_bpm_in;
+//
+//	lbn_fps = -1;
+//	lbn_bpm = -1;
+//	lbn_ppb = 23;
+//	min_fps = 1;
+//	max_fps = 250;
+//	min_beats = 25;
+//	max_beats = 250;
+//	lbn_default = false;
+//	lbn_figures = 1;
+//	if (numberOfParameterInIni > 0)     //( get_if_ini () == true )
+//	{
+//		lbn_figures_in = get_ini_int ( "lbn_figures" );
+//		lbn_default = get_ini_bool ( "lbn_default" );
+//		lbn_fps_in = get_ini_int ( "lbn_fps" );
+//		lbn_bpm_in = get_ini_int ( "lbn_bpm" );
+//
+//		if ( lbn_fps_in < min_fps || lbn_fps_in > max_fps || lbn_bpm_in < min_beats || lbn_bpm_in > max_beats )
+//				lbn_default = false;
+//		if ( lbn_default == true )
+//		{
+//			lbn_fps = lbn_fps_in;
+//			lbn_bpm = lbn_bpm_in;
+//			lbn_figures = lbn_figures_in;
+//		}
+//	}
+//
+//                ////printf(">>>>>>>>>>>>>>>>> %s\n",buffer);
+//	if ( lbn_default == false )
+//	{
+//		get_out = false;
+//		do
+//		{
+//			printf ( "\n   Please enter frames/second (%d-%d)", min_fps, max_fps );
+//			printf ( "\n            and beats/minute (%d-%d)", min_beats, max_beats );
+//			printf ( "\n            separated by a space\n   :" );
+//			if ( gets ( buffer ) != NULL && buffer[0] != 0 )
+//			{
+//				sscanf ( buffer, "%d %d", &lbn_fps, &lbn_bpm );
+//				get_out = led_opena ( min_fps, max_fps, min_beats, max_beats);
+//			}
+//			else
+//			{
+//                printf("@@@@@@@@@@@@@@@@@@@@");
+//				lbn_fps = 25;
+//				lbn_bpm = 120;
+//				printf ( "\n   Oops: cannot read fps and bpm" );
+//				printf ( "\n   values set to %d and %d respectively\n",
+//					lbn_fps, lbn_bpm );
+//				get_out = true;
+//			}
+//		} while ( get_out == false ); //get_out variable is only checking that user is giving valid lbn_fps nd lbn_bpm or not..
+//	}
+//	lbn_fpp = double(lbn_fps)*doub60
+//					/ (double(lbn_bpm)*double(lbn_ppb));
+//	printf("\n   frames/pixel %g, fps %d, bpm %d, ppb %d\n",
+//				lbn_fpp, lbn_fps, lbn_bpm, lbn_ppb );
+//	printf("   number of figures %d\n",lbn_figures);
+//}/* led_param */
+///************************************************/
 
 void initgraphics(void)
 /*
@@ -10380,7 +10380,7 @@ more:
 //    get_ini ( 0 );
 
 
-	led_param();
+//	led_param();
 	get_files ( argv[1] );
  
         if ( ok != 0 ) goto more;
