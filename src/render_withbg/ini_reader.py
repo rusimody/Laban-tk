@@ -26,9 +26,8 @@ def ini_reader(ini_file):
 
 
 
-filename = "/home/vikrant/laban_proj/Laban-tk/src/render_withbg/lintel.ini"
+filename ="lintel.ini"
 list = ini_reader(filename)
 n = len(list[0])
 for i in range(n):
     print list[0][i],list[1][i]
-    

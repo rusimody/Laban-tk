@@ -1,6 +1,8 @@
+import sys
 from initialise import initialise
 from get_ini import get_ini
 from led_param import led_param
+from get_files import get_files
 
 class GlobalVar():
     def __init__(self):
@@ -166,10 +168,31 @@ class GlobalVar():
         self.lbn_ppb = 23
         self.lbn_figures =1
         self.lbn_fpp = None
+
+        self.input_file_type = -1 #tells us type of file .n or .lbn by its value 0 and 1
+        self.name = ""
+        self.haslbn = self.FALSE
+        self.nudesname = ""
+        self.finname = ""
+        self.nudesfile = None #pointing to nude file
+
 GV = GlobalVar()
+
+#print("python",str(sys.argv[1]))
+
+
+#if (len(sys.argv) > 1):
+#    print("adwhejfey")
+#file_Name = str(sys.argv[1])
+#else:
+#file_Name = None
+
+#print(file_Name)
+
 initialise(GV)
 get_ini(GV,0)
 led_param(GV)
-#ini_reader()
+file_Name = "new.lbn_5.n"
+get_files(GV,file_Name)
 
 

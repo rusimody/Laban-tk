@@ -9681,38 +9681,41 @@ void get_files ( char file[] )
 		ok = -1;
 		return;
 		}*/
-	input_file_type = -1;
+	//input_file_type = -1;
+  //
+  //
 	for ( c = 0; c < BMAX; ++c )
 	{
-		name[c] = NULL;
-		finname[c] = NULL;
-		nudesname[c] = NULL;
+//		name[c] = NULL;
+//		finname[c] = NULL;
+//		nudesname[c] = NULL;
 	}
 
-	if(file==NULL){
-	  printf("\nPlease provide a filename\n");
-	  exit(0);
-	}
-	else
-	  strcpy ( name, file );
+//	if(file==NULL){
+//	  printf("\nPlease provide a filename\n");
+//	  exit(0);
+//	}
+//	else
+//	  strcpy ( name, file );
 
-	len = (int)strlen( name );
-	last = len - 1;
+//	len = (int)strlen( name );
+//	last = len - 1;
 
-	loc_dot = -1;
-	i = -1;
-	do
-	{
-		i = i + 1;
-		key = name[i];
-		if ( key == '.' ) loc_dot = i;
-	} while ( key != NULL );
+//	loc_dot = -1;
+//	i = -1;
+//	do
+//	{
+//		i = i + 1;
+//		key = name[i];
+//		if ( key == '.' ) loc_dot = i;
+//	} while ( key != NULL );
 
-	if ( loc_dot >= 0 ) loc_dot = last - loc_dot;  // loc_dot is the size of the extenxion.. it can be .lbn or .nud
+//	if ( loc_dot >= 0 ) loc_dot = last - loc_dot;  // loc_dot is the size of the extenxion.. it can be .lbn or .nud
 
-	input_file_type = -1;
-	haslbn = FALSE;
+//	input_file_type = -1;
+	//haslbn = FALSE;
 	get_out = false;
+  loc_dot = 3;
 
 	if ( lbn_type == true ) // use filename to decide lbn type
 	{
@@ -9722,102 +9725,108 @@ void get_files ( char file[] )
 			// .nud extention
 			if ( strcmpend ( name, ".nud" ) )
 			{
-				input_file_type = 0;
-				haslbn = FALSE;
+//				input_file_type = 0;
+//				haslbn = FALSE;
 		}
 			// .lbn extention
 			if ( strcmpend ( name, ".lbn" ) )
 			{
-				input_file_type = 1;
-				haslbn = TRUE;
+//				input_file_type = 1;
+//				haslbn = TRUE;
 			}
 			if ( input_file_type < 0 ) get_out = true;
 			break;
 		case 2:
 			// problem
-			get_out = true;
+	//		get_out = true;
 			break;
 		case 1:
 			// .n extention
 			if ( strcmpend ( name, ".n" ) )
 			{
-				input_file_type = 0;
-				haslbn = FALSE;
+//				input_file_type = 0;
+//				haslbn = FALSE;
 			}
 			else
 			{
-				get_out = true;
+	//			get_out = true;
 			}
 			break;
 		case 0:
 			// . extention
 			if ( strcmpend ( name, "." ) )
 			{
-				input_file_type = 2;
-				strcat( name, "lbn" );
-				haslbn = TRUE;
+//				input_file_type = 2;
+		//		strcat( name, "lbn" );
+//				haslbn = TRUE;
 			}
 			else
 			{
-				get_out = true;
+		//		get_out = true;
 			}
 			break;
 		case -1:
 			// no extention
 			if ( len > 0 && !strcmpend ( name, "." ) )
 			{
-				input_file_type = 2;
-				strcat( name, ".lbn" );
-				haslbn = TRUE;
+//				input_file_type = 2;
+	//			strcat( name, ".lbn" );
+//				haslbn = TRUE;
 			}
 			else
 			{
-				get_out = true;
+	//			get_out = true;
 			}
 			break;
 		default:
-			get_out = true;
+	//		get_out = true;
 			break;
 		}
 	}
-	if ( get_out == true )
-	{
-		error = 1;
-		name[0] = NULL;
-		exit(0);
-	}
+
+
+//	if ( get_out == true )
+//	{
+//		error = 1;
+//		name[0] = NULL;
+//		exit(0);
+//	}
 
 	printf( "\n    " );
+
 	if ( input_file_type == 0 )
 	{
-		sprintf ( nudesname, "%s", name );
-		if ( ( infile = fopen( nudesname, "r" ) ) == NULL )
-		{
-			if ( infile ) fclose ( infile );
-			printf ( "\n\n %s OOPS?\n", nudesname );
-			printf ( "file NOT found\nPlease give correct file name as argument\n ");
-			bell ( 1, 1 );
-			exit(0);
-		}
-		printf ( "  Opened %s\n", nudesname );
+//		//sprintf ( nudesname, "%s", name );
+//		if ( ( infile = fopen( nudesname, "r" ) ) == NULL )
+//		{
+//			if ( infile ) fclose ( infile );
+//			printf ( "\n\n %s OOPS?\n", nudesname );
+//			printf ( "file NOT found\nPlease give correct file name as argument\n ");
+//			bell ( 1, 1 );
+//			exit(0);
+//		}
+//		printf ( "  Opened %s\n", nudesname );
 	}
+
 	else if ( input_file_type > 0 )
 	{
-		strcpy( finname, name );
+		//strcpy( finname, name );
 
-		if ( ( infile = fopen ( finname, "r" ) ) == NULL )
-		{
-			if ( infile ) fclose ( infile );
-			printf ( "\n   %s ?  OOPS\n", finname );
-			printf ( "file NOT found\nPlease give correct file name as argument\n ");
-			bell ( 1, 1 );
-			exit(0);
-		}
+//		if ( ( infile = fopen ( finname, "r" ) ) == NULL )
+//		{
+//			if ( infile ) fclose ( infile );
+//			printf ( "\n   %s ?  OOPS\n", finname );
+//			printf ( "file NOT found\nPlease give correct file name as argument\n ");
+//			bell ( 1, 1 );
+//			exit(0);
+//		}
 
-		printf ( "\n   opened input file %s\n", finname );
+//		printf ( "\n   opened input file %s\n", finname );
 
-		add_id_num ( name, nudesname, ".n" );
-		if ( ( nudesfile = fopen ( nudesname, "w" ) ) == NULL )
+//		add_id_num ( name, nudesname, ".n" );
+
+
+    if ( ( nudesfile = fopen ( nudesname, "w" ) ) == NULL )
 		{
 			if ( nudesfile ) fclose ( nudesfile );
 			printf ( "\n\n %s OOPS?\n", nudesname );
@@ -9826,6 +9835,7 @@ void get_files ( char file[] )
 		}
 		printf ( "\n   created nudes file %s\n", nudesname );
 	}
+  
 	if ( ( infile = fopen(nudesname, "r" ) ) == NULL )
 	{
 		if ( infile ) fclose ( infile );
@@ -9833,6 +9843,7 @@ void get_files ( char file[] )
 		bell ( 1, 1 );
 		exit(0);
 	}
+
 } /* get_files */
 /************************************************/
 
@@ -9982,6 +9993,29 @@ void ForUpdatingListInt(PyObject* myobject , char* attrName , int nameList[])
 }
 }
 
+void ForUpdatingListChar(PyObject* myobject , char* attrName , char* nameList, int length)
+{
+  PyObject* iterator, *item, *attr;
+  char value;
+  int j = 0;
+  attr = PyObject_GetAttrString(myobject, attrName );
+  iterator = PyObject_GetIter(attr);
+
+  while (item = PyIter_Next(iterator))
+  {
+  PyArg_Parse(item , "c" , &value);
+  *(nameList+j) = value;
+  j = j + 1;
+  //printf("%c\n", nameList[j] );
+  Py_DECREF(item);
+  }
+  while(j < length)
+  {
+   *(nameList+j) = NULL;
+    j = j+1;
+  }
+
+}
 void ForUpdatingListdoub(PyObject* myobject , char* attrName , double nameList[])
 {
   PyObject* iterator, *item, *attr;
@@ -10197,7 +10231,12 @@ void funcConvInitialise()
   ForUpdatingListInt(myobject ,"defined",defined);
   ForUpdatingListInt(myobject ,"called",called);
   ForUpdatingListdoub(myobject ,"val",val);
+  ForUpdatingListChar(myobject ,"name",(char*)name,BMAX);
+  ForUpdatingListChar(myobject ,"nudesname",(char*)nudesname,BMAX);
+  ForUpdatingListChar(myobject ,"finname",(char*)finname,BMAX);
   
+
+
 
 
  // for(i=0;i<	PMAX;i++)
@@ -10286,6 +10325,11 @@ void funcConvInitialise()
   ForUpdatingVarInt(myobject,"lbn_ppb",&lbn_ppb);
   ForUpdatingVarInt(myobject,"lbn_figures",&lbn_figures);
 
+  ForUpdatingVarInt(myobject,"haslbn",&haslbn);
+  ForUpdatingVarInt(myobject,"input_file_type",&input_file_type);
+
+
+
 
 
 
@@ -10364,7 +10408,10 @@ more:
        Py_Finalize();
 
        funcConvInitialise();
- 
+
+       //int j;
+       //for(j=0;j<BMAX;j++)
+        // printf("%c" , name[j]);
                //  printf("%f",scaleFactor);
 
  //     for(j=0;j<3;j++)
