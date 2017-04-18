@@ -29,24 +29,45 @@ Region = fabric.util.createClass(fabric.Group,  {
 	return obj;
     },
 
+
+
     initialize: function (objects, options) {
 	options = options || { }
 	this.callSuper ("initialize", objects, options)
 	this.objects = []
-	this.on('moving', function(evt) {
-	    points		= new fabric.Point(this.getLeft(), this.getTop());
-	    var childObjs	= this.objects;
-	    laban.util.normalizeCoords(points, this.movx, this.movy);
-	    childObjs && childObjs.map(function (o) {
-    		leftCMove	= points.x + o.__objectPosition.x;
-    		rightCMove	= points.y + o.__objectPosition.y
-    		o.set({
-    		    left	: leftCMove,
-    		    top		: rightCMove
-    		});
-		o.setCoords();
-	    });
+	this.on('moving', this.updateChildPositions);
+	// this.on('moving', function(evt) {
+	//     points		= new fabric.Point(this.getLeft(), this.getTop());
+	//     var childObjs	= this.objects;
+	//     laban.util.normalizeCoords(points, this.movx, this.movy);
+	//     childObjs && childObjs.map(function (o) {
+    	// 	leftCMove	= points.x + o.__objectPosition.x;
+    	// 	rightCMove	= points.y + o.__objectPosition.y
+    	// 	o.set({
+    	// 	    left	: leftCMove,
+    	// 	    top		: rightCMove
+    	// 	});
+	// 	o.setCoords();
+	//     });
+	// });
+    },
+
+
+
+    updateChildPositions: function(evt) {
+	points		= new fabric.Point(this.getLeft(), this.getTop());
+	var childObjs	= this.objects;
+	laban.util.normalizeCoords(points, this.movx, this.movy);
+	childObjs && childObjs.map(function (o) {
+    	    leftCMove	= points.x + o.__objectPosition.x;
+    	    rightCMove	= points.y + o.__objectPosition.y
+    	    o.set({
+    		left	: leftCMove,
+    		top	: rightCMove
+    	    });
+	    o.setCoords();
 	});
+	
     },
 
     toObject: function() {
@@ -97,13 +118,17 @@ Region = fabric.util.createClass(fabric.Group,  {
 Staff = fabric.util.createClass(Region, {
     type: "staff",
     blockSize: 50,
-    strokeWidth: 5,
+    strokeWidth: 3,
     height: 0,
     width: 0,
     defaultLines: 3,
+    leftLines: 0,
+    rightLines: 0, // Considering -1 because of centerLine
     
-    getStaffLine: function (height, leftMargin, cnter) {
-	var centerLine = new fabric.Line([leftMargin, 0, leftMargin, height], { stroke: '#f00', strokeWidth: 5, selectable: false })
+    getStaffLine: function (height, leftMargin, dashed, color) {
+	var strokeDashArray = dashed ? [5,5] : [];
+	var color = color || '#000'
+	var centerLine = new fabric.Line([leftMargin, 0, leftMargin, height], { stroke: color, strokeWidth: this.strokeWidth, selectable: false, strokeDashArray: strokeDashArray})
 	return centerLine;
     },
 
@@ -111,29 +136,112 @@ Staff = fabric.util.createClass(Region, {
 	objects = objects || []
 	options = options || { }	
 	this.callSuper ("initialize", objects,  options)
-	this.movx = this.blockSize;
-	this.generateStaff(this.defaultLines)
+	this.movx = this.movx == undefined || this.movx == null ? this.blockSize : this.movx;
+	this.movy = this.movy == undefined || this.movy == null ? this.blockSize : this.movy;
+	this.generateStaff();
+    },
+    
+    generateStaff: function(rightLines) {
+	this.addMainLine();
+	this.addComponentRight();
+	this.addComponentLeft();
     },
 
-    generateStaff: function(minStaff) {
-	for (i = 0; i < minStaff; ++i)
-	    this.addComponentRight()
+    addMainLine: function() {
+	staff = this;
+	var negativeRatio =  staff.strokeWidth;
+	negativeRatio = staff.getWidth() <= this.strokeWidth ? negativeRatio : staff.strokeWidth * 2
+	var mLeft = staff.getLeft() + staff.getWidth() + (staff.blockSize * 2) - negativeRatio;
+	staff.addWithUpdate(staff.getStaffLine(staff.getHeight(), mLeft, false, '#f00'));
+	staff.setCoords();
     },
 
     addComponentRight: function() {
 	staff = this;
 	var negativeRatio =  staff.strokeWidth;
-	negativeRatio = staff.getWidth() <= 5 ? negativeRatio : staff.strokeWidth * 2
+	negativeRatio = staff.getWidth() <= this.strokeWidth ? negativeRatio : staff.strokeWidth * 2
 	var mLeft = staff.getLeft() + staff.getWidth() + (staff.blockSize * 2) - negativeRatio;
-	staff.addWithUpdate(staff.getStaffLine(staff.getHeight(), mLeft));
+	staff.addWithUpdate(staff.getStaffLine(staff.getHeight(), mLeft, this.rightLines % 2 == 1));
 	staff.setCoords();
+	this.rightLines += 1;
     },
 
     addComponentLeft: function() {
 	staff = this;
 	var mLeft = staff.getLeft() - (staff.blockSize * 2) ;
-	staff.addWithUpdate(staff.getStaffLine(staff.getHeight(), mLeft));
+	staff.addWithUpdate(staff.getStaffLine(staff.getHeight(), mLeft, this.leftLines % 2 == 1));
 	staff.setCoords();
-    }
+	this.leftLines += 1;
+    },
 
+    displayable: function() {
+	self = this
+	return( {
+	    addCompRight: {
+		func: this.addComponentRight.bind(this), 
+		title: "Add Segment Right",
+		args: [],
+		input: {
+		    type: 'button'
+		}
+	    },
+	    addCompLeft: {
+		func: this.addComponentLeft.bind(this),
+		title: "Add Segment Left",
+		args: [],
+		input: {
+		    type: 'button'
+		}
+	    }
+	})
+    }
+});
+
+laban.Canvas = fabric.util.createClass(fabric.Canvas, {
+    margin: 100,
+    strokeWidth: 3,
+    addstaff: function() {	
+	this.staves = this.staves || []
+	var nleft = 50;
+	this.staves.forEach(function(staff) {
+	    nleft += staff.getWidth();
+	});
+
+	nleft += this.staves.length * this.margin * 2;
+	nleft -= (this.staves.length) * this.strokeWidth * 2;
+	var ntop = 0;
+	var myStaff = new Staff([], {
+    	    left: nleft,
+    	    top: ntop,
+	    strokeWidth: this.strokeWidth,
+	    height: this.getHeight(),
+    	    fill: 'transparent',
+    	    originX: 'left',
+    	    originY: 'top',
+	    movx: 0,
+    	    movy: 0,
+	    lockMovementX: true,
+	    lockMovementY: true,
+    	    centeredRotation: true,
+    	    name: "staff" + this.staves.length,
+    	    level: 0
+	});
+	this.add(myStaff);
+	myStaff.sendToBack();
+	this.staves.push(myStaff);
+	this.renderAll();
+    },
+    displayable: function() {
+	self = this;
+	return( {
+	    addCompRight: {
+		func: self.addstaff.bind(this), 
+		title: "Add Staff",
+		args: [],
+		input: {
+		    type: 'button'
+		}
+	    },
+	});
+    }
 });

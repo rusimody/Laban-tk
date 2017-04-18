@@ -9,10 +9,64 @@ canvas {
     height: 100%;
 }
 
+.fixed {
+    position: fixed;
+    top: 0;
+}
+
+.options-bar {
+    width: 100%;
+    background-color: #aeaeae;
+    height: 100px;
+}
+
+.app {
+
+    margin-top: 100px;
+}
+
+.option-container {
+    width: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
+    height: 100%;
+}
+
 .led {
     width: 60%;
 }
 
 .editor {
     position: relative;
+}
+
+.btnflt4 {
+    display: inline-block;
+    padding: 4px 14px;
+    margin: 20px;
+    margin-bottom: 0;
+    font-size: 18px;
+    line-height: 20px;
+    color: #f1f1f1;
+    text-align: center;
+    text-shadow: 0 1px 0px rgba(255, 255, 255, .125);
+    vertical-align: middle;
+    cursor: pointer;
+    background-color: #484850;
+    border: 1px solid #e7e7e7;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+
+.btnflt4:hover {
+    color: #484850;
+    background: #e7e7e7;
+    text-shadow: 0 1px 0px rgba(255, 255, 255, .25);
+    border: 1px solid #484850;
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    text-decoration:none;
 }

@@ -1,0 +1,35 @@
+var directionmap = {
+    path: "laban_notations/direction2",
+    objs: [
+	{
+	    img: "0.svg"
+	},
+	{
+	    img: "1.svg"
+	},
+	{
+	    img: "2.svg"
+	},
+	{ 
+	    img: "3.svg"
+	},
+	{
+	    img: "4.svg"
+	},
+	{
+	    img: "5.svg"
+	},
+	{
+	    img: "6.svg"
+	},
+	{
+	    img: "7.svg"
+	},
+	{
+	    img: "8.svg"
+	},
+	{
+	    img: "9.svg"
+	}	
+    ]
+}
