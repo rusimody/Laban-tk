@@ -223,3 +223,91 @@ A turn and step amalgamation will transfer the center of weight of the body and 
 The principal direction modifiers can be used in the column for arm gestures to denote their movement as a whole in a particular direction. There is no difference in their interpretation when compared to the support columns. The use of position pins also signifies the same thing for arms. The following examples show how:
 
 ![direction modifiers and arm gestures](https://github.com/rusimody/Laban-tk/blob/pucsd_laban_project/docs/img/dirm_with_arms.png?raw=true)
+
+### Peripheral Paths
+When the arm is moved from one point to another, the distance between both points can be described as degree distances. A peripheral movement is a movement in which the arm moves along the external boundary and describe a part of a circle.
+
+1. First degree distance
+There are eight main direction points in which the arm can move. Movement between two adjacent points will describe a first degree distance.
+
+![first degree distance](https://github.com/rusimody/Laban-tk/blob/pucsd_laban_project/docs/img/first_degree_dist.png?raw=true)
+
+2. Second degree distance
+A second degree distance follows a quarter circle arc without any arm flexion. This movement also produces a peripheral path.
+
+![second degree distance](https://github.com/rusimody/Laban-tk/blob/pucsd_laban_project/docs/img/second_degree_dist.png?raw=true)
+
+In cases when the dancer has to follow a traversal path, the movement can be described with the straight path sign.
+
+![transversal second degree distance](https://github.com/rusimody/Laban-tk/blob/pucsd_laban_project/docs/img/transversal_second_degree_dist.png?raw=true)
+
+3. Third degree distance
+A third degree distance will be covered by following a curved peripheral path, as shown below.
+
+![third degree distance](https://github.com/rusimody/Laban-tk/blob/pucsd_laban_project/docs/img/third_degree_dist.png?raw=true)
+
+4. Semicircular arm movements
+Semi circular arm movements (movement from one opposite end to another) can occur in various ways. The following examples describe how they can be stated in the notation:
+
+![semicircular arm movements](https://github.com/rusimody/Laban-tk/blob/pucsd_laban_project/docs/img/semi_circular_movements.png?raw=true)
+
+### Central paths
+In movements in which the extremity of the arm passes close to the body, that is, the shoulder (the center point of the arm), the path traced is called a central path.
+
+#### Fourth degree distance
+The build of the body allows the arm to move between two opposite ends by flexing the arm and following a central path. Here is an illustration showing the movement of arm from forward position to backward position.
+
+![fourth degree](https://github.com/rusimody/Laban-tk/blob/pucsd_laban_project/docs/img/fourth_degree.png?raw=true)
+
+### Timings
+The length of the symbol describes the amount of time required to reach the destination.
+
+#### Legato
+A series of continuous movements.
+
+![legato arm movement](https://github.com/rusimody/Laban-tk/blob/pucsd_laban_project/docs/img/legato_arm.png?raw=true)
+
+#### Staccato
+A gap between two direction symbols describes a pause. Here are a few illustrations of how gaps differ from legato to staccatissimo.
+
+![stacato arm movement](https://github.com/rusimody/Laban-tk/blob/pucsd_laban_project/docs/img/staccato_arm.png?raw=true)
+
+#### Change of levels
+Change of levels within one symbol can be notated in various ways. Here are three ways to represent the same changes:
+
+![change levels arm](https://github.com/rusimody/Laban-tk/blob/pucsd_laban_project/docs/img/change_levels_arm.png?raw=true)
+
+The above examples have level changes placed at identical timings when in fact, these changes could be variable (with respect to time). The length of shading on the symbol will denote how fast the level shift will happen.
+
+![variable timing levels](https://github.com/rusimody/Laban-tk/blob/pucsd_laban_project/docs/img/variation_timing_level_arm.png?raw=true)
+
+Using one symbol and shading its separate regions to indicate change in levels instead of repeating fully shaded symbols emphasises the smoothness of the movement since there are no gaps to consider at all. For instance, even though both the notations represent the same movement, the relative length of shading notate the action much more clearly.
+
+![two vs one symbol](https://github.com/rusimody/Laban-tk/blob/pucsd_laban_project/docs/img/two_vs_one_levels.png?raw=true)
+
+#### Phrasing bow
+Smooth transitions between symbols are emphasised by the phrasing bow. The small gaps in usual legato transitions indicate tiny breaks. Phrasing bow emphasises the smoothness of the movement.
+
+![phrasing bow](https://github.com/rusimody/Laban-tk/blob/pucsd_laban_project/docs/img/phrasing_bow.png?raw=truw)
+
+#### Facing direction of palms
+The unwritten or default facing direction of palms is towards the body when arms are on the side. In cases where arms cross each other, they face the logical intermediate direction.
+To describe the palm facing and gestures with more precision, the symbol for palm is used. This is the symbol for palm: ![palm](https://github.com/rusimody/Laban-tk/blob/pucsd_laban_project/docs/img/palm.png?raw=true)
+
+Palm symbol does not always describe the instruction well and is usually replaced with thumb edge symbol to describe a clearer orientation.
+Left thumb edge: ![left thumb](https://github.com/rusimody/Laban-tk/blob/pucsd_laban_project/docs/img/left_thumb.png?raw=true)
+Right thumb edge: ![right thumb](https://github.com/rusimody/Laban-tk/blob/pucsd_laban_project/docs/img/right_thumb.png?raw=true)
+
+Palm and thumb edge symbols are placed on the outer side of the arm gestures columns. Direction symbols are used to specify the palm and thumb positions. Here are a few examples:
+
+![palm and thumbs](https://github.com/rusimody/Laban-tk/blob/pucsd_laban_project/docs/img/palms_thumbs.png?raw=true)
+
+**A palm or thumb instruction is only valid if the arm gesture written next to it is valid. The notation cannot have palm and thumb edge facing directions without specifying arm gestures**
+
+Body hold or space hold signs can be used to retain a palm facing gesture.
+
+- Cancellation sign - ![palm cancellation sign](https://github.com/rusimody/Laban-tk/blob/pucsd_laban_project/docs/img/palm_cancel.png?raw=true)
+- Return to normal sign - ![return to normal](https://github.com/rusimody/Laban-tk/blob/pucsd_laban_project/docs/img/return_to_normal.png?raw=true)
+
+#### The use of space retention symbol in arm gestures columns
+Space hold symbol means that the limb needs to retain a previously established direction in the room even when the body turns away from it. The space hold lasts till the turn lasts. If it further needs to be in effect, it will have to be repeated.
