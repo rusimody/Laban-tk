@@ -1,0 +1,206 @@
+comment 8
+# file structure
+# integer - int name value/_
+# character - char name value/_
+# boolean - Bool name 0/1/_
+# one_dimensional_array - int/char_array name 1 size
+# two_dimensional_array - int/char_array name 2  one two
+# double - double name value/_
+# lbn[NLABS] created at program time
+# Global variables required for conversion of .lbn file to .n file
+#no_variable 50 hashGlobal
+Bool  TRUE         0
+Bool  FALSE        1
+Bool  DONE         0
+Bool  TODO         1
+Bool  MAN          0
+Bool  WOMAN        1
+int   MAXINT        1073741824
+Bool  WINDOW_MODE   1
+int     BMAX          256         
+int     EMAX          1024         
+int     FMAX          2048         
+int     NKEYS         64         
+int     PMAX          6000         
+int     SMAX          100         
+int     SMIN          2         
+int     SSTART        20       
+int     LMAX          5000         
+int     TMAX          30        
+int     VMAX          2048        
+int     NCOLM         18         
+int     STEP          12         
+int     WIDTH         1024         
+int     NSYMS         25        
+int     RELAX         1         
+int     BENT          3         // item number of 'bent' symbol
+int     STRAIGHT      2         // item number of 'straight' symbol
+int     STRETCH       4         // item number of 'stretched' symbol
+int     FRONT         100         // front symbol found
+int     BACK          200         // back symbol found
+int     MLHAND        1         // man's left hand symbol found
+int     MRHAND        2         // man's right hand symbol found
+int     WLHAND        10         // woman's left hand symbol found
+int     WRHAND        20         // woman's right hand symbol found
+char     ARM           'a'        // arm found in colm[]
+char     CHEST         'c'        // chest found in colm[]
+int     LOW            0
+int     MED            1
+int     HIGH           2
+int     BLANK          3
+Bool    NO             0        
+int     CL             1        
+int     PR             2        
+int     CP             3        
+int     DB             4       
+int     OP             5        
+int     CR             6        
+int     OE             7       
+int     CO             8       
+int     SH             9        
+int     SS            10       
+                            
+                            
+# Head Column varibles line 61-62
+#no_variable 2  headcol
+int    headcol4        0
+int    headcol6        0
+
+# ini file variable
+#no_variable 15 iniFile
+ 
+int    x              0
+char_array ini_title  2  256 32  
+char_array ini_value  2   256 128 
+int   max_ini         256
+int   max_ini_len      32
+int   number_ini        0
+int   ini_diag          0
+int   input_file_type   0
+int   lbn_fps          -1
+int   lbn_bpm          -1
+int   lbn_ppb          23
+int   lbn_figures       1     
+int   time              0
+int   nextcount         0
+Bool  output_file_id    0
+
+#Symbol menus 
+#no_variable 12 SymbolMenu
+char Area 'A'
+char Bars 'B'
+char Dirn 'D'
+char Face 'F'
+char Path 'H'
+char Keys 'K'
+char Limb 'L'
+char Misc 'M'
+char Pins 'P'
+char Rotn 'R'
+char Stav 'S'
+char Volm 'V'
+
+#Symbol structure 101-114
+#no_variable 14 symbolStruct
+int a  0   
+int b  0    
+int c  0    
+int h  0     
+int i  0    
+int l  0    
+char m   ''   
+int s    0   
+int w    0   
+int x    0   
+int y    0   
+int x2   0   
+int y2   0  
+int d    0
+
+#linter variable
+#no_variable 70 linterVariable
+Bool mspace 0
+Bool wspace 0
+double lbn_fpp 0      // frames per pixel
+int blength 0         // number of bars to interpret
+int bpm  0             // beats per minute
+int bstart 0          // bar to start at
+int lcentre 0         // x position of centre staff line
+int complete 0        // true if Gloria and Frank to be used
+int dofig 0           // required gender of current staff
+int dostaff 0         // index in staff[] of current staff
+int facedif 0        // difference between facing directions of man and lwoman
+int facecl 0          // facing score of closed position
+int facepr 0         // facing score of promenade position
+int facesh 0          // facing score of shadow position
+int facess 0         // facing score of semishadow position
+int fbegin 0
+int ffin  0
+int flen 0            // start,end, and length of a position
+int fend 0            // frame number of end of current movement
+int fhalf 0           // frame halfway through a movement
+int f_max 0           // maximum frame number
+int fps 0             // frames/second
+int frange 0          // number of frames in an action
+int frperbar 0        // frames per bar;
+int fstart 0          // first frame number of action
+int gy 0
+int gh 0           // arm gesture range disabled by contact bow
+int haslbn 0          // TRUE if input is lbn file, FALSE for .n file
+int hold  0            // one of the defined holds NO,CL,PR,CP,DB,OP,CR,OE,CO,SH,SS
+int holdcl 0          // closed hold counter
+int holdco 0          // counter open extended hold counter
+int holdoe 0         // open extended hold counter
+int holdpr 0          // promenade hold counter
+int holdsh 0          // shadow hold counter
+int holdss 0          // semishadow hold counter
+int j 0               // counter through symbols
+int keptf 0           // last frame when last position kept
+int mface 0
+int wface 0     // facing directions of man and woman
+int nbar 0            // number of current bar
+int nlabs 0           // number of laban score entries
+int npins 0           // number of pins below first barline
+int nm 0              // number of men
+int nw 0              // number of women
+int nmw 0             // nm * nw
+int nstaff 0          // number of staves
+int oriented 0        // true after orientation
+int pend 0            // last frame of previous action
+int pstart 0          // first fame of previous action
+int ppb 0             // pixels per beat (= 23 );
+int prev_time 0      // clock reading of previous frame
+int pres_time 0       // clock reading of current frame
+int previ 0           // item of previous support symbol
+int prevc 0           // column of previous support symbol
+int prevhold 0        // previous hold
+int rise 0            // height of previous step;
+int ssend 0           // ending score symbol
+int sstar 0          // starting score symbol
+int st 0              // current staff number
+int stmiddle 0        // halfway across between L and R staves
+int track 0           // TRUE when tracking viewpoint on main figure
+int xmin 0
+int xmax 0       // width range of score symbols
+int ymax 0            // top of score
+int yend 0            // y position of last movement
+int ystart 0          // y position of start of movement
+int_array yj 1 10240       // symbols starting at given y positions
+int_array pins 2 30 2    // index and use of initial pins
+int_array staff 2 30 6   // index, x positions, gender, and use of staves
+char_array colm 1 18     // limb presigns in the columns
+
+
+# .lbn and .n file arrays required 197-205
+#no_variable 9 fileStorage
+char_array buf 1 256           // input buffer
+char_array line 1 256          // compl input buffer
+char_array lbnline 2 5000 256   // lbn file lines
+char_array string 1 256        // next set of non-blank characters from data file */
+char_array name 1 256          // name of input file
+char_array finname 1 256        // name of input file
+char_array figsname 1 256     // name of lintel nudes figures, declarations, and subroutines file */
+char_array nudesname 1 256     // name of intermediate nudes file
+char_array ptitle 1 256       // program title
+
+
