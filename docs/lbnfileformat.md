@@ -1,17 +1,17 @@
 # .lbn Format
-This document is a brief description of what .lbn File Format.
+This document is a brief description of .lbn File Format.
 
 ## Comment
-  In .lbn file if user can added any comment , then this comment is add in starting in file one by one.
+  In .lbn file if the user has any comments then those comments will be shown at the top most part of .lbn file.
 
 ## .lbn File divide into 11 colums/parts. 
  1)  Notation Groups
  2)  Item Number
- 3)  X Posion 
- 4)  Y Posion 
+ 3)  X Position 
+ 4)  Y Position 
  5)  Step Size 
  6)  Width 
- 7)  Hight
+ 7)  Height
  8)  Level
  9)  Text 
  10) Line Number 
@@ -33,100 +33,99 @@ This document is a brief description of what .lbn File Format.
      l) Keys
  
 ##### a) Bars:
-All Vertical Lines in LED is called as Bars.<br />
-All Bars have a key which is also it's Item number, Wich is increment order star form lower side is 0,1,.....<br />
+All horizontal lines in LED are called as "Bars".<br />
+Each bar has a unique item number which is also the key. Each bar's key is stated *outside* the staff to its left. The key starts from 0 and increases by 1 with each bar.
+
 ![Bars](https://rawgit.com/rusimody/Laban-tk/pucsd_laban_project/docs/img/Bar.png)
 
 ##### b) Stav:
-All Horizontal Lines in LED is calld Stav.<br />
-Stav have a Item number wich is 0,1,2.<br />
+All vertical lines in LED are called Stavs.<br />
+A staff in LED comprises of 3 stav lines by default where each line has item number 0, 1, and 2 respectively. One can add more stav lines to the default staff by copying a stav line on the canvas and placing it at the desired location. If you copy the stav line with item number *n*, the duplicate will also have the same number. The center line will always have item number 1.
+
 ![Stav](https://rawgit.com/rusimody/Laban-tk/pucsd_laban_project/docs/img/Stav.png)
 
 ##### c) Dirn:
-Dirn have  Following Symbol:<br />
+Dirn constitutes the following Symbols:<br />
 ![Dirn](https://rawgit.com/rusimody/Laban-tk/pucsd_laban_project/docs/img/Drin.png)
 
 ##### d) Limb:
-Limb have  Following Symbol:<br />
+Limb constitutes the following Symbols:<br />
 ![Limb](https://rawgit.com/rusimody/Laban-tk/pucsd_laban_project/docs/img/Limb.png)
 
 ##### e) Area:
-Area have  Following Symbol:<br />
+Area constitutes the following Symbols:<br />
 ![Area](https://rawgit.com/rusimody/Laban-tk/pucsd_laban_project/docs/img/Area.png)
 
 ##### f) Volm:
-Volm have  Following Symbol:<br />
+Volm constitutes the following Symbols:<br />
 ![Volm](https://rawgit.com/rusimody/Laban-tk/pucsd_laban_project/docs/img/Volm.png)
 
 ##### g) Ways:
-Ways have  Following Symbol:<br />
+Ways constitutes the following Symbols:<br />
 ![Ways](https://rawgit.com/rusimody/Laban-tk/pucsd_laban_project/docs/img/Ways.png)
 
 ##### h) Face:
-Face have  Following Symbol:<br />
+Face constitutes the following Symbols:<br />
 ![Face](https://rawgit.com/rusimody/Laban-tk/pucsd_laban_project/docs/img/Face.png)
 
 ##### i) Misc:
-Misc have  Following Symbol:<br />
+Misc constitutes the following symbols:<br />
 ![Misc](https://rawgit.com/rusimody/Laban-tk/pucsd_laban_project/docs/img/Misc.png)
 
 ##### j) Pins:
-Pins have  Following Symbol:<br />
+Pins constitutes the following Symbols:<br />
 ![Pins](https://rawgit.com/rusimody/Laban-tk/pucsd_laban_project/docs/img/Pins.png)
 
 ##### k) Rotn:
-Rotn have  Following Symbol:<br />
+Rotn constitutes the  Following Symbols:<br />
 ![Rotn](https://rawgit.com/rusimody/Laban-tk/pucsd_laban_project/docs/img/Rotn.png)
 
 ##### l) Keys:
-Keys have  Following Symbol:<br />
+Keys constitutes the  Following Symbols:<br />
 ![Keys](https://rawgit.com/rusimody/Laban-tk/pucsd_laban_project/docs/img/Keys.png)
 
 <br /><br />
 
-It is also have a Text. If user can inserted Text into LED then it goes into Keys group.
-## 2)Item Number:
-Every Group have number of Symbol and evrey Symbol have a Unick Number , for a pertiular grup.That number is called Item number.
-Every Symbol have a Item Number . It is a Integer Value.
-<br /><br />
+If the user adds any text to the canvas, it also comes under this group. The text will be added uner the Text field in .lbn file.
 
-## 3 , 4)X and Y Possion:
-It is Possion of a Symbol/Text where it is place in LED.
+## 2)Item Number:
+Each symbol in every group will be given a unique item number. In other words, item number for an intem will be unique under its group only. Item numbers start with 1 (except for staff where they start with 0) and can go on upto the total number of items in the group.
+
+## 3 , 4)X and Y Position:
+The X and Y coordinates of a symbol/text in LED.
 <br /><br />
 
 ## 5)Step Size:
-Step Size is a integer value , It is a step size of Symbol or Text. <br />
-If Symbol Size is incrise then step size also increment by 1. <br />
-If Symbol size is dicrese then step size will be decrse by 1.
+Step Size is an integer value which denotes the length of the Symbol or Text in the vertical direction. A longer step size describes a slow step while a shorter step size will describe a fast step. <br />
+If you increase the size of a symbol once then its step size will be incremented by 1. Decreasing the symbol size once will decrement the step size by 1.
 
 <br /><br />
 
 ## 6)Width:
-It is width of Symbol or text.
+It is width of the Symbol or text in pixels.
 <br /><br />
 
-## 7)Hight:
-It is Hight of Symbol or text.
+## 7)Height:
+It is the actual height of Symbol or text in pixels.
 <br /><br />
 
 ## 9)Level:
-Every Symbol Having 4 type of level. Wich is Low , High , Midioum and  Blank in .lbn file.<br />
-Low lavel have L key , High level have H key , Midioum level have M key and Blank is not a level but if symbil is not given any level then it is Blank wich is B key in .lbn file.<br />
-Keys Symbol Having By Default Step Size is Blank wich is B and other Symbol having By Default Midium Level wich is M.
+Every Symbol in the notation can have 4 levels - Low , High , Medium and  Blank which are denoted by L, H, M, and B respectively.<br />
+*Blank is not a level.*
+By default, key symbols are blank while other symbols are medium.
 
 <br /><br />
 
 ## 10)Text:
-Text is a string or Number or chracter in .lbn file.<br />
-Wich is only filled by Keys Notation Group Symbol , otherwise it is empty.
+Text is a string or Number or character in .lbn file and is only filled in the rows for keys. In other cases, the column remains empty.
 <br /><br />
 
 ## 11)Line Number:
-It is line number in .lbn file. and It is seprated by '#'.
+It is line number in .lbn file. and is preceded by the '#' symbol.
 
 ## 12)Bar Number:
-It is Bar number in .lbn file.<br />
-It is only filled if symbol is bar otherwise it is empty. and It is Seprayed by '#'.
+It is the Bar number in .lbn file.<br />
+It is only filled if the symbol is bar. Otherwise it is left empty. It is also preceded by the '#' symbol.
 <br /><br />
 
 ## Table:
