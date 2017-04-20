@@ -9648,30 +9648,30 @@ void get_files ( char file[] )
 	calls strcmpend, bell, add_id_num,
 */
 {
-	int c; //for loop counter variable
-	int i;
-	int len;
-	int last;
-	//int err_count;
-	int error;
-	int loc_dot;
-	//int from_ini;
-	char key;
-	bool get_out;
-	//bool ini_ok;
-	//bool file_ok;
-	//bool dir_ok;
-	bool lbn_type;
-	char dir[BMAX];
+//	int c; //for loop counter variable
+//	int i;
+//	int len;
+//	int last;
+//	//int err_count;
+//	int error;
+//	int loc_dot;
+//	//int from_ini;
+//	char key;
+//	bool get_out;
+//	//bool ini_ok;
+//	//bool file_ok;
+//	//bool dir_ok;
+//	bool lbn_type;
+//	char dir[BMAX];
 
 	//from_ini = 0;
 	//err_count = 0;
-	error = 0;
-	get_out = false;
+//	error = 0;
+//	get_out = false;
 	//ini_ok = false;
 	//file_ok = false;
 	//dir_ok = false;
-	lbn_type = true;
+//	lbn_type = true;
 
 	/*err_count = err_count + 1;
 	if ( err_count >= 25 )
@@ -9684,12 +9684,12 @@ void get_files ( char file[] )
 	//input_file_type = -1;
   //
   //
-	for ( c = 0; c < BMAX; ++c )
-	{
+///	for ( c = 0; c < BMAX; ++c )
+//	{
 //		name[c] = NULL;
 //		finname[c] = NULL;
 //		nudesname[c] = NULL;
-	}
+//	}
 
 //	if(file==NULL){
 //	  printf("\nPlease provide a filename\n");
@@ -9714,85 +9714,85 @@ void get_files ( char file[] )
 
 //	input_file_type = -1;
 	//haslbn = FALSE;
-	get_out = false;
-  loc_dot = 3;
-
-	if ( lbn_type == true ) // use filename to decide lbn type
-	{
-		switch ( loc_dot )
-		{
-		case 3:
-			// .nud extention
-			if ( strcmpend ( name, ".nud" ) )
-			{
-//				input_file_type = 0;
-//				haslbn = FALSE;
-		}
-			// .lbn extention
-			if ( strcmpend ( name, ".lbn" ) )
-			{
-//				input_file_type = 1;
-//				haslbn = TRUE;
-			}
-			if ( input_file_type < 0 ) get_out = true;
-			break;
-		case 2:
-			// problem
-	//		get_out = true;
-			break;
-		case 1:
-			// .n extention
-			if ( strcmpend ( name, ".n" ) )
-			{
-//				input_file_type = 0;
-//				haslbn = FALSE;
-			}
-			else
-			{
-	//			get_out = true;
-			}
-			break;
-		case 0:
-			// . extention
-			if ( strcmpend ( name, "." ) )
-			{
-//				input_file_type = 2;
-		//		strcat( name, "lbn" );
-//				haslbn = TRUE;
-			}
-			else
-			{
-		//		get_out = true;
-			}
-			break;
-		case -1:
-			// no extention
-			if ( len > 0 && !strcmpend ( name, "." ) )
-			{
-//				input_file_type = 2;
-	//			strcat( name, ".lbn" );
-//				haslbn = TRUE;
-			}
-			else
-			{
-	//			get_out = true;
-			}
-			break;
-		default:
-	//		get_out = true;
-			break;
-		}
-	}
-
-
-//	if ( get_out == true )
+//	get_out = false;
+//  loc_dot = 3;
+//
+//	if ( lbn_type == true ) // use filename to decide lbn type
 //	{
-//		error = 1;
-//		name[0] = NULL;
-//		exit(0);
+//		switch ( loc_dot )
+//		{
+//		case 3:
+//			// .nud extention
+//			if ( strcmpend ( name, ".nud" ) )
+//			{
+////				input_file_type = 0;
+////				haslbn = FALSE;
+//		}
+//			// .lbn extention
+//			if ( strcmpend ( name, ".lbn" ) )
+//			{
+////				input_file_type = 1;
+////				haslbn = TRUE;
+//			}
+//			if ( input_file_type < 0 ) get_out = true;
+//			break;
+//		case 2:
+//			// problem
+//	//		get_out = true;
+//			break;
+//		case 1:
+//			// .n extention
+//			if ( strcmpend ( name, ".n" ) )
+//			{
+////				input_file_type = 0;
+////				haslbn = FALSE;
+//			}
+//			else
+//			{
+//	//			get_out = true;
+//			}
+//			break;
+//		case 0:
+//			// . extention
+//			if ( strcmpend ( name, "." ) )
+//			{
+////				input_file_type = 2;
+//		//		strcat( name, "lbn" );
+////				haslbn = TRUE;
+//			}
+//			else
+//			{
+//		//		get_out = true;
+//			}
+//			break;
+//		case -1:
+//			// no extention
+//			if ( len > 0 && !strcmpend ( name, "." ) )
+//			{
+////				input_file_type = 2;
+//	//			strcat( name, ".lbn" );
+////				haslbn = TRUE;
+//			}
+//			else
+//			{
+//	//			get_out = true;
+//			}
+//			break;
+//		default:
+//	//		get_out = true;
+//			break;
+//		}
 //	}
-
-	printf( "\n    " );
+//
+//
+////	if ( get_out == true )
+////	{
+////		error = 1;
+////		name[0] = NULL;
+////		exit(0);
+////	}
+//
+//	//printf( "\n    " );
 
 	if ( input_file_type == 0 )
 	{
@@ -9825,6 +9825,7 @@ void get_files ( char file[] )
 
 //		add_id_num ( name, nudesname, ".n" );
 
+    //printf("nude file name %s " , nudesname);
 
     if ( ( nudesfile = fopen ( nudesname, "w" ) ) == NULL )
 		{
@@ -10397,6 +10398,23 @@ int main(int argc, char* argv[])
 	sprintf(ptitle,"lintel084");
 	printf("\n   %s running\n",ptitle);
 
+int i = 0 ;
+FILE* tempFile = fopen("tempFilename.txt" ,"w");
+if (tempFile == NULL)
+{
+  printf("temporary file for names not available");
+  return(0);
+}
+else
+{
+  for(i=1;i<argc;i++)
+  {
+   fprintf(tempFile , "%s \n",argv[i]);
+  }
+  fclose(tempFile);
+}
+
+
 more:
        PyObject *mymodString , *mymod , *myfunc , *myobject;
        FILE* file;
@@ -10429,9 +10447,8 @@ more:
 
 //	led_param();
 	get_files ( argv[1] );
- 
-        if ( ok != 0 ) goto more;
 
+if ( ok != 0 ) goto more;
 
 
         if (haslbn == TRUE)

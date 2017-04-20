@@ -175,24 +175,24 @@ class GlobalVar():
         self.nudesname = ""
         self.finname = ""
         self.nudesfile = None #pointing to nude file
+        self.infile = None #
 
 GV = GlobalVar()
 
-#print("python",str(sys.argv[1]))
-
-
-#if (len(sys.argv) > 1):
-#    print("adwhejfey")
-#file_Name = str(sys.argv[1])
-#else:
-#file_Name = None
-
-#print(file_Name)
+#command line arguments are taken through tempFilename file
+with open("tempFilename.txt", 'r') as f:
+    data = f.read()
+array = [x for x in data.split()]
+argFilename = array[0]
+arg1 = array[1]
+arg2 = array[2]
 
 initialise(GV)
 get_ini(GV,0)
 led_param(GV)
-file_Name = "new.lbn_5.n"
-get_files(GV,file_Name)
+get_files(GV,argFilename)
+
+
+
 
 

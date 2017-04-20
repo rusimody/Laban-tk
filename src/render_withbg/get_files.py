@@ -11,7 +11,6 @@ def get_files(GV,filename):
         Extension = ""
     else:
         Extension = (GV.name[indexDot:])
-    #checkExtension( Extension, GV)
 
     isError = 1
     if ((Extension == ".nud") or (Extension == ".n")):
@@ -54,16 +53,20 @@ def get_files(GV,filename):
     
     if (GV.input_file_type > 0):
         add_id_num(GV)
-        
-       # if(os.path.isfile(GV.nudesname) == False):
-       #         GV.nudesfile = None
-       #         print("\n\n  "+GV.nudesname+" OOPS? \n")
-       #         return
-       # else:
-       #         GV.nudesfile = open(GV.nudesname , "w")
-       #         print("\n created nudes file" + GV.nudesname +"\n")
+        try:
+           GV.nudesfile = open(GV.nudesname , "w")
+           print("\n created nudes file" + GV.nudesname +"\n")
+        except IOError:
+                 print("\n\n  "+GV.nudesname+" OOPS? \n")
+                 return
+
+        try:
+            GV.infile = open(GV.nudesname , "r")
+        except IOError:
+                print("\n\n " + GV.nudesname + " OOPS \n")
 
 
+            
 def add_id_num(GV):
     ext = ".n"
     for j in range(0,100):   #10000 is the upperlimit on number of nude files one can create we can change this value:
