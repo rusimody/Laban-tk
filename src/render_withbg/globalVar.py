@@ -3,6 +3,7 @@ from initialise import initialise
 from get_ini import get_ini
 from led_param import led_param
 from get_files import get_files
+from lbn_read import lbn_read
 
 class GlobalVar():
     def __init__(self):
@@ -177,6 +178,11 @@ class GlobalVar():
         self.nudesfile = None #pointing to nude file
         self.infile = None #
 
+
+        self.Num_Lab_Entries = 0
+        self.listLbnObject = []
+        self.xmin = 0
+
 GV = GlobalVar()
 
 #command line arguments are taken through tempFilename file
@@ -191,6 +197,7 @@ initialise(GV)
 get_ini(GV,0)
 led_param(GV)
 get_files(GV,argFilename)
+lbn_read(GV)                        # lsorty, lbnread
 
 
 

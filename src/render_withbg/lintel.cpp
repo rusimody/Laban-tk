@@ -228,7 +228,7 @@ struct Symbol {
 	int c;       // column position relative to right support column
 	int h;       // height
 	int i;       // item in menu
-	int l;       // lbn file line number
+//int l;       // lbn file line number
 	char m;      // menu
 	int s;       // drawing step size
 	int w;       // width
@@ -245,7 +245,7 @@ int jb;                  // bendedness of current symbol
 int jc;                  // current symbol column
 int jh;                  // current symbol height
 int ji;                  // current symbol item in menu
-int jl;                  // line of current symbol
+//int jl;                  // line of current symbol
 char jm;                 // current symbol menu
 int js;                  // current symbol step size
 int jw;                  // current symbol width
@@ -295,7 +295,7 @@ int j;               // counter through symbols
 int keptf;           // last frame when last position kept
 int mface,wface;     // facing directions of man and woman
 int num_curBar;            // number of current bar
-int nlabs;           // number of laban score entries
+int Num_Lab_Entries;           // number of laban score entries
 int npins;           // number of pins below first barline
 int nm;              // number of men
 int nw;              // number of women
@@ -317,7 +317,7 @@ int sstart;          // starting score symbol
 int st;              // current staff number
 int stmiddle;        // halfway across between L and R staves
 int trackOnMainFig;           // TRUE when tracking viewpoint on main figure
-int xmin,xmax;       // width range of score symbols
+int xmin;   //,xmax;       // width range of score symbols
 int ymax;            // top of score
 int yend;            // y position of last movement
 int ystart;          // y position of start of movement
@@ -1352,7 +1352,7 @@ void lcolx(int lcentre)
    int kc;//column number
    int kwx;
 
-   for (k = 0; k < nlabs; ++k)
+   for (k = 0; k < Num_Lab_Entries; ++k)
    {
       kwx = lbn[k].x + (lbn[k].w/2);
       kc = (kwx - lcentre)/STEP;//here STEP is 12
@@ -1400,8 +1400,8 @@ A structure Symbol is created as follows:
    char m0,m1,m2,m3;
 
    j = 0;
-   xmax = 0;
-   xmin = 10000;
+   //xmax = 0;
+   //xmin = 10000;
 	if ( ( infile = fopen( finname, "r" ) ) == NULL )
 	{
 		printf("lbnread oops\n");
@@ -1410,40 +1410,42 @@ a: goto a;
    while ((j < LMAX) && (fgets(buffer,BMAX,infile) != NULL))
    {
 		strcpy(lbnline[j],buffer);
+   // printf(" %s  " , buffer);
 		sscanf(buffer,"%c%c%c%c %d %d %d %d %d %d %c",
              &m0,&m1,&m2,&m3,&i,&x,&y,&s,&w,&h,&d);
 		if (m0 != '#')
 		{
-            lbn[j].m = m0;
-            if ((m0 == 'P')&&(m1 == 'a'))
-            lbn[j].m = Path;
-            lbn[j].i = i;
-            lbn[j].x = x;
-            lbn[j].y = y;
-            lbn[j].w = w;
-            lbn[j].h = h;
-            lbn[j].s = s;
-            lbn[j].b = -1;
-            lbn[j].l = j;
-            lbn[j].a = TODO;
-            lbn[j].x2 = x+w;
-            lbn[j].y2 = y+h;
-            lbn[j].d = BLANK;
-            if (d =='M') lbn[j].d = MED;
-            if (d =='L') lbn[j].d = LOW;
-            if (d =='H') lbn[j].d = HIGH;
-            if (x < xmin) xmin = x;
-            if (x+w > xmax) xmax = x+w;
-            if (j >= LMAX)
-            {
-               printf("\nBEWARE: score truncated at line %d\n",j);
-               printf("more than %d laban score items\n",LMAX);
-            }
+    //        lbn[j].m = m0;    //no need of m in python
+    //        if ((m0 == 'P')&&(m1 == 'a'))
+    //        lbn[j].m = Path;
+    //        lbn[j].i = i;    
+    //        lbn[j].x = x;
+    //        lbn[j].y = y;
+    //        lbn[j].w = w;
+    //        lbn[j].h = h;
+    //        lbn[j].s = s;
+            //lbn[j].b = -1;
+            //lbn[j].l = j;
+    //        lbn[j].a = TODO;
+    //        lbn[j].x2 = x+w;
+    //        lbn[j].y2 = y+h;
+    //        lbn[j].d = BLANK;
+    //        if (d =='M') lbn[j].d = MED;
+    //        if (d =='L') lbn[j].d = LOW;
+    //        if (d =='H') lbn[j].d = HIGH;
+   //         if (x < xmin) xmin = x;         //used only in one place in some lplace function soo need of declaring it as global var
+            //if (x+w > xmax) xmax = x+w;     // nowhere used
+//            if (j >= LMAX)
+//            {
+//               printf("\nBEWARE: score truncated at line %d\n",j);
+//               printf("more than %d laban score items\n",LMAX);
+//            }
             ++j;
 		}
    } /* while reading next line */
-   nlabs = j;
-	printf("\n   lbnread: %d lbn symbols\n",nlabs);
+   //printf("  %d   " , xmin );
+   //Num_Lab_Entries = j;
+//	printf("\n   lbnread: %d lbn symbols\n",Num_Lab_Entries);
 }  /* lbnread */
 /************************************************/
 
@@ -1460,7 +1462,7 @@ void lassign(void)
       jd = lbn[j].d;
       jh = lbn[j].h;
       ji = lbn[j].i;
-      jl = lbn[j].l;
+      //jl = lbn[j].l;
       jm = lbn[j].m;
       js = lbn[j].s;
       jw = lbn[j].w;
@@ -1485,9 +1487,13 @@ void lsorty(void)
    int last;
    int y;
 
-   for (j = 0; j < (nlabs-1); ++j)
+   int j ;
+
+
+
+   for (j = 0; j < (Num_Lab_Entries-1); ++j)
    {
-      for (k = j; k < nlabs; ++k)
+      for (k = j; k < Num_Lab_Entries; ++k)
       {
          if (lbn[k].y < lbn[j].y)
          {
@@ -1498,7 +1504,7 @@ void lsorty(void)
             lbn[j].d = lbn[k].d;
             lbn[j].h = lbn[k].h;
             lbn[j].i = lbn[k].i;
-            lbn[j].l = lbn[k].l;
+            //lbn[j].l = lbn[k].l;
             lbn[j].m = lbn[k].m;
             lbn[j].s = lbn[k].s;
             lbn[j].w = lbn[k].w;
@@ -1512,7 +1518,7 @@ void lsorty(void)
             lbn[k].d = jd;
             lbn[k].h = jh;
             lbn[k].i = ji;
-            lbn[k].l = jl;
+            //lbn[k].l = jl;
             lbn[k].m = jm;
             lbn[k].s = js;
             lbn[k].w = jw;
@@ -1527,12 +1533,12 @@ void lsorty(void)
       }
    }
    ymax = 0;
-   for (j = 0; j < nlabs; ++j)
+   for (j = 0; j < Num_Lab_Entries; ++j)
        if (((lbn[j].y2) > ymax)&&(lbn[j].m != Stav))
             ymax = lbn[j].y2+1;
    for (y = 0; y < ymax; ++y)
        yj[y] = -1;
-   for (j = 0; j < nlabs; ++j)
+   for (j = 0; j < Num_Lab_Entries; ++j)
    {
        y = lbn[j].y;
 	   if (y < 0) y = 0;
@@ -1637,7 +1643,7 @@ staff[TMAX][6].
 
    k = 0;
    staffstart = 0;
-   for (j = 0; j < nlabs; ++j)
+   for (j = 0; j < Num_Lab_Entries; ++j)
    {
       if (lbn[j].m == Stav)
       {
@@ -1757,7 +1763,7 @@ void lfindystart(void)
 /*
    seek initial double bar line -
 */
-   for (j = 0; ((j < nlabs)&&(ystart < 0)); ++j)
+   for (j = 0; ((j < Num_Lab_Entries)&&(ystart < 0)); ++j)
    {
       if ((lbn[j].m == Bars) && (lbn[j].d == LOW))
 	     ystart = lbn[j].y + 1;
@@ -1767,7 +1773,7 @@ void lfindystart(void)
 */
    if (ystart < 0)
    {
-      for (j = 0; ((j < nlabs)&&(ystart < 0)); ++j)
+      for (j = 0; ((j < Num_Lab_Entries)&&(ystart < 0)); ++j)
          if (lbn[j].m == Bars) ystart = lbn[j].y + 1;
    }
 /*
@@ -1775,7 +1781,7 @@ void lfindystart(void)
 */
    if (ystart < 0)
    {
-      for (j = 0; ((j < nlabs)&&(ystart < 0)); ++j)
+      for (j = 0; ((j < Num_Lab_Entries)&&(ystart < 0)); ++j)
          if ((lbn[j].m == Dirn) &&
 	        ((lbn[j].c == 1) || (lbn[j].c == -1)) )
 	           ystart = lbn[j].y;
@@ -2030,7 +2036,7 @@ int lhastap(int j)
    yk = jy - jh;
    if (yk < 1) yk = 1;
    for (k = yj[yk];
-	   ((t < 0)&&(k < nlabs)&&(lbn[k].y < jy2)); ++k)
+	   ((t < 0)&&(k < Num_Lab_Entries)&&(lbn[k].y < jy2)); ++k)
    {
       km = lbn[k].m;
       if (km == Misc)
@@ -2069,7 +2075,7 @@ int lhasgesture(int j)
    char km;
 
    g = -1;
-   for (k = 0; ((g < 0)&&(k < nlabs)); ++k)
+   for (k = 0; ((g < 0)&&(k < Num_Lab_Entries)); ++k)
    {
       km = lbn[k].m;
       if (km == Dirn)
@@ -2548,7 +2554,7 @@ Relevant symbols:-
    int mlhand,mrhand,wlhand,wrhand;
 
    centre = (staff[0][2] + staff[1][2])/2;
-   for (j = 0; j < nlabs; ++j)
+   for (j = 0; j < Num_Lab_Entries; ++j)
    {
       if ((lbn[j].m == Misc)&&(lbn[j].i == 1))
       {
@@ -2691,9 +2697,9 @@ void lstart(void)
    yend = lbn[0].y;
    ymax = yend;
    sstart = 0;
-   ssend = nlabs;
+   ssend = Num_Lab_Entries;
    //finds the starting symbol and stores its y in ystart
-   for (k = 0; k < nlabs; ++k)
+   for (k = 0; k < Num_Lab_Entries; ++k)
    {
       if (lbn[k].m == Bars)
       {
@@ -2706,7 +2712,7 @@ void lstart(void)
    }
    bend = bstart + blength;
    //useless
-   for (k = (sstart+1); k < nlabs; ++k)
+   for (k = (sstart+1); k < Num_Lab_Entries; ++k)
    {
       if (lbn[k].m == Bars)
       {
@@ -2715,7 +2721,7 @@ void lstart(void)
       }
    }
    //finds the last symbol and stores its y in ymax
-   for (k = 0; k < nlabs; ++k)
+   for (k = 0; k < Num_Lab_Entries; ++k)
    {
       if (lbn[k].m == Dirn)
       {
@@ -3002,7 +3008,7 @@ void lbent(void)
          lassign();
          jy2h = jy2+jh;
          g = -1;
-         for (k = j+1;	((k < nlabs)&&(g < 0)); ++k)
+         for (k = j+1;	((k < Num_Lab_Entries)&&(g < 0)); ++k)
          {
             km = lbn[k].m;
             if ((km == Dirn)&&(lbn[k].a == TODO))
@@ -3825,7 +3831,7 @@ void linter(char* renOrfile,char* gen)
 int keptf;           // last frame when last position kept
 int mface,wface;     // facing directions of man and woman
 int num_curBar;            // number of current bar
-int nlabs;           // number of laban score entries
+int Num_Lab_Entries;           // number of laban score entries
 int npins;           // number of pins below first barline
 int nm;              // number of men
 int nw;              // number of women
@@ -3857,8 +3863,8 @@ char colm[NCOLM];    // limb presigns in the columns
 
 */
 {
-   lbnread();
-   lsorty();//sorts the lbn structure array by y parameter
+   //lbnread();
+   //lsorty();//sorts the lbn structure array by y parameter
    lfindstaff(gen);
    lsetrange();
    lselectfig();
@@ -9825,7 +9831,7 @@ void get_files ( char file[] )
 
 //		add_id_num ( name, nudesname, ".n" );
 
-    //printf("nude file name %s " , nudesname);
+    printf("nude file name %s " , nudesname);
 
     if ( ( nudesfile = fopen ( nudesname, "w" ) ) == NULL )
 		{
@@ -10199,7 +10205,77 @@ void  ForPrint(PyObject* myobject ,char* attrName)
   printf("djhweh%i", value);
 }
 
+void  ForUpdatingLBNlist(PyObject* myobject ,char* attrName)
+{
+  PyObject* attr , *iterator2 , *iterator , * item , *attr1;
+  int value;
+  char* name;
+  int j = 0;
+  char d;
 
+  attr = PyObject_GetAttrString(myobject, attrName );
+  iterator = PyObject_GetIter(attr);
+  while (item = PyIter_Next(iterator))
+  {
+
+    attr1 = PyObject_GetAttrString(item , "Name");
+    PyArg_Parse(attr1 , "s" , &name);
+
+    lbn[j].m = name[0] ;
+    if ((name[0] == 'P') && (name[1] == 'a'))
+        lbn[j].m = 'H';
+
+    attr1 = PyObject_GetAttrString(item , "Item");
+    PyArg_Parse(attr1 , "i" , &value);
+    lbn[j].i = value ;
+
+    attr1 = PyObject_GetAttrString(item , "Xpos");
+    PyArg_Parse(attr1 , "i" , &value);
+    lbn[j].x = value;
+
+    attr1 = PyObject_GetAttrString(item , "Ypos");
+    PyArg_Parse(attr1 , "i" , &value);
+    lbn[j].y = value;
+
+
+    attr1 = PyObject_GetAttrString(item , "StepSize");
+    PyArg_Parse(attr1 , "i" , &value);
+    lbn[j].s = value;
+
+    attr1 = PyObject_GetAttrString(item , "Width");
+    PyArg_Parse(attr1 , "i" , &value);
+    lbn[j].w = value;
+
+    attr1 = PyObject_GetAttrString(item , "Height");
+    PyArg_Parse(attr1 , "i" , &value);
+    lbn[j].h = value;
+
+    attr1 = PyObject_GetAttrString(item , "x2");
+    PyArg_Parse(attr1 , "i" , &value);
+    lbn[j].x2 = value;
+
+    attr1 = PyObject_GetAttrString(item , "y2");
+    PyArg_Parse(attr1 , "i" , &value);
+    lbn[j].y2 = value;
+
+    attr1 = PyObject_GetAttrString(item , "Level");
+    PyArg_Parse(attr1 , "c" , &d);
+           lbn[j].d = BLANK;
+           if (d =='M') lbn[j].d = MED;
+           if (d =='L') lbn[j].d = LOW;
+           if (d =='H') lbn[j].d = HIGH;
+
+
+    lbn[j].a = TODO;
+
+    j = j + 1  ; 
+
+    Py_DECREF(item);
+  }
+    ForUpdatingVarInt(myobject , "xmin", &xmin);
+ 
+}
+ 
 void funcConvInitialise()
   {
   PyObject *result1,*mymod, *myobject ,*mymodString , *myFunction , *attr , *iterator , *item = NULL;
@@ -10238,6 +10314,7 @@ void funcConvInitialise()
   
 
 
+  ForUpdatingLBNlist(myobject , "listLbnObject");
 
 
  // for(i=0;i<	PMAX;i++)
@@ -10329,6 +10406,8 @@ void funcConvInitialise()
   ForUpdatingVarInt(myobject,"haslbn",&haslbn);
   ForUpdatingVarInt(myobject,"input_file_type",&input_file_type);
 
+  ForUpdatingVarInt(myobject,"Num_Lab_Entries",&Num_Lab_Entries);
+
 
 
 
@@ -10366,11 +10445,6 @@ void funcConvInitialise()
 
 
 
-
-
-
-
-
   ForUpdatingVardoub(myobject , "anglex" , &anglex);
   ForUpdatingVardoub(myobject , "angley" , &angley);
   ForUpdatingVardoub(myobject , "anglez" , &anglez);
@@ -10384,6 +10458,9 @@ void funcConvInitialise()
 
   Py_Finalize();
   }
+
+
+
 
 int main(int argc, char* argv[])
 /*
