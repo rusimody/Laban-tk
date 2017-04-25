@@ -4,6 +4,7 @@ from get_ini import get_ini
 from led_param import led_param
 from get_files import get_files
 from lbn_read import lbn_read
+from lfindstaff import lfindstaff
 
 class GlobalVar():
     def __init__(self):
@@ -14,7 +15,9 @@ class GlobalVar():
         self.init_num_chord_sphere = 20  # initial number of chords around sphere
         self.VMAX = 2048   # max number of constants + variables
         self.FMAX = 2048   # maximum number of frames
-
+        self.TMAX = 30 # max number of staff line
+        self.MAN = 0
+        self.WOMAN = 1
 
         self.NO = 0
         self.CL = 1
@@ -163,7 +166,6 @@ class GlobalVar():
         self.ini_value =  []  #[['0']*128]*256
         self.numberOfParameterInIni = -1  #-1 if lintel.ini file not found else equals to number of parameters in lintel.ini file
         self.bufferList = []
-        #############
         self.lbn_fps = -1 
         self.lbn_bpm = -1
         self.lbn_ppb = 23
@@ -183,6 +185,15 @@ class GlobalVar():
         self.listLbnObject = []
         self.xmin = 0
 
+        ##########################
+        self.symbolCounter = None
+        self.stmiddle = None
+        self.npins = None
+        self.pins = [None,None]*self.TMAX
+        self.staff = [None] #[TMAX][6]
+       
+
+
 GV = GlobalVar()
 
 #command line arguments are taken through tempFilename file
@@ -198,7 +209,7 @@ get_ini(GV,0)
 led_param(GV)
 get_files(GV,argFilename)
 lbn_read(GV)                        # lsorty, lbnread
-
+lfindstaff(GV,arg2)
 
 
 

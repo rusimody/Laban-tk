@@ -291,7 +291,8 @@ int holdoe;          // open extended hold counter
 int holdpr;          // promenade hold counter
 int holdsh;          // shadow hold counter
 int holdss;          // semishadow hold counter
-int j;               // counter through symbols
+int symbolCounter;
+//int j;               // counter through symbols
 int keptf;           // last frame when last position kept
 int mface,wface;     // facing directions of man and woman
 int num_curBar;            // number of current bar
@@ -1009,9 +1010,9 @@ void lgetout(int allok)
    }
    else
    {
-      printf("lintel snag, line %d\n",j);
-      printf("%s\n",lbnline[j]);
-notok: goto notok;
+      printf("lintel snag, line %d\n",symbolCounter);
+      printf("%s\n",lbnline[symbolCounter]);
+//notok: goto notok;
 	   ok = 1;
    }
 }/* lgetout */
@@ -1111,57 +1112,57 @@ void initialise(void)
 //   axlen[0] = 1; axlen[1] = 1; axlen[2] = 1;
 
    //int  prdone = FALSE;
-   for (  j = 0 ; j < EMAX ; ++ j )
+   for (  symbolCounter = 0 ; symbolCounter < EMAX ; ++ symbolCounter )
    {
-      //if ( j > 2) axlen[j] = -1;
-      //keylen[j] = 0;
-      //ellen[j] = jntlen[j] = fillen[j] = figlen[j] = sublen[j] = varlen[j]= -1;
-     // knee[j] = figell[j] =  ellfig[j]=  usevar[j] = 0;
-      //coel[j][0] = -1;
-      //coel[j][1] = -1;
-      //subact[j][0] = 0;
-      //subact[j][1] = 0;
-     //  called[j] = FALSE;
-      //defined[j] = FALSE;
+      //if ( symbolCounter > 2) axlen[symbolCounter] = -1;
+      //keylen[symbolCounter] = 0;
+      //ellen[symbolCounter] = jntlen[symbolCounter] = fillen[symbolCounter] = figlen[symbolCounter] = sublen[symbolCounter] = varlen[symbolCounter]= -1;
+     // knee[symbolCounter] = figell[symbolCounter] =  ellfig[symbolCounter]=  usevar[symbolCounter] = 0;
+      //coel[symbolCounter][0] = -1;
+      //coel[symbolCounter][1] = -1;
+      //subact[symbolCounter][0] = 0;
+      //subact[symbolCounter][1] = 0;
+     //  called[symbolCounter] = FALSE;
+      //defined[symbolCounter] = FALSE;
 
-      //val[j] = doub0 ;
+      //val[symbolCounter] = doub0 ;
     
-      //printf("%d",called[j]);
+      //printf("%d",called[symbolCounter]);
       for (  k = 0 ; k < 3 ; ++ k )
       {
-         //cen[j][k] = doub3;
-        //  ax[j][k] = doub2;
+         //cen[symbolCounter][k] = doub3;
+        //  ax[symbolCounter][k] = doub2;
 
-         lim[j][k][0] = -doub360;
-         lim[j][k][1] =  doub360;
+         lim[symbolCounter][k][0] = -doub360;
+         lim[symbolCounter][k][1] =  doub360;
 
        //   obs[k][0] = doub0;
        //  obs[k][1] = doub0;
        //  obs[k][2] = doub0;
        //  obs[k][k] = doub1;
       }
-      //color[j][0] = doub255;
-      //color[j][1] = doub150;
-      //color[j][2] = doub90;
+      //color[symbolCounter][0] = doub255;
+      //color[symbolCounter][1] = doub150;
+      //color[symbolCounter][2] = doub90;
 
-  //    quat[j][0] = doub1;
-  //    quat[j][1] = doub0;
-  //    quat[j][2] = doub0;
-  //    quat[j][3] = doub0;
-  //    quat[j][4] = doub1;
+  //    quat[symbolCounter][0] = doub1;
+  //    quat[symbolCounter][1] = doub0;
+  //    quat[symbolCounter][2] = doub0;
+  //    quat[symbolCounter][3] = doub0;
+  //    quat[symbolCounter][4] = doub1;
       
 
 
     //  for (  k = 0 ; k < BMAX ; ++ k )
      // {
-   //      axisname[j][k] = NULL;
-  //       textMapFileName[j][k] = NULL;
-   //      figureName[j][k] = NULL;
-    //     ename[j][k] = NULL;
+   //      axisname[symbolCounter][k] = NULL;
+  //       textMapFileName[symbolCounter][k] = NULL;
+   //      figureName[symbolCounter][k] = NULL;
+    //     ename[symbolCounter][k] = NULL;
 
-     //    jname[j][k] = NULL;
-    //    vname[j][k] = NULL;
-    //     sname[j][k] = NULL;
+     //    jname[symbolCounter][k] = NULL;
+    //    vname[symbolCounter][k] = NULL;
+    //     sname[symbolCounter][k] = NULL;
 				       }
   /// }
   // axisname[0][0] = 'x';
@@ -1170,13 +1171,13 @@ void initialise(void)
 /*
      set all actions by default to stop
 */
-//   for (  j = 0 ; j < PMAX ; ++ j )
+//   for (  symbolCounter = 0 ; symbolCounter < PMAX ; ++ symbolCounter )
 //   {
-    //  typeAction[j] = stop_keyword_code;
-      //frstart[j] = frstop[j] = distrn[j] = cline[j] = 0;
+    //  typeAction[symbolCounter] = stop_keyword_code;
+      //frstart[symbolCounter] = frstop[symbolCounter] = distrn[symbolCounter] = cline[symbolCounter] = 0;
 
   //    for (  k = 0 ; k < 6 ; ++ k )
-  //       pf[j][k] = 0;
+  //       pf[symbolCounter][k] = 0;
 //  }
   
  
@@ -1232,9 +1233,9 @@ void initialise(void)
 
  
 /*
-  for(j=0;j<(VMAX);j++)
+  for(symbolCounter=0;symbolCounter<(VMAX);symbolCounter++)
 {
-   printf("%f " ,val[j]);  
+   printf("%f " ,val[symbolCounter]);  
    printf("\n");
 }
 */
@@ -1249,11 +1250,11 @@ void initialise(void)
 	}
        
 	tolr = b+b;
-	j = 2;
+    symbolCounter = 2;
 	n = 0;
 
 // find bits in integer -
-	for (k = 1; k < j; j += j)
+	for (k = 1; k < symbolCounter; symbolCounter += symbolCounter)
 	{
 		k += k;
 		++ n;
@@ -1456,103 +1457,103 @@ void lassign(void)
    called by laction, lsorty, lbent,
 */
 {
-      ja = lbn[j].a;
-      jb = lbn[j].b;
-      jc = lbn[j].c;
-      jd = lbn[j].d;
-      jh = lbn[j].h;
-      ji = lbn[j].i;
-      //jl = lbn[j].l;
-      jm = lbn[j].m;
-      js = lbn[j].s;
-      jw = lbn[j].w;
-      jx = lbn[j].x;
-      jy = lbn[j].y;
-      jx2 = lbn[j].x2;
-      jy2 = lbn[j].y2;
+      ja = lbn[symbolCounter].a;
+      jb = lbn[symbolCounter].b;
+      jc = lbn[symbolCounter].c;
+      jd = lbn[symbolCounter].d;
+      jh = lbn[symbolCounter].h;
+      ji = lbn[symbolCounter].i;
+      //jl = lbn[symbolCounter].l;
+      jm = lbn[symbolCounter].m;
+      js = lbn[symbolCounter].s;
+      jw = lbn[symbolCounter].w;
+      jx = lbn[symbolCounter].x;
+      jy = lbn[symbolCounter].y;
+      jx2 = lbn[symbolCounter].x2;
+      jy2 = lbn[symbolCounter].y2;
 } /* lassign */
 /**********************************************/
 
-void lsorty(void)
-/*
-   sort score symbols into ascending order of 'y'
-   (bubble sort)
-   find maxy, and fill yj table
-
-   called by linter,
-   calls     lassign,
-*/
-{
-   int k;
-   int last;
-   int y;
-
-   int j ;
-
-
-
-   for (j = 0; j < (Num_Lab_Entries-1); ++j)
-   {
-      for (k = j; k < Num_Lab_Entries; ++k)
-      {
-         if (lbn[k].y < lbn[j].y)
-         {
-            lassign();
-            lbn[j].a = lbn[k].a;
-            lbn[j].b = lbn[k].b;
-            lbn[j].c = lbn[k].c;
-            lbn[j].d = lbn[k].d;
-            lbn[j].h = lbn[k].h;
-            lbn[j].i = lbn[k].i;
-            //lbn[j].l = lbn[k].l;
-            lbn[j].m = lbn[k].m;
-            lbn[j].s = lbn[k].s;
-            lbn[j].w = lbn[k].w;
-            lbn[j].x = lbn[k].x;
-            lbn[j].y = lbn[k].y;
-            lbn[j].x2 = lbn[k].x2;
-            lbn[j].y2 = lbn[k].y2;
-            lbn[k].a = ja;
-            lbn[k].b = jb;
-            lbn[k].c = jc;
-            lbn[k].d = jd;
-            lbn[k].h = jh;
-            lbn[k].i = ji;
-            //lbn[k].l = jl;
-            lbn[k].m = jm;
-            lbn[k].s = js;
-            lbn[k].w = jw;
-            lbn[k].x = jx;
-            lbn[k].y = jy;
-            lbn[k].x2 = jx2;
-            lbn[k].y2 = jy2;
-            strcpy(buffer,lbnline[j]);
-            strcpy(lbnline[j],lbnline[k]);
-            strcpy(lbnline[k],buffer);
-         }
-      }
-   }
-   ymax = 0;
-   for (j = 0; j < Num_Lab_Entries; ++j)
-       if (((lbn[j].y2) > ymax)&&(lbn[j].m != Stav))
-            ymax = lbn[j].y2+1;
-   for (y = 0; y < ymax; ++y)
-       yj[y] = -1;
-   for (j = 0; j < Num_Lab_Entries; ++j)
-   {
-       y = lbn[j].y;
-	   if (y < 0) y = 0;
-       if (yj[y] < 0) yj[y] = j;
-   }
-   last = 0;
-   for (y = 0; y < ymax; ++y)
-   {
-       if (yj[y] < 0)
-            yj[y] = last;
-       else
-            last = yj[y];
-   }
-}   /* lsorty */
+//void lsorty(void)
+///*
+//   sort score symbols into ascending order of 'y'
+//   (bubble sort)
+//   find maxy, and fill yj table
+//
+//   called by linter,
+//   calls     lassign,
+//*/
+//{
+//   int k;
+//   int last;
+//   int y;
+//
+//   int j ;
+//
+//
+//
+//   for (j = 0; j < (Num_Lab_Entries-1); ++j)
+//   {
+//      for (k = j; k < Num_Lab_Entries; ++k)
+//      {
+//         if (lbn[k].y < lbn[j].y)
+//         {
+//            lassign();
+//            lbn[j].a = lbn[k].a;
+//            lbn[j].b = lbn[k].b;
+//            lbn[j].c = lbn[k].c;
+//            lbn[j].d = lbn[k].d;
+//            lbn[j].h = lbn[k].h;
+//            lbn[j].i = lbn[k].i;
+//            //lbn[j].l = lbn[k].l;
+//            lbn[j].m = lbn[k].m;
+//            lbn[j].s = lbn[k].s;
+//            lbn[j].w = lbn[k].w;
+//            lbn[j].x = lbn[k].x;
+//            lbn[j].y = lbn[k].y;
+//            lbn[j].x2 = lbn[k].x2;
+//            lbn[j].y2 = lbn[k].y2;
+//            lbn[k].a = ja;
+//            lbn[k].b = jb;
+//            lbn[k].c = jc;
+//            lbn[k].d = jd;
+//            lbn[k].h = jh;
+//            lbn[k].i = ji;
+//            //lbn[k].l = jl;
+//            lbn[k].m = jm;
+//            lbn[k].s = js;
+//            lbn[k].w = jw;
+//            lbn[k].x = jx;
+//            lbn[k].y = jy;
+//            lbn[k].x2 = jx2;
+//            lbn[k].y2 = jy2;
+//            strcpy(buffer,lbnline[j]);
+//            strcpy(lbnline[j],lbnline[k]);
+//            strcpy(lbnline[k],buffer);
+//         }
+//      }
+//   }
+//   ymax = 0;
+//   for (j = 0; j < Num_Lab_Entries; ++j)
+//       if (((lbn[j].y2) > ymax)&&(lbn[j].m != Stav))
+//            ymax = lbn[j].y2+1;
+//   for (y = 0; y < ymax; ++y)
+//       yj[y] = -1;
+//   for (j = 0; j < Num_Lab_Entries; ++j)
+//   {
+//       y = lbn[j].y;
+//	   if (y < 0) y = 0;
+//       if (yj[y] < 0) yj[y] = j;
+//   }
+//   last = 0;
+//   for (y = 0; y < ymax; ++y)
+//   {
+//       if (yj[y] < 0)
+//            yj[y] = last;
+//       else
+//            last = yj[y];
+//   }
+//}   /* lsorty */
 /************************************************/
 
 void lsortx(int stff[LMAX][2], int nstff)
@@ -1602,7 +1603,7 @@ int loverlap(int p1j, int p2j, int p1k, int p2k)
    {
 	   printf("OOPS: loverlap %d %d %d %d\n",
 		   p1j,p2j,p1k,p2k);
-	   lgetout(j);
+	   lgetout(symbolCounter);
    }
    lap = FALSE;
    if (p1k < p1j)
@@ -1956,7 +1957,7 @@ void ldostep(void)
 			( ( ji == 1 ) || ( ji == 5 ) || ( ji == 3 ) ) )
 		{
 			printf( "dostep: funny symbol in left support column, line %d, bar %d\n",
-				j, num_curBar );
+				symbolCounter, num_curBar );
 			printf( "%3d %3d %3d %3d %3d %3d %d\n",
 				jm, ji, jy, js, jw, jh, jd );
 		}
@@ -1964,7 +1965,7 @@ void ldostep(void)
 			( ( ji == 10 ) || ( ji == 6 ) || ( ji == 8 ) ) )
 		{
 			printf( "dostep: funny  symbol in right support column, line %d, bar %d\n",
-				j, num_curBar );
+				symbolCounter, num_curBar );
 			printf( "%3d %3d %3d %3d %3d %3d %d\n",
 				jm, ji, jy, js, jw, jh, jd );
 		}
@@ -2008,7 +2009,7 @@ void ldostep(void)
 			if ( ji == 11 )
 				fprintf( nudesfile, "call      %3d %3d close\n",
 					firstFrameNumAct, fend );
-			lbn[j].a = DONE;
+			lbn[symbolCounter].a = DONE;
 			firstFramePrevAct = firstFrameNumAct;
 			lastFramePrevAct = fend;
 		}
@@ -2113,10 +2114,10 @@ void lleggesture(void)
       {
          if ((jd < 0) || (jd > 2))
          {
-            printf("OOPS: dogesture height problem line %d\n",j);
+            printf("OOPS: dogesture height problem line %d\n",symbolCounter);
             printf("%3d %3d %3d %3d %3d %3d %3d %d\n",
 	             jm,ji,jx,jy,js,jw,jh,jd);
-            lgetout(j);
+            lgetout(symbolCounter);
             if (ok == 1) goto rtrn;
          } /* level funny */
          fprintf(nudesfile,"*\n");
@@ -2149,7 +2150,7 @@ void lleggesture(void)
          {
             if ((ji <= 1)||(ji == 3)||(ji == 5)||(ji > 11))
             {
-               printf("OOPS: dogesture direction problem line %d\n",j);
+               printf("OOPS: dogesture direction problem line %d\n",symbolCounter);
                printf("%3d %3d %3d %3d %3d %3d %3d %3d %d\n",
                   jm,ji,jx,jy,js,jw,jh,jb,jd);
                lgetout(1);
@@ -2161,9 +2162,9 @@ void lleggesture(void)
          } /* left side */
          else if (jc > 0)
          {
-            if ((ji < 1)||(ji == 6)||(j == 8)||(ji == 10)||(ji > 11))
+            if ((ji < 1)||(ji == 6)||(symbolCounter == 8)||(ji == 10)||(ji > 11))
             {
-               printf("OOPS: dogesture direction problem line %d\n",j);
+               printf("OOPS: dogesture direction problem line %d\n",symbolCounter);
                printf("%3d %3d %3d %3d %3d %3d %3d %3d %d\n",
                   jm,ji,jx,jy,js,jw,jh,jb,jd);
                lgetout(1);
@@ -2208,7 +2209,7 @@ void lleggesture(void)
             fprintf(nudesfile,
                "repeat    %3d %3d moveto fig    afoot  %s\n",
 	            firstFrameNumAct,fend,xyz[dofig]);
-         lbn[j].a = DONE;
+         lbn[symbolCounter].a = DONE;
       } /* no tap and pivot */
    } /* c OK */
 rtrn: ;
@@ -2233,7 +2234,7 @@ void ldoarms(void)
          fprintf(nudesfile,"*\n* arms\n");
          if ((jd < 0) || (jd > 2))
          {
-            printf("ldoarms problem line %d, bar %d\n",j,num_curBar);
+            printf("ldoarms problem line %d, bar %d\n",symbolCounter,num_curBar);
             printf("%c %3d %3d %3d %3d %3d %3d %d\n",
 	           jm,ji,jx,jy,js,jw,jh,jd);
             lgetout(1);
@@ -2348,7 +2349,7 @@ void ldoarms(void)
          } /* right arm */
       } /* Dirn symbol */
    } /* in arm column */
-   lbn[j].a = DONE;
+   lbn[symbolCounter].a = DONE;
 rtrn: ;
 } /* ldoarms */
 /***************************************************/
@@ -2454,11 +2455,11 @@ void ldopivot(void)
    {
      piv = lgetpin();//finds the pin in the symbol and returns the angle
       if (firstFrameNumAct < 1) firstFrameNumAct = 1;
-      g = lhasgesture(j);//checks the gesture column for (-3 +3)for ovelapping gestures
-      t = lhastap(j);//checks if the j'th symbol has overlapping ground contact
+      g = lhasgesture(symbolCounter);//checks the gesture column for (-3 +3)for ovelapping gestures
+      t = lhastap(symbolCounter);//checks if the j'th symbol has overlapping ground contact
       if ((g > 0)&&(t > 0))
       {
-         lspotturn(j,piv,firstFrameNumAct,fend,g);
+         lspotturn(symbolCounter,piv,firstFrameNumAct,fend,g);
          firstFramePrevAct = firstFrameNumAct;
          lastFramePrevAct = fend;
       }
@@ -2554,9 +2555,9 @@ Relevant symbols:-
    int mlhand,mrhand,wlhand,wrhand;
 
    centre = (staff[0][2] + staff[1][2])/2;
-   for (j = 0; j < Num_Lab_Entries; ++j)
+   for (symbolCounter = 0; symbolCounter < Num_Lab_Entries; ++symbolCounter)
    {
-      if ((lbn[j].m == Misc)&&(lbn[j].i == 1))
+      if ((lbn[symbolCounter].m == Misc)&&(lbn[symbolCounter].i == 1))
       {
           lassign();
           held = lseeksym(Volm,1,jx,jx2,jy-STEP,jy2);
@@ -2593,7 +2594,7 @@ Relevant symbols:-
               if (wlhand > 0) jb += WLHAND;
               if (wrhand > 0) jb += WRHAND;
               if (jb <= 0)
-                 fprintf(nudesfile,"* OOPS: lbows: bow %d with no contacts\n",j);
+                 fprintf(nudesfile,"* OOPS: lbows: bow %d with no contacts\n",symbolCounter);
               else
               {
                  if (mlhand > 0) lbn[mlhand].b = jb;
@@ -2603,7 +2604,7 @@ Relevant symbols:-
               }
            } /* held */
            fprintf(nudesfile,"*  lbowsb %d %d %d %d %d %d %d %d %d\n",
-              j+1,held,front,back,mlhand,mrhand,wlhand,wrhand,jb);
+              symbolCounter+1,held,front,back,mlhand,mrhand,wlhand,wrhand,jb);
       } /* contact bow */
    } /* j */
 } /* lbows */
@@ -3001,14 +3002,14 @@ void lbent(void)
    int jy2h;
    char km;//temporary variable for menu name
 
-   for (j = 0; j < ssend; ++j)
+   for (symbolCounter = 0; symbolCounter < ssend; ++symbolCounter)
    {
-      if ((lbn[j].m == Volm)&&(lbn[j].i <= STRETCH))
+      if ((lbn[symbolCounter].m == Volm)&&(lbn[symbolCounter].i <= STRETCH))
       {
          lassign();
          jy2h = jy2+jh;
          g = -1;
-         for (k = j+1;	((k < Num_Lab_Entries)&&(g < 0)); ++k)
+         for (k = symbolCounter+1;	((k < Num_Lab_Entries)&&(g < 0)); ++k)
          {
             km = lbn[k].m;
             if ((km == Dirn)&&(lbn[k].a == TODO))
@@ -3025,21 +3026,21 @@ void lbent(void)
                      &&(loverlap(jy2,jy2h,ky,ky2) > 0))
                   {
                       g = k;
-                      lbn[j].b = ji;
+                      lbn[symbolCounter].b = ji;
                       ki = lbn[k].i;
-                      lbn[j].m = km;
-                      lbn[j].i = ki;
-                      lbn[j].y2 = ky2;
-                      lbn[j].h = lbn[k].y2 - jy;
-                      lbn[j].d = lbn[k].d;
+                      lbn[symbolCounter].m = km;
+                      lbn[symbolCounter].i = ki;
+                      lbn[symbolCounter].y2 = ky2;
+                      lbn[symbolCounter].h = lbn[k].y2 - jy;
+                      lbn[symbolCounter].d = lbn[k].d;
                       lbn[k].a = DONE;
                       if (ji == BENT)
                       {
                          if ((ki == 11)&&(jc < 0))
-                            lbn[j].i = 8;
+                            lbn[symbolCounter].i = 8;
                          else
                          if ((ki == 11)&&(jc > 0))
-                            lbn[j].i = 3;
+                            lbn[symbolCounter].i = 3;
                       } /* ji == BENT */
                   } /* overlapping */
                } /* ky < jy2h */
@@ -3131,7 +3132,7 @@ void lrelease(void)
       hold = NO;
       fprintf(nudesfile,
          "* lreleasea %d %d %d %d %d %d\n",
-            firstFrameNumAct,fend,j,jb,hold,prevhold);
+            firstFrameNumAct,fend,symbolCounter,jb,hold,prevhold);
       keptf = ffin;
    }
 } /* lrelease */
@@ -3609,7 +3610,7 @@ void ldotoetaps ( void )/*
 			{
 				if ( ( ji <= 1 ) || ( ji == 3 ) || ( ji == 5 ) || ( ji > 11 ) )
 				{
-					printf ( "OOPS: ldotoetap left direction problem line %d\n", j );
+					printf ( "OOPS: ldotoetap left direction problem line %d\n", symbolCounter );
 					printf ( "%3d %3d %3d %3d %3d %3d %3d %3d %d\n", jm, ji, jx, jy, js, jw, jh, jb, jd );
 					lgetout ( 1 );
 					if ( ok == 1 ) return;
@@ -3622,7 +3623,7 @@ void ldotoetaps ( void )/*
 				if ( ( ji < 1 ) || ( ji == 6 ) ||
 					( ji == 8 ) || ( ji == 10 ) || ( ji > 11 ) )
 				{
-					printf ( "OOPS: ldotoetap right direction problem line %d\n", j );
+					printf ( "OOPS: ldotoetap right direction problem line %d\n", symbolCounter );
 					printf ( "%3d %3d %3d %3d %3d %3d %3d %3d %d\n", jm, ji, jx, jy, js, jw, jh, jb, jd );
 					lgetout ( 1 );
 					if ( ok == 1 ) return;
@@ -3649,7 +3650,7 @@ void ldotoetaps ( void )/*
 			fprintf ( nudesfile,
 				"linear    %3d %3d drag   bfoot  bfoot  bankle bleg  x\n",
 				firstFrameNumAct, fend );
-			lbn[j].a = DONE;
+			lbn[symbolCounter].a = DONE;
 	} /* c OK */
 } /* ldotoetaps */
 /**************************************/
@@ -3751,14 +3752,14 @@ Relevant symbols:-
 		fprintf ( nudesfile, "*\nrepeat      0 %3d call   doman\n", max_Numframe );
 	else
 		fprintf ( nudesfile, "*\nrepeat      0 %3d call   dowoman\n", max_Numframe );
-	for ( j = 0; j < NCOLM; ++j )
-		colm[j] = ARM;
-	for ( j = 0; j < ssend; ++j )
+	for ( symbolCounter = 0; symbolCounter < NCOLM; ++symbolCounter )
+		colm[symbolCounter] = ARM;
+	for ( symbolCounter = 0; symbolCounter < ssend; ++symbolCounter )
 	{
 	  lassign ();//assigns the parameter of current symbol to temporary varibles
 	  lsetframes ();//sets the frame numbers for a particular symbol(firstFrameNumAct , fend, frange)
-		fprintf(nudesfile,"* %d %3d %s",lbn[j].a,jc,lbnline[j]);
-		if ( lbn[j].a == TODO )
+		fprintf(nudesfile,"* %d %3d %s",lbn[symbolCounter].a,jc,lbnline[symbolCounter]);
+		if ( lbn[symbolCounter].a == TODO )
 		{
 			if ( jm == Bars )
 			  ldobar ();//increments num_curBar
@@ -3865,7 +3866,7 @@ char colm[NCOLM];    // limb presigns in the columns
 {
    //lbnread();
    //lsorty();//sorts the lbn structure array by y parameter
-   lfindstaff(gen);
+   //lfindstaff(gen);
    lsetrange();
    lselectfig();
    lcopyfigs(renOrfile);
@@ -10325,7 +10326,8 @@ void funcConvInitialise()
   ForUpdatingArray2Int(myobject ,"coel",(int*)coel,EMAX,2);
   ForUpdatingArray2Int(myobject ,"subact",(int*)subact,EMAX,2);
   ForUpdatingArray2Int(myobject ,"pf",(int*)pf,PMAX,6);
-
+  ForUpdatingArray2Int(myobject,"pins",(int*)pins,TMAX,2);
+  ForUpdatingArray2Int(myobject,"staff",(int*)staff,TMAX,6);
 
   ForArray(myobject ,"obs",(double*)obs ,3,3);  //for array[][3]
   ForArray(myobject ,"cen",(double*)cen , EMAX,3);
@@ -10407,7 +10409,9 @@ void funcConvInitialise()
   ForUpdatingVarInt(myobject,"input_file_type",&input_file_type);
 
   ForUpdatingVarInt(myobject,"Num_Lab_Entries",&Num_Lab_Entries);
-
+  ForUpdatingVarInt(myobject,"symbolCounter",&symbolCounter);
+  ForUpdatingVarInt(myobject,"stmiddle",&stmiddle);
+  ForUpdatingVarInt(myobject,"npins",&npins);
 
 
 
