@@ -3867,6 +3867,7 @@ char colm[NCOLM];    // limb presigns in the columns
    //lbnread();
    //lsorty();//sorts the lbn structure array by y parameter
    //lfindstaff(gen);
+    printf("CCCCCCCCC"); 
    lsetrange();
    lselectfig();
    lcopyfigs(renOrfile);

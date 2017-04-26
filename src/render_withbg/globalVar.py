@@ -190,7 +190,7 @@ class GlobalVar():
         self.stmiddle = None
         self.npins = None
         self.pins = [None,None]*self.TMAX
-        self.staff = [None] #[TMAX][6]
+        self.staff =[[None]*6]*self.TMAX #[TMAX][6]
        
 
 
@@ -210,7 +210,7 @@ led_param(GV)
 get_files(GV,argFilename)
 lbn_read(GV)                        # lsorty, lbnread
 lfindstaff(GV,arg2)
-
+print("oooo")
 
 
 

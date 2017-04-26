@@ -47,7 +47,6 @@ def lfindstaff(GV,gender):
     staffStart = 0 # y coordinate of midle stav
     nstaffstart = None # index of staves
     nstaff = None # number of staves
-    print("111111111")
     for i in range(GV.Num_Lab_Entries):       
         if GV.listLbnObject[i].Name == 'Stav':
             localStaff.append([i,GV.listLbnObject[i].Xpos])
@@ -56,7 +55,7 @@ def lfindstaff(GV,gender):
             nstaffstart = i
             counter +=1
             GV.listLbnObject[i].a = GV.DONE
-    print("222222222") 
+    
     if counter < 3 or counter > GV.TMAX:
         print("lfindstaff: %d staff lines, max %d"%(counter,GV.TMAX))
         lgetout(GV,1)
@@ -66,21 +65,20 @@ def lfindstaff(GV,gender):
     nstaff = counter
     localStaff = lsortx(localStaff,nstaff)
     counter = 0
-    print("333333333333")
     for i in range(1,nstaff,3): # need for look
-        print("@@@@@@@@@ %i"%i)
         GV.staff[counter][0]=localStaff[i][0] 
-        print("@")
         GV.staff[counter][1]=localStaff[i-1][1]
         GV.staff[counter][2]=localStaff[i][1]
         GV.staff[counter][3]=localStaff[i+1][1]
         GV.staff[counter][4]=-1
         GV.staff[counter][5]=GV.TODO
         counter +=1
-    print("444444444") 
-    nstaff = cointer
-    GV.stmiddle = (localStaff[0][2]+localStaff[nstaff-1][2])/2
+    
+    nstaff = counter
+    print(localStaff)
+    GV.stmiddle = (GV.staff[0][2]+GV.staff[nstaff-1][2])/2
     GV.npins = 0
+
     for j in range (nstaffstart):
         if GV.listLbnObject[j].Name=='Pins':#need for look
             jp = GV.listLbnObject[j].Xpos
@@ -100,6 +98,7 @@ def lfindstaff(GV,gender):
                         GV.pins[GV,npins][1] = counter
                         GV.listLbnObject[j].a = GV.DONE
             GV.npins +=1
+    print(nstaff)
     if nstaff < 1:
         print("No staves found")
     else:
@@ -107,11 +106,11 @@ def lfindstaff(GV,gender):
             if gender!=None:
                 if nstaff ==1:
                     if gender == 'm':
-                        localStaff[j][4] = GV.MAN
+                        GV.staff[j][4] = GV.MAN
                     if gender == 'f':
-                        localStaff[j][4] = GV.WOMAN
+                        GV.staff[j][4] = GV.WOMAN
                 elif j == 0:
-                    localStaff[j][4] = GV.MAN
+                    GV.staff[j][4] = GV.MAN
                 elif j ==1:
-                    localStaff[j][4] = GV.WOMAN
-
+                    GV.staff[j][4] = GV.WOMAN
+    print("aaaaaaa")
