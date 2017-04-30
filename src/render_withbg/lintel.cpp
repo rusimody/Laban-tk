@@ -1072,8 +1072,9 @@ void initialise(void)
    radian = (2*pi)/doub360;   //no requirement of declaration in python some inbuilt function can be use. 
    degree = doub1/radian;   ///no requirement of declaration in python some inbuilt function can be use
    lg2 = log(doub2);   ///no requirement of declaration in python some inbuilt function can be use
- 
 
+//   printf(" in symbolCounter  %d  \n" , symbolCounter );
+  symbolCounter = 0 ;
 //   freezeAnimation = FALSE; // TRUE if animation frozen
 //   forward = TRUE;
 //   single = DONE;
@@ -3864,10 +3865,27 @@ char colm[NCOLM];    // limb presigns in the columns
 
 */
 {
+ 
    //lbnread();
    //lsorty();//sorts the lbn structure array by y parameter
    //lfindstaff(gen);
-    printf("CCCCCCCCC"); 
+
+   
+   printf("CCCCCCCCC");
+
+//   for(i=0;i<TMAX;i++)
+//   {
+//     for(j=0;j<6;j++)
+//       printf(" %d  " , staff[i][j] );
+//    printf("\n");  
+//   }
+
+//   printf("%d \n" , symbolCounter);
+//   printf("%d \n" , stmiddle);
+//   printf("%d \n" , npins);
+
+
+
    lsetrange();
    lselectfig();
    lcopyfigs(renOrfile);
@@ -10198,6 +10216,16 @@ void  ForUpdatingBool(PyObject* myobject ,char* attrName,bool* varName)
   *varName = false;
 }
 
+void  ForUpdatingLongInt(PyObject* myobject ,char* attrName , int* varName)
+{
+  PyObject* attr;
+  int value;
+  attr = PyObject_GetAttrString(myobject, attrName );
+  PyArg_Parse(attr , "L" , &value);
+  *varName = value;
+}
+
+
 void  ForPrint(PyObject* myobject ,char* attrName)
 {
   PyObject* attr;
@@ -10327,8 +10355,10 @@ void funcConvInitialise()
   ForUpdatingArray2Int(myobject ,"coel",(int*)coel,EMAX,2);
   ForUpdatingArray2Int(myobject ,"subact",(int*)subact,EMAX,2);
   ForUpdatingArray2Int(myobject ,"pf",(int*)pf,PMAX,6);
+
   ForUpdatingArray2Int(myobject,"pins",(int*)pins,TMAX,2);
   ForUpdatingArray2Int(myobject,"staff",(int*)staff,TMAX,6);
+
 
   ForArray(myobject ,"obs",(double*)obs ,3,3);  //for array[][3]
   ForArray(myobject ,"cen",(double*)cen , EMAX,3);
@@ -10408,9 +10438,10 @@ void funcConvInitialise()
 
   ForUpdatingVarInt(myobject,"haslbn",&haslbn);
   ForUpdatingVarInt(myobject,"input_file_type",&input_file_type);
-
   ForUpdatingVarInt(myobject,"Num_Lab_Entries",&Num_Lab_Entries);
-  ForUpdatingVarInt(myobject,"symbolCounter",&symbolCounter);
+ 
+
+  ForUpdatingLongInt(myobject,"symbolCounter",&symbolCounter);
   ForUpdatingVarInt(myobject,"stmiddle",&stmiddle);
   ForUpdatingVarInt(myobject,"npins",&npins);
 
@@ -10523,11 +10554,11 @@ more:
 
 
 
+
 	    initialise();
 //    get_ini ( 0 );
 
-
-//	led_param();
+      //	led_param();
 	get_files ( argv[1] );
 
 if ( ok != 0 ) goto more;

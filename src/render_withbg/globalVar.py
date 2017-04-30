@@ -186,11 +186,11 @@ class GlobalVar():
         self.xmin = 0
 
         ##########################
-        self.symbolCounter = None
-        self.stmiddle = None
-        self.npins = None
-        self.pins = [None,None]*self.TMAX
-        self.staff =[[None]*6]*self.TMAX #[TMAX][6]
+        self.symbolCounter = int (2147483648 )
+        self.stmiddle = 0
+        self.npins = 0
+        self.pins = [[0,0] for i in range(self.TMAX)]
+        self.staff =[[0 for j in range(6)] for i in range(self.TMAX)] #[TMAX][6]
        
 
 
@@ -209,8 +209,9 @@ get_ini(GV,0)
 led_param(GV)
 get_files(GV,argFilename)
 lbn_read(GV)                        # lsorty, lbnread
+
 lfindstaff(GV,arg2)
-print("oooo")
+#print("oooo")
 
 
 
