@@ -3,9 +3,8 @@ from initialise import initialise
 from get_ini import get_ini
 from led_param import led_param
 from get_files import get_files
-from lbn_read import lbn_read
-from lfindstaff import lfindstaff
-
+#from lbn_read import lbn_read
+from linter import linter
 class GlobalVar():
     def __init__(self):
         self.EMAX = 1024   #Maximum No.of ellipsoid  (const)
@@ -191,7 +190,7 @@ class GlobalVar():
         self.npins = 0
         self.pins = [[0,0] for i in range(self.TMAX)]
         self.staff =[[0 for j in range(6)] for i in range(self.TMAX)] #[TMAX][6]
-       
+        self.numberOfStaff = 0       
 
 
 GV = GlobalVar()
@@ -208,10 +207,8 @@ initialise(GV)
 get_ini(GV,0)
 led_param(GV)
 get_files(GV,argFilename)
-lbn_read(GV)                        # lsorty, lbnread
-
-lfindstaff(GV,arg2)
-#print("oooo")
+linter(GV,arg1,arg2)
+#lfindstaff(GV,arg2)
 
 
 

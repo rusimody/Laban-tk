@@ -301,7 +301,7 @@ int npins;           // number of pins below first barline
 int nm;              // number of men
 int nw;              // number of women
 int nmw;             // nm * nw
-int nstaff;          // number of staves
+int numberOfStaff;          // number of staves
 int oriented;        // true after orientation
 int lastFramePrevAct;            // last frame of previous action
 int firstFramePrevAct;          // first fame of previous action
@@ -1683,19 +1683,23 @@ staff[TMAX][6].
       staff[k][5] = TODO;
       ++k;
    }
-   nstaff = k;
-   stmiddle = (staff[0][2] + staff[nstaff-1][2])/2;
+   numberOfStaff = k;
+   stmiddle = (staff[0][2] + staff[numberOfStaff-1][2])/2;
    npins = 0;
    // seek pins under center stafflines
+   printf("####### %d\n ",nstaffstart);
    for (j = 0; j < nstaffstart; ++j)
    {
+      printf("@@@@@@@@@ %c",lbn[j].m);
+
       if (lbn[j].m == Pins)
       {
+         printf("!!!!!!!!!!!!");
          jp = lbn[j].x;
          jq = lbn[j].x2;
          pins[npins][0] = j;
          pins[npins][1] = -1;
-         for (k = 0; k < nstaff; ++k)
+         for (k = 0; k < numberOfStaff; ++k)
          {
             kp = staff[k][2] - 1;
             kq = kp+2;
@@ -1718,10 +1722,10 @@ staff[TMAX][6].
          ++npins;
       } /* a pin found */
    } /* j */
-   if (nstaff < 1)
+   if (numberOfStaff < 1)
 	   printf("No staves found\n");
    else
-   for (j = 0; j < nstaff; ++j)
+   for (j = 0; j < numberOfStaff; ++j)
    {
 		if (j == 0)
 			printf("\n");
@@ -1735,7 +1739,7 @@ staff[TMAX][6].
       printf(" no gender\n");*/
 		if(gen != NULL)
 		{
-		  if(nstaff == 1)
+		  if(numberOfStaff == 1)
 		  {
 		    if(gen[0] == 'm')
 		      staff[j][4] = MAN;
@@ -2847,16 +2851,16 @@ void lselectfig(void)
    char key;
 
 again:
-   for (k = 0; k < nstaff; ++k)
+   for (k = 0; k < numberOfStaff; ++k)
       staff[k][5] = DONE;
    nf = 0;//number of figures
    nm = 0;//no. of male figs
    nw = 0;//no. of female figs
    nogo = FALSE;
-   if (nstaff < 1)
+   if (numberOfStaff < 1)
       printf("no staves\n");
    else
-   if (nstaff == 1)
+   if (numberOfStaff == 1)
    {
       staff[0][5] = TODO;
       if (staff[0][4] == MAN)
@@ -2865,10 +2869,10 @@ again:
          ++nw;
    }
    else
-   if (nstaff > 1)
+   if (numberOfStaff > 1)
    {
       nmw = 0;
-      if (nstaff > TMAX)
+      if (numberOfStaff > TMAX)
          printf("This can only interpret staves from 1 to %d\n",
 		    TMAX);
       if (lbn_figures == 2)
@@ -2921,7 +2925,7 @@ again:
       for (nf = 0; nf < lbn_figures; ++nf)
       {
             st = stv[nf]-1;
-            if ((st < 0)||(st > nstaff))
+            if ((st < 0)||(st > numberOfStaff))
             {
                 printf("OOPS: staff number %d out of range\n",st+1);
                 goto again;
@@ -2942,7 +2946,7 @@ again:
              } /* a man or woman */
              nmw = nm*nw;
        } /* nf */
-   } /* nstaff > 1 */
+   } /* numberOfStaff > 1 */
    if (nogo == TRUE)
       goto again;
 
@@ -3838,7 +3842,7 @@ int npins;           // number of pins below first barline
 int nm;              // number of men
 int nw;              // number of women
 int nmw;             // nm * nw
-int nstaff;          // number of staves
+int numberOfStaff;          // number of staves
 int oriented;        // true after orientation
 int lastFramePrevAct;            // last frame of previous action
 int firstFramePrevAct;          // first fame of previous action
@@ -3893,7 +3897,7 @@ char colm[NCOLM];    // limb presigns in the columns
    lfindystart();
    lbows(); // flag hand signs
    lbent(); // flag dirn signs
-   for (st = 0; st < nstaff; ++st)
+   for (st = 0; st < numberOfStaff; ++st)
    {
       hold = NO;
       holdcl = 0;
@@ -10444,7 +10448,7 @@ void funcConvInitialise()
   ForUpdatingLongInt(myobject,"symbolCounter",&symbolCounter);
   ForUpdatingVarInt(myobject,"stmiddle",&stmiddle);
   ForUpdatingVarInt(myobject,"npins",&npins);
-
+  ForUpdatingVarInt(myobject,"numberOfStaff",&numberOfStaff);
 
 
 
