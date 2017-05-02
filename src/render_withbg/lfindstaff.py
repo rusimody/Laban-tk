@@ -9,7 +9,7 @@ def lgetout(GV,allok):
             GV.figsfile.close()
     else:
         print("lintel snag, line %d"%GV.symbolCounter)
-        print(GV.lbnline[symbolCounter])
+        print(GV.lbnline[GV.symbolCounter])
         GV.ok=1
     return
 
@@ -45,8 +45,8 @@ def lfindstaff(GV,gender):
     localStaff = [] # temporary list to store staff information
     counter = 0
     staffStart = 0 # y coordinate of midle stav
-    nstaffstart = None # index of staves
-    nstaff = None # number of staves
+    nstaffstart = 0 # index of staves
+    nstaff = 0 # number of staves
     for i in range(GV.Num_Lab_Entries):       
         if GV.listLbnObject[i].Name == 'Stav':
             localStaff.append([i,GV.listLbnObject[i].Xpos])
@@ -89,7 +89,7 @@ def lfindstaff(GV,gender):
                 kp = GV.staff[k][2]-1
                 kq = kp+2
                 if loverlap(jp,jq,kp,kq)>0:
-                    if GV.listLbnObject[j].d == 0: # d is not defines
+                    if GV.listLbnObject[j].Level == "B": # d is not defines
                         localStaff[counter][4] = GV.MAN
                         GV.pins[GV,npins][1] = counter
                         GV.listLbnObject[j].a = GV.DONE
