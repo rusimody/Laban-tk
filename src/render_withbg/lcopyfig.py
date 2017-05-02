@@ -16,7 +16,6 @@ def lcopyfig(GV,renderFile):
         lgetout(GV,1)
         if GV.ok==1:
             return
-    nudeFile = open(GV.nudesfile,"w")
-    for line in GV.figsname:
-        nudeFile.write(line)
 
+    for line in GV.figsname:
+        (GV.nudesfile).write(line)
