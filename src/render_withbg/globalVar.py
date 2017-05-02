@@ -184,13 +184,17 @@ class GlobalVar():
         self.listLbnObject = []
         self.xmin = 0
 
-        ##########################
         self.symbolCounter = int (2147483648 )
         self.stmiddle = 0
         self.npins = 0
         self.pins = [[0,0] for i in range(self.TMAX)]
-        self.staff =[[0 for j in range(6)] for i in range(self.TMAX)] #[TMAX][6]
+        self.staff =[[0 for j in range(6)] for i in range(self.TMAX)] 
         self.numberOfStaff = 0       
+        ###################
+        self.ystart = 0
+        self.yend = 0
+        self.startScoreSymbol = 0
+        self.endScoreSymbol = 0
 
 
 GV = GlobalVar()
@@ -208,7 +212,5 @@ get_ini(GV,0)
 led_param(GV)
 get_files(GV,argFilename)
 linter(GV,arg1,arg2)
-#lfindstaff(GV,arg2)
-
 
 

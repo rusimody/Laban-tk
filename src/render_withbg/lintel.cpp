@@ -262,7 +262,7 @@ int wspace;
 
 double lbn_fpp;      // frames per pixel
 
-int blength;         // number of bars to interpret
+//int blength;         // number of bars to interpret
 int bpm;             // beats per minute
 int bstart;          // bar to start at
 int lcentre;         // x position of centre staff line
@@ -313,8 +313,8 @@ int item_prev;           // item of previous support symbol
 int col_prev;           // column of previous support symbol
 int prevhold;        // previous hold
 int height_prev;            // height of previous step;
-int ssend;           // ending score symbol
-int sstart;          // starting score symbol
+int endScoreSymbol;           // ending score symbol
+int startScoreSymbol;          // starting score symbol
 int st;              // current staff number
 int stmiddle;        // halfway across between L and R staves
 int trackOnMainFig;           // TRUE when tracking viewpoint on main figure
@@ -1293,7 +1293,7 @@ int lfindnext(int c, int y1, int y2)
 
    q = -1;
    yy = y2;
-   for (k = sstart; k < ssend; ++k)
+   for (k = startScoreSymbol; k < endScoreSymbol; ++k)
    {
       if ((lbn[k].c == jc) && (lbn[k].y >= y1) && (lbn[k].y <= y2))
       {
@@ -2702,8 +2702,8 @@ void lstart(void)
    ystart = 0;
    yend = lbn[0].y;
    ymax = yend;
-   sstart = 0;
-   ssend = Num_Lab_Entries;
+   startScoreSymbol = 0;
+   endScoreSymbol = Num_Lab_Entries;
    //finds the starting symbol and stores its y in ystart
    for (k = 0; k < Num_Lab_Entries; ++k)
    {
@@ -2711,21 +2711,22 @@ void lstart(void)
       {
          if (lbn[k].i == bstart)
          {
-            sstart = k;
+
+            startScoreSymbol = k;
             ystart = lbn[k].y;//break should be used to avoid redundancy
          }
       }
    }
-   bend = bstart + blength;
+  // bend = bstart ;//+ blength;
    //useless
-   for (k = (sstart+1); k < Num_Lab_Entries; ++k)
-   {
-      if (lbn[k].m == Bars)
-      {
-         if (lbn[k].i == bend)
-            ssend = k;
-      }
-   }
+ //  for (k = (startScoreSymbol+1); k < Num_Lab_Entries; ++k)
+ //  {
+ //     if (lbn[k].m == Bars)
+ //     {
+ //        if (lbn[k].i == bend)
+ //           endScoreSymbol = k;
+ //     }
+ //  }
    //finds the last symbol and stores its y in ymax
    for (k = 0; k < Num_Lab_Entries; ++k)
    {
@@ -2742,6 +2743,7 @@ void lstart(void)
    }
    //max_Numframe is total number of frames required for the dance
    max_Numframe = 2 + int(lbn_fpp*double(ymax));
+   printf("###### %d %d %d %d",ystart,yend,startScoreSymbol,endScoreSymbol);
 	printf("\n   lsetrange: pixels %d, frames %d\n",ymax,max_Numframe);
 } /* lsetrange */
 /****************************************************/
@@ -3007,7 +3009,7 @@ void lbent(void)
    int jy2h;
    char km;//temporary variable for menu name
 
-   for (symbolCounter = 0; symbolCounter < ssend; ++symbolCounter)
+   for (symbolCounter = 0; symbolCounter < endScoreSymbol; ++symbolCounter)
    {
       if ((lbn[symbolCounter].m == Volm)&&(lbn[symbolCounter].i <= STRETCH))
       {
@@ -3759,7 +3761,7 @@ Relevant symbols:-
 		fprintf ( nudesfile, "*\nrepeat      0 %3d call   dowoman\n", max_Numframe );
 	for ( symbolCounter = 0; symbolCounter < NCOLM; ++symbolCounter )
 		colm[symbolCounter] = ARM;
-	for ( symbolCounter = 0; symbolCounter < ssend; ++symbolCounter )
+	for ( symbolCounter = 0; symbolCounter < endScoreSymbol; ++symbolCounter )
 	{
 	  lassign ();//assigns the parameter of current symbol to temporary varibles
 	  lsetframes ();//sets the frame numbers for a particular symbol(firstFrameNumAct , fend, frange)
@@ -3853,8 +3855,8 @@ int item_prev;           // item of previous support symbol
 int col_prev;           // column of previous support symbol
 int prevhold;        // previous hold
 int height_prev;            // height of previous step;
-int ssend;           // ending score symbol
-int sstart;          // starting score symbol
+int endScoreSymbol;           // ending score symbol
+int startScoreSymbol;          // starting score symbol
 int st;              // current staff number
 int stmiddle;        // halfway across between L and R staves
 int trackOnMainFig;           // TRUE when tracking viewpoint on main figure
@@ -3873,9 +3875,6 @@ char colm[NCOLM];    // limb presigns in the columns
    //lbnread();
    //lsorty();//sorts the lbn structure array by y parameter
    //lfindstaff(gen);
-
-   
-   printf("CCCCCCCCC");
 
 //   for(i=0;i<TMAX;i++)
 //   {
@@ -10450,7 +10449,10 @@ void funcConvInitialise()
   ForUpdatingVarInt(myobject,"npins",&npins);
   ForUpdatingVarInt(myobject,"numberOfStaff",&numberOfStaff);
 
-
+  ForUpdatingVarInt(myobject,"ystart",&ystart);
+  ForUpdatingVarInt(myobject,"yend",&yend);
+  ForUpdatingVarInt(myobject,"startScoreSymbol",&startScoreSymbol);
+  ForUpdatingVarInt(myobject,"endScoreSymbol",&endScoreSymbol);
 
 
   ForUpdatingBool(myobject ,"mspace" , &mspace);
