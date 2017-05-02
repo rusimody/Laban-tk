@@ -298,9 +298,9 @@ int mface,wface;     // facing directions of man and woman
 int num_curBar;            // number of current bar
 int Num_Lab_Entries;           // number of laban score entries
 int npins;           // number of pins below first barline
-int nm;              // number of men
-int nw;              // number of women
-int nmw;             // nm * nw
+int numberOfMen;              // number of men
+int numberOfWomen;              // number of women
+int numberMenWomen;             // numberOfMen * numberOfWomen
 int numberOfStaff;          // number of staves
 int oriented;        // true after orientation
 int lastFramePrevAct;            // last frame of previous action
@@ -2627,12 +2627,12 @@ void lstart(void)
    int dx,dz;
    int mx,my;//coordinates of male pins if exist
    int wx,wy;//coordinates of female pins if exist
-
+   
    mx = -123;
    my = -123;
    wx = -123;
    wy = -123;
-   if (nm > 0)
+   if (numberOfMen > 0)
       fprintf(nudesfile,"\n*\ncall        0   1 doman\n");
    else
       fprintf(nudesfile,"\n*\ncall        0   1 dowoman\n");
@@ -2647,7 +2647,7 @@ void lstart(void)
          {
             mx = lbn[p].x;
             my = lbn[p].y;
-            if (nm > 0)
+            if (numberOfMen > 0)
                fprintf(nudesfile,
                   "*\nquadratic   0   1 spinby man    mlfoot  mpelvis %d y\n",
                   (ji-1)*45);
@@ -2656,7 +2656,7 @@ void lstart(void)
          {
             wx = lbn[p].x;
             wy = lbn[p].y;
-            if (nw > 0)
+            if (numberOfWomen > 0)
                fprintf(nudesfile,
                   "*\nquadratic   0   1 spinby woman  wrfoot  wpelvis %d y\n",
                   (ji-1)*45);
@@ -2666,7 +2666,7 @@ void lstart(void)
          {
             dx = ((wx - mx)*2)/3;
             dz = (wy - my)/2;
-            if (nmw > 0)
+            if (numberMenWomen > 0)
             {
                fprintf(nudesfile,"*\n");
                fprintf(nudesfile,"repeat      0   1 centre mpelvis  kx ky kz\n");
@@ -2792,19 +2792,19 @@ void lfinish(void)
    fprintf(nudesfile,"*\n");
    fprintf(nudesfile,"**************************\n");
    fprintf(nudesfile,"*\n");
-   if (nm > 0)
+   if (numberOfMen > 0)
       fprintf(nudesfile,
          "repeat      0 %3d ground man\n",max_Numframe);
    else
       fprintf(nudesfile,
          "repeat      0   1 moveto man    mlfoot  10000 10000 10000\n");
-   if (nw > 0)
+   if (numberOfWomen > 0)
       fprintf(nudesfile,
          "repeat      0 %3d ground woman\n",max_Numframe);
    else
       fprintf(nudesfile,
          "repeat      0   1 moveto woman  wlfoot  10000 10000 10000\n");
-   if (nm > 0)
+   if (numberOfMen > 0)
       fprintf(nudesfile,
          "repeat      0 %3d centre mpelvis fx fy fz\n",max_Numframe);
    else
@@ -2845,7 +2845,7 @@ void lselectfig(void)
 */
 {
   int k;
-   int nf;
+   int numberOfFigure;
    int nogo;
    int st;
    int stv0,stv1,st4;
@@ -2855,9 +2855,9 @@ void lselectfig(void)
 again:
    for (k = 0; k < numberOfStaff; ++k)
       staff[k][5] = DONE;
-   nf = 0;//number of figures
-   nm = 0;//no. of male figs
-   nw = 0;//no. of female figs
+   numberOfFigure = 0;//number of figures
+   numberOfMen = 0;//no. of male figs
+   numberOfWomen = 0;//no. of female figs
    nogo = FALSE;
    if (numberOfStaff < 1)
       printf("no staves\n");
@@ -2866,14 +2866,14 @@ again:
    {
       staff[0][5] = TODO;
       if (staff[0][4] == MAN)
-         ++nm;
+         ++numberOfMen;
       else
-         ++nw;
+         ++numberOfWomen;
    }
    else
    if (numberOfStaff > 1)
    {
-      nmw = 0;
+      numberMenWomen = 0;
       if (numberOfStaff > TMAX)
          printf("This can only interpret staves from 1 to %d\n",
 		    TMAX);
@@ -2924,17 +2924,17 @@ again:
             stv[0] = stv0; stv[1] = stv1;
          }
       } /* lbn_figures != 2 */
-      for (nf = 0; nf < lbn_figures; ++nf)
+      for (numberOfFigure = 0; numberOfFigure < lbn_figures; ++numberOfFigure)
       {
-            st = stv[nf]-1;
+            st = stv[numberOfFigure]-1;
             if ((st < 0)||(st > numberOfStaff))
             {
                 printf("OOPS: staff number %d out of range\n",st+1);
                 goto again;
             }
             st4 = staff[st][4];
-            if ( ((nm > 0)&&(st4 == MAN))
-               ||((nw > 0)&&(st4 == WOMAN)) )
+            if ( ((numberOfMen > 0)&&(st4 == MAN))
+               ||((numberOfWomen > 0)&&(st4 == WOMAN)) )
             {
                 printf("Sorry: can only do one man and/or one woman.");
                 printf("Please select again.\n");
@@ -2942,12 +2942,12 @@ again:
              } /* more than 1 man or woman */
              else
              {
-                if (st4 == WOMAN) ++nw;
-                if (st4 == MAN) ++nm;
+                if (st4 == WOMAN) ++numberOfWomen;
+                if (st4 == MAN) ++numberOfMen;
                 staff[st][5] = TODO;
              } /* a man or woman */
-             nmw = nm*nw;
-       } /* nf */
+             numberMenWomen = numberOfMen*numberOfWomen;
+       } /* numberOfFigure */
    } /* numberOfStaff > 1 */
    if (nogo == TRUE)
       goto again;
@@ -3117,7 +3117,7 @@ void lrelease(void)
    int fdif;
    int fbegin,ffin;
 
-   if ((nmw > 0)&&(ji == 2)) // release
+   if ((numberMenWomen > 0)&&(ji == 2)) // release
    {
       holdcl = 0;
       holdoe = 0;
@@ -3812,7 +3812,7 @@ Relevant symbols:-
 			} /* jc OK */
 		} /* ja == TODO */
 		if (( (jm == Dirn)||(jm == Rotn) )&&(jc >= -6)&&(jc <= 6)
-			&&( nmw > 0 )&&( dofig == WOMAN ) )
+			&&( numberMenWomen > 0 )&&( dofig == WOMAN ) )
 			ldohold ();
 		firstFramePrevAct = firstFrameNumAct;
 		lastFramePrevAct = fend;
@@ -3841,9 +3841,9 @@ int mface,wface;     // facing directions of man and woman
 int num_curBar;            // number of current bar
 int Num_Lab_Entries;           // number of laban score entries
 int npins;           // number of pins below first barline
-int nm;              // number of men
-int nw;              // number of women
-int nmw;             // nm * nw
+int numberOfMen;              // number of men
+int numberOfWomen;              // number of women
+int numberMenWomen;             // numberOfMen * numberOfWomen
 int numberOfStaff;          // number of staves
 int oriented;        // true after orientation
 int lastFramePrevAct;            // last frame of previous action
@@ -3890,7 +3890,7 @@ char colm[NCOLM];    // limb presigns in the columns
 
 
    lsetrange();
-   lselectfig();
+   //lselectfig();
    lcopyfigs(renOrfile);
    lstart();
    lfindystart();
@@ -10453,8 +10453,10 @@ void funcConvInitialise()
   ForUpdatingVarInt(myobject,"yend",&yend);
   ForUpdatingVarInt(myobject,"startScoreSymbol",&startScoreSymbol);
   ForUpdatingVarInt(myobject,"endScoreSymbol",&endScoreSymbol);
-
-
+  ForUpdatingVarInt(myobject,"numberOfMen",&numberOfMen);
+  ForUpdatingVarInt(myobject,"numberOfWomen",&numberOfWomen);
+  ForUpdatingVarInt(myobject,"numberMenWomen",&numberMenWomen);
+ 
   ForUpdatingBool(myobject ,"mspace" , &mspace);
 
  
