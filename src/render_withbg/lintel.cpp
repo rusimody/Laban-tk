@@ -3891,7 +3891,7 @@ char colm[NCOLM];    // limb presigns in the columns
 
 //   printf("%d \n" , symbolCounter);
 //   printf("%d \n" , stmiddle);
-//   printf("%d \n" , npins);
+//     printf("sdf %d \n" , finname);
 
 
 
