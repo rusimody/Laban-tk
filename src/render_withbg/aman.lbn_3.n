@@ -1,5 +1,5 @@
 *
-* created l1.lbn_69.n from l1.lbn using lintel084
+* created aman.lbn_3.n from aman.lbn using lintel084
 *
 *
 * lintel.n
@@ -2108,39 +2108,119 @@ call        0   1 forleft
 *
 ************************************
 *
-repeat      0   2 call   doman
-* 1  -4 * 1   4 * 1   1 * 1  -2 *
+repeat      0 182 call   doman
+* 1  -4 * 1   4 * 1   1 * 1  11 *
 ***************************
 *
 *   bar 0
 *
-* 1  -2 *
+* 1  11 *
 ***************************
 *
 *   bar 1
 *
+* 1  -1 *
+repeat      2  14 set    fend  12
+repeat      2  14 call   fmed
+repeat      2  14 set    coords mpelvis
+repeat      2  14 call   forleft
+call        2  14 close
+* 1 -10 * 1 -10 * 1   1 *
+repeat     14  26 set    fend  12
+repeat     14  26 call   fmed
+repeat     14  26 set    coords mpelvis
+repeat     14  26 call   forright
+call       14  26 close
+* 1  11 *
+***************************
+*
+*   bar 2
+*
+* 1 -10 * 1 -10 * 1  -1 *
+repeat     27  39 set    fend  12
+repeat     27  39 call   fmed
+repeat     27  39 set    coords mpelvis
+repeat     27  39 call   forleft
+call       27  39 close
 * 1   1 *
-repeat      1   2 set    fend  1
-repeat      1   2 call   fmed
-repeat      1   2 set    coords mpelvis
-repeat      1   2 call   forright
-call        1   2 close
-* 1 -10 * 1 -10 * 1  -2 * 1 -10 * 1 -10 * 1  -2 * 1 -10 * 1 -10 * 1  -2 * 1 -10 * 1 -10 * 1  -2 * 1 -10 * 1 -10 * 1  -2 * 1 -10 * 1 -10 * 1  -2 * 1 -10 * 1 -10 * 1  -2 * 1 -10 * 1 -10 * 1  -2 * 1 -10 * 1  -9 * 1 -10 * 1  -2 * 1 -10 * 1 -10 * 1  -2 * 1 -10 * 1 -10 * 1  -2 * 1 -10 * 1 -10 *
+repeat     40  52 set    fend  12
+repeat     40  52 call   fmed
+repeat     40  52 set    coords mpelvis
+repeat     40  52 call   forright
+call       40  52 close
+* 1  30 * 1  11 *
+***************************
+*
+*   bar 3
+*
+* 1 -10 * 1  -1 *
+repeat     53  65 set    fend  12
+repeat     53  65 call   fmed
+repeat     53  65 set    coords mpelvis
+repeat     53  65 call   forleft
+call       53  65 close
+* 1 -10 * 1   1 *
+repeat     66  78 set    fend  12
+repeat     66  78 call   fmed
+repeat     66  78 set    coords mpelvis
+repeat     66  78 call   forright
+call       66  78 rfordiag
+* 1  -1 *
+repeat     66  78 set    fend  12
+repeat     66  78 call   fmed
+repeat     66  78 set    coords mpelvis
+repeat     66  78 call   forleft
+call       66  78 lfordiag
+* 1  11 *
+***************************
+*
+*   bar 4
+*
+* 1  -1 *
+repeat     79  91 set    fend  12
+repeat     79  91 call   fmed
+repeat     79  91 set    coords mpelvis
+repeat     79  91 call   forleft
+call       79  91 lside
+* 1 -10 * 1 -10 * 1   1 *
+repeat     92 104 set    fend  12
+repeat     92 104 call   fmed
+repeat     92 104 set    coords mpelvis
+repeat     92 104 call   forright
+call       92 104 rside
+* 1  11 *
+***************************
+*
+*   bar 5
+*
+* 1 -10 * 1 -10 * 1   1 *
+repeat    105 117 set    fend  12
+repeat    105 117 call   fmed
+repeat    105 117 set    coords mpelvis
+repeat    105 117 call   forright
+call      105 117 rbacdiag
+* 1  -1 *
+repeat    117 129 set    fend  12
+repeat    117 129 call   fmed
+repeat    117 129 set    coords mpelvis
+repeat    117 129 call   forleft
+call      117 129 lbacdiag
+* 1  11 * 1 -10 * 1 -10 * 1  11 * 1 -10 * 1 -10 * 1  11 * 1 -10 * 1 -10 * 1 -10 * 1  11 * 1 -10 * 1 -10 * 1  11 * 1 -10 * 1 -10 * 1  11 * 1 -10 * 1 -10 * 1  11 * 1  -9 * 1 -10 * 1 -10 *
 **************************
 *
-repeat      0   4 ground man
+repeat      0 293 ground man
 repeat      0   1 moveto woman  wlfoot  10000 10000 10000
-repeat      0   4 centre mpelvis fx fy fz
-repeat      0   4 add     fy -900 fz
-repeat      0   4 place   fx  500 fy
-repeat      0   4 observe -9    0  0
+repeat      0 293 centre mpelvis fx fy fz
+repeat      0 293 add     fy -900 fz
+repeat      0 293 place   fx  500 fy
+repeat      0 293 observe -9    0  0
 *
 end dance
 ****************************
 *
 subroutine setfmax
 *
-repeat 0 1 set fmax 4
+repeat 0 1 set fmax 293
 *
 end setfmax
 ****************************

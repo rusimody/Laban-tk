@@ -2754,7 +2754,7 @@ void lstart(void)
 } /* lsetrange */
 /****************************************************/
 
-void lcopyfigs(char* renOrfile)
+void lcopyfigs(char* renderFile)
 /*
    finish off
 
@@ -2762,10 +2762,10 @@ void lcopyfigs(char* renOrfile)
    calls     lgetout,
 */
 {
-	if (renOrfile[0] == 'r') {
+	if (renderFile[0] == 'r') {
 		sprintf(figsname,"lintel.n");
 	}
-	else if (renOrfile[0] == 'n') {
+	else if (renderFile[0] == 'n') {
 		sprintf(figsname,"lintelnudes.n");
 	}
 	else{
@@ -3826,7 +3826,7 @@ Relevant symbols:-
 } /* laction */
 /*************************************************/
 
-void linter(char* renOrfile,char* gen)
+void linter(char* renderFile,char* gen)
 /*
                      linter
 
@@ -3897,7 +3897,7 @@ char colm[NCOLM];    // limb presigns in the columns
 
    //lsetrange();
    //lselectfig();
-   lcopyfigs(renOrfile);
+   lcopyfigs(renderFile);
    lstart();
    lfindystart();
    lbows(); // flag hand signs
@@ -10350,7 +10350,7 @@ void funcConvInitialise()
   ForUpdatingListChar(myobject ,"name",(char*)name,BMAX);
   ForUpdatingListChar(myobject ,"nudesname",(char*)nudesname,BMAX);
   ForUpdatingListChar(myobject ,"finname",(char*)finname,BMAX);
-  
+  ForUpdatingListChar(myobject,"figsname",(char*)figsname,BMAX); 
 
 
   ForUpdatingLBNlist(myobject , "listLbnObject");
