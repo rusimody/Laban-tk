@@ -195,11 +195,13 @@ class GlobalVar():
         self.yend = 0
         self.startScoreSymbol = 0
         self.endScoreSymbol = 0
+        
         ###################
         self.numberOfMen = 0 # male fig count
         self.numberOfWomen = 0 # female fig count
         self.numberMenWomen = 0 # maleFig * femaleFig
-
+        self.figsname = ""
+        self.figsfile = None
 GV = GlobalVar()
 
 #command line arguments are taken through tempFilename file
