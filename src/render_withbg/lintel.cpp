@@ -264,7 +264,7 @@ double lbn_fpp;      // frames per pixel
 
 //int blength;         // number of bars to interpret
 int bpm;             // beats per minute
-int bstart;          // bar to start at
+//int bstart;          // bar to start at
 int lcentre;         // x position of centre staff line
 int complete;        // true if Gloria and Frank to be used
 int dofig;           // required gender of current staff
@@ -2698,12 +2698,14 @@ void lstart(void)
   int bend;//useless
   int k,kmax;//kmax is index of symbol with ymax
   int ymax;//highest y2 of a symbol
-
+  int bstart;
    ystart = 0;
    yend = lbn[0].y;
    ymax = yend;
    startScoreSymbol = 0;
    endScoreSymbol = Num_Lab_Entries;
+
+   
    //finds the starting symbol and stores its y in ystart
    for (k = 0; k < Num_Lab_Entries; ++k)
    {
@@ -2715,6 +2717,7 @@ void lstart(void)
             startScoreSymbol = k;
             ystart = lbn[k].y;//break should be used to avoid redundancy
          }
+
       }
    }
   // bend = bstart ;//+ blength;
@@ -2741,9 +2744,12 @@ void lstart(void)
 		 }
       }
    }
+
    //max_Numframe is total number of frames required for the dance
+
    max_Numframe = 2 + int(lbn_fpp*double(ymax));
-   printf("###### %d %d %d %d",ystart,yend,startScoreSymbol,endScoreSymbol);
+  
+  printf("###### %d %d %d %d",ystart,yend,startScoreSymbol,endScoreSymbol);
 	printf("\n   lsetrange: pixels %d, frames %d\n",ymax,max_Numframe);
 } /* lsetrange */
 /****************************************************/
@@ -3889,9 +3895,9 @@ char colm[NCOLM];    // limb presigns in the columns
 
 
 
-   lsetrange();
+   //lsetrange();
    //lselectfig();
-   //lcopyfigs(renderFile);
+   lcopyfigs(renderFile);
    lstart();
    lfindystart();
    lbows(); // flag hand signs
@@ -10348,10 +10354,6 @@ void funcConvInitialise()
 
 
   ForUpdatingLBNlist(myobject , "listLbnObject");
-
-
- // for(i=0;i<	PMAX;i++)
- //  printf("%d\n",called[i]);
 
 
 

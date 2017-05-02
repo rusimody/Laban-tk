@@ -6,6 +6,6 @@ from lcopyfig import lcopyfig
 def linter(GV,renderFile,gender):
     lbn_read(GV)
     lfindstaff(GV,gender)
-    #lsetrange(GV)
+    lsetrange(GV)
     lselectfig(GV)
-    lcopyfig(GV,renderFile)
+    #lcopyfig(GV,renderFile)

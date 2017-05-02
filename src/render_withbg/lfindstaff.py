@@ -1,6 +1,5 @@
 from lgetout import lgetout
 
-
 def lsortx(localStaff,nstaff):
     for j in range(nstaff-1):
         for k in range(j,nstaff):
@@ -86,7 +85,8 @@ def lfindstaff(GV,gender):
                 kp = GV.staff[k][2]-1
                 kq = kp+2
                 if loverlap(jp,jq,kp,kq)>0:
-                    print(GV.listLbnObject[j].Level)
+                    if GV.listLbnObject[j].Level == "B": # d is not defines
+                        print(GV.listLbnObject[j].Level)
                     if GV.listLbnObject[j].Level == 0: # d is not defines
                         localStaff[counter][4] = GV.MAN
                         GV.pins[GV.npins][1] = counter
