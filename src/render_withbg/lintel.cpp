@@ -262,9 +262,9 @@ int wspace;
 
 double lbn_fpp;      // frames per pixel
 
-int blength;         // number of bars to interpret
+//int blength;         // number of bars to interpret
 int bpm;             // beats per minute
-int bstart;          // bar to start at
+//int bstart;          // bar to start at
 int lcentre;         // x position of centre staff line
 int complete;        // true if Gloria and Frank to be used
 int dofig;           // required gender of current staff
@@ -298,10 +298,10 @@ int mface,wface;     // facing directions of man and woman
 int num_curBar;            // number of current bar
 int Num_Lab_Entries;           // number of laban score entries
 int npins;           // number of pins below first barline
-int nm;              // number of men
-int nw;              // number of women
-int nmw;             // nm * nw
-int nstaff;          // number of staves
+int numberOfMen;              // number of men
+int numberOfWomen;              // number of women
+int numberMenWomen;             // numberOfMen * numberOfWomen
+int numberOfStaff;          // number of staves
 int oriented;        // true after orientation
 int lastFramePrevAct;            // last frame of previous action
 int firstFramePrevAct;          // first fame of previous action
@@ -313,8 +313,8 @@ int item_prev;           // item of previous support symbol
 int col_prev;           // column of previous support symbol
 int prevhold;        // previous hold
 int height_prev;            // height of previous step;
-int ssend;           // ending score symbol
-int sstart;          // starting score symbol
+int endScoreSymbol;           // ending score symbol
+int startScoreSymbol;          // starting score symbol
 int st;              // current staff number
 int stmiddle;        // halfway across between L and R staves
 int trackOnMainFig;           // TRUE when tracking viewpoint on main figure
@@ -1072,8 +1072,9 @@ void initialise(void)
    radian = (2*pi)/doub360;   //no requirement of declaration in python some inbuilt function can be use. 
    degree = doub1/radian;   ///no requirement of declaration in python some inbuilt function can be use
    lg2 = log(doub2);   ///no requirement of declaration in python some inbuilt function can be use
- 
 
+//   printf(" in symbolCounter  %d  \n" , symbolCounter );
+  symbolCounter = 0 ;
 //   freezeAnimation = FALSE; // TRUE if animation frozen
 //   forward = TRUE;
 //   single = DONE;
@@ -1292,7 +1293,7 @@ int lfindnext(int c, int y1, int y2)
 
    q = -1;
    yy = y2;
-   for (k = sstart; k < ssend; ++k)
+   for (k = startScoreSymbol; k < endScoreSymbol; ++k)
    {
       if ((lbn[k].c == jc) && (lbn[k].y >= y1) && (lbn[k].y <= y2))
       {
@@ -1682,19 +1683,23 @@ staff[TMAX][6].
       staff[k][5] = TODO;
       ++k;
    }
-   nstaff = k;
-   stmiddle = (staff[0][2] + staff[nstaff-1][2])/2;
+   numberOfStaff = k;
+   stmiddle = (staff[0][2] + staff[numberOfStaff-1][2])/2;
    npins = 0;
    // seek pins under center stafflines
+   printf("####### %d\n ",nstaffstart);
    for (j = 0; j < nstaffstart; ++j)
    {
+      printf("@@@@@@@@@ %c",lbn[j].m);
+
       if (lbn[j].m == Pins)
       {
+         printf("!!!!!!!!!!!!");
          jp = lbn[j].x;
          jq = lbn[j].x2;
          pins[npins][0] = j;
          pins[npins][1] = -1;
-         for (k = 0; k < nstaff; ++k)
+         for (k = 0; k < numberOfStaff; ++k)
          {
             kp = staff[k][2] - 1;
             kq = kp+2;
@@ -1717,10 +1722,10 @@ staff[TMAX][6].
          ++npins;
       } /* a pin found */
    } /* j */
-   if (nstaff < 1)
+   if (numberOfStaff < 1)
 	   printf("No staves found\n");
    else
-   for (j = 0; j < nstaff; ++j)
+   for (j = 0; j < numberOfStaff; ++j)
    {
 		if (j == 0)
 			printf("\n");
@@ -1734,7 +1739,7 @@ staff[TMAX][6].
       printf(" no gender\n");*/
 		if(gen != NULL)
 		{
-		  if(nstaff == 1)
+		  if(numberOfStaff == 1)
 		  {
 		    if(gen[0] == 'm')
 		      staff[j][4] = MAN;
@@ -2622,12 +2627,12 @@ void lstart(void)
    int dx,dz;
    int mx,my;//coordinates of male pins if exist
    int wx,wy;//coordinates of female pins if exist
-
+   
    mx = -123;
    my = -123;
    wx = -123;
    wy = -123;
-   if (nm > 0)
+   if (numberOfMen > 0)
       fprintf(nudesfile,"\n*\ncall        0   1 doman\n");
    else
       fprintf(nudesfile,"\n*\ncall        0   1 dowoman\n");
@@ -2642,7 +2647,7 @@ void lstart(void)
          {
             mx = lbn[p].x;
             my = lbn[p].y;
-            if (nm > 0)
+            if (numberOfMen > 0)
                fprintf(nudesfile,
                   "*\nquadratic   0   1 spinby man    mlfoot  mpelvis %d y\n",
                   (ji-1)*45);
@@ -2651,7 +2656,7 @@ void lstart(void)
          {
             wx = lbn[p].x;
             wy = lbn[p].y;
-            if (nw > 0)
+            if (numberOfWomen > 0)
                fprintf(nudesfile,
                   "*\nquadratic   0   1 spinby woman  wrfoot  wpelvis %d y\n",
                   (ji-1)*45);
@@ -2661,7 +2666,7 @@ void lstart(void)
          {
             dx = ((wx - mx)*2)/3;
             dz = (wy - my)/2;
-            if (nmw > 0)
+            if (numberMenWomen > 0)
             {
                fprintf(nudesfile,"*\n");
                fprintf(nudesfile,"repeat      0   1 centre mpelvis  kx ky kz\n");
@@ -2693,12 +2698,14 @@ void lstart(void)
   int bend;//useless
   int k,kmax;//kmax is index of symbol with ymax
   int ymax;//highest y2 of a symbol
-
+  int bstart;
    ystart = 0;
    yend = lbn[0].y;
    ymax = yend;
-   sstart = 0;
-   ssend = Num_Lab_Entries;
+   startScoreSymbol = 0;
+   endScoreSymbol = Num_Lab_Entries;
+
+   
    //finds the starting symbol and stores its y in ystart
    for (k = 0; k < Num_Lab_Entries; ++k)
    {
@@ -2706,21 +2713,23 @@ void lstart(void)
       {
          if (lbn[k].i == bstart)
          {
-            sstart = k;
+
+            startScoreSymbol = k;
             ystart = lbn[k].y;//break should be used to avoid redundancy
          }
+
       }
    }
-   bend = bstart + blength;
+  // bend = bstart ;//+ blength;
    //useless
-   for (k = (sstart+1); k < Num_Lab_Entries; ++k)
-   {
-      if (lbn[k].m == Bars)
-      {
-         if (lbn[k].i == bend)
-            ssend = k;
-      }
-   }
+ //  for (k = (startScoreSymbol+1); k < Num_Lab_Entries; ++k)
+ //  {
+ //     if (lbn[k].m == Bars)
+ //     {
+ //        if (lbn[k].i == bend)
+ //           endScoreSymbol = k;
+ //     }
+ //  }
    //finds the last symbol and stores its y in ymax
    for (k = 0; k < Num_Lab_Entries; ++k)
    {
@@ -2735,8 +2744,12 @@ void lstart(void)
 		 }
       }
    }
+
    //max_Numframe is total number of frames required for the dance
+
    max_Numframe = 2 + int(lbn_fpp*double(ymax));
+  
+  printf("###### %d %d %d %d",ystart,yend,startScoreSymbol,endScoreSymbol);
 	printf("\n   lsetrange: pixels %d, frames %d\n",ymax,max_Numframe);
 } /* lsetrange */
 /****************************************************/
@@ -2785,19 +2798,19 @@ void lfinish(void)
    fprintf(nudesfile,"*\n");
    fprintf(nudesfile,"**************************\n");
    fprintf(nudesfile,"*\n");
-   if (nm > 0)
+   if (numberOfMen > 0)
       fprintf(nudesfile,
          "repeat      0 %3d ground man\n",max_Numframe);
    else
       fprintf(nudesfile,
          "repeat      0   1 moveto man    mlfoot  10000 10000 10000\n");
-   if (nw > 0)
+   if (numberOfWomen > 0)
       fprintf(nudesfile,
          "repeat      0 %3d ground woman\n",max_Numframe);
    else
       fprintf(nudesfile,
          "repeat      0   1 moveto woman  wlfoot  10000 10000 10000\n");
-   if (nm > 0)
+   if (numberOfMen > 0)
       fprintf(nudesfile,
          "repeat      0 %3d centre mpelvis fx fy fz\n",max_Numframe);
    else
@@ -2838,7 +2851,7 @@ void lselectfig(void)
 */
 {
   int k;
-   int nf;
+   int numberOfFigure;
    int nogo;
    int st;
    int stv0,stv1,st4;
@@ -2846,28 +2859,28 @@ void lselectfig(void)
    char key;
 
 again:
-   for (k = 0; k < nstaff; ++k)
+   for (k = 0; k < numberOfStaff; ++k)
       staff[k][5] = DONE;
-   nf = 0;//number of figures
-   nm = 0;//no. of male figs
-   nw = 0;//no. of female figs
+   numberOfFigure = 0;//number of figures
+   numberOfMen = 0;//no. of male figs
+   numberOfWomen = 0;//no. of female figs
    nogo = FALSE;
-   if (nstaff < 1)
+   if (numberOfStaff < 1)
       printf("no staves\n");
    else
-   if (nstaff == 1)
+   if (numberOfStaff == 1)
    {
       staff[0][5] = TODO;
       if (staff[0][4] == MAN)
-         ++nm;
+         ++numberOfMen;
       else
-         ++nw;
+         ++numberOfWomen;
    }
    else
-   if (nstaff > 1)
+   if (numberOfStaff > 1)
    {
-      nmw = 0;
-      if (nstaff > TMAX)
+      numberMenWomen = 0;
+      if (numberOfStaff > TMAX)
          printf("This can only interpret staves from 1 to %d\n",
 		    TMAX);
       if (lbn_figures == 2)
@@ -2917,17 +2930,17 @@ again:
             stv[0] = stv0; stv[1] = stv1;
          }
       } /* lbn_figures != 2 */
-      for (nf = 0; nf < lbn_figures; ++nf)
+      for (numberOfFigure = 0; numberOfFigure < lbn_figures; ++numberOfFigure)
       {
-            st = stv[nf]-1;
-            if ((st < 0)||(st > nstaff))
+            st = stv[numberOfFigure]-1;
+            if ((st < 0)||(st > numberOfStaff))
             {
                 printf("OOPS: staff number %d out of range\n",st+1);
                 goto again;
             }
             st4 = staff[st][4];
-            if ( ((nm > 0)&&(st4 == MAN))
-               ||((nw > 0)&&(st4 == WOMAN)) )
+            if ( ((numberOfMen > 0)&&(st4 == MAN))
+               ||((numberOfWomen > 0)&&(st4 == WOMAN)) )
             {
                 printf("Sorry: can only do one man and/or one woman.");
                 printf("Please select again.\n");
@@ -2935,13 +2948,13 @@ again:
              } /* more than 1 man or woman */
              else
              {
-                if (st4 == WOMAN) ++nw;
-                if (st4 == MAN) ++nm;
+                if (st4 == WOMAN) ++numberOfWomen;
+                if (st4 == MAN) ++numberOfMen;
                 staff[st][5] = TODO;
              } /* a man or woman */
-             nmw = nm*nw;
-       } /* nf */
-   } /* nstaff > 1 */
+             numberMenWomen = numberOfMen*numberOfWomen;
+       } /* numberOfFigure */
+   } /* numberOfStaff > 1 */
    if (nogo == TRUE)
       goto again;
 
@@ -3002,7 +3015,7 @@ void lbent(void)
    int jy2h;
    char km;//temporary variable for menu name
 
-   for (symbolCounter = 0; symbolCounter < ssend; ++symbolCounter)
+   for (symbolCounter = 0; symbolCounter < endScoreSymbol; ++symbolCounter)
    {
       if ((lbn[symbolCounter].m == Volm)&&(lbn[symbolCounter].i <= STRETCH))
       {
@@ -3110,7 +3123,7 @@ void lrelease(void)
    int fdif;
    int fbegin,ffin;
 
-   if ((nmw > 0)&&(ji == 2)) // release
+   if ((numberMenWomen > 0)&&(ji == 2)) // release
    {
       holdcl = 0;
       holdoe = 0;
@@ -3754,7 +3767,7 @@ Relevant symbols:-
 		fprintf ( nudesfile, "*\nrepeat      0 %3d call   dowoman\n", max_Numframe );
 	for ( symbolCounter = 0; symbolCounter < NCOLM; ++symbolCounter )
 		colm[symbolCounter] = ARM;
-	for ( symbolCounter = 0; symbolCounter < ssend; ++symbolCounter )
+	for ( symbolCounter = 0; symbolCounter < endScoreSymbol; ++symbolCounter )
 	{
 	  lassign ();//assigns the parameter of current symbol to temporary varibles
 	  lsetframes ();//sets the frame numbers for a particular symbol(firstFrameNumAct , fend, frange)
@@ -3805,7 +3818,7 @@ Relevant symbols:-
 			} /* jc OK */
 		} /* ja == TODO */
 		if (( (jm == Dirn)||(jm == Rotn) )&&(jc >= -6)&&(jc <= 6)
-			&&( nmw > 0 )&&( dofig == WOMAN ) )
+			&&( numberMenWomen > 0 )&&( dofig == WOMAN ) )
 			ldohold ();
 		firstFramePrevAct = firstFrameNumAct;
 		lastFramePrevAct = fend;
@@ -3834,10 +3847,10 @@ int mface,wface;     // facing directions of man and woman
 int num_curBar;            // number of current bar
 int Num_Lab_Entries;           // number of laban score entries
 int npins;           // number of pins below first barline
-int nm;              // number of men
-int nw;              // number of women
-int nmw;             // nm * nw
-int nstaff;          // number of staves
+int numberOfMen;              // number of men
+int numberOfWomen;              // number of women
+int numberMenWomen;             // numberOfMen * numberOfWomen
+int numberOfStaff;          // number of staves
 int oriented;        // true after orientation
 int lastFramePrevAct;            // last frame of previous action
 int firstFramePrevAct;          // first fame of previous action
@@ -3848,8 +3861,8 @@ int item_prev;           // item of previous support symbol
 int col_prev;           // column of previous support symbol
 int prevhold;        // previous hold
 int height_prev;            // height of previous step;
-int ssend;           // ending score symbol
-int sstart;          // starting score symbol
+int endScoreSymbol;           // ending score symbol
+int startScoreSymbol;          // starting score symbol
 int st;              // current staff number
 int stmiddle;        // halfway across between L and R staves
 int trackOnMainFig;           // TRUE when tracking viewpoint on main figure
@@ -3864,18 +3877,32 @@ char colm[NCOLM];    // limb presigns in the columns
 
 */
 {
+ 
    //lbnread();
    //lsorty();//sorts the lbn structure array by y parameter
    //lfindstaff(gen);
-    printf("CCCCCCCCC"); 
-   lsetrange();
-   lselectfig();
+
+//   for(i=0;i<TMAX;i++)
+//   {
+//     for(j=0;j<6;j++)
+//       printf(" %d  " , staff[i][j] );
+//    printf("\n");  
+//   }
+
+//   printf("%d \n" , symbolCounter);
+//   printf("%d \n" , stmiddle);
+//   printf("%d \n" , npins);
+
+
+
+   //lsetrange();
+   //lselectfig();
    lcopyfigs(renOrfile);
    lstart();
    lfindystart();
    lbows(); // flag hand signs
    lbent(); // flag dirn signs
-   for (st = 0; st < nstaff; ++st)
+   for (st = 0; st < numberOfStaff; ++st)
    {
       hold = NO;
       holdcl = 0;
@@ -10198,6 +10225,16 @@ void  ForUpdatingBool(PyObject* myobject ,char* attrName,bool* varName)
   *varName = false;
 }
 
+void  ForUpdatingLongInt(PyObject* myobject ,char* attrName , int* varName)
+{
+  PyObject* attr;
+  int value;
+  attr = PyObject_GetAttrString(myobject, attrName );
+  PyArg_Parse(attr , "L" , &value);
+  *varName = value;
+}
+
+
 void  ForPrint(PyObject* myobject ,char* attrName)
 {
   PyObject* attr;
@@ -10319,16 +10356,14 @@ void funcConvInitialise()
   ForUpdatingLBNlist(myobject , "listLbnObject");
 
 
- // for(i=0;i<	PMAX;i++)
- //  printf("%d\n",called[i]);
-
-
 
   ForUpdatingArray2Int(myobject ,"coel",(int*)coel,EMAX,2);
   ForUpdatingArray2Int(myobject ,"subact",(int*)subact,EMAX,2);
   ForUpdatingArray2Int(myobject ,"pf",(int*)pf,PMAX,6);
+
   ForUpdatingArray2Int(myobject,"pins",(int*)pins,TMAX,2);
   ForUpdatingArray2Int(myobject,"staff",(int*)staff,TMAX,6);
+
 
   ForArray(myobject ,"obs",(double*)obs ,3,3);  //for array[][3]
   ForArray(myobject ,"cen",(double*)cen , EMAX,3);
@@ -10408,16 +10443,22 @@ void funcConvInitialise()
 
   ForUpdatingVarInt(myobject,"haslbn",&haslbn);
   ForUpdatingVarInt(myobject,"input_file_type",&input_file_type);
-
   ForUpdatingVarInt(myobject,"Num_Lab_Entries",&Num_Lab_Entries);
-  ForUpdatingVarInt(myobject,"symbolCounter",&symbolCounter);
+ 
+
+  ForUpdatingLongInt(myobject,"symbolCounter",&symbolCounter);
   ForUpdatingVarInt(myobject,"stmiddle",&stmiddle);
   ForUpdatingVarInt(myobject,"npins",&npins);
+  ForUpdatingVarInt(myobject,"numberOfStaff",&numberOfStaff);
 
-
-
-
-
+  ForUpdatingVarInt(myobject,"ystart",&ystart);
+  ForUpdatingVarInt(myobject,"yend",&yend);
+  ForUpdatingVarInt(myobject,"startScoreSymbol",&startScoreSymbol);
+  ForUpdatingVarInt(myobject,"endScoreSymbol",&endScoreSymbol);
+  ForUpdatingVarInt(myobject,"numberOfMen",&numberOfMen);
+  ForUpdatingVarInt(myobject,"numberOfWomen",&numberOfWomen);
+  ForUpdatingVarInt(myobject,"numberMenWomen",&numberMenWomen);
+ 
   ForUpdatingBool(myobject ,"mspace" , &mspace);
 
  
@@ -10523,11 +10564,11 @@ more:
 
 
 
+
 	    initialise();
 //    get_ini ( 0 );
 
-
-//	led_param();
+      //	led_param();
 	get_files ( argv[1] );
 
 if ( ok != 0 ) goto more;
