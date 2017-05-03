@@ -8,4 +8,4 @@ def linter(GV,renderFile,gender):
     lfindstaff(GV,gender)
     lsetrange(GV)
     lselectfig(GV)
-    #lcopyfig(GV,renderFile)
+    lcopyfig(GV,renderFile)

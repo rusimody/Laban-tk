@@ -2764,15 +2764,17 @@ void lcopyfigs(char* renderFile)
 {
 	if (renderFile[0] == 'r') {
 		sprintf(figsname,"lintel.n");
-	}
+  printf("hereree \n");
+  }
 	else if (renderFile[0] == 'n') {
 		sprintf(figsname,"lintelnudes.n");
 	}
-	else{
+	else
+  {
 		printf("Enter a valid option r for render n for nudes\n");
 		exit(0);
-		}
-   
+	}
+  
    if ((figsfile = fopen(figsname,"r")) == NULL)
    {
       if (figsfile) fclose(figsfile);
@@ -3877,7 +3879,7 @@ char colm[NCOLM];    // limb presigns in the columns
 
 */
 {
- 
+
    //lbnread();
    //lsorty();//sorts the lbn structure array by y parameter
    //lfindstaff(gen);
@@ -10580,7 +10582,6 @@ if ( ok != 0 ) goto more;
         fprintf(nudesfile,
             "*\n* created %s from %s using %s\n*\n",
             nudesname,name,ptitle);
-
         linter(argv[2],argv[3]);
 }
 
