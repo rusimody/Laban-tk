@@ -1773,6 +1773,7 @@ void lfindystart(void)
    {
       if ((lbn[j].m == Bars) && (lbn[j].d == LOW))
 	     ystart = lbn[j].y + 1;
+      printf("@@@@@@@@@ %d ",j);
    }
 /*
    if none, seek any bar line -
@@ -3901,7 +3902,7 @@ char colm[NCOLM];    // limb presigns in the columns
    //lselectfig();
    lcopyfigs(renderFile);
    lstart();
-   lfindystart();
+   //lfindystart();
    lbows(); // flag hand signs
    lbent(); // flag dirn signs
    for (st = 0; st < numberOfStaff; ++st)
@@ -10305,6 +10306,11 @@ void  ForUpdatingLBNlist(PyObject* myobject ,char* attrName)
            if (d =='M') lbn[j].d = MED;
            if (d =='L') lbn[j].d = LOW;
            if (d =='H') lbn[j].d = HIGH;
+
+//    attr1 = PyObject_GetAttrString(item , "c");
+//    PyArg_Parse(attr1 , "i" , &value);
+//    lbn[j].c = value;
+//
 
 
     lbn[j].a = TODO;

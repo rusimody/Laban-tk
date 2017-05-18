@@ -1,6 +1,6 @@
 
 class lbn_element():
-    def __init__(self,name,item,x_position,y_position,stepSize,width,height ,level ):#,text ,lineNUmber):
+    def __init__(self,name,item,x_position,y_position,stepSize,width,height ,level):#,text ,lineNUmber):
         self.Name = name
         self.Item = item
         self.Xpos = x_position
@@ -12,7 +12,6 @@ class lbn_element():
         self.a = 0                   #till now no idea about this entry   
         self.x2 = (x_position + width)
         self.y2 = (y_position + height)
-
 
 def lbn_read(GV):
     try:

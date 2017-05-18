@@ -34,7 +34,10 @@ class GlobalVar():
         self.TRUE = 0
         self.FALSE = 1
         
-
+        self.LOW = 0
+        self.MED = 1
+        self.HIGH = 2
+        self.BLANK = 3
 
         self.doub0 = float(0)
         self.doub1 = float(1)
