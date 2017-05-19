@@ -270,10 +270,10 @@ int complete;        // true if Gloria and Frank to be used
 int dofig;           // required gender of current staff
 int dostaff;         // index in staff[] of current staff
 int facedif;         // difference between facing directions of man and lwoman
-int facecl;          // facing score of closed position
-int facepr;          // facing score of promenade position
-int facesh;          // facing score of shadow position
-int facess;          // facing score of semishadow position
+int closeFaceScore;          // facing score of closed position
+int promenadeFaceScore;          // facing score of promenade position
+int shadowFaceScore;          // facing score of shadow position
+int semiShadowFaceScore;          // facing score of semishadow position
 int fbegin,ffin,flen;// start,end, and length of a position
 int fend;            // frame number of end of current movement
 int fhalf;           // frame halfway through a movement
@@ -285,15 +285,15 @@ int firstFrameNumAct;          // first frame number of action
 int gy,gh;           // arm gesture range disabled by contact bow
 int haslbn;          // TRUE if input is lbn file, FALSE for .n file
 int hold;            // one of the defined holds NO,CL,PR,CP,DB,OP,CR,OE,CO,SH,SS
-int holdcl;          // closed hold counter
-int holdco;          // counter open extended hold counter
-int holdoe;          // open extended hold counter
-int holdpr;          // promenade hold counter
-int holdsh;          // shadow hold counter
-int holdss;          // semishadow hold counter
+int closeHoldCounter;          // closed hold counter
+int openHoldCounter;          // counter open extended hold counter
+int openExtendedHoldCounter;          // open extended hold counter
+int promenadeHoldCounter;          // promenade hold counter
+int shadowHoldCounter;          // shadow hold counter
+int semiShadowHoldCounter;          // semishadow hold counter
 int symbolCounter;
 //int j;               // counter through symbols
-int keptf;           // last frame when last position kept
+int keptLastFrame;           // last frame when last position kept
 int mface,wface;     // facing directions of man and woman
 int num_curBar;            // number of current bar
 int Num_Lab_Entries;           // number of laban score entries
@@ -315,7 +315,7 @@ int prevhold;        // previous hold
 int height_prev;            // height of previous step;
 int endScoreSymbol;           // ending score symbol
 int startScoreSymbol;          // starting score symbol
-int st;              // current staff number
+int currentStaffNumber;              // current staff number
 int stmiddle;        // halfway across between L and R staves
 int trackOnMainFig;           // TRUE when tracking viewpoint on main figure
 int xmin;   //,xmax;       // width range of score symbols
@@ -1362,6 +1362,7 @@ void lcolx(int lcentre)
          --kc;
       else
          ++kc;
+      printf("$$$$$$$$$ %d kc");
       lbn[k].c = kc;
    }
 } /* lcolx */
@@ -2211,7 +2212,7 @@ void lleggesture(void)
                "linear    %3d %3d bendto bfoot  bankle bleg   fhig1 fhig2 fhig3\n",
                   fhalf,fend);
          } /* doing a leg gesture */
-         if ((currentItem != 11)&&(hold == NO)||(st < 1))
+         if ((currentItem != 11)&&(hold == NO)||(currentStaffNumber < 1))
             fprintf(nudesfile,
                "repeat    %3d %3d moveto fig    afoot  %s\n",
 	            firstFrameNumAct,fend,xyz[dofig]);
@@ -2390,7 +2391,7 @@ void lspotturn(int j, int piv, int firstFrameNumAct, int fend, int g)
 	      firstFrameNumAct,fend,stt[0][currentItem][0],stt[0][currentItem][1],stt[0][currentItem][2]);
    fprintf(nudesfile,
       "repeat    %3d %3d ground fig\n",firstFrameNumAct,fend);
-   if ((hold == NO)||(st < 1))
+   if ((hold == NO)||(currentStaffNumber < 1))
       fprintf(nudesfile,
        "repeat    %3d %3d moveto fig    afoot  %s\n",
          firstFrameNumAct,fend,xyz[dofig]);
@@ -2484,7 +2485,7 @@ void ldopivot(void)
          fprintf(nudesfile,
             "linear    %3d %3d spinby fig    bfoot  pelvis %d y\n",
                firstFrameNumAct,fend,piv);
-         if ((hold == NO)||(st < 1))
+         if ((hold == NO)||(currentStaffNumber < 1))
 			 fprintf(nudesfile,
                 "repeat    %3d %3d moveto fig    bfoot  %s\n",
                   firstFrameNumAct,fend,xyz[dofig]);
@@ -3128,17 +3129,17 @@ void lrelease(void)
 
    if ((numberMenWomen > 0)&&(currentItem == 2)) // release
    {
-      holdcl = 0;
-      holdoe = 0;
-      holdco = 0;
-      holdpr = 0;
-      holdsh = 0;
-      holdss = 0;
+      closeHoldCounter = 0;
+      openExtendedHoldCounter = 0;
+      openHoldCounter = 0;
+      promenadeHoldCounter = 0;
+      shadowHoldCounter = 0;
+      semiShadowHoldCounter = 0;
       fbegin = lastFramePrevAct;
       ffin = fend;
       if (ffin <= fbegin) ffin = fbegin + 1;
       fdif = ffin - fbegin;
-      if ((st > 0) && (hold != NO))
+      if ((currentStaffNumber > 0) && (hold != NO))
       {
          fprintf(nudesfile,
             "repeat    %3d %3d set fpos %d\n",fbegin,ffin,fdif);
@@ -3149,7 +3150,7 @@ void lrelease(void)
       fprintf(nudesfile,
          "* lreleasea %d %d %d %d %d %d\n",
             firstFrameNumAct,fend,symbolCounter,jb,hold,prevhold);
-      keptf = ffin;
+      keptLastFrame = ffin;
    }
 } /* lrelease */
 /******************************************/
@@ -3164,8 +3165,8 @@ void ldoposn(void)
 	  fbegin = firstFrameNumAct;
 	  ffin = fend;
 	  	  fprintf(nudesfile,
-		"** ldoposn %3d %3d, %3d %3d\n",fbegin,ffin, st,hold);
-      if (st > 0)
+		"** ldoposn %3d %3d, %3d %3d\n",fbegin,ffin, currentStaffNumber,hold);
+      if (currentStaffNumber > 0)
       {
 			flen = ffin - fbegin;
 			if (flen < 1) flen = 1;
@@ -3196,9 +3197,9 @@ void ldoposn(void)
 			if (hold == SH)
             fprintf(nudesfile,
                "call      %3d %3d shposn\n*\n",fbegin,ffin);
-			keptf = ffin;
+			keptLastFrame = ffin;
 			prevhold = hold;
-      } /* st > 0 */
+      } /* currentStaffNumber > 0 */
 } /* ldoposn */
 /*******************************************/
 
@@ -3234,7 +3235,7 @@ void ldokeep(void)
          if (hold == SH)
             fprintf(nudesfile,
                "repeat    %3d %3d call   shkeep\n*\n",fbegin,ffin);
-         keptf = ffin;
+         keptLastFrame = ffin;
 }   /* ldokeep */
 /******************************************/
 
@@ -3246,13 +3247,13 @@ void ldohold(void)
 	calls ldokeep, ldoposn,
 */
 {
-   fbegin = keptf;
+   fbegin = keptLastFrame;
    ffin = lastFramePrevAct;
 		fprintf(nudesfile,
 		"** ldohold %3d %3d, %3d %3d\n",fbegin,ffin, hold,prevhold);
    if (prevhold == hold)
    {
-	   fbegin = keptf;
+	   fbegin = keptLastFrame;
       if (fbegin < ffin) ldokeep();
    } /* prevhold == hold */
    else
@@ -3348,14 +3349,14 @@ void lsethold(void)
 	}
    if ((jm == Limb)&&((currentItem == 4)||(currentItem == 9)))
    {
-      if (jb ==  11) { ++holdss; ++holdsh; }
-      if (jb ==  12) ++holdoe;
-      if (jb ==  21) { ++holdco; ++holdcl; ++holdpr; }
-      if (jb ==  22) ++holdsh;
-      if (jb == 110) { ++holdcl; ++holdpr; }
-      if (jb == 102) ++holdss;
-      if (jb == 120) ++holdss;
-      if (jb == 202) { ++holdcl; ++holdpr; }
+      if (jb ==  11) { ++semiShadowHoldCounter; ++shadowHoldCounter; }
+      if (jb ==  12) ++openExtendedHoldCounter;
+      if (jb ==  21) { ++openHoldCounter; ++closeHoldCounter; ++promenadeHoldCounter; }
+      if (jb ==  22) ++shadowHoldCounter;
+      if (jb == 110) { ++closeHoldCounter; ++promenadeHoldCounter; }
+      if (jb == 102) ++semiShadowHoldCounter;
+      if (jb == 120) ++semiShadowHoldCounter;
+      if (jb == 202) { ++closeHoldCounter; ++promenadeHoldCounter; }
    } /* jm = a hand */
    else
    if ((jm == Face)&&(currentXpos > stmiddle))
@@ -3386,38 +3387,38 @@ void lsethold(void)
          facedif = -1;
       if (facedif == 0)
       {
-         facecl = 0;
-         facepr = 0;
-         facesh = 1;
-         facess = 1;
+         closeFaceScore = 0;
+         promenadeFaceScore = 0;
+         shadowFaceScore = 1;
+         semiShadowFaceScore = 1;
       } /* facing same way */
       else
       if (facedif == 2)
       {
-         facecl = 0;
-         facepr = 1;
-         facesh = 0;
-         facess = 0;
+         closeFaceScore = 0;
+         promenadeFaceScore = 1;
+         shadowFaceScore = 0;
+         semiShadowFaceScore = 0;
       } /* facing at right angles */
       else
       if (facedif == 4)
       {
-         facecl = 1;
-         facepr = 0;
-         facesh = 0;
-         facess = 0;
+         closeFaceScore = 1;
+         promenadeFaceScore = 0;
+         shadowFaceScore = 0;
+         semiShadowFaceScore = 0;
       } /* facing opposite ways */
    } /* jm == Face */
-   if (holdoe > 1) if (hold != CO) hold = OE;
-   if (holdco > 1) if (hold != OE) hold = CO;
-   if ((facesh+holdsh) > 4) hold = SH;
-   if ((facess+holdss) > 4) hold = SS;
-   if ((facepr+holdpr) > 4) hold = PR;
-   if ((facecl+holdcl) > 4) hold = CL;
+   if (openExtendedHoldCounter > 1) if (hold != CO) hold = OE;
+   if (openHoldCounter > 1) if (hold != OE) hold = CO;
+   if ((shadowFaceScore+shadowHoldCounter) > 4) hold = SH;
+   if ((semiShadowFaceScore+semiShadowHoldCounter) > 4) hold = SS;
+   if ((promenadeFaceScore+promenadeHoldCounter) > 4) hold = PR;
+   if ((closeFaceScore+closeHoldCounter) > 4) hold = CL;
 	fprintf(nudesfile,
 		"** lsethold %d %d,  %d %d,  %d %d,  %d %d,  %d %d, %3d %3d %3d\n",
 		hold, prevhold,
-		facesh,holdsh,facess,holdss,facepr,holdpr,facecl,holdcl,
+		shadowFaceScore,shadowHoldCounter,semiShadowFaceScore,semiShadowHoldCounter,promenadeFaceScore,promenadeHoldCounter,closeFaceScore,closeHoldCounter,
 		mface,wface,facedif);
    if (prevhold != hold) ldoposn();
 } /* lsethold */
@@ -3845,7 +3846,7 @@ void linter(char* renderFile,char* gen)
              lgetout, lcopyfigs, lfinish, lcopysubs,
              lbows,
 
-int keptf;           // last frame when last position kept
+int keptLastFrame;           // last frame when last position kept
 int mface,wface;     // facing directions of man and woman
 int num_curBar;            // number of current bar
 int Num_Lab_Entries;           // number of laban score entries
@@ -3866,7 +3867,7 @@ int prevhold;        // previous hold
 int height_prev;            // height of previous step;
 int endScoreSymbol;           // ending score symbol
 int startScoreSymbol;          // starting score symbol
-int st;              // current staff number
+int currentStaffNumber;              // current staff number
 int stmiddle;        // halfway across between L and R staves
 int trackOnMainFig;           // TRUE when tracking viewpoint on main figure
 int xmin,xmax;       // width range of score symbols
@@ -3905,37 +3906,37 @@ char colm[NCOLM];    // limb presigns in the columns
    //lfindystart();
    lbows(); // flag hand signs
    //lbent(); // flag dirn signs
-   for (st = 0; st < numberOfStaff; ++st)
+   for (currentStaffNumber = 0; currentStaffNumber < numberOfStaff; ++currentStaffNumber)
    {
-      hold = NO;
-      holdcl = 0;
-      holdco = 0;
-      holdoe = 0;
-      holdpr = 0;
-      holdsh = 0;
+     // hold = NO;
+      //closeHoldCounter = 0;
+      //openHoldCounter = 0;
+      //openExtendedHoldCounter = 0;
+     // promenadeHoldCounter = 0;
+     // shadowHoldCounter = 0;
 
-      holdss = 0;
-      facecl = 0;
-      facepr = 0;
-      facesh = 0;
-      facess = 0;
-      prevhold = -9;
-      col_prev = 0;
-      firstFramePrevAct = -1;
-      lastFramePrevAct = -1;
-      keptf = 0;
-      gy = -1;
-      gh = 0;
-      if (staff[st][5] == TODO)
+      //semiShadowHoldCounter = 0;
+      //closeFaceScore = 0;
+     // promenadeFaceScore = 0;
+     // shadowFaceScore = 0;
+     // semiShadowFaceScore = 0;
+    //  prevhold = -9;
+    //  col_prev = 0;
+    //  firstFramePrevAct = -1;
+    //  lastFramePrevAct = -1;
+     // keptLastFrame = 0;
+      //gy = -1;
+      //gh = 0;
+      if (staff[currentStaffNumber][5] == TODO)
       {
-	num_curBar = -1;//number of bars processed
-         if (staff[st][4] == MAN)
-            dofig = MAN;
-         else
-            dofig = WOMAN;
-         lcolx(staff[st][2]);
+	//num_curBar = -1;//number of bars processed
+    //     if (staff[currentStaffNumber][4] == MAN)
+    //        dofig = MAN;
+    //     else
+    //        dofig = WOMAN;
+         lcolx(staff[currentStaffNumber][2]);
          laction();
-         staff[st][5] = DONE;
+         staff[currentStaffNumber][5] = DONE;
       }
    }
    lfinish();
@@ -10473,7 +10474,24 @@ void funcConvInitialise()
   ForUpdatingVarInt(myobject,"currentXpos",&currentXpos);
   ForUpdatingVarInt(myobject,"currentYpos",&currentYpos);
   ForUpdatingVarInt(myobject,"currentItem",&currentItem);
-
+  
+  
+  ForUpdatingVarInt(myobject,"closeHoldCounter",&closeHoldCounter);
+  ForUpdatingVarInt(myobject,"openHoldCounter",&openHoldCounter);
+  ForUpdatingVarInt(myobject,"openExtendedHoldCounter",&openExtendedHoldCounter);
+  ForUpdatingVarInt(myobject,"promenadeHoldCounter",&promenadeHoldCounter);
+  ForUpdatingVarInt(myobject,"shadowHoldCounter",&shadowHoldCounter);
+  ForUpdatingVarInt(myobject,"semiShadowHoldCounter",&semiShadowHoldCounter);
+  ForUpdatingVarInt(myobject,"closeFaceScore",&closeFaceScore);
+  ForUpdatingVarInt(myobject,"promenadeFaceScore",&promenadeFaceScore);
+  ForUpdatingVarInt(myobject,"shadowFaceScore",&shadowFaceScore);
+  ForUpdatingVarInt(myobject,"semiShadowFaceScore",&semiShadowFaceScore);
+  ForUpdatingVarInt(myobject,"keptLastFrame",&keptLastFrame);
+  ForUpdatingVarInt(myobject,"dofig",&dofig); 
+  ForUpdatingVarInt(myobject,"oriented",&oriented);
+  ForUpdatingVarInt(myobject,"currentStaffNumber",&currentStaffNumber);
+  
+  
   ForUpdatingBool(myobject ,"mspace" , &mspace);
 
  

@@ -17,6 +17,8 @@ class GlobalVar():
         self.TMAX = 30 # max number of staff line
         self.MAN = 0
         self.WOMAN = 1
+        
+        self.STEP = 12
 
         self.STRETCH = 4 #intem number of stretched symbol
         self.NO = 0
@@ -213,6 +215,21 @@ class GlobalVar():
         self.currentXpos = 0
         self.currentYpos = 0
         self.currentItem = 0
+        ####################
+        self.currentStaffNumber = 0
+        self.closeHoldCounter = 0
+        self.openHoldCounter = 0
+        self.openExtendedHoldCounter = 0
+        self.promenadeHoldCounter = 0
+        self.shadowHoldCounter = 0
+        self.semiShadowHoldCounter = 0
+        self.closeFaceScore = 0
+        self.promenadeFaceScore = 0
+        self.shadowFaceScore = 0
+        self.semiShadowFaceScore = 0
+        self.keptLastFrame = 0
+        self.dofig = 0
+        self.oriented = 0
 
 GV = GlobalVar()
 
