@@ -240,19 +240,19 @@ struct Symbol {
    };
 
 struct Symbol lbn[LMAX]; // laban score entries
-int ja;                  // TRUE = 0 if already done
+int currentA;                  // TRUE = 0 if already done
 int jb;                  // bendedness of current symbol
 int jc;                  // current symbol column
-int jh;                  // current symbol height
-int ji;                  // current symbol item in menu
+int currentHeight;                  // current symbol height
+int currentItem;                  // current symbol item in menu
 //int jl;                  // line of current symbol
 char jm;                 // current symbol menu
-int js;                  // current symbol step size
-int jw;                  // current symbol width
-int jx;                  // current symbol x bottom
-int jy;                  // current symbol y bottom
-int jx2;                 // current symbol x top
-int jy2;                 // current symbol y top
+int currentStepSize;                  // current symbol step size
+int currentWidth;                  // current symbol width
+int currentXpos;                  // current symbol x bottom
+int currentYpos;                  // current symbol y bottom
+int currentX2;                 // current symbol x top
+int currentY2;                 // current symbol y top
 int jd;                  // current symbol shading
 /*************************************************************/
 
@@ -1324,9 +1324,9 @@ void lsetframes(void)
    }
    else
    {
-     firstFrameNumAct = int(inv2+lbn_fpp*double(jy-ystart));//inv2 is 0.5
+     firstFrameNumAct = int(inv2+lbn_fpp*double(currentYpos-ystart));//inv2 is 0.5
       if (firstFrameNumAct < 1) firstFrameNumAct = 1;
-      frange = int(inv2+lbn_fpp*double(jh));
+      frange = int(inv2+lbn_fpp*double(currentHeight));
       if (frange < 1) frange = 1;
       fend = firstFrameNumAct + frange;
    }
@@ -1458,20 +1458,20 @@ void lassign(void)
    called by laction, lsorty, lbent,
 */
 {
-      ja = lbn[symbolCounter].a;
+      currentA = lbn[symbolCounter].a;
       jb = lbn[symbolCounter].b;
       jc = lbn[symbolCounter].c;
       jd = lbn[symbolCounter].d;
-      jh = lbn[symbolCounter].h;
-      ji = lbn[symbolCounter].i;
+      currentHeight = lbn[symbolCounter].h;
+      currentItem = lbn[symbolCounter].i;
       //jl = lbn[symbolCounter].l;
       jm = lbn[symbolCounter].m;
-      js = lbn[symbolCounter].s;
-      jw = lbn[symbolCounter].w;
-      jx = lbn[symbolCounter].x;
-      jy = lbn[symbolCounter].y;
-      jx2 = lbn[symbolCounter].x2;
-      jy2 = lbn[symbolCounter].y2;
+      currentStepSize = lbn[symbolCounter].s;
+      currentWidth = lbn[symbolCounter].w;
+      currentXpos = lbn[symbolCounter].x;
+      currentYpos = lbn[symbolCounter].y;
+      currentX2 = lbn[symbolCounter].x2;
+      currentY2 = lbn[symbolCounter].y2;
 } /* lassign */
 /**********************************************/
 
@@ -1514,20 +1514,20 @@ void lassign(void)
 //            lbn[j].y = lbn[k].y;
 //            lbn[j].x2 = lbn[k].x2;
 //            lbn[j].y2 = lbn[k].y2;
-//            lbn[k].a = ja;
+//            lbn[k].a = currentA;
 //            lbn[k].b = jb;
 //            lbn[k].c = jc;
 //            lbn[k].d = jd;
-//            lbn[k].h = jh;
-//            lbn[k].i = ji;
+//            lbn[k].h = currentHeight;
+//            lbn[k].i = currentItem;
 //            //lbn[k].l = jl;
 //            lbn[k].m = jm;
-//            lbn[k].s = js;
-//            lbn[k].w = jw;
-//            lbn[k].x = jx;
-//            lbn[k].y = jy;
-//            lbn[k].x2 = jx2;
-//            lbn[k].y2 = jy2;
+//            lbn[k].s = currentStepSize;
+//            lbn[k].w = currentWidth;
+//            lbn[k].x = currentXpos;
+//            lbn[k].y = currentYpos;
+//            lbn[k].x2 = currentX2;
+//            lbn[k].y2 = currentY2;
 //            strcpy(buffer,lbnline[j]);
 //            strcpy(lbnline[j],lbnline[k]);
 //            strcpy(lbnline[k],buffer);
@@ -1855,7 +1855,7 @@ void lchange(char d)
    }
    else if (d == 'H')
    {
-      if ((ji != 1)&&(ji != 10))
+      if ((currentItem != 1)&&(currentItem != 10))
       {
          fprintf(nudesfile,
             "repeat    %3d %3d set tcls1 thig1\n",firstFrameNumAct,fend);
@@ -1877,7 +1877,7 @@ void lchange(char d)
             "repeat    %3d %3d set fcls3 fmed3\n",firstFrameNumAct,fend);
       }
       else
-      if ((ji != 5)&&(ji != 6))
+      if ((currentItem != 5)&&(currentItem != 6))
       {
          fprintf(nudesfile,
             "repeat    %3d %3d set tcls1 trlx1\n",firstFrameNumAct,fend);
@@ -1953,27 +1953,27 @@ void ldostep(void)
 	if ( ( jm == Dirn ) && ( ( jc == -1 ) || ( jc == 1 ) ) )
 	{
 		havestep = TRUE;
-		k = lfindnext ( jc, jy + jh, jy + 2 * jh );
-		if ( ji > 5 )
-			n = ji - 5;
+		k = lfindnext ( jc, currentYpos + currentHeight, currentYpos + 2 * currentHeight );
+		if ( currentItem > 5 )
+			n = currentItem - 5;
 		else
-			n = ji + 5;
+			n = currentItem + 5;
 		fprintf( nudesfile, "*\n" );
 		if ( ( jc == -1 ) &&
-			( ( ji == 1 ) || ( ji == 5 ) || ( ji == 3 ) ) )
+			( ( currentItem == 1 ) || ( currentItem == 5 ) || ( currentItem == 3 ) ) )
 		{
 			printf( "dostep: funny symbol in left support column, line %d, bar %d\n",
 				symbolCounter, num_curBar );
 			printf( "%3d %3d %3d %3d %3d %3d %d\n",
-				jm, ji, jy, js, jw, jh, jd );
+				jm, currentItem, currentYpos, currentStepSize, currentWidth, currentHeight, jd );
 		}
 		else if ( ( jc == 1 ) &&
-			( ( ji == 10 ) || ( ji == 6 ) || ( ji == 8 ) ) )
+			( ( currentItem == 10 ) || ( currentItem == 6 ) || ( currentItem == 8 ) ) )
 		{
 			printf( "dostep: funny  symbol in right support column, line %d, bar %d\n",
 				symbolCounter, num_curBar );
 			printf( "%3d %3d %3d %3d %3d %3d %d\n",
-				jm, ji, jy, js, jw, jh, jd );
+				jm, currentItem, currentYpos, currentStepSize, currentWidth, currentHeight, jd );
 		}
 		else
 		{
@@ -1988,31 +1988,31 @@ void ldostep(void)
 			else
 				fprintf( nudesfile, "repeat    %3d %3d call   forleft\n",
 					firstFrameNumAct, fend );
-			if ( ( ji == 1 ) || ( ji == 10 ) )
+			if ( ( currentItem == 1 ) || ( currentItem == 10 ) )
 				fprintf( nudesfile, "call      %3d %3d forward\n",
 					firstFrameNumAct, fend );
-			if ( ji == 3 )
+			if ( currentItem == 3 )
 				fprintf( nudesfile, "call      %3d %3d rside\n",
 					firstFrameNumAct, fend );
-			if ( ji == 8 )
+			if ( currentItem == 8 )
 				fprintf( nudesfile, "call      %3d %3d lside\n",
 					firstFrameNumAct, fend );
-			if ( ( ji == 5 ) || ( ji == 6 ) )
+			if ( ( currentItem == 5 ) || ( currentItem == 6 ) )
 				fprintf( nudesfile, "call      %3d %3d back\n",
 					firstFrameNumAct, fend );
-			if ( ji == 2 )
+			if ( currentItem == 2 )
 				fprintf( nudesfile, "call      %3d %3d rfordiag\n",
 					firstFrameNumAct, fend );
-			if ( ji == 9 )
+			if ( currentItem == 9 )
 				fprintf( nudesfile, "call      %3d %3d lfordiag\n",
 					firstFrameNumAct, fend );
-			if ( ji == 4 )
+			if ( currentItem == 4 )
 				fprintf( nudesfile, "call      %3d %3d rbacdiag\n",
 					firstFrameNumAct, fend );
-			if ( ji == 7 )
+			if ( currentItem == 7 )
 				fprintf( nudesfile, "call      %3d %3d lbacdiag\n",
 					firstFrameNumAct, fend );
-			if ( ji == 11 )
+			if ( currentItem == 11 )
 				fprintf( nudesfile, "call      %3d %3d close\n",
 					firstFrameNumAct, fend );
 			lbn[symbolCounter].a = DONE;
@@ -2021,7 +2021,7 @@ void ldostep(void)
 		}
 		height_prev = jd;
 		col_prev = jc;
-		item_prev = ji;
+		item_prev = currentItem;
 	} /* column OK */
 }     /* ldostep */
 /****************************************************/
@@ -2040,10 +2040,10 @@ int lhastap(int j)
    char km;
 
    t = -1;
-   yk = jy - jh;
+   yk = currentYpos - currentHeight;
    if (yk < 1) yk = 1;
    for (k = yj[yk];
-	   ((t < 0)&&(k < Num_Lab_Entries)&&(lbn[k].y < jy2)); ++k)
+	   ((t < 0)&&(k < Num_Lab_Entries)&&(lbn[k].y < currentY2)); ++k)
    {
       km = lbn[k].m;
       if (km == Misc)
@@ -2056,7 +2056,7 @@ int lhastap(int j)
             {
                ky = lbn[k].y;
                ky2 = ky + lbn[k].h;
-               if (loverlap(jy,jy2,ky,ky2) > 0)
+               if (loverlap(currentYpos,currentY2,ky,ky2) > 0)
                {
                   t = k;
                } /* overlap = TRUE*/
@@ -2092,7 +2092,7 @@ int lhasgesture(int j)
          {
             ky = lbn[k].y;
             ky2 = lbn[k].y2;
-            if (loverlap(jy,jy2,ky,ky2) > 0)
+            if (loverlap(currentYpos,currentY2,ky,ky2) > 0)
                g = k;
          }
       }
@@ -2122,27 +2122,27 @@ void lleggesture(void)
          {
             printf("OOPS: dogesture height problem line %d\n",symbolCounter);
             printf("%3d %3d %3d %3d %3d %3d %3d %d\n",
-	             jm,ji,jx,jy,js,jw,jh,jd);
+	             jm,currentItem,currentXpos,currentYpos,currentStepSize,currentWidth,currentHeight,jd);
             lgetout(symbolCounter);
             if (ok == 1) goto rtrn;
          } /* level funny */
          fprintf(nudesfile,"*\n");
-         if  (ji==11)
+         if  (currentItem==11)
             fprintf(nudesfile,"* close without weight");
          else
-         if ((ji==1)||(ji==10))
+         if ((currentItem==1)||(currentItem==10))
             fprintf(nudesfile,"* forward gesture");
          else
-         if ((ji==2)||(ji==9))
+         if ((currentItem==2)||(currentItem==9))
             fprintf(nudesfile,"* forward diagonal gesture");
          else
-         if ((ji==3)||(ji==8))
+         if ((currentItem==3)||(currentItem==8))
             fprintf(nudesfile,"* sideways gesture");
          else
-         if ((ji==4)||(ji==7))
+         if ((currentItem==4)||(currentItem==7))
             fprintf(nudesfile,"* back diagonal gesture");
          else
-         if ((ji==5)||(ji==6))
+         if ((currentItem==5)||(currentItem==6))
             fprintf(nudesfile,"* backward gesture");
 //
          if (jd == LOW)
@@ -2154,11 +2154,11 @@ void lleggesture(void)
 //
          if (jc < 0)
          {
-            if ((ji <= 1)||(ji == 3)||(ji == 5)||(ji > 11))
+            if ((currentItem <= 1)||(currentItem == 3)||(currentItem == 5)||(currentItem > 11))
             {
                printf("OOPS: dogesture direction problem line %d\n",symbolCounter);
                printf("%3d %3d %3d %3d %3d %3d %3d %3d %d\n",
-                  jm,ji,jx,jy,js,jw,jh,jb,jd);
+                  jm,currentItem,currentXpos,currentYpos,currentStepSize,currentWidth,currentHeight,jb,jd);
                lgetout(1);
                if (ok == 1) goto rtrn;
             } /* i wrong */
@@ -2168,11 +2168,11 @@ void lleggesture(void)
          } /* left side */
          else if (jc > 0)
          {
-            if ((ji < 1)||(ji == 6)||(symbolCounter == 8)||(ji == 10)||(ji > 11))
+            if ((currentItem < 1)||(currentItem == 6)||(symbolCounter == 8)||(currentItem == 10)||(currentItem > 11))
             {
                printf("OOPS: dogesture direction problem line %d\n",symbolCounter);
                printf("%3d %3d %3d %3d %3d %3d %3d %3d %d\n",
-                  jm,ji,jx,jy,js,jw,jh,jb,jd);
+                  jm,currentItem,currentXpos,currentYpos,currentStepSize,currentWidth,currentHeight,jb,jd);
                lgetout(1);
                if (ok == 1) goto rtrn;
             } /* i wrong */
@@ -2184,7 +2184,7 @@ void lleggesture(void)
          fprintf(nudesfile,"repeat    %3d %3d centre afoot  %s\n",
                   firstFrameNumAct,fend,xyz[dofig]);
 //
-         if (ji == 11)
+         if (currentItem == 11)
          {
             fprintf(nudesfile,"repeat    %3d %3d call   %s\n",
                   firstFrameNumAct,fend,risesub[height_prev]);
@@ -2198,8 +2198,8 @@ void lleggesture(void)
          {
             fprintf(nudesfile,
                "quadratic %3d %3d bendto bthigh bhip   pelvis %d %d %d\n",
-                  firstFrameNumAct,fend,stt[jd][ji][0],stt[jd][ji][1],stt[jd][ji][2]);
-            if ((jd == LOW)&&((ji == 1)||(ji == 3)||(ji == 8)||(ji == 10))||(jb == 2)||(jb == 4))
+                  firstFrameNumAct,fend,stt[jd][currentItem][0],stt[jd][currentItem][1],stt[jd][currentItem][2]);
+            if ((jd == LOW)&&((currentItem == 1)||(currentItem == 3)||(currentItem == 8)||(currentItem == 10))||(jb == 2)||(jb == 4))
                fprintf(nudesfile,
                   "linear    %3d %3d bendto bleg   bknee  bthigh lhig1 lhig2 lhig3\n",
                       fhalf,fend);
@@ -2211,7 +2211,7 @@ void lleggesture(void)
                "linear    %3d %3d bendto bfoot  bankle bleg   fhig1 fhig2 fhig3\n",
                   fhalf,fend);
          } /* doing a leg gesture */
-         if ((ji != 11)&&(hold == NO)||(st < 1))
+         if ((currentItem != 11)&&(hold == NO)||(st < 1))
             fprintf(nudesfile,
                "repeat    %3d %3d moveto fig    afoot  %s\n",
 	            firstFrameNumAct,fend,xyz[dofig]);
@@ -2242,7 +2242,7 @@ void ldoarms(void)
          {
             printf("ldoarms problem line %d, bar %d\n",symbolCounter,num_curBar);
             printf("%c %3d %3d %3d %3d %3d %3d %d\n",
-	           jm,ji,jx,jy,js,jw,jh,jd);
+	           jm,currentItem,currentXpos,currentYpos,currentStepSize,currentWidth,currentHeight,jd);
             lgetout(1);
             if (ok == 1) goto rtrn;
          }
@@ -2252,7 +2252,7 @@ void ldoarms(void)
             {
 					fprintf(nudesfile,
                   "quadratic %3d %3d bendto luarm  lshldr shldrs %3d %3d %3d\n",
-                     firstFrameNumAct,fend,arlx[jd][ji][0],arlx[jd][ji][1],arlx[jd][ji][2]);
+                     firstFrameNumAct,fend,arlx[jd][currentItem][0],arlx[jd][currentItem][1],arlx[jd][currentItem][2]);
 					fprintf(nudesfile,
                   "quadratic %3d %3d bendto llarm  lelbow luarm  %3d %3d %3d\n",
                      firstFrameNumAct,fend,0,0,45);
@@ -2272,7 +2272,7 @@ void ldoarms(void)
             else
             if (jb == BENT)
             {
-               if (ji == 11)
+               if (currentItem == 11)
                {
                    fprintf(nudesfile,
                       "quadratic %3d %3d bendto luarm  lshldr shldrs %3d %3d %3d\n",
@@ -2285,11 +2285,11 @@ void ldoarms(void)
                {
                    fprintf(nudesfile,
                       "quadratic %3d %3d bendto luarm  lshldr shldrs %3d %3d %3d\n",
-                         firstFrameNumAct,fend,abnt[jd][ji][0],abnt[jd][ji][1],abnt[jd][ji][2]);
+                         firstFrameNumAct,fend,abnt[jd][currentItem][0],abnt[jd][currentItem][1],abnt[jd][currentItem][2]);
                    fprintf(nudesfile,
                       "quadratic %3d %3d bendto llarm  lelbow luarm  %3d %3d %3d\n",
                          firstFrameNumAct,fend,0,0,90);
-               } /* ji != 11 */
+               } /* currentItem != 11 */
             }
             else
             {
@@ -2298,7 +2298,7 @@ void ldoarms(void)
                      firstFrameNumAct,fend,0,0,0);
                fprintf(nudesfile,
                   "quadratic %3d %3d bendto luarm  lshldr shldrs %3d %3d %3d\n",
-                     firstFrameNumAct,fend,stt[jd][ji][0],stt[jd][ji][1],stt[jd][ji][2]);
+                     firstFrameNumAct,fend,stt[jd][currentItem][0],stt[jd][currentItem][1],stt[jd][currentItem][2]);
             }
          }
          else // if (jc > 0) =  right arm
@@ -2307,7 +2307,7 @@ void ldoarms(void)
             {
 					fprintf(nudesfile,
                   "quadratic %3d %3d bendto ruarm  rshldr shldrs %3d %3d %3d\n",
-                     firstFrameNumAct,fend,arlx[jd][ji][0],arlx[jd][ji][1],arlx[jd][ji][2]);
+                     firstFrameNumAct,fend,arlx[jd][currentItem][0],arlx[jd][currentItem][1],arlx[jd][currentItem][2]);
 					fprintf(nudesfile,
                   "quadratic %3d %3d bendto rlarm  relbow ruarm  %3d %3d %3d\n",
                      firstFrameNumAct,fend,0,0,45);
@@ -2330,8 +2330,8 @@ void ldoarms(void)
             {
                fprintf(nudesfile,
                   "quadratic %3d %3d bendto ruarm  rshldr shldrs %3d %3d %3d\n",
-                     firstFrameNumAct,fend,abnt[jd][ji][0],abnt[jd][ji][1],abnt[jd][ji][2]);
-               if (ji == 11)
+                     firstFrameNumAct,fend,abnt[jd][currentItem][0],abnt[jd][currentItem][1],abnt[jd][currentItem][2]);
+               if (currentItem == 11)
                    fprintf(nudesfile,
                       "quadratic %3d %3d bendto rlarm  relbow ruarm  %3d %3d %3d\n",
                          firstFrameNumAct,fend,0,0,70);
@@ -2347,7 +2347,7 @@ void ldoarms(void)
                      firstFrameNumAct,fend,0,0,0);
                fprintf(nudesfile,
                   "quadratic %3d %3d bendto ruarm  rshldr shldrs %3d %3d %3d\n",
-                     firstFrameNumAct,fend,stt[jd][ji][0],stt[jd][ji][1],stt[jd][ji][2]);
+                     firstFrameNumAct,fend,stt[jd][currentItem][0],stt[jd][currentItem][1],stt[jd][currentItem][2]);
                fprintf(nudesfile,
                   "quadratic %3d %3d bendto rhand  rwrist rlarm  %3d %3d %3d\n",
                      firstFrameNumAct,fend,0,0,0);
@@ -2387,7 +2387,7 @@ void lspotturn(int j, int piv, int firstFrameNumAct, int fend, int g)
          firstFrameNumAct,fend,piv);
    fprintf(nudesfile,
       "linear    %3d %3d bendto bthigh bhip   pelvis %d %d %d\n",
-	      firstFrameNumAct,fend,stt[0][ji][0],stt[0][ji][1],stt[0][ji][2]);
+	      firstFrameNumAct,fend,stt[0][currentItem][0],stt[0][currentItem][1],stt[0][currentItem][2]);
    fprintf(nudesfile,
       "repeat    %3d %3d ground fig\n",firstFrameNumAct,fend);
    if ((hold == NO)||(st < 1))
@@ -2420,12 +2420,12 @@ int lgetpin(void)
 
     ki = -123;
     ymost = -1;
-    for (k = yj[jy-jh]; lbn[k].y < jy2; ++k)
+    for (k = yj[currentYpos-currentHeight]; lbn[k].y < currentY2; ++k)
     {
          if (lbn[k].m == Pins)
          {
-             xlap = loverlap(jx,jx2,lbn[k].x,lbn[k].x2);
-             ylap = loverlap(jy,jy2,lbn[k].y,lbn[k].y2);
+             xlap = loverlap(currentXpos,currentX2,lbn[k].x,lbn[k].x2);
+             ylap = loverlap(currentYpos,currentY2,lbn[k].y,lbn[k].y2);
              if ((xlap > 0) && (ylap > ymost))
              {
                 ki = lbn[k].i;
@@ -2436,8 +2436,8 @@ int lgetpin(void)
 	 piv = 0;
     if ((ki > 0)&&(ki <= 9))
     {
-       if (ji == 1) piv = -45*(9-ki);
-       if (ji == 2) piv = 45*(ki-1);
+       if (currentItem == 1) piv = -45*(9-ki);
+       if (currentItem == 2) piv = 45*(ki-1);
        if (ki == 1) piv = 360;
     }
     return(piv);
@@ -2566,23 +2566,23 @@ Relevant symbols:-
       if ((lbn[symbolCounter].m == Misc)&&(lbn[symbolCounter].i == 1))
       {
           lassign();
-          held = lseeksym(Volm,1,jx,jx2,jy-STEP,jy2);
+          held = lseeksym(Volm,1,currentXpos,currentX2,currentYpos-STEP,currentY2);
 	  if (held > 0)
           {
-              mlhand = lseeksym(Limb,4,jx-STEP/2,jx+STEP/2,jy,jy2+STEP);
-              mrhand = lseeksym(Limb,9,jx-STEP/2,jx+STEP/2,jy,jy2+STEP);
-              wlhand = lseeksym(Limb,4,jx2-STEP/2,jx2+STEP/2,jy,jy2+STEP);
-              wrhand = lseeksym(Limb,9,jx2-STEP/2,jx2+STEP/2,jy,jy2+STEP);
-              front  = lseeksym(Area,1,jx-STEP/2,jx+STEP/2,jy,jy2+STEP);
+              mlhand = lseeksym(Limb,4,currentXpos-STEP/2,currentXpos+STEP/2,currentYpos,currentY2+STEP);
+              mrhand = lseeksym(Limb,9,currentXpos-STEP/2,currentXpos+STEP/2,currentYpos,currentY2+STEP);
+              wlhand = lseeksym(Limb,4,currentX2-STEP/2,currentX2+STEP/2,currentYpos,currentY2+STEP);
+              wrhand = lseeksym(Limb,9,currentX2-STEP/2,currentX2+STEP/2,currentYpos,currentY2+STEP);
+              front  = lseeksym(Area,1,currentXpos-STEP/2,currentXpos+STEP/2,currentYpos,currentY2+STEP);
               if (front < 0)
-                 front  = lseeksym(Area,1,jx2-STEP/2,jx2+STEP/2,jy,jy2+STEP);
+                 front  = lseeksym(Area,1,currentX2-STEP/2,currentX2+STEP/2,currentYpos,currentY2+STEP);
               if (front < 0)
-                 front  = lseeksym(Area,2,jx-STEP/2,jx+STEP/2,jy,jy2+STEP);
+                 front  = lseeksym(Area,2,currentXpos-STEP/2,currentXpos+STEP/2,currentYpos,currentY2+STEP);
               if (front < 0)
-                 front  = lseeksym(Area,2,jx2-STEP/2,jx2+STEP/2,jy,jy2+STEP);
-              back   = lseeksym(Area,5,jx-STEP/2,jx+STEP/2,jy,jy2+STEP);
+                 front  = lseeksym(Area,2,currentX2-STEP/2,currentX2+STEP/2,currentYpos,currentY2+STEP);
+              back   = lseeksym(Area,5,currentXpos-STEP/2,currentXpos+STEP/2,currentYpos,currentY2+STEP);
               if (back < 0)
-                 back  = lseeksym(Area,5,jx2-STEP/2,jx2+STEP/2,jy,jy2+STEP);
+                 back  = lseeksym(Area,5,currentX2-STEP/2,currentX2+STEP/2,currentYpos,currentY2+STEP);
               jb = 0;
               if (front > 0)
               {
@@ -2643,7 +2643,7 @@ void lstart(void)
       if (pins[k][1] < 0)
       {
          p = pins[k][0];
-         ji = lbn[p].i;
+         currentItem = lbn[p].i;
          if (lbn[p].d == LOW)
          {
             mx = lbn[p].x;
@@ -2651,7 +2651,7 @@ void lstart(void)
             if (numberOfMen > 0)
                fprintf(nudesfile,
                   "*\nquadratic   0   1 spinby man    mlfoot  mpelvis %d y\n",
-                  (ji-1)*45);
+                  (currentItem-1)*45);
          }
          else
          {
@@ -2660,7 +2660,7 @@ void lstart(void)
             if (numberOfWomen > 0)
                fprintf(nudesfile,
                   "*\nquadratic   0   1 spinby woman  wrfoot  wpelvis %d y\n",
-                  (ji-1)*45);
+                  (currentItem-1)*45);
          }
 	 //if both male and female pins exist then do this
          if ((wx > 0)&&(mx > 0)&&(wy > 0)&&(my > 0))
@@ -2986,7 +2986,7 @@ void ldobar(void)
    called by laction,
 */
 {
-   if ((jm == Bars) && (jy < yend))
+   if ((jm == Bars) && (currentYpos < yend))
    {
       ++num_curBar;
       fprintf(nudesfile,"*\n");
@@ -3023,7 +3023,7 @@ void lbent(void)
       if ((lbn[symbolCounter].m == Volm)&&(lbn[symbolCounter].i <= STRETCH))
       {
          lassign();
-         jy2h = jy2+jh;
+         jy2h = currentY2+currentHeight;
          g = -1;
          for (k = symbolCounter+1;	((k < Num_Lab_Entries)&&(g < 0)); ++k)
          {
@@ -3038,26 +3038,26 @@ void lbent(void)
                   ky2 = lbn[k].y2;
                   kx = lbn[k].x;
                   kx2 = lbn[k].x2;
-                  if ((loverlap(jx,jx2,kx,kx2) > 0)
-                     &&(loverlap(jy2,jy2h,ky,ky2) > 0))
+                  if ((loverlap(currentXpos,currentX2,kx,kx2) > 0)
+                     &&(loverlap(currentY2,jy2h,ky,ky2) > 0))
                   {
                       g = k;
-                      lbn[symbolCounter].b = ji;
+                     // lbn[symbolCounter].b = currentItem;
                       ki = lbn[k].i;
                       lbn[symbolCounter].m = km;
                       lbn[symbolCounter].i = ki;
                       lbn[symbolCounter].y2 = ky2;
-                      lbn[symbolCounter].h = lbn[k].y2 - jy;
+                      lbn[symbolCounter].h = lbn[k].y2 - currentYpos;
                       lbn[symbolCounter].d = lbn[k].d;
                       lbn[k].a = DONE;
-                      if (ji == BENT)
-                      {
-                         if ((ki == 11)&&(jc < 0))
-                            lbn[symbolCounter].i = 8;
-                         else
-                         if ((ki == 11)&&(jc > 0))
-                            lbn[symbolCounter].i = 3;
-                      } /* ji == BENT */
+                   //   if (currentItem == BENT)
+                   //   {
+                   //      if ((ki == 11)&&(jc < 0))
+                   //         lbn[symbolCounter].i = 8;
+                   //      else
+                   //      if ((ki == 11)&&(jc > 0))
+                   //         lbn[symbolCounter].i = 3;
+                   //   } /* currentItem == BENT */
                   } /* overlapping */
                } /* ky < jy2h */
             } /* km = Dirn */
@@ -3126,7 +3126,7 @@ void lrelease(void)
    int fdif;
    int fbegin,ffin;
 
-   if ((numberMenWomen > 0)&&(ji == 2)) // release
+   if ((numberMenWomen > 0)&&(currentItem == 2)) // release
    {
       holdcl = 0;
       holdoe = 0;
@@ -3343,10 +3343,10 @@ void lsethold(void)
 	{
 		fprintf(nudesfile,
 			"linear    %3d %3d spinby fig    afoot  pelvis %d y\n",
-         0,1,(ji-1)*45);
+         0,1,(currentItem-1)*45);
 		oriented = TRUE;
 	}
-   if ((jm == Limb)&&((ji == 4)||(ji == 9)))
+   if ((jm == Limb)&&((currentItem == 4)||(currentItem == 9)))
    {
       if (jb ==  11) { ++holdss; ++holdsh; }
       if (jb ==  12) ++holdoe;
@@ -3358,17 +3358,17 @@ void lsethold(void)
       if (jb == 202) { ++holdcl; ++holdpr; }
    } /* jm = a hand */
    else
-   if ((jm == Face)&&(jx > stmiddle))
+   if ((jm == Face)&&(currentXpos > stmiddle))
    {
       n = -1;
       ylap = -1;
-      wface = ji;
+      wface = currentItem;
       for (i = 1; i < 9; ++i)
       {
-         n = lseeksym(Face,i,xmin,stmiddle,jy,jy2);
+         n = lseeksym(Face,i,xmin,stmiddle,currentYpos,currentY2);
          if (n >= 0)
          {
-            dy = loverlap(jy,jy2,lbn[n].y,lbn[n].y2);
+            dy = loverlap(currentYpos,currentY2,lbn[n].y,lbn[n].y2);
             if (dy > ylap)
             {
                ylap = dy;
@@ -3478,7 +3478,7 @@ void ldolimb(void)
 	if (jm == Limb)
 		colm[nc] = Limb;
        	else
-	if ((jm == Volm)&&(ji == 7)
+	if ((jm == Volm)&&(currentItem == 7)
 		&&(colm[nc] == Area)&&(jd == LOW))
 	{
 		colm[nc] = CHEST;
@@ -3487,14 +3487,14 @@ void ldolimb(void)
 	   fprintf(nudesfile,"* ldolimba CHEST at column %d\n",nc);
 	}
 	else
-	if ((jm == Area)&&(ji == 9)
+	if ((jm == Area)&&(currentItem == 9)
 		&&(colm[nc] == Volm)&&(jd == BLANK))
 		colm[nc] = CHEST;
 	else
-	if ((jm == Area)&&(ji == 9))
+	if ((jm == Area)&&(currentItem == 9))
 		colm[nc] = Area;
 	else
-	if ((jm == Volm)&&(ji == 7))
+	if ((jm == Volm)&&(currentItem == 7))
 		colm[nc] = Volm;
 	else
 	if ((jm == Rotn)&&(colm[nc] == CHEST))
@@ -3505,7 +3505,7 @@ void ldolimb(void)
 } /* ldolimb */
 /*********************************************/
 
-void lcoords(char jm, int ji)
+void lcoords(char jm, int currentItem)
 /*
 	check for change of coordinates
 
@@ -3528,7 +3528,7 @@ void lcoords(char jm, int ji)
 	int k;
 	int piv;
 
-	if ((jm == Area)&&(ji == 9))
+	if ((jm == Area)&&(currentItem == 9))
 	{
 	  piv = lgetpin ( );//finds the pin belonging to Area symbol and returns the angle
 		//fprintf(nudesfile,"* lcoordsa %c %d\n",m,piv);
@@ -3554,7 +3554,7 @@ void lcoords(char jm, int ji)
 	} /* possible space stance found */
 	else
 	{
-		k = lseeksym(Volm,7,jx,jx2,jy,jy2);
+		k = lseeksym(Volm,7,currentXpos,currentX2,currentYpos,currentY2);
 		if (k > 0)
 		{
 			//coordinates = BODY;
@@ -3590,17 +3590,17 @@ void ldotoetaps ( void )/*
 	if ( (( jc == -3 )||( jc == 3 )) && ( jd == -1 ) )
 	{
 			fprintf ( nudesfile, "*\n" );
-			if  ( ji==11 )
+			if  ( currentItem==11 )
 				fprintf ( nudesfile, "* in place tap\n" );
-			else if ( ( ji == 1 ) || ( ji == 10 ) )
+			else if ( ( currentItem == 1 ) || ( currentItem == 10 ) )
 				fprintf ( nudesfile, "* forward tap\n" );
-			else if ( ( ji == 2 ) || ( ji == 9 ) )
+			else if ( ( currentItem == 2 ) || ( currentItem == 9 ) )
 				fprintf ( nudesfile, "* forward diagonal tap\n" );
-			else if ( ( ji == 3 ) || ( ji == 8 ) )
+			else if ( ( currentItem == 3 ) || ( currentItem == 8 ) )
 				fprintf ( nudesfile, "* sideways tap\n" );
-			else if ( ( ji == 4 ) || ( ji == 7 ) )
+			else if ( ( currentItem == 4 ) || ( currentItem == 7 ) )
 				fprintf ( nudesfile, "* back diagonal tap\n" );
-			else if ( ( ji == 5 ) || ( ji == 6 ) )
+			else if ( ( currentItem == 5 ) || ( currentItem == 6 ) )
 				fprintf( nudesfile, "* backward tap\n" );
 			//
 			if ( dofig == MAN )
@@ -3624,10 +3624,10 @@ void ldotoetaps ( void )/*
 			//
 			if ( jc < 0 )
 			{
-				if ( ( ji <= 1 ) || ( ji == 3 ) || ( ji == 5 ) || ( ji > 11 ) )
+				if ( ( currentItem <= 1 ) || ( currentItem == 3 ) || ( currentItem == 5 ) || ( currentItem > 11 ) )
 				{
 					printf ( "OOPS: ldotoetap left direction problem line %d\n", symbolCounter );
-					printf ( "%3d %3d %3d %3d %3d %3d %3d %3d %d\n", jm, ji, jx, jy, js, jw, jh, jb, jd );
+					printf ( "%3d %3d %3d %3d %3d %3d %3d %3d %d\n", jm, currentItem, currentXpos, currentYpos, currentStepSize, currentWidth, currentHeight, jb, jd );
 					lgetout ( 1 );
 					if ( ok == 1 ) return;
 				} /* i wrong */
@@ -3636,11 +3636,11 @@ void ldotoetaps ( void )/*
 			} /* left side */
 			else if ( jc > 0 )
 			{
-				if ( ( ji < 1 ) || ( ji == 6 ) ||
-					( ji == 8 ) || ( ji == 10 ) || ( ji > 11 ) )
+				if ( ( currentItem < 1 ) || ( currentItem == 6 ) ||
+					( currentItem == 8 ) || ( currentItem == 10 ) || ( currentItem > 11 ) )
 				{
 					printf ( "OOPS: ldotoetap right direction problem line %d\n", symbolCounter );
-					printf ( "%3d %3d %3d %3d %3d %3d %3d %3d %d\n", jm, ji, jx, jy, js, jw, jh, jb, jd );
+					printf ( "%3d %3d %3d %3d %3d %3d %3d %3d %d\n", jm, currentItem, currentXpos, currentYpos, currentStepSize, currentWidth, currentHeight, jb, jd );
 					lgetout ( 1 );
 					if ( ok == 1 ) return;
 				} /* i wrong */
@@ -3648,7 +3648,7 @@ void ldotoetaps ( void )/*
 					"repeat    %3d %3d call   forright * right = b\n",firstFrameNumAct, fend );
 			} /* right side */
 //
-			if ( ji == 11 )
+			if ( currentItem == 11 )
 			{
 				fprintf ( nudesfile, "repeat    %3d %3d call   %s\n",
 					firstFrameNumAct, fend, risesub[height_prev] );
@@ -3672,43 +3672,43 @@ void ldotoetaps ( void )/*
 /**************************************/
 void ldohead()
 {
-  if(ji == 1)
+  if(currentItem == 1)
           {
             fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 x\n",firstFrameNumAct,fend);
           }
-        else if(ji == 5)
+        else if(currentItem == 5)
           {
             fprintf(nudesfile,"quadratic %d %d bendby head throat neck 50 x\n",firstFrameNumAct,fend);
           }
-        else if(ji == 3)
+        else if(currentItem == 3)
           {
                   fprintf(nudesfile,"quadratic %d %d bendby head throat neck 33 z\n",firstFrameNumAct,fend);
           }
-        else if(ji == 8)
+        else if(currentItem == 8)
           {
             fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 z\n",firstFrameNumAct,fend);
           }
-        else if(ji == 2)
+        else if(currentItem == 2)
           {
             fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 x\n",firstFrameNumAct,fend);
             fprintf(nudesfile,"quadratic %d %d bendby head throat neck 33 z\n",firstFrameNumAct,fend);
           }
-        else if(ji == 4)
+        else if(currentItem == 4)
           {
             fprintf(nudesfile,"quadratic %d %d bendby head throat neck 50 x\n",firstFrameNumAct,fend);
             fprintf(nudesfile,"quadratic %d %d bendby head throat neck 33 z\n",firstFrameNumAct,fend);
           }
-        else if(ji == 7)
+        else if(currentItem == 7)
           {
             fprintf(nudesfile,"quadratic %d %d bendby head throat neck 50 x\n",firstFrameNumAct,fend);
             fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 z\n",firstFrameNumAct,fend);
           }
-        else if(ji == 9)
+        else if(currentItem == 9)
           {
             fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 x\n",firstFrameNumAct,fend);
             fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 z\n",firstFrameNumAct,fend);
           }
-        else if(ji == 11)
+        else if(currentItem == 11)
           {
             fprintf(nudesfile,"quadratic %d %d bendto head throat neck 0 0 0\n",firstFrameNumAct,fend);
           }
@@ -3787,16 +3787,16 @@ Relevant symbols:-
 			}
 			else if ( ( jc > -8 ) && ( jc < 8 ) )
 			{
-				if ( (( jm == Volm )&&( ji == 6 ))
-					||(( jm == Area )&&( ji == 9 )) )
-						lcoords(jm, ji);
+				if ( (( jm == Volm )&&( currentItem == 6 ))
+					||(( jm == Area )&&( currentItem == 9 )) )
+						lcoords(jm, currentItem);
 				if ( ( jm == Rotn ) && ( jc > -4 ) && ( jc < 4 ) )
 					ldopivot ();
-				 else if(jc == 4 && (jm==Keys)&&(ji == 8))
+				 else if(jc == 4 && (jm==Keys)&&(currentItem == 8))
 				 {
 				   headcol4 = 1;
 				 }
-				 else if(jc == 6 && (jm==Keys)&&(ji == 8))
+				 else if(jc == 6 && (jm==Keys)&&(currentItem == 8))
 				 {
 				   headcol6 = 1;
 				 }
@@ -3819,7 +3819,7 @@ Relevant symbols:-
 				else
 					ldolimb ();
 			} /* jc OK */
-		} /* ja == TODO */
+		} /* currentA == TODO */
 		if (( (jm == Dirn)||(jm == Rotn) )&&(jc >= -6)&&(jc <= 6)
 			&&( numberMenWomen > 0 )&&( dofig == WOMAN ) )
 			ldohold ();
@@ -3904,7 +3904,7 @@ char colm[NCOLM];    // limb presigns in the columns
    lstart();
    //lfindystart();
    lbows(); // flag hand signs
-   lbent(); // flag dirn signs
+   //lbent(); // flag dirn signs
    for (st = 0; st < numberOfStaff; ++st)
    {
       hold = NO;
@@ -10465,8 +10465,15 @@ void funcConvInitialise()
   ForUpdatingVarInt(myobject,"endScoreSymbol",&endScoreSymbol);
   ForUpdatingVarInt(myobject,"numberOfMen",&numberOfMen);
   ForUpdatingVarInt(myobject,"numberOfWomen",&numberOfWomen);
-  ForUpdatingVarInt(myobject,"numberMenWomen",&numberMenWomen);
- 
+ ForUpdatingVarInt(myobject,"numberMenWomen",&numberMenWomen);
+    
+  ForUpdatingVarInt(myobject,"currentHeight",&currentHeight);
+  ForUpdatingVarInt(myobject,"currentX2",&currentX2);
+  ForUpdatingVarInt(myobject,"currentY2",&currentY2);
+  ForUpdatingVarInt(myobject,"currentXpos",&currentXpos);
+  ForUpdatingVarInt(myobject,"currentYpos",&currentYpos);
+  ForUpdatingVarInt(myobject,"currentItem",&currentItem);
+
   ForUpdatingBool(myobject ,"mspace" , &mspace);
 
  

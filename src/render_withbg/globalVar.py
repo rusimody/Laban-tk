@@ -18,6 +18,7 @@ class GlobalVar():
         self.MAN = 0
         self.WOMAN = 1
 
+        self.STRETCH = 4 #intem number of stretched symbol
         self.NO = 0
         self.CL = 1
         self.PR = 2
@@ -38,6 +39,8 @@ class GlobalVar():
         self.MED = 1
         self.HIGH = 2
         self.BLANK = 3
+
+        self.BENT = 3
 
         self.doub0 = float(0)
         self.doub1 = float(1)
@@ -193,18 +196,24 @@ class GlobalVar():
         self.pins = [[0,0] for i in range(self.TMAX)]
         self.staff =[[0 for j in range(6)] for i in range(self.TMAX)] 
         self.numberOfStaff = 0       
-        ###################
         self.ystart = 0
         self.yend = 0
         self.startScoreSymbol = 0
         self.endScoreSymbol = 0
         
-        ###################
         self.numberOfMen = 0 # male fig count
         self.numberOfWomen = 0 # female fig count
         self.numberMenWomen = 0 # maleFig * femaleFig
         self.figsname = ""
         self.figsfile = None
+
+        self.currentHeight = 0
+        self.currentY2 = 0
+        self.currentX2 = 0
+        self.currentXpos = 0
+        self.currentYpos = 0
+        self.currentItem = 0
+
 GV = GlobalVar()
 
 #command line arguments are taken through tempFilename file

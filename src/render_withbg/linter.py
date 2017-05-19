@@ -4,6 +4,8 @@ from lsetrange import lsetrange
 from lselectfig import lselectfig
 from lcopyfig import lcopyfig
 from lfindystart import lfindystart
+from lbent import lbent
+
 def linter(GV,renderFile,gender):
     lbn_read(GV)
     lfindstaff(GV,gender)
@@ -11,3 +13,5 @@ def linter(GV,renderFile,gender):
     lselectfig(GV)
     #lcopyfig(GV,renderFile)
     lfindystart(GV)
+    #lbows(GV)
+    lbent(GV)

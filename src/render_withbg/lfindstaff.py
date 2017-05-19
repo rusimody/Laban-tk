@@ -1,4 +1,5 @@
 from lgetout import lgetout
+from loverlap import loverlap
 
 def lsortx(localStaff,nstaff):
     for j in range(nstaff-1):
@@ -11,22 +12,6 @@ def lsortx(localStaff,nstaff):
                 localStaff[k][0] = s0
                 localStaff[k][1] = s1
     return localStaff
-
-def loverlap(p1j,p2j,p1k,p2k):
-    if p1j > p2j or pik > p2k:
-        print("OOPS: loverlap %d %d %d %d"%(p1j,p2j,p1k,p2k))
-        lgetout(GV.symbolCounter)
-    lap = False
-    if p1k<p1j:
-        p1max = p1j
-    else:
-        p1max = p1k
-    if p2k < p2j:
-        p2min = p2k
-    else:
-        p2min = p2j
-    lap = p2min - p1max
-    return lap
 
 def lfindstaff(GV,gender):
     localStaff = [[0,0] for i in range(GV.TMAX)] # temporary list to store staff information
@@ -84,7 +69,7 @@ def lfindstaff(GV,gender):
             for k in range(GV.numberOfStaff):
                 kp = GV.staff[k][2]-1
                 kq = kp+2
-                if loverlap(jp,jq,kp,kq)>0:
+                if loverlap(GV,jp,jq,kp,kq)>0:
                     if GV.listLbnObject[j].Level == "B": # d is not defines
                         print(GV.listLbnObject[j].Level)
                     if GV.listLbnObject[j].Level == 0: # d is not defines
