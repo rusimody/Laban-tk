@@ -17,7 +17,7 @@ def lcopyfig(GV,renderFile):
         lgetout(GV,1)
         if GV.ok==1:
             return
-   
-    
-    for line in GV.figsfile:
+
+    (GV.nudesfile).seek(2,0)
+    for line in GV.figsname:
         (GV.nudesfile).write(line)

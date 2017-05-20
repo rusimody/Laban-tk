@@ -240,19 +240,21 @@ struct Symbol {
    };
 
 struct Symbol lbn[LMAX]; // laban score entries
-int ja;                  // TRUE = 0 if already done
+
 int curSymbolBend;                  // bendedness of current symbol
+int currentA;                  // TRUE = 0 if already done
+
 int jc;                  // current symbol column
-int jh;                  // current symbol height
-int ji;                  // current symbol item in menu
+int currentHeight;                  // current symbol height
+int currentItem;                  // current symbol item in menu
 //int jl;                  // line of current symbol
 char jm;                 // current symbol menu
-int js;                  // current symbol step size
-int jw;                  // current symbol width
-int jx;                  // current symbol x bottom
-int jy;                  // current symbol y bottom
-int jx2;                 // current symbol x top
-int jy2;                 // current symbol y top
+int currentStepSize;                  // current symbol step size
+int currentWidth;                  // current symbol width
+int currentXpos;                  // current symbol x bottom
+int currentYpos;                  // current symbol y bottom
+int currentX2;                 // current symbol x top
+int currentY2;                 // current symbol y top
 int jd;                  // current symbol shading
 /*************************************************************/
 
@@ -270,10 +272,10 @@ int complete;        // true if Gloria and Frank to be used
 int dofig;           // required gender of current staff
 int dostaff;         // index in staff[] of current staff
 int facedif;         // difference between facing directions of man and lwoman
-int facecl;          // facing score of closed position
-int facepr;          // facing score of promenade position
-int facesh;          // facing score of shadow position
-int facess;          // facing score of semishadow position
+int closeFaceScore;          // facing score of closed position
+int promenadeFaceScore;          // facing score of promenade position
+int shadowFaceScore;          // facing score of shadow position
+int semiShadowFaceScore;          // facing score of semishadow position
 int fbegin,ffin,flen;// start,end, and length of a position
 int fend;            // frame number of end of current movement
 int fhalf;           // frame halfway through a movement
@@ -285,15 +287,15 @@ int firstFrameNumAct;          // first frame number of action
 int gy,gh;           // arm gesture range disabled by contact bow
 int haslbn;          // TRUE if input is lbn file, FALSE for .n file
 int hold;            // one of the defined holds NO,CL,PR,CP,DB,OP,CR,OE,CO,SH,SS
-int holdcl;          // closed hold counter
-int holdco;          // counter open extended hold counter
-int holdoe;          // open extended hold counter
-int holdpr;          // promenade hold counter
-int holdsh;          // shadow hold counter
-int holdss;          // semishadow hold counter
+int closeHoldCounter;          // closed hold counter
+int openHoldCounter;          // counter open extended hold counter
+int openExtendedHoldCounter;          // open extended hold counter
+int promenadeHoldCounter;          // promenade hold counter
+int shadowHoldCounter;          // shadow hold counter
+int semiShadowHoldCounter;          // semishadow hold counter
 int symbolCounter;
 //int j;               // counter through symbols
-int keptf;           // last frame when last position kept
+int keptLastFrame;           // last frame when last position kept
 int mface,wface;     // facing directions of man and woman
 int num_curBar;            // number of current bar
 int Num_Lab_Entries;           // number of laban score entries
@@ -315,7 +317,7 @@ int prevhold;        // previous hold
 int height_prev;            // height of previous step;
 int endScoreSymbol;           // ending score symbol
 int startScoreSymbol;          // starting score symbol
-int st;              // current staff number
+int currentStaffNumber;              // current staff number
 int stmiddle;        // halfway across between L and R staves
 int trackOnMainFig;           // TRUE when tracking viewpoint on main figure
 int xmin;   //,xmax;       // width range of score symbols
@@ -1246,16 +1248,16 @@ void initialise(void)
 */
 
 // find bits in double mantissa -
-	b = doub1;
-	m = 0;
-	for (a = inv2; doub1 + b > doub1 + a; a *= inv2)
-	{ 
-		b = a;
-    		++ m;
-	}
-       
-	tolr = b+b;
-    symbolCounter = 2;
+//	b = doub1;
+//	m = 0;
+//	for (a = inv2; doub1 + b > doub1 + a; a *= inv2)
+//	{ 
+//		b = a;
+//    		++ m;
+//	}
+//       
+//	tolr = b+b;
+//symbolCounter = 2;
 	n = 0;
 
 // find bits in integer -
@@ -1265,6 +1267,7 @@ void initialise(void)
 		++ n;
 	}
 	maxint = k;
+
 	printf("\n   tolr %g (%d bits), maxint %d (%d bits)\n",
 		tolr,m,maxint,n);
 } /* initialise */
@@ -1328,9 +1331,9 @@ void lsetframes(void)
    }
    else
    {
-     firstFrameNumAct = int(inv2+lbn_fpp*double(jy-ystart));//inv2 is 0.5
+     firstFrameNumAct = int(inv2+lbn_fpp*double(currentYpos-ystart));//inv2 is 0.5
       if (firstFrameNumAct < 1) firstFrameNumAct = 1;
-      frange = int(inv2+lbn_fpp*double(jh));
+      frange = int(inv2+lbn_fpp*double(currentHeight));
       if (frange < 1) frange = 1;
       fend = firstFrameNumAct + frange;
    }
@@ -1366,94 +1369,95 @@ void lcolx(int lcentre)
          --kc;
       else
          ++kc;
+//      printf("$$$$$$$$$ %d kc");
       lbn[k].c = kc;
    }
 } /* lcolx */
 /************************************************/
 
-void lbnread(void)
-/*
-   read .lbn laban score file
-
-   called by linter,
-
-A structure Symbol is created as follows:
-      struct Symbol {
-        int i;       // item in menu
-	int x;       // horizontal position of left side
-	int y;       // vertical position of bottom
-	int s;       // drawing step size
-	int w;       // width
-	int h;       // height
-	int d;       // height indicator //0,1,2,3 : low,mid,high,blank
-	char m;      // menu
-	//below data not present in .lbn file , so hardcoded or derived from available data
-	int x2;      // horizontal position of right side  = x+w
-	int y2;      // vertical position of top = y+h
-	int a;       // TRUE = 0 if already done
-	int b;       // bent indicator // not implemented as given -1 value
-	int c;       // column position relative to right support column
-	int l;       // lbn file line number
-	};
-	Extra variables set :
-	xmin = min(x)
-	xmax = max(x+w)
-*/
-{
-   int j;
-   int i,x,y,s,w,h;
-   char d;
-   char m0,m1,m2,m3;
-
-   j = 0;
-   //xmax = 0;
-   //xmin = 10000;
-	if ( ( infile = fopen( finname, "r" ) ) == NULL )
-	{
-		printf("lbnread oops\n");
-a: goto a;
-	}
-   while ((j < LMAX) && (fgets(buffer,BMAX,infile) != NULL))
-   {
-		strcpy(lbnline[j],buffer);
-   // printf(" %s  " , buffer);
-		sscanf(buffer,"%c%c%c%c %d %d %d %d %d %d %c",
-             &m0,&m1,&m2,&m3,&i,&x,&y,&s,&w,&h,&d);
-		if (m0 != '#')
-		{
-    //        lbn[j].m = m0;    //no need of m in python
-    //        if ((m0 == 'P')&&(m1 == 'a'))
-    //        lbn[j].m = Path;
-    //        lbn[j].i = i;    
-    //        lbn[j].x = x;
-    //        lbn[j].y = y;
-    //        lbn[j].w = w;
-    //        lbn[j].h = h;
-    //        lbn[j].s = s;
-            //lbn[j].b = -1;
-            //lbn[j].l = j;
-    //        lbn[j].a = TODO;
-    //        lbn[j].x2 = x+w;
-    //        lbn[j].y2 = y+h;
-    //        lbn[j].d = BLANK;
-    //        if (d =='M') lbn[j].d = MED;
-    //        if (d =='L') lbn[j].d = LOW;
-    //        if (d =='H') lbn[j].d = HIGH;
-   //         if (x < xmin) xmin = x;         //used only in one place in some lplace function soo need of declaring it as global var
-            //if (x+w > xmax) xmax = x+w;     // nowhere used
-//            if (j >= LMAX)
-//            {
-//               printf("\nBEWARE: score truncated at line %d\n",j);
-//               printf("more than %d laban score items\n",LMAX);
-//            }
-            ++j;
-		}
-   } /* while reading next line */
-   //printf("  %d   " , xmin );
-   //Num_Lab_Entries = j;
-//	printf("\n   lbnread: %d lbn symbols\n",Num_Lab_Entries);
-}  /* lbnread */
-/************************************************/
+//void lbnread(void)
+///*
+//   read .lbn laban score file
+//
+//   called by linter,
+//
+//A structure Symbol is created as follows:
+//      struct Symbol {
+//        int i;       // item in menu
+//	int x;       // horizontal position of left side
+//	int y;       // vertical position of bottom
+//	int s;       // drawing step size
+//	int w;       // width
+//	int h;       // height
+//	int d;       // height indicator //0,1,2,3 : low,mid,high,blank
+//	char m;      // menu
+//	//below data not present in .lbn file , so hardcoded or derived from available data
+//	int x2;      // horizontal position of right side  = x+w
+//	int y2;      // vertical position of top = y+h
+//	int a;       // TRUE = 0 if already done
+//	int b;       // bent indicator // not implemented as given -1 value
+//	int c;       // column position relative to right support column
+//	int l;       // lbn file line number
+//	};
+//	Extra variables set :
+//	xmin = min(x)
+//	xmax = max(x+w)
+//*/
+//{
+//   int j;
+//   int i,x,y,s,w,h;
+//   char d;
+//   char m0,m1,m2,m3;
+//
+//   j = 0;
+//   //xmax = 0;
+//   //xmin = 10000;
+//	if ( ( infile = fopen( finname, "r" ) ) == NULL )
+//	{
+//		printf("lbnread oops\n");
+//a: goto a;
+//	}
+//   while ((j < LMAX) && (fgets(buffer,BMAX,infile) != NULL))
+//   {
+//		strcpy(lbnline[j],buffer);
+//   // printf(" %s  " , buffer);
+//		sscanf(buffer,"%c%c%c%c %d %d %d %d %d %d %c",
+//             &m0,&m1,&m2,&m3,&i,&x,&y,&s,&w,&h,&d);
+//		if (m0 != '#')
+//		{
+//    //        lbn[j].m = m0;    //no need of m in python
+//    //        if ((m0 == 'P')&&(m1 == 'a'))
+//    //        lbn[j].m = Path;
+//    //        lbn[j].i = i;    
+//    //        lbn[j].x = x;
+//    //        lbn[j].y = y;
+//    //        lbn[j].w = w;
+//    //        lbn[j].h = h;
+//    //        lbn[j].s = s;
+//            //lbn[j].b = -1;
+//            //lbn[j].l = j;
+//    //        lbn[j].a = TODO;
+//    //        lbn[j].x2 = x+w;
+//    //        lbn[j].y2 = y+h;
+//    //        lbn[j].d = BLANK;
+//    //        if (d =='M') lbn[j].d = MED;
+//    //        if (d =='L') lbn[j].d = LOW;
+//    //        if (d =='H') lbn[j].d = HIGH;
+//   //         if (x < xmin) xmin = x;         //used only in one place in some lplace function soo need of declaring it as global var
+//            //if (x+w > xmax) xmax = x+w;     // nowhere used
+////            if (j >= LMAX)
+////            {
+////               printf("\nBEWARE: score truncated at line %d\n",j);
+////               printf("more than %d laban score items\n",LMAX);
+////            }
+//            ++j;
+//		}
+//   } /* while reading next line */
+//   //printf("  %d   " , xmin );
+//   //Num_Lab_Entries = j;
+////	printf("\n   lbnread: %d lbn symbols\n",Num_Lab_Entries);
+//}  /* lbnread */
+///************************************************/
 
 void lassign(void)
 /*
@@ -1462,20 +1466,20 @@ void lassign(void)
    called by laction, lsorty, lbent,
 */
 {
-      ja = lbn[symbolCounter].a;
       //curSymbolBend = lbn[symbolCounter].b;
+      currentA = lbn[symbolCounter].a;
       jc = lbn[symbolCounter].c;
       jd = lbn[symbolCounter].d;
-      jh = lbn[symbolCounter].h;
-      ji = lbn[symbolCounter].i;
+      currentHeight = lbn[symbolCounter].h;
+      currentItem = lbn[symbolCounter].i;
       //jl = lbn[symbolCounter].l;
       jm = lbn[symbolCounter].m;
-      js = lbn[symbolCounter].s;
-      jw = lbn[symbolCounter].w;
-      jx = lbn[symbolCounter].x;
-      jy = lbn[symbolCounter].y;
-      jx2 = lbn[symbolCounter].x2;
-      jy2 = lbn[symbolCounter].y2;
+      currentStepSize = lbn[symbolCounter].s;
+      currentWidth = lbn[symbolCounter].w;
+      currentXpos = lbn[symbolCounter].x;
+      currentYpos = lbn[symbolCounter].y;
+      currentX2 = lbn[symbolCounter].x2;
+      currentY2 = lbn[symbolCounter].y2;
 } /* lassign */
 /**********************************************/
 
@@ -1518,20 +1522,20 @@ void lsorty(void)
 //            lbn[j].y = lbn[k].y;
 //            lbn[j].x2 = lbn[k].x2;
 //            lbn[j].y2 = lbn[k].y2;
-//            lbn[k].a = ja;
 //            lbn[k].b = curSymbolBend;
+//            lbn[k].a = currentA;
 //            lbn[k].c = jc;
 //            lbn[k].d = jd;
-//            lbn[k].h = jh;
-//            lbn[k].i = ji;
+//            lbn[k].h = currentHeight;
+//            lbn[k].i = currentItem;
 //            //lbn[k].l = jl;
 //            lbn[k].m = jm;
-//            lbn[k].s = js;
-//            lbn[k].w = jw;
-//            lbn[k].x = jx;
-//            lbn[k].y = jy;
-//            lbn[k].x2 = jx2;
-//            lbn[k].y2 = jy2;
+//            lbn[k].s = currentStepSize;
+//            lbn[k].w = currentWidth;
+//            lbn[k].x = currentXpos;
+//            lbn[k].y = currentYpos;
+//            lbn[k].x2 = currentX2;
+//            lbn[k].y2 = currentY2;
 //            strcpy(buffer,lbnline[j]);
 //            strcpy(lbnline[j],lbnline[k]);
 //            strcpy(lbnline[k],buffer);
@@ -1640,141 +1644,141 @@ int loverlap(int p1j, int p2j, int p1k, int p2k)
 } /* loverlap */
 /********************************************/
 
-void lfindstaff(char* gen)
-/*
-    find the centres of the staves
-
-    called by linter,
-	calls     lsortx, lgetout,
-
-staff[TMAX][6].
-   staff[k][0] = stff[j][0]; // current staff index
-   staff[k][1] = stff[j-1][1];// left staff x coordinate
-   staff[k][2] = stff[j][1]; // current staff x cooridnate
-   staff[k][3] = stff[j+1][1]; // right staff x coordinate
-   staff[k][4] = -1;   // decides if staff represents a 'MAN' or'Woman'
-   staff[k][5] = TODO;
-*/
-{
-   int j,jp,jq;
-   int k,kp,kq;
-   int staffstart;//y coordinate of middle Stav
-   int nstaffstart;//index of the staves
-   int nstff;//number of staves
-   int stff[TMAX][2];//temporary array to store staff info
-
-   k = 0;
-   staffstart = 0;
-   for (j = 0; j < Num_Lab_Entries; ++j)
-   {
-      if (lbn[j].m == Stav)
-      {
-         stff[k][0] = j;
-         stff[k][1] = lbn[j].x;
-         if (lbn[j].y > staffstart)
-            staffstart = lbn[j].y;
-         nstaffstart = j;
-         ++k;
-         lbn[j].a = DONE;
-      }
-   }
-   if (k < 3)
-   {
-      printf("lfindstaff: only %d staff lines\n",k);
-      lgetout(1);
-      if (ok == 1) goto rtrn;
-   }
-   if (k > TMAX)
-   {
-      printf("lfindstaff: %d staff lines, max %d\n",k,TMAX);
-      lgetout(1);
-      if (ok == 1) goto rtrn;
-   }
-   nstff = k;
-   lsortx(stff,nstff);
-   k = 0;
-   for (j = 1; j < nstff; j += 3)
-   {
-      staff[k][0] = stff[j][0];
-      staff[k][1] = stff[j-1][1];
-      staff[k][2] = stff[j][1];
-      staff[k][3] = stff[j+1][1];
-      staff[k][4] = -1;
-      staff[k][5] = TODO;
-      ++k;
-   }
-   numberOfStaff = k;
-   stmiddle = (staff[0][2] + staff[numberOfStaff-1][2])/2;
-   npins = 0;
-   // seek pins under center stafflines
-   printf("####### %d\n ",nstaffstart);
-   for (j = 0; j < nstaffstart; ++j)
-   {
-      printf("@@@@@@@@@ %c",lbn[j].m);
-
-      if (lbn[j].m == Pins)
-      {
-         printf("!!!!!!!!!!!!");
-         jp = lbn[j].x;
-         jq = lbn[j].x2;
-         pins[npins][0] = j;
-         pins[npins][1] = -1;
-         for (k = 0; k < numberOfStaff; ++k)
-         {
-            kp = staff[k][2] - 1;
-            kq = kp+2;
-            if (loverlap(jp,jq,kp,kq) > 0)
-            {
-               if (lbn[j].d == 0)
-               {
-                  staff[k][4] = MAN;
-                  pins[npins][1] = k;
-				  lbn[j].a = DONE;
-               }
-               else
-               {
-                  staff[k][4] = WOMAN;
-                  pins[npins][1] = k;
-				  lbn[j].a = DONE;
-               } /* empty pin */
-            } /* pin under central staff */
-         } /* k : staff lines */
-         ++npins;
-      } /* a pin found */
-   } /* j */
-   if (numberOfStaff < 1)
-	   printf("No staves found\n");
-   else
-   for (j = 0; j < numberOfStaff; ++j)
-   {
-		if (j == 0)
-			printf("\n");
-		/*printf("staff %d: ",j+1);
-      if (staff[j][4] == MAN)
-         printf(" man\n");
-      else
-      if (staff[j][4] == WOMAN)
-         printf(" woman\n");
-      else
-      printf(" no gender\n");*/
-		if(gen != NULL)
-		{
-		  if(numberOfStaff == 1)
-		  {
-		    if(gen[0] == 'm')
-		      staff[j][4] = MAN;
-		    else if(gen[0] == 'f')
-		      staff[j][4] = WOMAN;
-		  }
-		  else if(j==0)
-		    staff[j][4] = MAN;
-		  else if(j==1)
-		    staff[j][4] = WOMAN;
-		}
-   }
-rtrn: ;
-}   /* lfindstaff */
-/***************************************************/
+//void lfindstaff(char* gen)
+///*
+//    find the centres of the staves
+//
+//    called by linter,
+//	calls     lsortx, lgetout,
+//
+//staff[TMAX][6].
+//   staff[k][0] = stff[j][0]; // current staff index
+//   staff[k][1] = stff[j-1][1];// left staff x coordinate
+//   staff[k][2] = stff[j][1]; // current staff x cooridnate
+//   staff[k][3] = stff[j+1][1]; // right staff x coordinate
+//   staff[k][4] = -1;   // decides if staff represents a 'MAN' or'Woman'
+//   staff[k][5] = TODO;
+//*/
+//{
+//   int j,jp,jq;
+//   int k,kp,kq;
+//   int staffstart;//y coordinate of middle Stav
+//   int nstaffstart;//index of the staves
+//   int nstff;//number of staves
+//   int stff[TMAX][2];//temporary array to store staff info
+//
+//   k = 0;
+//   staffstart = 0;
+//   for (j = 0; j < Num_Lab_Entries; ++j)
+//   {
+//      if (lbn[j].m == Stav)
+//      {
+//         stff[k][0] = j;
+//         stff[k][1] = lbn[j].x;
+//         if (lbn[j].y > staffstart)
+//            staffstart = lbn[j].y;
+//         nstaffstart = j;
+//         ++k;
+//         lbn[j].a = DONE;
+//      }
+//   }
+//   if (k < 3)
+//   {
+//      printf("lfindstaff: only %d staff lines\n",k);
+//      lgetout(1);
+//      if (ok == 1) goto rtrn;
+//   }
+//   if (k > TMAX)
+//   {
+//      printf("lfindstaff: %d staff lines, max %d\n",k,TMAX);
+//      lgetout(1);
+//      if (ok == 1) goto rtrn;
+//   }
+//   nstff = k;
+//   lsortx(stff,nstff);
+//   k = 0;
+//   for (j = 1; j < nstff; j += 3)
+//   {
+//      staff[k][0] = stff[j][0];
+//      staff[k][1] = stff[j-1][1];
+//      staff[k][2] = stff[j][1];
+//      staff[k][3] = stff[j+1][1];
+//      staff[k][4] = -1;
+//      staff[k][5] = TODO;
+//      ++k;
+//   }
+//   numberOfStaff = k;
+//   stmiddle = (staff[0][2] + staff[numberOfStaff-1][2])/2;
+//   npins = 0;
+//   // seek pins under center stafflines
+//   printf("####### %d\n ",nstaffstart);
+//   for (j = 0; j < nstaffstart; ++j)
+//   {
+//      printf("@@@@@@@@@ %c",lbn[j].m);
+//
+//      if (lbn[j].m == Pins)
+//      {
+//         printf("!!!!!!!!!!!!");
+//         jp = lbn[j].x;
+//         jq = lbn[j].x2;
+//         pins[npins][0] = j;
+//         pins[npins][1] = -1;
+//         for (k = 0; k < numberOfStaff; ++k)
+//         {
+//            kp = staff[k][2] - 1;
+//            kq = kp+2;
+//            if (loverlap(jp,jq,kp,kq) > 0)
+//            {
+//               if (lbn[j].d == 0)
+//               {
+//                  staff[k][4] = MAN;
+//                  pins[npins][1] = k;
+//				  lbn[j].a = DONE;
+//               }
+//               else
+//               {
+//                  staff[k][4] = WOMAN;
+//                  pins[npins][1] = k;
+//				  lbn[j].a = DONE;
+//               } /* empty pin */
+//            } /* pin under central staff */
+//         } /* k : staff lines */
+//         ++npins;
+//      } /* a pin found */
+//   } /* j */
+//   if (numberOfStaff < 1)
+//	   printf("No staves found\n");
+//   else
+//   for (j = 0; j < numberOfStaff; ++j)
+//   {
+//		if (j == 0)
+//			printf("\n");
+//		/*printf("staff %d: ",j+1);
+//      if (staff[j][4] == MAN)
+//         printf(" man\n");
+//      else
+//      if (staff[j][4] == WOMAN)
+//         printf(" woman\n");
+//      else
+//      printf(" no gender\n");*/
+//		if(gen != NULL)
+//		{
+//		  if(numberOfStaff == 1)
+//		  {
+//		    if(gen[0] == 'm')
+//		      staff[j][4] = MAN;
+//		    else if(gen[0] == 'f')
+//		      staff[j][4] = WOMAN;
+//		  }
+//		  else if(j==0)
+//		    staff[j][4] = MAN;
+//		  else if(j==1)
+//		    staff[j][4] = WOMAN;
+//		}
+//   }
+//rtrn: ;
+//}   /* lfindstaff */
+///***************************************************/
 
 void lfindystart(void)
 /*
@@ -1793,6 +1797,7 @@ void lfindystart(void)
    {
       if ((lbn[j].m == Bars) && (lbn[j].d == LOW))
 	     ystart = lbn[j].y + 1;
+      printf("@@@@@@@@@ %d ",j);
    }
 /*
    if none, seek any bar line -
@@ -1876,7 +1881,7 @@ void lchange(char d)
    }
    else if (d == 'H')
    {
-      if ((ji != 1)&&(ji != 10))
+      if ((currentItem != 1)&&(currentItem != 10))
       {
          fprintf(nudesfile,
             "repeat    %3d %3d set tcls1 thig1\n",firstFrameNumAct,fend);
@@ -1898,7 +1903,7 @@ void lchange(char d)
             "repeat    %3d %3d set fcls3 fmed3\n",firstFrameNumAct,fend);
       }
       else
-      if ((ji != 5)&&(ji != 6))
+      if ((currentItem != 5)&&(currentItem != 6))
       {
          fprintf(nudesfile,
             "repeat    %3d %3d set tcls1 trlx1\n",firstFrameNumAct,fend);
@@ -1974,27 +1979,27 @@ void ldostep(void)
 	if ( ( jm == Dirn ) && ( ( jc == -1 ) || ( jc == 1 ) ) )
 	{
 		havestep = TRUE;
-		k = lfindnext ( jc, jy + jh, jy + 2 * jh );
-		if ( ji > 5 )
-			n = ji - 5;
+		k = lfindnext ( jc, currentYpos + currentHeight, currentYpos + 2 * currentHeight );
+		if ( currentItem > 5 )
+			n = currentItem - 5;
 		else
-			n = ji + 5;
+			n = currentItem + 5;
 		fprintf( nudesfile, "*\n" );
 		if ( ( jc == -1 ) &&
-			( ( ji == 1 ) || ( ji == 5 ) || ( ji == 3 ) ) )
+			( ( currentItem == 1 ) || ( currentItem == 5 ) || ( currentItem == 3 ) ) )
 		{
 			printf( "dostep: funny symbol in left support column, line %d, bar %d\n",
 				symbolCounter, num_curBar );
 			printf( "%3d %3d %3d %3d %3d %3d %d\n",
-				jm, ji, jy, js, jw, jh, jd );
+				jm, currentItem, currentYpos, currentStepSize, currentWidth, currentHeight, jd );
 		}
 		else if ( ( jc == 1 ) &&
-			( ( ji == 10 ) || ( ji == 6 ) || ( ji == 8 ) ) )
+			( ( currentItem == 10 ) || ( currentItem == 6 ) || ( currentItem == 8 ) ) )
 		{
 			printf( "dostep: funny  symbol in right support column, line %d, bar %d\n",
 				symbolCounter, num_curBar );
 			printf( "%3d %3d %3d %3d %3d %3d %d\n",
-				jm, ji, jy, js, jw, jh, jd );
+				jm, currentItem, currentYpos, currentStepSize, currentWidth, currentHeight, jd );
 		}
 		else
 		{
@@ -2009,31 +2014,31 @@ void ldostep(void)
 			else
 				fprintf( nudesfile, "repeat    %3d %3d call   forleft\n",
 					firstFrameNumAct, fend );
-			if ( ( ji == 1 ) || ( ji == 10 ) )
+			if ( ( currentItem == 1 ) || ( currentItem == 10 ) )
 				fprintf( nudesfile, "call      %3d %3d forward\n",
 					firstFrameNumAct, fend );
-			if ( ji == 3 )
+			if ( currentItem == 3 )
 				fprintf( nudesfile, "call      %3d %3d rside\n",
 					firstFrameNumAct, fend );
-			if ( ji == 8 )
+			if ( currentItem == 8 )
 				fprintf( nudesfile, "call      %3d %3d lside\n",
 					firstFrameNumAct, fend );
-			if ( ( ji == 5 ) || ( ji == 6 ) )
+			if ( ( currentItem == 5 ) || ( currentItem == 6 ) )
 				fprintf( nudesfile, "call      %3d %3d back\n",
 					firstFrameNumAct, fend );
-			if ( ji == 2 )
+			if ( currentItem == 2 )
 				fprintf( nudesfile, "call      %3d %3d rfordiag\n",
 					firstFrameNumAct, fend );
-			if ( ji == 9 )
+			if ( currentItem == 9 )
 				fprintf( nudesfile, "call      %3d %3d lfordiag\n",
 					firstFrameNumAct, fend );
-			if ( ji == 4 )
+			if ( currentItem == 4 )
 				fprintf( nudesfile, "call      %3d %3d rbacdiag\n",
 					firstFrameNumAct, fend );
-			if ( ji == 7 )
+			if ( currentItem == 7 )
 				fprintf( nudesfile, "call      %3d %3d lbacdiag\n",
 					firstFrameNumAct, fend );
-			if ( ji == 11 )
+			if ( currentItem == 11 )
 				fprintf( nudesfile, "call      %3d %3d close\n",
 					firstFrameNumAct, fend );
 			lbn[symbolCounter].a = DONE;
@@ -2042,7 +2047,7 @@ void ldostep(void)
 		}
 		height_prev = jd;
 		col_prev = jc;
-		item_prev = ji;
+		item_prev = currentItem;
 	} /* column OK */
 }     /* ldostep */
 /****************************************************/
@@ -2061,10 +2066,10 @@ int lhastap(int j)
    char km;
 
    t = -1;
-   yk = jy - jh;
+   yk = currentYpos - currentHeight;
    if (yk < 1) yk = 1;
    for (k = symbolStartAtYpos[yk];
-	   ((t < 0)&&(k < Num_Lab_Entries)&&(lbn[k].y < jy2)); ++k)
+       ((t < 0)&&(k < Num_Lab_Entries)&&(lbn[k].y < currentY2)); ++k)
    {
       km = lbn[k].m;
       if (km == Misc)
@@ -2077,7 +2082,7 @@ int lhastap(int j)
             {
                ky = lbn[k].y;
                ky2 = ky + lbn[k].h;
-               if (loverlap(jy,jy2,ky,ky2) > 0)
+               if (loverlap(currentYpos,currentY2,ky,ky2) > 0)
                {
                   t = k;
                } /* overlap = TRUE*/
@@ -2113,7 +2118,7 @@ int lhasgesture(int j)
          {
             ky = lbn[k].y;
             ky2 = lbn[k].y2;
-            if (loverlap(jy,jy2,ky,ky2) > 0)
+            if (loverlap(currentYpos,currentY2,ky,ky2) > 0)
                g = k;
          }
       }
@@ -2143,27 +2148,27 @@ void lleggesture(void)
          {
             printf("OOPS: dogesture height problem line %d\n",symbolCounter);
             printf("%3d %3d %3d %3d %3d %3d %3d %d\n",
-	             jm,ji,jx,jy,js,jw,jh,jd);
+	             jm,currentItem,currentXpos,currentYpos,currentStepSize,currentWidth,currentHeight,jd);
             lgetout(symbolCounter);
             if (ok == 1) goto rtrn;
          } /* level funny */
          fprintf(nudesfile,"*\n");
-         if  (ji==11)
+         if  (currentItem==11)
             fprintf(nudesfile,"* close without weight");
          else
-         if ((ji==1)||(ji==10))
+         if ((currentItem==1)||(currentItem==10))
             fprintf(nudesfile,"* forward gesture");
          else
-         if ((ji==2)||(ji==9))
+         if ((currentItem==2)||(currentItem==9))
             fprintf(nudesfile,"* forward diagonal gesture");
          else
-         if ((ji==3)||(ji==8))
+         if ((currentItem==3)||(currentItem==8))
             fprintf(nudesfile,"* sideways gesture");
          else
-         if ((ji==4)||(ji==7))
+         if ((currentItem==4)||(currentItem==7))
             fprintf(nudesfile,"* back diagonal gesture");
          else
-         if ((ji==5)||(ji==6))
+         if ((currentItem==5)||(currentItem==6))
             fprintf(nudesfile,"* backward gesture");
 //
          if (jd == LOW)
@@ -2175,11 +2180,11 @@ void lleggesture(void)
 //
          if (jc < 0)
          {
-            if ((ji <= 1)||(ji == 3)||(ji == 5)||(ji > 11))
+            if ((currentItem <= 1)||(currentItem == 3)||(currentItem == 5)||(currentItem > 11))
             {
                printf("OOPS: dogesture direction problem line %d\n",symbolCounter);
                printf("%3d %3d %3d %3d %3d %3d %3d %3d %d\n",
-                  jm,ji,jx,jy,js,jw,jh,curSymbolBend,jd);
+                  jm,currentItem,currentXpos,currentYpos,currentStepSize,currentWidth,currentHeight,curSymbolBend,jd);
                lgetout(1);
                if (ok == 1) goto rtrn;
             } /* i wrong */
@@ -2189,11 +2194,11 @@ void lleggesture(void)
          } /* left side */
          else if (jc > 0)
          {
-            if ((ji < 1)||(ji == 6)||(symbolCounter == 8)||(ji == 10)||(ji > 11))
+            if ((currentItem < 1)||(currentItem == 6)||(symbolCounter == 8)||(currentItem == 10)||(currentItem > 11))
             {
                printf("OOPS: dogesture direction problem line %d\n",symbolCounter);
                printf("%3d %3d %3d %3d %3d %3d %3d %3d %d\n",
-                  jm,ji,jx,jy,js,jw,jh,curSymbolBend,jd);
+                  jm,currentItem,currentXpos,currentYpos,currentStepSize,currentWidth,currentHeight,curSymbolBend,jd);
                lgetout(1);
                if (ok == 1) goto rtrn;
             } /* i wrong */
@@ -2205,7 +2210,7 @@ void lleggesture(void)
          fprintf(nudesfile,"repeat    %3d %3d centre afoot  %s\n",
                   firstFrameNumAct,fend,xyz[dofig]);
 //
-         if (ji == 11)
+         if (currentItem == 11)
          {
             fprintf(nudesfile,"repeat    %3d %3d call   %s\n",
                   firstFrameNumAct,fend,risesub[height_prev]);
@@ -2219,8 +2224,8 @@ void lleggesture(void)
          {
             fprintf(nudesfile,
                "quadratic %3d %3d bendto bthigh bhip   pelvis %d %d %d\n",
-                  firstFrameNumAct,fend,stt[jd][ji][0],stt[jd][ji][1],stt[jd][ji][2]);
-            if ((jd == LOW)&&((ji == 1)||(ji == 3)||(ji == 8)||(ji == 10))||(curSymbolBend == 2)||(curSymbolBend == 4))
+                  firstFrameNumAct,fend,stt[jd][currentItem][0],stt[jd][currentItem][1],stt[jd][currentItem][2]);
+            if ((jd == LOW)&&((currentItem == 1)||(currentItem == 3)||(currentItem == 8)||(currentItem == 10))||(curSymbolBend == 2)||(curSymbolBend == 4))
                fprintf(nudesfile,
                   "linear    %3d %3d bendto bleg   bknee  bthigh lhig1 lhig2 lhig3\n",
                       fhalf,fend);
@@ -2232,7 +2237,7 @@ void lleggesture(void)
                "linear    %3d %3d bendto bfoot  bankle bleg   fhig1 fhig2 fhig3\n",
                   fhalf,fend);
          } /* doing a leg gesture */
-         if ((ji != 11)&&(hold == NO)||(st < 1))
+         if ((currentItem != 11)&&(hold == NO)||(currentStaffNumber < 1))
             fprintf(nudesfile,
                "repeat    %3d %3d moveto fig    afoot  %s\n",
 	            firstFrameNumAct,fend,xyz[dofig]);
@@ -2263,7 +2268,7 @@ void ldoarms(void)
          {
             printf("ldoarms problem line %d, bar %d\n",symbolCounter,num_curBar);
             printf("%c %3d %3d %3d %3d %3d %3d %d\n",
-	           jm,ji,jx,jy,js,jw,jh,jd);
+	           jm,currentItem,currentXpos,currentYpos,currentStepSize,currentWidth,currentHeight,jd);
             lgetout(1);
             if (ok == 1) goto rtrn;
          }
@@ -2273,7 +2278,7 @@ void ldoarms(void)
             {
 					fprintf(nudesfile,
                   "quadratic %3d %3d bendto luarm  lshldr shldrs %3d %3d %3d\n",
-                     firstFrameNumAct,fend,arlx[jd][ji][0],arlx[jd][ji][1],arlx[jd][ji][2]);
+                     firstFrameNumAct,fend,arlx[jd][currentItem][0],arlx[jd][currentItem][1],arlx[jd][currentItem][2]);
 					fprintf(nudesfile,
                   "quadratic %3d %3d bendto llarm  lelbow luarm  %3d %3d %3d\n",
                      firstFrameNumAct,fend,0,0,45);
@@ -2293,7 +2298,7 @@ void ldoarms(void)
             else
             if (curSymbolBend == BENT)
             {
-               if (ji == 11)
+               if (currentItem == 11)
                {
                    fprintf(nudesfile,
                       "quadratic %3d %3d bendto luarm  lshldr shldrs %3d %3d %3d\n",
@@ -2306,11 +2311,11 @@ void ldoarms(void)
                {
                    fprintf(nudesfile,
                       "quadratic %3d %3d bendto luarm  lshldr shldrs %3d %3d %3d\n",
-                         firstFrameNumAct,fend,abnt[jd][ji][0],abnt[jd][ji][1],abnt[jd][ji][2]);
+                         firstFrameNumAct,fend,abnt[jd][currentItem][0],abnt[jd][currentItem][1],abnt[jd][currentItem][2]);
                    fprintf(nudesfile,
                       "quadratic %3d %3d bendto llarm  lelbow luarm  %3d %3d %3d\n",
                          firstFrameNumAct,fend,0,0,90);
-               } /* ji != 11 */
+               } /* currentItem != 11 */
             }
             else
             {
@@ -2319,7 +2324,7 @@ void ldoarms(void)
                      firstFrameNumAct,fend,0,0,0);
                fprintf(nudesfile,
                   "quadratic %3d %3d bendto luarm  lshldr shldrs %3d %3d %3d\n",
-                     firstFrameNumAct,fend,stt[jd][ji][0],stt[jd][ji][1],stt[jd][ji][2]);
+                     firstFrameNumAct,fend,stt[jd][currentItem][0],stt[jd][currentItem][1],stt[jd][currentItem][2]);
             }
          }
          else // if (jc > 0) =  right arm
@@ -2328,7 +2333,7 @@ void ldoarms(void)
             {
 					fprintf(nudesfile,
                   "quadratic %3d %3d bendto ruarm  rshldr shldrs %3d %3d %3d\n",
-                     firstFrameNumAct,fend,arlx[jd][ji][0],arlx[jd][ji][1],arlx[jd][ji][2]);
+                     firstFrameNumAct,fend,arlx[jd][currentItem][0],arlx[jd][currentItem][1],arlx[jd][currentItem][2]);
 					fprintf(nudesfile,
                   "quadratic %3d %3d bendto rlarm  relbow ruarm  %3d %3d %3d\n",
                      firstFrameNumAct,fend,0,0,45);
@@ -2351,8 +2356,8 @@ void ldoarms(void)
             {
                fprintf(nudesfile,
                   "quadratic %3d %3d bendto ruarm  rshldr shldrs %3d %3d %3d\n",
-                     firstFrameNumAct,fend,abnt[jd][ji][0],abnt[jd][ji][1],abnt[jd][ji][2]);
-               if (ji == 11)
+                     firstFrameNumAct,fend,abnt[jd][currentItem][0],abnt[jd][currentItem][1],abnt[jd][currentItem][2]);
+               if (currentItem == 11)
                    fprintf(nudesfile,
                       "quadratic %3d %3d bendto rlarm  relbow ruarm  %3d %3d %3d\n",
                          firstFrameNumAct,fend,0,0,70);
@@ -2368,7 +2373,7 @@ void ldoarms(void)
                      firstFrameNumAct,fend,0,0,0);
                fprintf(nudesfile,
                   "quadratic %3d %3d bendto ruarm  rshldr shldrs %3d %3d %3d\n",
-                     firstFrameNumAct,fend,stt[jd][ji][0],stt[jd][ji][1],stt[jd][ji][2]);
+                     firstFrameNumAct,fend,stt[jd][currentItem][0],stt[jd][currentItem][1],stt[jd][currentItem][2]);
                fprintf(nudesfile,
                   "quadratic %3d %3d bendto rhand  rwrist rlarm  %3d %3d %3d\n",
                      firstFrameNumAct,fend,0,0,0);
@@ -2408,10 +2413,10 @@ void lspotturn(int j, int piv, int firstFrameNumAct, int fend, int g)
          firstFrameNumAct,fend,piv);
    fprintf(nudesfile,
       "linear    %3d %3d bendto bthigh bhip   pelvis %d %d %d\n",
-	      firstFrameNumAct,fend,stt[0][ji][0],stt[0][ji][1],stt[0][ji][2]);
+	      firstFrameNumAct,fend,stt[0][currentItem][0],stt[0][currentItem][1],stt[0][currentItem][2]);
    fprintf(nudesfile,
       "repeat    %3d %3d ground fig\n",firstFrameNumAct,fend);
-   if ((hold == NO)||(st < 1))
+   if ((hold == NO)||(currentStaffNumber < 1))
       fprintf(nudesfile,
        "repeat    %3d %3d moveto fig    afoot  %s\n",
          firstFrameNumAct,fend,xyz[dofig]);
@@ -2441,12 +2446,12 @@ int lgetpin(void)
 
     ki = -123;
     ymost = -1;
-    for (k = symbolStartAtYpos[jy-jh]; lbn[k].y < jy2; ++k)
+    for (k = symbolStartAtYpos[currentYpos-currentHeight]; lbn[k].y < currentY2; ++k)
     {
          if (lbn[k].m == Pins)
          {
-             xlap = loverlap(jx,jx2,lbn[k].x,lbn[k].x2);
-             ylap = loverlap(jy,jy2,lbn[k].y,lbn[k].y2);
+             xlap = loverlap(currentXpos,currentX2,lbn[k].x,lbn[k].x2);
+             ylap = loverlap(currentYpos,currentY2,lbn[k].y,lbn[k].y2);
              if ((xlap > 0) && (ylap > ymost))
              {
                 ki = lbn[k].i;
@@ -2457,8 +2462,8 @@ int lgetpin(void)
 	 piv = 0;
     if ((ki > 0)&&(ki <= 9))
     {
-       if (ji == 1) piv = -45*(9-ki);
-       if (ji == 2) piv = 45*(ki-1);
+       if (currentItem == 1) piv = -45*(9-ki);
+       if (currentItem == 2) piv = 45*(ki-1);
        if (ki == 1) piv = 360;
     }
     return(piv);
@@ -2505,7 +2510,7 @@ void ldopivot(void)
          fprintf(nudesfile,
             "linear    %3d %3d spinby fig    bfoot  pelvis %d y\n",
                firstFrameNumAct,fend,piv);
-         if ((hold == NO)||(st < 1))
+         if ((hold == NO)||(currentStaffNumber < 1))
 			 fprintf(nudesfile,
                 "repeat    %3d %3d moveto fig    bfoot  %s\n",
                   firstFrameNumAct,fend,xyz[dofig]);
@@ -2613,25 +2618,25 @@ Relevant symbols:-
       if ((lbn[symbolCounter].m == Misc)&&(lbn[symbolCounter].i == 1))
       {
           lassign();
-          held = lseeksym(Volm,1,jx,jx2,jy-STEP,jy2);
-          if (held > 0)
+          held = lseeksym(Volm,1,currentXpos,currentX2,currentYpos-STEP,currentY2);
+	  if (held > 0)
           {
-              mlhand = lseeksym(Limb,4,jx-STEP/2,jx+STEP/2,jy,jy2+STEP);
-              mrhand = lseeksym(Limb,9,jx-STEP/2,jx+STEP/2,jy,jy2+STEP);
-              wlhand = lseeksym(Limb,4,jx2-STEP/2,jx2+STEP/2,jy,jy2+STEP);
-              wrhand = lseeksym(Limb,9,jx2-STEP/2,jx2+STEP/2,jy,jy2+STEP);
-              front  = lseeksym(Area,1,jx-STEP/2,jx+STEP/2,jy,jy2+STEP);
+              mlhand = lseeksym(Limb,4,currentXpos-STEP/2,currentXpos+STEP/2,currentYpos,currentY2+STEP);
+              mrhand = lseeksym(Limb,9,currentXpos-STEP/2,currentXpos+STEP/2,currentYpos,currentY2+STEP);
+              wlhand = lseeksym(Limb,4,currentX2-STEP/2,currentX2+STEP/2,currentYpos,currentY2+STEP);
+              wrhand = lseeksym(Limb,9,currentX2-STEP/2,currentX2+STEP/2,currentYpos,currentY2+STEP);
+              front  = lseeksym(Area,1,currentXpos-STEP/2,currentXpos+STEP/2,currentYpos,currentY2+STEP);
               if (front < 0)
-                 front  = lseeksym(Area,1,jx2-STEP/2,jx2+STEP/2,jy,jy2+STEP);
+                 front  = lseeksym(Area,1,currentX2-STEP/2,currentX2+STEP/2,currentYpos,currentY2+STEP);
               if (front < 0)
-                 front  = lseeksym(Area,2,jx-STEP/2,jx+STEP/2,jy,jy2+STEP);
+                 front  = lseeksym(Area,2,currentXpos-STEP/2,currentXpos+STEP/2,currentYpos,currentY2+STEP);
               if (front < 0)
-                 front  = lseeksym(Area,2,jx2-STEP/2,jx2+STEP/2,jy,jy2+STEP);
-              back   = lseeksym(Area,5,jx-STEP/2,jx+STEP/2,jy,jy2+STEP);
+                 front  = lseeksym(Area,2,currentX2-STEP/2,currentX2+STEP/2,currentYpos,currentY2+STEP);
+              back   = lseeksym(Area,5,currentXpos-STEP/2,currentXpos+STEP/2,currentYpos,currentY2+STEP);
               if (back < 0)
-                 back  = lseeksym(Area,5,jx2-STEP/2,jx2+STEP/2,jy,jy2+STEP);
+                 back  = lseeksym(Area,5,currentX2-STEP/2,currentX2+STEP/2,currentYpos,currentY2+STEP);
+                 curSymbolBend = 0;
 
-              curSymbolBend = 0;
               if (front > 0)
               {
                  curSymbolBend = FRONT;
@@ -2690,7 +2695,7 @@ void lstart(void)
       if (pins[k][1] < 0)
       {
          p = pins[k][0];
-         ji = lbn[p].i;
+         currentItem = lbn[p].i;
          if (lbn[p].d == LOW)
          {
             mx = lbn[p].x;
@@ -2698,7 +2703,7 @@ void lstart(void)
             if (numberOfMen > 0)
                fprintf(nudesfile,
                   "*\nquadratic   0   1 spinby man    mlfoot  mpelvis %d y\n",
-                  (ji-1)*45);
+                  (currentItem-1)*45);
          }
          else
          {
@@ -2707,7 +2712,7 @@ void lstart(void)
             if (numberOfWomen > 0)
                fprintf(nudesfile,
                   "*\nquadratic   0   1 spinby woman  wrfoot  wpelvis %d y\n",
-                  (ji-1)*45);
+                  (currentItem-1)*45);
          }
 	 //if both male and female pins exist then do this
          if ((wx > 0)&&(mx > 0)&&(wy > 0)&&(my > 0))
@@ -2812,7 +2817,6 @@ void lcopyfigs(char* renderFile)
 {
 	if (renderFile[0] == 'r') {
 		sprintf(figsname,"lintel.n");
-  printf("hereree \n");
   }
 	else if (renderFile[0] == 'n') {
 		sprintf(figsname,"lintelnudes.n");
@@ -3033,7 +3037,7 @@ void ldobar(void)
    called by laction,
 */
 {
-   if ((jm == Bars) && (jy < yend))
+   if ((jm == Bars) && (currentYpos < yend))
    {
       ++num_curBar;
       fprintf(nudesfile,"*\n");
@@ -3070,7 +3074,7 @@ void lbent(void)
       if ((lbn[symbolCounter].m == Volm)&&(lbn[symbolCounter].i <= STRETCH))
       {
          lassign();
-         jy2h = jy2+jh;
+         jy2h = currentY2+currentHeight;
          g = -1;
          for (k = symbolCounter+1;	((k < Num_Lab_Entries)&&(g < 0)); ++k)
          {
@@ -3085,26 +3089,26 @@ void lbent(void)
                   ky2 = lbn[k].y2;
                   kx = lbn[k].x;
                   kx2 = lbn[k].x2;
-                  if ((loverlap(jx,jx2,kx,kx2) > 0)
-                     &&(loverlap(jy2,jy2h,ky,ky2) > 0))
+                  if ((loverlap(currentXpos,currentX2,kx,kx2) > 0)
+                     &&(loverlap(currentY2,jy2h,ky,ky2) > 0))
                   {
                       g = k;
-                      //lbn[symbolCounter].b = ji;
+                     // lbn[symbolCounter].b = currentItem;
                       ki = lbn[k].i;
                       lbn[symbolCounter].m = km;
                       lbn[symbolCounter].i = ki;
                       lbn[symbolCounter].y2 = ky2;
-                      lbn[symbolCounter].h = lbn[k].y2 - jy;
+                      lbn[symbolCounter].h = lbn[k].y2 - currentYpos;
                       lbn[symbolCounter].d = lbn[k].d;
                       lbn[k].a = DONE;
-                      if (ji == BENT)
-                      {
-                         if ((ki == 11)&&(jc < 0))
-                            lbn[symbolCounter].i = 8;
-                         else
-                         if ((ki == 11)&&(jc > 0))
-                            lbn[symbolCounter].i = 3;
-                      } /* ji == BENT */
+                   //   if (currentItem == BENT)
+                   //   {
+                   //      if ((ki == 11)&&(jc < 0))
+                   //         lbn[symbolCounter].i = 8;
+                   //      else
+                   //      if ((ki == 11)&&(jc > 0))
+                   //         lbn[symbolCounter].i = 3;
+                   //   } /* currentItem == BENT */
                   } /* overlapping */
                } /* ky < jy2h */
             } /* km = Dirn */
@@ -3173,19 +3177,19 @@ void lrelease(void)
    int fdif;
    int fbegin,ffin;
 
-   if ((numberMenWomen > 0)&&(ji == 2)) // release
+   if ((numberMenWomen > 0)&&(currentItem == 2)) // release
    {
-      holdcl = 0;
-      holdoe = 0;
-      holdco = 0;
-      holdpr = 0;
-      holdsh = 0;
-      holdss = 0;
+      closeHoldCounter = 0;
+      openExtendedHoldCounter = 0;
+      openHoldCounter = 0;
+      promenadeHoldCounter = 0;
+      shadowHoldCounter = 0;
+      semiShadowHoldCounter = 0;
       fbegin = lastFramePrevAct;
       ffin = fend;
       if (ffin <= fbegin) ffin = fbegin + 1;
       fdif = ffin - fbegin;
-      if ((st > 0) && (hold != NO))
+      if ((currentStaffNumber > 0) && (hold != NO))
       {
          fprintf(nudesfile,
             "repeat    %3d %3d set fpos %d\n",fbegin,ffin,fdif);
@@ -3196,7 +3200,7 @@ void lrelease(void)
       fprintf(nudesfile,
          "* lreleasea %d %d %d %d %d %d\n",
             firstFrameNumAct,fend,symbolCounter,curSymbolBend,hold,prevhold);
-      keptf = ffin;
+      keptLastFrame = ffin;
    }
 } /* lrelease */
 /******************************************/
@@ -3211,8 +3215,8 @@ void ldoposn(void)
 	  fbegin = firstFrameNumAct;
 	  ffin = fend;
 	  	  fprintf(nudesfile,
-		"** ldoposn %3d %3d, %3d %3d\n",fbegin,ffin, st,hold);
-      if (st > 0)
+		"** ldoposn %3d %3d, %3d %3d\n",fbegin,ffin, currentStaffNumber,hold);
+      if (currentStaffNumber > 0)
       {
 			flen = ffin - fbegin;
 			if (flen < 1) flen = 1;
@@ -3243,9 +3247,9 @@ void ldoposn(void)
 			if (hold == SH)
             fprintf(nudesfile,
                "call      %3d %3d shposn\n*\n",fbegin,ffin);
-			keptf = ffin;
+			keptLastFrame = ffin;
 			prevhold = hold;
-      } /* st > 0 */
+      } /* currentStaffNumber > 0 */
 } /* ldoposn */
 /*******************************************/
 
@@ -3281,7 +3285,7 @@ void ldokeep(void)
          if (hold == SH)
             fprintf(nudesfile,
                "repeat    %3d %3d call   shkeep\n*\n",fbegin,ffin);
-         keptf = ffin;
+         keptLastFrame = ffin;
 }   /* ldokeep */
 /******************************************/
 
@@ -3293,13 +3297,13 @@ void ldohold(void)
 	calls ldokeep, ldoposn,
 */
 {
-   fbegin = keptf;
+   fbegin = keptLastFrame;
    ffin = lastFramePrevAct;
 		fprintf(nudesfile,
 		"** ldohold %3d %3d, %3d %3d\n",fbegin,ffin, hold,prevhold);
    if (prevhold == hold)
    {
-	   fbegin = keptf;
+	   fbegin = keptLastFrame;
       if (fbegin < ffin) ldokeep();
    } /* prevhold == hold */
    else
@@ -3390,32 +3394,32 @@ void lsethold(void)
 	{
 		fprintf(nudesfile,
 			"linear    %3d %3d spinby fig    afoot  pelvis %d y\n",
-         0,1,(ji-1)*45);
+         0,1,(currentItem-1)*45);
 		oriented = TRUE;
 	}
-   if ((jm == Limb)&&((ji == 4)||(ji == 9)))
-   {
-      if (curSymbolBend ==  11) { ++holdss; ++holdsh; }
-      if (curSymbolBend ==  12) ++holdoe;
-      if (curSymbolBend ==  21) { ++holdco; ++holdcl; ++holdpr; }
-      if (curSymbolBend ==  22) ++holdsh;
-      if (curSymbolBend == 110) { ++holdcl; ++holdpr; }
-      if (curSymbolBend == 102) ++holdss;
-      if (curSymbolBend == 120) ++holdss;
-      if (curSymbolBend == 202) { ++holdcl; ++holdpr; }
+    if ((jm == Limb)&&((currentItem == 4)||(currentItem == 9)))
+  {
+      if (curSymbolBend ==  11) { ++semiShadowHoldCounter; ++shadowHoldCounter;} 
+      if (curSymbolBend ==  12) ++openExtendedHoldCounter;
+      if (curSymbolBend ==  21) { ++openHoldCounter; ++closeHoldCounter; ++promenadeHoldCounter; }
+      if (curSymbolBend ==  22) ++shadowHoldCounter;
+      if (curSymbolBend == 110) { ++closeHoldCounter; ++promenadeHoldCounter; }
+      if (curSymbolBend == 102) ++semiShadowHoldCounter;
+      if (curSymbolBend == 120) ++semiShadowHoldCounter;
+      if (curSymbolBend == 202) { ++closeHoldCounter; ++promenadeHoldCounter; }
    } /* jm = a hand */
    else
-   if ((jm == Face)&&(jx > stmiddle))
+   if ((jm == Face)&&(currentXpos > stmiddle))
    {
       n = -1;
       ylap = -1;
-      wface = ji;
+      wface = currentItem;
       for (i = 1; i < 9; ++i)
       {
-         n = lseeksym(Face,i,xmin,stmiddle,jy,jy2);
+         n = lseeksym(Face,i,xmin,stmiddle,currentYpos,currentY2);
          if (n >= 0)
          {
-            dy = loverlap(jy,jy2,lbn[n].y,lbn[n].y2);
+            dy = loverlap(currentYpos,currentY2,lbn[n].y,lbn[n].y2);
             if (dy > ylap)
             {
                ylap = dy;
@@ -3433,38 +3437,38 @@ void lsethold(void)
          facedif = -1;
       if (facedif == 0)
       {
-         facecl = 0;
-         facepr = 0;
-         facesh = 1;
-         facess = 1;
+         closeFaceScore = 0;
+         promenadeFaceScore = 0;
+         shadowFaceScore = 1;
+         semiShadowFaceScore = 1;
       } /* facing same way */
       else
       if (facedif == 2)
       {
-         facecl = 0;
-         facepr = 1;
-         facesh = 0;
-         facess = 0;
+         closeFaceScore = 0;
+         promenadeFaceScore = 1;
+         shadowFaceScore = 0;
+         semiShadowFaceScore = 0;
       } /* facing at right angles */
       else
       if (facedif == 4)
       {
-         facecl = 1;
-         facepr = 0;
-         facesh = 0;
-         facess = 0;
+         closeFaceScore = 1;
+         promenadeFaceScore = 0;
+         shadowFaceScore = 0;
+         semiShadowFaceScore = 0;
       } /* facing opposite ways */
    } /* jm == Face */
-   if (holdoe > 1) if (hold != CO) hold = OE;
-   if (holdco > 1) if (hold != OE) hold = CO;
-   if ((facesh+holdsh) > 4) hold = SH;
-   if ((facess+holdss) > 4) hold = SS;
-   if ((facepr+holdpr) > 4) hold = PR;
-   if ((facecl+holdcl) > 4) hold = CL;
+   if (openExtendedHoldCounter > 1) if (hold != CO) hold = OE;
+   if (openHoldCounter > 1) if (hold != OE) hold = CO;
+   if ((shadowFaceScore+shadowHoldCounter) > 4) hold = SH;
+   if ((semiShadowFaceScore+semiShadowHoldCounter) > 4) hold = SS;
+   if ((promenadeFaceScore+promenadeHoldCounter) > 4) hold = PR;
+   if ((closeFaceScore+closeHoldCounter) > 4) hold = CL;
 	fprintf(nudesfile,
 		"** lsethold %d %d,  %d %d,  %d %d,  %d %d,  %d %d, %3d %3d %3d\n",
 		hold, prevhold,
-		facesh,holdsh,facess,holdss,facepr,holdpr,facecl,holdcl,
+		shadowFaceScore,shadowHoldCounter,semiShadowFaceScore,semiShadowHoldCounter,promenadeFaceScore,promenadeHoldCounter,closeFaceScore,closeHoldCounter,
 		mface,wface,facedif);
    if (prevhold != hold) ldoposn();
 } /* lsethold */
@@ -3525,7 +3529,7 @@ void ldolimb(void)
 	if (jm == Limb)
 		colm[nc] = Limb;
        	else
-	if ((jm == Volm)&&(ji == 7)
+	if ((jm == Volm)&&(currentItem == 7)
 		&&(colm[nc] == Area)&&(jd == LOW))
 	{
 		colm[nc] = CHEST;
@@ -3534,14 +3538,14 @@ void ldolimb(void)
 	   fprintf(nudesfile,"* ldolimba CHEST at column %d\n",nc);
 	}
 	else
-	if ((jm == Area)&&(ji == 9)
+	if ((jm == Area)&&(currentItem == 9)
 		&&(colm[nc] == Volm)&&(jd == BLANK))
 		colm[nc] = CHEST;
 	else
-	if ((jm == Area)&&(ji == 9))
+	if ((jm == Area)&&(currentItem == 9))
 		colm[nc] = Area;
 	else
-	if ((jm == Volm)&&(ji == 7))
+	if ((jm == Volm)&&(currentItem == 7))
 		colm[nc] = Volm;
 	else
 	if ((jm == Rotn)&&(colm[nc] == CHEST))
@@ -3552,7 +3556,7 @@ void ldolimb(void)
 } /* ldolimb */
 /*********************************************/
 
-void lcoords(char jm, int ji)
+void lcoords(char jm, int currentItem)
 /*
 	check for change of coordinates
 
@@ -3575,7 +3579,7 @@ void lcoords(char jm, int ji)
 	int k;
 	int piv;
 
-	if ((jm == Area)&&(ji == 9))
+	if ((jm == Area)&&(currentItem == 9))
 	{
 	  piv = lgetpin ( );//finds the pin belonging to Area symbol and returns the angle
 		//fprintf(nudesfile,"* lcoordsa %c %d\n",m,piv);
@@ -3601,7 +3605,7 @@ void lcoords(char jm, int ji)
 	} /* possible space stance found */
 	else
 	{
-		k = lseeksym(Volm,7,jx,jx2,jy,jy2);
+		k = lseeksym(Volm,7,currentXpos,currentX2,currentYpos,currentY2);
 		if (k > 0)
 		{
 			//coordinates = BODY;
@@ -3637,17 +3641,17 @@ void ldotoetaps ( void )/*
 	if ( (( jc == -3 )||( jc == 3 )) && ( jd == -1 ) )
 	{
 			fprintf ( nudesfile, "*\n" );
-			if  ( ji==11 )
+			if  ( currentItem==11 )
 				fprintf ( nudesfile, "* in place tap\n" );
-			else if ( ( ji == 1 ) || ( ji == 10 ) )
+			else if ( ( currentItem == 1 ) || ( currentItem == 10 ) )
 				fprintf ( nudesfile, "* forward tap\n" );
-			else if ( ( ji == 2 ) || ( ji == 9 ) )
+			else if ( ( currentItem == 2 ) || ( currentItem == 9 ) )
 				fprintf ( nudesfile, "* forward diagonal tap\n" );
-			else if ( ( ji == 3 ) || ( ji == 8 ) )
+			else if ( ( currentItem == 3 ) || ( currentItem == 8 ) )
 				fprintf ( nudesfile, "* sideways tap\n" );
-			else if ( ( ji == 4 ) || ( ji == 7 ) )
+			else if ( ( currentItem == 4 ) || ( currentItem == 7 ) )
 				fprintf ( nudesfile, "* back diagonal tap\n" );
-			else if ( ( ji == 5 ) || ( ji == 6 ) )
+			else if ( ( currentItem == 5 ) || ( currentItem == 6 ) )
 				fprintf( nudesfile, "* backward tap\n" );
 			//
 			if ( dofig == MAN )
@@ -3671,10 +3675,10 @@ void ldotoetaps ( void )/*
 			//
 			if ( jc < 0 )
 			{
-				if ( ( ji <= 1 ) || ( ji == 3 ) || ( ji == 5 ) || ( ji > 11 ) )
+				if ( ( currentItem <= 1 ) || ( currentItem == 3 ) || ( currentItem == 5 ) || ( currentItem > 11 ) )
 				{
 					printf ( "OOPS: ldotoetap left direction problem line %d\n", symbolCounter );
-					printf ( "%3d %3d %3d %3d %3d %3d %3d %3d %d\n", jm, ji, jx, jy, js, jw, jh, curSymbolBend, jd );
+					printf ( "%3d %3d %3d %3d %3d %3d %3d %3d %d\n", jm, currentItem, currentXpos, currentYpos, currentStepSize, currentWidth, currentHeight, curSymbolBend, jd );
 					lgetout ( 1 );
 					if ( ok == 1 ) return;
 				} /* i wrong */
@@ -3683,19 +3687,19 @@ void ldotoetaps ( void )/*
 			} /* left side */
 			else if ( jc > 0 )
 			{
-				if ( ( ji < 1 ) || ( ji == 6 ) ||
-					( ji == 8 ) || ( ji == 10 ) || ( ji > 11 ) )
+				if ( ( currentItem < 1 ) || ( currentItem == 6 ) ||
+					( currentItem == 8 ) || ( currentItem == 10 ) || ( currentItem > 11 ) )
 				{
 					printf ( "OOPS: ldotoetap right direction problem line %d\n", symbolCounter );
-					printf ( "%3d %3d %3d %3d %3d %3d %3d %3d %d\n", jm, ji, jx, jy, js, jw, jh, curSymbolBend, jd );
-					lgetout ( 1 );
+					printf ( "%3d %3d %3d %3d %3d %3d %3d %3d %d\n", jm, currentItem, currentXpos, currentYpos, currentStepSize, currentWidth, currentHeight, curSymbolBend, jd );
+lgetout ( 1 );
 					if ( ok == 1 ) return;
 				} /* i wrong */
 				fprintf ( nudesfile,
 					"repeat    %3d %3d call   forright * right = b\n",firstFrameNumAct, fend );
 			} /* right side */
 //
-			if ( ji == 11 )
+			if ( currentItem == 11 )
 			{
 				fprintf ( nudesfile, "repeat    %3d %3d call   %s\n",
 					firstFrameNumAct, fend, risesub[height_prev] );
@@ -3719,43 +3723,43 @@ void ldotoetaps ( void )/*
 /**************************************/
 void ldohead()
 {
-  if(ji == 1)
+  if(currentItem == 1)
           {
             fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 x\n",firstFrameNumAct,fend);
           }
-        else if(ji == 5)
+        else if(currentItem == 5)
           {
             fprintf(nudesfile,"quadratic %d %d bendby head throat neck 50 x\n",firstFrameNumAct,fend);
           }
-        else if(ji == 3)
+        else if(currentItem == 3)
           {
                   fprintf(nudesfile,"quadratic %d %d bendby head throat neck 33 z\n",firstFrameNumAct,fend);
           }
-        else if(ji == 8)
+        else if(currentItem == 8)
           {
             fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 z\n",firstFrameNumAct,fend);
           }
-        else if(ji == 2)
+        else if(currentItem == 2)
           {
             fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 x\n",firstFrameNumAct,fend);
             fprintf(nudesfile,"quadratic %d %d bendby head throat neck 33 z\n",firstFrameNumAct,fend);
           }
-        else if(ji == 4)
+        else if(currentItem == 4)
           {
             fprintf(nudesfile,"quadratic %d %d bendby head throat neck 50 x\n",firstFrameNumAct,fend);
             fprintf(nudesfile,"quadratic %d %d bendby head throat neck 33 z\n",firstFrameNumAct,fend);
           }
-        else if(ji == 7)
+        else if(currentItem == 7)
           {
             fprintf(nudesfile,"quadratic %d %d bendby head throat neck 50 x\n",firstFrameNumAct,fend);
             fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 z\n",firstFrameNumAct,fend);
           }
-        else if(ji == 9)
+        else if(currentItem == 9)
           {
             fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 x\n",firstFrameNumAct,fend);
             fprintf(nudesfile,"quadratic %d %d bendby head throat neck -33 z\n",firstFrameNumAct,fend);
           }
-        else if(ji == 11)
+        else if(currentItem == 11)
           {
             fprintf(nudesfile,"quadratic %d %d bendto head throat neck 0 0 0\n",firstFrameNumAct,fend);
           }
@@ -3834,16 +3838,16 @@ Relevant symbols:-
 			}
 			else if ( ( jc > -8 ) && ( jc < 8 ) )
 			{
-				if ( (( jm == Volm )&&( ji == 6 ))
-					||(( jm == Area )&&( ji == 9 )) )
-						lcoords(jm, ji);
+				if ( (( jm == Volm )&&( currentItem == 6 ))
+					||(( jm == Area )&&( currentItem == 9 )) )
+						lcoords(jm, currentItem);
 				if ( ( jm == Rotn ) && ( jc > -4 ) && ( jc < 4 ) )
 					ldopivot ();
-				 else if(jc == 4 && (jm==Keys)&&(ji == 8))
+				 else if(jc == 4 && (jm==Keys)&&(currentItem == 8))
 				 {
 				   headcol4 = 1;
 				 }
-				 else if(jc == 6 && (jm==Keys)&&(ji == 8))
+				 else if(jc == 6 && (jm==Keys)&&(currentItem == 8))
 				 {
 				   headcol6 = 1;
 				 }
@@ -3866,7 +3870,7 @@ Relevant symbols:-
 				else
 					ldolimb ();
 			} /* jc OK */
-		} /* ja == TODO */
+		} /* currentA == TODO */
 		if (( (jm == Dirn)||(jm == Rotn) )&&(jc >= -6)&&(jc <= 6)
 			&&( numberMenWomen > 0 )&&( dofig == WOMAN ) )
 			ldohold ();
@@ -3892,7 +3896,7 @@ void linter(char* renderFile,char* gen)
              lgetout, lcopyfigs, lfinish, lcopysubs,
              lbows,
 
-int keptf;           // last frame when last position kept
+int keptLastFrame;           // last frame when last position kept
 int mface,wface;     // facing directions of man and woman
 int num_curBar;            // number of current bar
 int Num_Lab_Entries;           // number of laban score entries
@@ -3913,7 +3917,7 @@ int prevhold;        // previous hold
 int height_prev;            // height of previous step;
 int endScoreSymbol;           // ending score symbol
 int startScoreSymbol;          // starting score symbol
-int st;              // current staff number
+int currentStaffNumber;              // current staff number
 int stmiddle;        // halfway across between L and R staves
 int trackOnMainFig;           // TRUE when tracking viewpoint on main figure
 int xmin,xmax;       // width range of score symbols
@@ -3932,21 +3936,6 @@ char colm[NCOLM];    // limb presigns in the columns
    //lsorty();//sorts the lbn structure array by y parameter
    //lfindstaff(gen);
 
-
-
-//   for(i=0;i<10;i++)
-//   {
-   //  for(j=0;j<6;j++)
-//       printf(" value of c : %d  " , lbn[i].c  );
-//    printf("\n");  
-//   }
-
-//   printf("%d \n" , symbolCounter);
-//   printf("%d \n" , stmiddle);
-//     printf("sdf %d \n" , finname);
-
-
-
    //lsetrange();
    //lselectfig();
 
@@ -3955,41 +3944,40 @@ char colm[NCOLM];    // limb presigns in the columns
 
    lstart();
 
-   lfindystart();
-
+   //lfindystart();
    //lbows(); // flag hand signs
-   lbent(); // flag dirn signs
-   for (st = 0; st < numberOfStaff; ++st)
+   //lbent(); // flag dirn signs
+   for (currentStaffNumber = 0; currentStaffNumber < numberOfStaff; ++currentStaffNumber)
    {
-      hold = NO;
-      holdcl = 0;
-      holdco = 0;
-      holdoe = 0;
-      holdpr = 0;
-      holdsh = 0;
+     // hold = NO;
+      //closeHoldCounter = 0;
+      //openHoldCounter = 0;
+      //openExtendedHoldCounter = 0;
+     // promenadeHoldCounter = 0;
+     // shadowHoldCounter = 0;
 
-      holdss = 0;
-      facecl = 0;
-      facepr = 0;
-      facesh = 0;
-      facess = 0;
-      prevhold = -9;
-      col_prev = 0;
-      firstFramePrevAct = -1;
-      lastFramePrevAct = -1;
-      keptf = 0;
-      gy = -1;
-      gh = 0;
-      if (staff[st][5] == TODO)
+      //semiShadowHoldCounter = 0;
+      //closeFaceScore = 0;
+     // promenadeFaceScore = 0;
+     // shadowFaceScore = 0;
+     // semiShadowFaceScore = 0;
+    //  prevhold = -9;
+    //  col_prev = 0;
+    //  firstFramePrevAct = -1;
+    //  lastFramePrevAct = -1;
+     // keptLastFrame = 0;
+      //gy = -1;
+      //gh = 0;
+      if (staff[currentStaffNumber][5] == TODO)
       {
-	num_curBar = -1;//number of bars processed
-         if (staff[st][4] == MAN)
-            dofig = MAN;
-         else
-            dofig = WOMAN;
-         lcolx(staff[st][2]);
+	//num_curBar = -1;//number of bars processed
+    //     if (staff[currentStaffNumber][4] == MAN)
+    //        dofig = MAN;
+    //     else
+    //        dofig = WOMAN;
+         lcolx(staff[currentStaffNumber][2]);
          laction();
-         staff[st][5] = DONE;
+         staff[currentStaffNumber][5] = DONE;
       }
    }
    lfinish();
@@ -9917,9 +9905,9 @@ void get_files ( char file[] )
 
 //		add_id_num ( name, nudesname, ".n" );
 
-    printf("nude file name %s " , nudesname);
+//    printf("nude file name %s " , nudesname);
 
-    if ( ( nudesfile = fopen ( nudesname, "w" ) ) == NULL )
+    if ( ( nudesfile = fopen ( nudesname, "a" ) ) == NULL )
 		{
 			if ( nudesfile ) fclose ( nudesfile );
 			printf ( "\n\n %s OOPS?\n", nudesname );
@@ -10381,6 +10369,11 @@ void  ForUpdatingLBNlist(PyObject* myobject ,char* attrName)
            if (d =='L') lbn[j].d = LOW;
            if (d =='H') lbn[j].d = HIGH;
 
+//    attr1 = PyObject_GetAttrString(item , "c");
+//    PyArg_Parse(attr1 , "i" , &value);
+//    lbn[j].c = value;
+//
+
 
     lbn[j].a = TODO;
 
@@ -10545,9 +10538,31 @@ void funcConvInitialise()
   ForUpdatingVarInt(myobject,"numberMenWomen",&numberMenWomen);
   ForUpdatingVarInt(myobject,"curSymbolBend",&curSymbolBend);
 
-
-
-
+    
+  ForUpdatingVarInt(myobject,"currentHeight",&currentHeight);
+  ForUpdatingVarInt(myobject,"currentX2",&currentX2);
+  ForUpdatingVarInt(myobject,"currentY2",&currentY2);
+  ForUpdatingVarInt(myobject,"currentXpos",&currentXpos);
+  ForUpdatingVarInt(myobject,"currentYpos",&currentYpos);
+  ForUpdatingVarInt(myobject,"currentItem",&currentItem);
+  
+  
+  ForUpdatingVarInt(myobject,"closeHoldCounter",&closeHoldCounter);
+  ForUpdatingVarInt(myobject,"openHoldCounter",&openHoldCounter);
+  ForUpdatingVarInt(myobject,"openExtendedHoldCounter",&openExtendedHoldCounter);
+  ForUpdatingVarInt(myobject,"promenadeHoldCounter",&promenadeHoldCounter);
+  ForUpdatingVarInt(myobject,"shadowHoldCounter",&shadowHoldCounter);
+  ForUpdatingVarInt(myobject,"semiShadowHoldCounter",&semiShadowHoldCounter);
+  ForUpdatingVarInt(myobject,"closeFaceScore",&closeFaceScore);
+  ForUpdatingVarInt(myobject,"promenadeFaceScore",&promenadeFaceScore);
+  ForUpdatingVarInt(myobject,"shadowFaceScore",&shadowFaceScore);
+  ForUpdatingVarInt(myobject,"semiShadowFaceScore",&semiShadowFaceScore);
+  ForUpdatingVarInt(myobject,"keptLastFrame",&keptLastFrame);
+  ForUpdatingVarInt(myobject,"dofig",&dofig); 
+  ForUpdatingVarInt(myobject,"oriented",&oriented);
+  ForUpdatingVarInt(myobject,"currentStaffNumber",&currentStaffNumber);
+  
+  
   ForUpdatingBool(myobject ,"mspace" , &mspace);
 
  
@@ -10577,7 +10592,7 @@ void funcConvInitialise()
   ForUpdatingVardoub(myobject , "inv10" , &inv10);
   ForUpdatingVardoub(myobject , "inv256" , &inv256);
   ForUpdatingVardoub(myobject , "inv1000" , &inv1000);
-
+  ForUpdatingVardoub(myobject , "tolr" , &tolr);
 
 
   ForUpdatingVardoub(myobject , "anglex" , &anglex);

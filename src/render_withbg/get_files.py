@@ -53,8 +53,9 @@ def get_files(GV,filename):
     
     if (GV.input_file_type > 0):
         add_id_num(GV)
+        print("nude file name %s"%GV.nudesname)
         try:
-           GV.nudesfile = open(GV.nudesname , "w")
+           GV.nudesfile = open(GV.nudesname , "a")
            print("\n created nudes file" + GV.nudesname +"\n")
         except IOError:
                  print("\n\n  "+GV.nudesname+" OOPS? \n")

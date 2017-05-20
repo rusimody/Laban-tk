@@ -14,9 +14,14 @@ class GlobalVar():
         self.init_num_chord_sphere = 20  # initial number of chords around sphere
         self.VMAX = 2048   # max number of constants + variables
         self.FMAX = 2048   # maximum number of frames
-        self.TMAX = 30     # max number of staff line
+        self.TMAX = 30 # max number of staff line
+        
+        self.NCOLM = 18 #// number of columns around staff
+        
         self.MAN = 0
         self.WOMAN = 1
+        
+        self.STEP = 12
 
         self.FRONT = 100 
         self.BACK = 200
@@ -24,6 +29,8 @@ class GlobalVar():
         self.MRHAND = 2 
         self.WLHAND = 10
         self.WRHAND = 20
+
+        self.STRETCH = 4 #intem number of stretched symbol
 
         self.NO = 0
         self.CL = 1
@@ -41,7 +48,12 @@ class GlobalVar():
         self.TRUE = 0
         self.FALSE = 1
         
+        self.LOW = 0
+        self.MED = 1
+        self.HIGH = 2
+        self.BLANK = 3
 
+        self.BENT = 3
 
         self.doub0 = float(0)
         self.doub1 = float(1)
@@ -69,7 +81,7 @@ class GlobalVar():
         self.inv256 = float(1) / float(256)   
         self.inv1000 = float(1) / float(1000)   
 
-
+        self.tolr = 0
  
         self.keywordCode = range(1,64)
         self.frameInc = 0 
@@ -197,13 +209,11 @@ class GlobalVar():
         self.pins = [[0,0] for i in range(self.TMAX)]
         self.staff =[[0 for j in range(6)] for i in range(self.TMAX)] 
         self.numberOfStaff = 0       
-        ###################
         self.ystart = 0
         self.yend = 0
         self.startScoreSymbol = 0
         self.endScoreSymbol = 0
         
-        ###################
         self.numberOfMen = 0 # male fig count
         self.numberOfWomen = 0 # female fig count
         self.numberMenWomen = 0 # maleFig * femaleFig
@@ -216,6 +226,29 @@ class GlobalVar():
         self.curSymbolBend = 0 #bendess of current symbol
 
 
+        self.currentHeight = 0
+        self.currentY2 = 0
+        self.currentX2 = 0
+        self.currentXpos = 0
+        self.currentYpos = 0
+        self.currentItem = 0
+        self.currentStaffNumber = 0
+        self.closeHoldCounter = 0
+        self.openHoldCounter = 0
+        self.openExtendedHoldCounter = 0
+        self.promenadeHoldCounter = 0
+        self.shadowHoldCounter = 0
+        self.semiShadowHoldCounter = 0
+        self.closeFaceScore = 0
+        self.promenadeFaceScore = 0
+        self.shadowFaceScore = 0
+        self.semiShadowFaceScore = 0
+        self.keptLastFrame = 0
+        self.dofig = 0
+        
+        self.oriented = 0
+        self.colm = [] 
+
 GV = GlobalVar()
 
 #command line arguments are taken through tempFilename file
@@ -226,10 +259,10 @@ argFilename = array[0]
 arg1 = array[1]
 arg2 = array[2]
 
-initialise(GV)
+initialise(GV) #some part remains in c file
 get_ini(GV,0)
 led_param(GV)
-get_files(GV,argFilename)
+get_files(GV,argFilename)#some part remains in c file complete it when initialize main in python
 linter(GV,arg1,arg2)
 
 print ("file name : " , GV.nudesname)
