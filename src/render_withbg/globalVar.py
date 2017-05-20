@@ -14,9 +14,16 @@ class GlobalVar():
         self.init_num_chord_sphere = 20  # initial number of chords around sphere
         self.VMAX = 2048   # max number of constants + variables
         self.FMAX = 2048   # maximum number of frames
-        self.TMAX = 30 # max number of staff line
+        self.TMAX = 30     # max number of staff line
         self.MAN = 0
         self.WOMAN = 1
+
+        self.FRONT = 100 
+        self.BACK = 200
+        self.MLHAND = 1
+        self.MRHAND = 2 
+        self.WLHAND = 10
+        self.WRHAND = 20
 
         self.NO = 0
         self.CL = 1
@@ -202,6 +209,13 @@ class GlobalVar():
         self.numberMenWomen = 0 # maleFig * femaleFig
         self.figsname = ""
         self.figsfile = None
+
+        ####
+        self.symbolStartAtYpos = [0 for j in range(5*self.FMAX)]   #symbols starting at given y positions
+        self.ymax = 0 #top of score
+        self.curSymbolBend = 0 #bendess of current symbol
+
+
 GV = GlobalVar()
 
 #command line arguments are taken through tempFilename file
@@ -218,4 +232,4 @@ led_param(GV)
 get_files(GV,argFilename)
 linter(GV,arg1,arg2)
 
-
+print ("file name : " , GV.nudesname)

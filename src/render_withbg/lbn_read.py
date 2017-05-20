@@ -37,6 +37,30 @@ def lbn_sorty(GV):
   
   GV.listLbnObject = [x for (y,x) in sorted(zip(listIndex, GV.listLbnObject) )]
 
+  GV.ymax = 0
+  for j in range(0,GV.Num_Lab_Entries):
+      if((GV.listLbnObject[j].y2 > GV.ymax) and  (not(GV.listLbnObject[j].Name == "Stav"))):
+           GV.ymax = GV.listLbnObject[j].y2 + 1
+
+  GV.symbolStartAtYpos = [-1 for i in range(GV.ymax)]  + GV.symbolStartAtYpos[GV.ymax:]
+
+  for j in range(0,GV.Num_Lab_Entries):
+      yPos = GV.listLbnObject[j].Ypos
+      if (yPos < 0):
+          yPos = 0
+      if (GV.symbolStartAtYpos[yPos] < 0):
+          GV.symbolStartAtYpos[yPos] = j
+  last = 0
+  for j in range(0,GV.ymax):
+      if (GV.symbolStartAtYpos[j] < 0):
+          GV.symbolStartAtYpos[j] = last
+      else:
+          last = GV.symbolStartAtYpos[j]
+
+
+
+
+
 
 
 

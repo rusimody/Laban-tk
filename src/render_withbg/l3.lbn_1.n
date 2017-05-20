@@ -1,4 +1,7 @@
 *
+* created l3.lbn_1.n from l3.lbn using lintel084
+*
+*
 * lintel.n
 repeat 0 1 allow world world
 *
@@ -2048,9 +2051,7 @@ repeat    0     1 add    f3o8 fo4  fo8
 repeat    0     1 add    f3o4 fo2  fo4
 repeat    0     1 add    f5o8 fo2  fo8
 repeat    0     1 set tcls1 trlx1
-repeat    0     1 set tcls2 trlx2
-repeat    0     1 set tcls3 trlx3
-repeat    0     1 set lcls1 lrlx1
+repeat    0    repeat    0     1 set lcls1 lrlx1
 repeat    0     1 set lcls2 lrlx2
 repeat    0     1 set lcls3 lrlx3
 repeat    0     1 set fcls1 frlx1
@@ -2098,4 +2099,84 @@ end rightkneebend
 *
 *********************************************************
 subroutine dance
+***********************************
+subroutine dance
 *
+*
+call        0   1 doman
+call        0   1 forleft
+*
+************************************
+*
+repeat      0 118 call   doman
+* 1  -4 * 1   4 * 1   1 * 1  -2 *
+***************************
+*
+*   bar 0
+*
+* 1  -2 *
+***************************
+*
+*   bar 1
+*
+* 1  -1 *
+repeat      2  14 set    fend  12
+repeat      2  14 call   fmed
+repeat      2  14 set    coords mpelvis
+repeat      2  14 call   forleft
+call        2  14 close
+* 1 -10 * 1 -10 * 1   1 *
+repeat     14  26 set    fend  12
+repeat     14  26 call   fmed
+repeat     14  26 set    coords mpelvis
+repeat     14  26 call   forright
+call       14  26 close
+* 1  -2 *
+***************************
+*
+*   bar 2
+*
+* 1 -10 * 1 -10 * 1   1 *
+repeat     27  39 set    fend  12
+repeat     27  39 call   fmed
+repeat     27  39 set    coords mpelvis
+repeat     27  39 call   forright
+call       27  39 forward
+* 1   1 *
+repeat     40  52 set    fend  12
+repeat     40  52 call   fmed
+repeat     40  52 set    coords mpelvis
+repeat     40  52 call   forright
+call       40  52 rside
+* 1  -2 *
+***************************
+*
+*   bar 3
+*
+* 1 -10 * 1 -10 * 1  -1 *
+repeat     53  65 set    fend  12
+repeat     53  65 call   fmed
+repeat     53  65 set    coords mpelvis
+repeat     53  65 call   forleft
+call       53  65 lside
+* 1  -2 * 1 -10 * 1 -10 * 1  -2 * 1 -10 * 1 -10 * 1  -2 * 1 -10 * 1 -10 * 1 -10 * 1  -2 * 1 -10 * 1 -10 * 1  -2 * 1 -10 * 1 -10 * 1  -2 * 1 -10 * 1 -10 * 1  -2 * 1 -10 * 1 -10 * 1  -2 * 1 -10 * 1 -10 * 1  -2 * 1 -10 * 1  -9 *
+**************************
+*
+repeat      0 293 ground man
+repeat      0   1 moveto woman  wlfoot  10000 10000 10000
+repeat      0 293 centre mpelvis fx fy fz
+repeat      0 293 add     fy -900 fz
+repeat      0 293 place   fx  500 fy
+repeat      0 293 observe -9    0  0
+*
+end dance
+****************************
+*
+subroutine setfmax
+*
+repeat 0 1 set fmax 293
+*
+end setfmax
+****************************
+*
+stop

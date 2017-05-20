@@ -224,7 +224,7 @@ int system(const char *command);
 
 struct Symbol {
 	int a;       // TRUE = 0 if already done
-	int b;       // bent indicator
+//	int b;       // bent indicator
 	int c;       // column position relative to right support column
 	int h;       // height
 	int i;       // item in menu
@@ -241,7 +241,7 @@ struct Symbol {
 
 struct Symbol lbn[LMAX]; // laban score entries
 int ja;                  // TRUE = 0 if already done
-int jb;                  // bendedness of current symbol
+int curSymbolBend;                  // bendedness of current symbol
 int jc;                  // current symbol column
 int jh;                  // current symbol height
 int ji;                  // current symbol item in menu
@@ -322,7 +322,11 @@ int xmin;   //,xmax;       // width range of score symbols
 int ymax;            // top of score
 int yend;            // y position of last movement
 int ystart;          // y position of start of movement
-int yj[5*FMAX];      // symbols starting at given y positions
+int symbolStartAtYpos[5*FMAX];      // symbols starting at given y positions
+int listObj[10240];
+
+
+
 int pins[TMAX][2];   // index and use of initial pins
 int staff[TMAX][6];  // index, x positions, gender, and use of staves
 char colm[NCOLM];    // limb presigns in the columns
@@ -1459,7 +1463,7 @@ void lassign(void)
 */
 {
       ja = lbn[symbolCounter].a;
-      jb = lbn[symbolCounter].b;
+      //curSymbolBend = lbn[symbolCounter].b;
       jc = lbn[symbolCounter].c;
       jd = lbn[symbolCounter].d;
       jh = lbn[symbolCounter].h;
@@ -1475,21 +1479,21 @@ void lassign(void)
 } /* lassign */
 /**********************************************/
 
-//void lsorty(void)
+void lsorty(void)
 ///*
 //   sort score symbols into ascending order of 'y'
 //   (bubble sort)
-//   find maxy, and fill yj table
+//   find maxy, and fill symbolStartAtYpos table
 //
 //   called by linter,
 //   calls     lassign,
 //*/
-//{
-//   int k;
-//   int last;
-//   int y;
-//
-//   int j ;
+{
+   int k;
+   int last;
+   int y;
+
+   int j ;
 //
 //
 //
@@ -1515,7 +1519,7 @@ void lassign(void)
 //            lbn[j].x2 = lbn[k].x2;
 //            lbn[j].y2 = lbn[k].y2;
 //            lbn[k].a = ja;
-//            lbn[k].b = jb;
+//            lbn[k].b = curSymbolBend;
 //            lbn[k].c = jc;
 //            lbn[k].d = jd;
 //            lbn[k].h = jh;
@@ -1537,24 +1541,40 @@ void lassign(void)
 //   ymax = 0;
 //   for (j = 0; j < Num_Lab_Entries; ++j)
 //       if (((lbn[j].y2) > ymax)&&(lbn[j].m != Stav))
-//            ymax = lbn[j].y2+1;
+//           ymax = lbn[j].y2+1;
+//   
+//
 //   for (y = 0; y < ymax; ++y)
-//       yj[y] = -1;
+//   {
+//       symbolStartAtYpos[y] = -1;
+//   }
+//   
+//
+//
 //   for (j = 0; j < Num_Lab_Entries; ++j)
 //   {
 //       y = lbn[j].y;
-//	   if (y < 0) y = 0;
-//       if (yj[y] < 0) yj[y] = j;
+//     if (y < 0) y = 0;
+//       if (symbolStartAtYpos[y] < 0) symbolStartAtYpos[y] = j;
 //   }
+//
+//
+//
+//
+//
 //   last = 0;
 //   for (y = 0; y < ymax; ++y)
 //   {
-//       if (yj[y] < 0)
-//            yj[y] = last;
+//       if (symbolStartAtYpos[y] < 0)
+//            symbolStartAtYpos[y] = last;
 //       else
-//            last = yj[y];
+//            last = symbolStartAtYpos[y];
 //   }
-//}   /* lsorty */
+//
+
+
+
+}   /* lsorty */
 /************************************************/
 
 void lsortx(int stff[LMAX][2], int nstff)
@@ -1785,6 +1805,8 @@ void lfindystart(void)
 /*
    if none, seek any supporting direction symbol -
 */
+
+
    if (ystart < 0)
    {
       for (j = 0; ((j < Num_Lab_Entries)&&(ystart < 0)); ++j)
@@ -2041,7 +2063,7 @@ int lhastap(int j)
    t = -1;
    yk = jy - jh;
    if (yk < 1) yk = 1;
-   for (k = yj[yk];
+   for (k = symbolStartAtYpos[yk];
 	   ((t < 0)&&(k < Num_Lab_Entries)&&(lbn[k].y < jy2)); ++k)
    {
       km = lbn[k].m;
@@ -2157,7 +2179,7 @@ void lleggesture(void)
             {
                printf("OOPS: dogesture direction problem line %d\n",symbolCounter);
                printf("%3d %3d %3d %3d %3d %3d %3d %3d %d\n",
-                  jm,ji,jx,jy,js,jw,jh,jb,jd);
+                  jm,ji,jx,jy,js,jw,jh,curSymbolBend,jd);
                lgetout(1);
                if (ok == 1) goto rtrn;
             } /* i wrong */
@@ -2171,7 +2193,7 @@ void lleggesture(void)
             {
                printf("OOPS: dogesture direction problem line %d\n",symbolCounter);
                printf("%3d %3d %3d %3d %3d %3d %3d %3d %d\n",
-                  jm,ji,jx,jy,js,jw,jh,jb,jd);
+                  jm,ji,jx,jy,js,jw,jh,curSymbolBend,jd);
                lgetout(1);
                if (ok == 1) goto rtrn;
             } /* i wrong */
@@ -2198,7 +2220,7 @@ void lleggesture(void)
             fprintf(nudesfile,
                "quadratic %3d %3d bendto bthigh bhip   pelvis %d %d %d\n",
                   firstFrameNumAct,fend,stt[jd][ji][0],stt[jd][ji][1],stt[jd][ji][2]);
-            if ((jd == LOW)&&((ji == 1)||(ji == 3)||(ji == 8)||(ji == 10))||(jb == 2)||(jb == 4))
+            if ((jd == LOW)&&((ji == 1)||(ji == 3)||(ji == 8)||(ji == 10))||(curSymbolBend == 2)||(curSymbolBend == 4))
                fprintf(nudesfile,
                   "linear    %3d %3d bendto bleg   bknee  bthigh lhig1 lhig2 lhig3\n",
                       fhalf,fend);
@@ -2247,7 +2269,7 @@ void ldoarms(void)
          }
          if (jc < 0) // left arm
          {
-            if (jb == RELAX)
+            if (curSymbolBend == RELAX)
             {
 					fprintf(nudesfile,
                   "quadratic %3d %3d bendto luarm  lshldr shldrs %3d %3d %3d\n",
@@ -2269,7 +2291,7 @@ void ldoarms(void)
 					} /* woman */
             }
             else
-            if (jb == BENT)
+            if (curSymbolBend == BENT)
             {
                if (ji == 11)
                {
@@ -2302,7 +2324,7 @@ void ldoarms(void)
          }
          else // if (jc > 0) =  right arm
          {
-            if (jb == RELAX)
+            if (curSymbolBend == RELAX)
             {
 					fprintf(nudesfile,
                   "quadratic %3d %3d bendto ruarm  rshldr shldrs %3d %3d %3d\n",
@@ -2325,7 +2347,7 @@ void ldoarms(void)
 
             } /* relaxed */
             else
-            if (jb == BENT)
+            if (curSymbolBend == BENT)
             {
                fprintf(nudesfile,
                   "quadratic %3d %3d bendto ruarm  rshldr shldrs %3d %3d %3d\n",
@@ -2419,7 +2441,7 @@ int lgetpin(void)
 
     ki = -123;
     ymost = -1;
-    for (k = yj[jy-jh]; lbn[k].y < jy2; ++k)
+    for (k = symbolStartAtYpos[jy-jh]; lbn[k].y < jy2; ++k)
     {
          if (lbn[k].m == Pins)
          {
@@ -2510,19 +2532,25 @@ int lseeksym(char m, int i, int x1, int x2, int y3, int y4)
    int k,kx,kx2,ky,ky2;
    int y1,y2;
 
+
    lap = -1;
    if (y3 < 0) y1 = 0; else y1 = y3;
    if (y4 < 0) y2 = 0; else y2 = y4;
    kstart = y1 - 2*STEP;
+   
    if (kstart < 1) kstart = 1;
-   for (k = yj[kstart]; ((lap < 0)&&(lbn[k].y < y2)); ++k)
+
+
+   for (k = symbolStartAtYpos[kstart]; ((lap < 0)&&(lbn[k].y < y2)); ++k)
    {
       kx = lbn[k].x;
       kx2 = lbn[k].x2;
       ky = lbn[k].y;
       ky2 = lbn[k].y2;
+
       if ((lbn[k].m == m )&&(lbn[k].i == i))
       {
+
          if ((loverlap(x1,x2,kx,kx2) > 0)
             && (loverlap(y1,y2,ky,ky2) > 0))
          {
@@ -2530,6 +2558,7 @@ int lseeksym(char m, int i, int x1, int x2, int y3, int y4)
          }
       } /* m and i true */
    } /* k loop */
+   printf("value of K : %d  " , k );
    return(lap);
 }  /* lseeksym */
 /***************************************************/
@@ -2555,18 +2584,37 @@ Relevant symbols:-
     Volm   7  hold
 */
 {
-   int centre;
-   int held,front,back;
-   int mlhand,mrhand,wlhand,wrhand;
+   int centre = 0;
+   int held,front,back = 0;
+   int mlhand,mrhand,wlhand,wrhand = 0;
 
-   centre = (staff[0][2] + staff[1][2])/2;
+  
+  centre = (staff[0][2] + staff[1][2])/2;
+  //      ja = lbn[symbolCounter].a;
+  //      curSymbolBend = lbn[symbolCounter].b;
+  //      jc = lbn[symbolCounter].c;
+  //      jd = lbn[symbolCounter].d;
+  //      jh = lbn[symbolCounter].h;
+  //      ji = lbn[symbolCounter].i;
+  //      //jl = lbn[symbolCounter].l;
+  //      jm = lbn[symbolCounter].m;
+  //      js = lbn[symbolCounter].s;
+  //      jw = lbn[symbolCounter].w;
+  //      jx = lbn[symbolCounter].x;
+  //      jy = lbn[symbolCounter].y;
+  //      jx2 = lbn[symbolCounter].x2;
+  //      jy2 = lbn[symbolCounter].y2;
+
+
    for (symbolCounter = 0; symbolCounter < Num_Lab_Entries; ++symbolCounter)
    {
+
+
       if ((lbn[symbolCounter].m == Misc)&&(lbn[symbolCounter].i == 1))
       {
           lassign();
           held = lseeksym(Volm,1,jx,jx2,jy-STEP,jy2);
-	  if (held > 0)
+          if (held > 0)
           {
               mlhand = lseeksym(Limb,4,jx-STEP/2,jx+STEP/2,jy,jy2+STEP);
               mrhand = lseeksym(Limb,9,jx-STEP/2,jx+STEP/2,jy,jy2+STEP);
@@ -2582,34 +2630,34 @@ Relevant symbols:-
               back   = lseeksym(Area,5,jx-STEP/2,jx+STEP/2,jy,jy2+STEP);
               if (back < 0)
                  back  = lseeksym(Area,5,jx2-STEP/2,jx2+STEP/2,jy,jy2+STEP);
-              jb = 0;
+
+              curSymbolBend = 0;
               if (front > 0)
               {
-                 jb = FRONT;
+                 curSymbolBend = FRONT;
                  lbn[front].a = DONE;
               }
-              else
               if (back > 0)
               {
-                 jb = BACK;
+                 curSymbolBend = BACK;
                  lbn[back].a = DONE;
               }
-              if (mlhand > 0) jb += MLHAND;
-              if (mrhand > 0) jb += MRHAND;
-              if (wlhand > 0) jb += WLHAND;
-              if (wrhand > 0) jb += WRHAND;
-              if (jb <= 0)
+              if (mlhand > 0) curSymbolBend += MLHAND;
+              if (mrhand > 0) curSymbolBend += MRHAND;
+              if (wlhand > 0) curSymbolBend += WLHAND;
+              if (wrhand > 0) curSymbolBend += WRHAND;
+              if (curSymbolBend <= 0)
                  fprintf(nudesfile,"* OOPS: lbows: bow %d with no contacts\n",symbolCounter);
-              else
-              {
-                 if (mlhand > 0) lbn[mlhand].b = jb;
-                 if (mrhand > 0) lbn[mrhand].b = jb;
-                 if (wlhand > 0) lbn[wlhand].b = jb;
-                 if (wrhand > 0) lbn[wrhand].b = jb;
-              }
+              //else
+              //{
+                 //if (mlhand > 0) lbn[mlhand].b = curSymbolBend;
+              //   if (mrhand > 0) lbn[mrhand].b = curSymbolBend;
+              //   if (wlhand > 0) lbn[wlhand].b = curSymbolBend;
+              //   if (wrhand > 0) lbn[wrhand].b = curSymbolBend;
+             // }
            } /* held */
            fprintf(nudesfile,"*  lbowsb %d %d %d %d %d %d %d %d %d\n",
-              symbolCounter+1,held,front,back,mlhand,mrhand,wlhand,wrhand,jb);
+              symbolCounter+1,held,front,back,mlhand,mrhand,wlhand,wrhand,curSymbolBend);
       } /* contact bow */
    } /* j */
 } /* lbows */
@@ -3041,7 +3089,7 @@ void lbent(void)
                      &&(loverlap(jy2,jy2h,ky,ky2) > 0))
                   {
                       g = k;
-                      lbn[symbolCounter].b = ji;
+                      //lbn[symbolCounter].b = ji;
                       ki = lbn[k].i;
                       lbn[symbolCounter].m = km;
                       lbn[symbolCounter].i = ki;
@@ -3147,7 +3195,7 @@ void lrelease(void)
       hold = NO;
       fprintf(nudesfile,
          "* lreleasea %d %d %d %d %d %d\n",
-            firstFrameNumAct,fend,symbolCounter,jb,hold,prevhold);
+            firstFrameNumAct,fend,symbolCounter,curSymbolBend,hold,prevhold);
       keptf = ffin;
    }
 } /* lrelease */
@@ -3347,14 +3395,14 @@ void lsethold(void)
 	}
    if ((jm == Limb)&&((ji == 4)||(ji == 9)))
    {
-      if (jb ==  11) { ++holdss; ++holdsh; }
-      if (jb ==  12) ++holdoe;
-      if (jb ==  21) { ++holdco; ++holdcl; ++holdpr; }
-      if (jb ==  22) ++holdsh;
-      if (jb == 110) { ++holdcl; ++holdpr; }
-      if (jb == 102) ++holdss;
-      if (jb == 120) ++holdss;
-      if (jb == 202) { ++holdcl; ++holdpr; }
+      if (curSymbolBend ==  11) { ++holdss; ++holdsh; }
+      if (curSymbolBend ==  12) ++holdoe;
+      if (curSymbolBend ==  21) { ++holdco; ++holdcl; ++holdpr; }
+      if (curSymbolBend ==  22) ++holdsh;
+      if (curSymbolBend == 110) { ++holdcl; ++holdpr; }
+      if (curSymbolBend == 102) ++holdss;
+      if (curSymbolBend == 120) ++holdss;
+      if (curSymbolBend == 202) { ++holdcl; ++holdpr; }
    } /* jm = a hand */
    else
    if ((jm == Face)&&(jx > stmiddle))
@@ -3626,7 +3674,7 @@ void ldotoetaps ( void )/*
 				if ( ( ji <= 1 ) || ( ji == 3 ) || ( ji == 5 ) || ( ji > 11 ) )
 				{
 					printf ( "OOPS: ldotoetap left direction problem line %d\n", symbolCounter );
-					printf ( "%3d %3d %3d %3d %3d %3d %3d %3d %d\n", jm, ji, jx, jy, js, jw, jh, jb, jd );
+					printf ( "%3d %3d %3d %3d %3d %3d %3d %3d %d\n", jm, ji, jx, jy, js, jw, jh, curSymbolBend, jd );
 					lgetout ( 1 );
 					if ( ok == 1 ) return;
 				} /* i wrong */
@@ -3639,7 +3687,7 @@ void ldotoetaps ( void )/*
 					( ji == 8 ) || ( ji == 10 ) || ( ji > 11 ) )
 				{
 					printf ( "OOPS: ldotoetap right direction problem line %d\n", symbolCounter );
-					printf ( "%3d %3d %3d %3d %3d %3d %3d %3d %d\n", jm, ji, jx, jy, js, jw, jh, jb, jd );
+					printf ( "%3d %3d %3d %3d %3d %3d %3d %3d %d\n", jm, ji, jx, jy, js, jw, jh, curSymbolBend, jd );
 					lgetout ( 1 );
 					if ( ok == 1 ) return;
 				} /* i wrong */
@@ -3872,22 +3920,24 @@ int xmin,xmax;       // width range of score symbols
 int ymax;            // top of score
 int yend;            // y position of last movement
 int ystart;          // y position of start of movement
-int yj[5*FMAX];      // symbols starting at given y positions
+int symbolStartAtYpos[5*FMAX];      // symbols starting at given y positions
 int pins[TMAX][2];   // index and use of initial pins
 int staff[TMAX][6];  // index, x positions, gender, and use of staves
 char colm[NCOLM];    // limb presigns in the columns
 
 */
 {
-
+   int i,k;
    //lbnread();
    //lsorty();//sorts the lbn structure array by y parameter
    //lfindstaff(gen);
 
-//   for(i=0;i<TMAX;i++)
+
+
+//   for(i=0;i<10;i++)
 //   {
-//     for(j=0;j<6;j++)
-//       printf(" %d  " , staff[i][j] );
+   //  for(j=0;j<6;j++)
+//       printf(" value of c : %d  " , lbn[i].c  );
 //    printf("\n");  
 //   }
 
@@ -3899,10 +3949,15 @@ char colm[NCOLM];    // limb presigns in the columns
 
    //lsetrange();
    //lselectfig();
+
    lcopyfigs(renderFile);
+
+
    lstart();
+
    lfindystart();
-   lbows(); // flag hand signs
+
+   //lbows(); // flag hand signs
    lbent(); // flag dirn signs
    for (st = 0; st < numberOfStaff; ++st)
    {
@@ -7361,11 +7416,11 @@ void dodrag(void)
               setels, doangles,
 */
 {
-	int jb,jc,jd;
+	int curSymbolBend,jc,jd;
 	int fixde;
 	int quadrant,qa,qb,qd;
 	double gap;
-	double yj;
+	double symbolStartAtYpos;
 	double proptemp;
 	double xa,xb,xd;
 	double dx;
@@ -7397,11 +7452,11 @@ void dodrag(void)
 		gap = doground();
 		setels(fixde,-1);
 		shift ( doub0, -gap, doub0 );
-		yj = jnt[join][1] + minax[ell1];
-		if (yj <= minax[ellpsd])
+		symbolStartAtYpos = jnt[join][1] + minax[ell1];
+		if (symbolStartAtYpos <= minax[ellpsd])
 			printf("dodrag snag : joint too low\n");
 		else
-		if ( yj > minax[ellpsd] )
+		if ( symbolStartAtYpos > minax[ellpsd] )
 		{
 /*
 	which quadrant is centre of ell1 in wrt join -
@@ -7427,7 +7482,7 @@ void dodrag(void)
 //
 			xb = doub2;
 			qb = -1;
-			for (jb = 0; ((jb < 8)&&(qb != quadrant)); ++jb)
+			for (curSymbolBend = 0; ((curSymbolBend < 8)&&(qb != quadrant)); ++curSymbolBend)
 			{
 				xb *= inv2;
 				restore();
@@ -7436,7 +7491,7 @@ void dodrag(void)
 				qb = 0;
 				if ( jnt[join][0] > cen[ell1][0] ) qb += 1;
 				if ( jnt[join][2] > cen[ell1][2] ) qb += 2;
-//printf("dodragb %d %f %f %d\n",jb,xb,yb,qb);
+//printf("dodragb %d %f %f %d\n",curSymbolBend,xb,yb,qb);
 			}
 			xd = doub0;
 			if (ya*yb < doub0)
@@ -10031,6 +10086,26 @@ void ForUpdatingListInt(PyObject* myobject , char* attrName , int nameList[])
 }
 }
 
+void ForUpdatingPrint(PyObject* myobject , char* attrName )
+{
+  PyObject* iterator, *item, *attr;
+  int value;
+  int j = 0;
+  attr = PyObject_GetAttrString(myobject, attrName );
+  iterator = PyObject_GetIter(attr);
+
+
+
+//  while (j <10)  //(item = PyIter_Next(iterator))
+// {
+//  PyArg_Parse(item , "i" , &value);
+//  //nameList[j] = value;
+//  j = j + 1;
+//  Py_DECREF(item);
+//  
+//}
+}
+
 void ForUpdatingListChar(PyObject* myobject , char* attrName , char* nameList, int length)
 {
   PyObject* iterator, *item, *attr;
@@ -10348,6 +10423,13 @@ void funcConvInitialise()
   ForUpdatingListInt(myobject ,"axlen",axlen);
   ForUpdatingListInt(myobject ,"defined",defined);
   ForUpdatingListInt(myobject ,"called",called);
+  ForUpdatingListInt(myobject ,"symbolStartAtYpos",symbolStartAtYpos);
+
+
+
+
+
+  
   ForUpdatingListdoub(myobject ,"val",val);
   ForUpdatingListChar(myobject ,"name",(char*)name,BMAX);
   ForUpdatingListChar(myobject ,"nudesname",(char*)nudesname,BMAX);
@@ -10416,6 +10498,7 @@ void funcConvInitialise()
   ForUpdatingVarInt(myobject , "wspace",&wspace);
  
 
+  ForUpdatingVarInt(myobject , "ymax"  , &ymax  );
   ForUpdatingVarInt(myobject , "hold"  , &hold  );
   ForUpdatingVarInt(myobject , "prevhold" , &prevhold  );
   ForUpdatingVarInt(myobject , "prevFrame_time"  , &prevFrame_time   );
@@ -10460,7 +10543,11 @@ void funcConvInitialise()
   ForUpdatingVarInt(myobject,"numberOfMen",&numberOfMen);
   ForUpdatingVarInt(myobject,"numberOfWomen",&numberOfWomen);
   ForUpdatingVarInt(myobject,"numberMenWomen",&numberMenWomen);
- 
+  ForUpdatingVarInt(myobject,"curSymbolBend",&curSymbolBend);
+
+
+
+
   ForUpdatingBool(myobject ,"mspace" , &mspace);
 
  

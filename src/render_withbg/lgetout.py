@@ -9,7 +9,7 @@ def lgetout(GV,allok):
             GV.figsfile.close()
     else:
         print("lintel snag, line %d"%GV.symbolCounter)
-        print(GV.lbnline[symbolCounter])
+        #print(GV.lbnline[symbolCounter])
         GV.ok=1
     return
 
