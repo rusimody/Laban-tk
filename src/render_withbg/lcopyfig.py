@@ -17,5 +17,6 @@ def lcopyfig(GV,renderFile):
         if GV.ok==1:
             return
 
+    (GV.nudesfile).seek(2,0)
     for line in GV.figsname:
         (GV.nudesfile).write(line)

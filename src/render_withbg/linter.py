@@ -42,7 +42,7 @@ def linter(GV,renderFile,gender):
                 GV.dofig = GV.MAN
             else:
                 GV.dofig = GV.WOMAN
-  #          lcolx(GV,GV.staff[GV.currentStaffNumber][2])
-  #          #laction(GV)
+            lcolx(GV,GV.staff[GV.currentStaffNumber][2])
+  #          laction(GV)
   #          GV.staff[GV.currentStaffNumber][5] = GV.DONE
   #  #lfinish(GV)

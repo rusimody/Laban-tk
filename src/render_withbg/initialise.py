@@ -60,11 +60,11 @@ def initialise(GV):
         m += 1
         a *= GV.inv2
 
-    tolr = b+b
-    #print(tolr)
-    '''
-    print("   tolr " + (repr(n))) # + " " + (repr(m)) + " bits , maxint " + (repr(maxint)) + " ( " + (repr(n)) ")" )
-    '''
+    GV.tolr = b+b
+    GV.symbolCounter = 2
+    
+    
+   # print("\n   tolr " + str(GV.tolr)+ "("+str(m)+" bits),"+"maxint " +str(k)+"("+str(n)+" bits)\n")
 
 
 

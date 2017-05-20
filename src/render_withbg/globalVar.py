@@ -15,6 +15,9 @@ class GlobalVar():
         self.VMAX = 2048   # max number of constants + variables
         self.FMAX = 2048   # maximum number of frames
         self.TMAX = 30 # max number of staff line
+        
+        self.NCOLM = 18 #// number of columns around staff
+        
         self.MAN = 0
         self.WOMAN = 1
         
@@ -70,7 +73,7 @@ class GlobalVar():
         self.inv256 = float(1) / float(256)   
         self.inv1000 = float(1) / float(1000)   
 
-
+        self.tolr = 0
  
         self.keywordCode = range(1,64)
         self.frameInc = 0 
@@ -215,7 +218,6 @@ class GlobalVar():
         self.currentXpos = 0
         self.currentYpos = 0
         self.currentItem = 0
-        ####################
         self.currentStaffNumber = 0
         self.closeHoldCounter = 0
         self.openHoldCounter = 0
@@ -229,8 +231,9 @@ class GlobalVar():
         self.semiShadowFaceScore = 0
         self.keptLastFrame = 0
         self.dofig = 0
+        
         self.oriented = 0
-
+        self.colm = [] 
 GV = GlobalVar()
 
 #command line arguments are taken through tempFilename file
@@ -241,10 +244,10 @@ argFilename = array[0]
 arg1 = array[1]
 arg2 = array[2]
 
-initialise(GV)
+initialise(GV) #some part remains in c file
 get_ini(GV,0)
 led_param(GV)
-get_files(GV,argFilename)
+get_files(GV,argFilename)#some part remains in c file complete it when initialize main in python
 linter(GV,arg1,arg2)
 
 

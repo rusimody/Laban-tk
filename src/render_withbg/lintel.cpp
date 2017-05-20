@@ -1242,16 +1242,16 @@ void initialise(void)
 */
 
 // find bits in double mantissa -
-	b = doub1;
-	m = 0;
-	for (a = inv2; doub1 + b > doub1 + a; a *= inv2)
-	{ 
-		b = a;
-    		++ m;
-	}
-       
-	tolr = b+b;
-    symbolCounter = 2;
+//	b = doub1;
+//	m = 0;
+//	for (a = inv2; doub1 + b > doub1 + a; a *= inv2)
+//	{ 
+//		b = a;
+//    		++ m;
+//	}
+//       
+//	tolr = b+b;
+//symbolCounter = 2;
 	n = 0;
 
 // find bits in integer -
@@ -1261,6 +1261,7 @@ void initialise(void)
 		++ n;
 	}
 	maxint = k;
+
 	printf("\n   tolr %g (%d bits), maxint %d (%d bits)\n",
 		tolr,m,maxint,n);
 } /* initialise */
@@ -1362,95 +1363,95 @@ void lcolx(int lcentre)
          --kc;
       else
          ++kc;
-      printf("$$$$$$$$$ %d kc");
+//      printf("$$$$$$$$$ %d kc");
       lbn[k].c = kc;
    }
 } /* lcolx */
 /************************************************/
 
-void lbnread(void)
-/*
-   read .lbn laban score file
-
-   called by linter,
-
-A structure Symbol is created as follows:
-      struct Symbol {
-        int i;       // item in menu
-	int x;       // horizontal position of left side
-	int y;       // vertical position of bottom
-	int s;       // drawing step size
-	int w;       // width
-	int h;       // height
-	int d;       // height indicator //0,1,2,3 : low,mid,high,blank
-	char m;      // menu
-	//below data not present in .lbn file , so hardcoded or derived from available data
-	int x2;      // horizontal position of right side  = x+w
-	int y2;      // vertical position of top = y+h
-	int a;       // TRUE = 0 if already done
-	int b;       // bent indicator // not implemented as given -1 value
-	int c;       // column position relative to right support column
-	int l;       // lbn file line number
-	};
-	Extra variables set :
-	xmin = min(x)
-	xmax = max(x+w)
-*/
-{
-   int j;
-   int i,x,y,s,w,h;
-   char d;
-   char m0,m1,m2,m3;
-
-   j = 0;
-   //xmax = 0;
-   //xmin = 10000;
-	if ( ( infile = fopen( finname, "r" ) ) == NULL )
-	{
-		printf("lbnread oops\n");
-a: goto a;
-	}
-   while ((j < LMAX) && (fgets(buffer,BMAX,infile) != NULL))
-   {
-		strcpy(lbnline[j],buffer);
-   // printf(" %s  " , buffer);
-		sscanf(buffer,"%c%c%c%c %d %d %d %d %d %d %c",
-             &m0,&m1,&m2,&m3,&i,&x,&y,&s,&w,&h,&d);
-		if (m0 != '#')
-		{
-    //        lbn[j].m = m0;    //no need of m in python
-    //        if ((m0 == 'P')&&(m1 == 'a'))
-    //        lbn[j].m = Path;
-    //        lbn[j].i = i;    
-    //        lbn[j].x = x;
-    //        lbn[j].y = y;
-    //        lbn[j].w = w;
-    //        lbn[j].h = h;
-    //        lbn[j].s = s;
-            //lbn[j].b = -1;
-            //lbn[j].l = j;
-    //        lbn[j].a = TODO;
-    //        lbn[j].x2 = x+w;
-    //        lbn[j].y2 = y+h;
-    //        lbn[j].d = BLANK;
-    //        if (d =='M') lbn[j].d = MED;
-    //        if (d =='L') lbn[j].d = LOW;
-    //        if (d =='H') lbn[j].d = HIGH;
-   //         if (x < xmin) xmin = x;         //used only in one place in some lplace function soo need of declaring it as global var
-            //if (x+w > xmax) xmax = x+w;     // nowhere used
-//            if (j >= LMAX)
-//            {
-//               printf("\nBEWARE: score truncated at line %d\n",j);
-//               printf("more than %d laban score items\n",LMAX);
-//            }
-            ++j;
-		}
-   } /* while reading next line */
-   //printf("  %d   " , xmin );
-   //Num_Lab_Entries = j;
-//	printf("\n   lbnread: %d lbn symbols\n",Num_Lab_Entries);
-}  /* lbnread */
-/************************************************/
+//void lbnread(void)
+///*
+//   read .lbn laban score file
+//
+//   called by linter,
+//
+//A structure Symbol is created as follows:
+//      struct Symbol {
+//        int i;       // item in menu
+//	int x;       // horizontal position of left side
+//	int y;       // vertical position of bottom
+//	int s;       // drawing step size
+//	int w;       // width
+//	int h;       // height
+//	int d;       // height indicator //0,1,2,3 : low,mid,high,blank
+//	char m;      // menu
+//	//below data not present in .lbn file , so hardcoded or derived from available data
+//	int x2;      // horizontal position of right side  = x+w
+//	int y2;      // vertical position of top = y+h
+//	int a;       // TRUE = 0 if already done
+//	int b;       // bent indicator // not implemented as given -1 value
+//	int c;       // column position relative to right support column
+//	int l;       // lbn file line number
+//	};
+//	Extra variables set :
+//	xmin = min(x)
+//	xmax = max(x+w)
+//*/
+//{
+//   int j;
+//   int i,x,y,s,w,h;
+//   char d;
+//   char m0,m1,m2,m3;
+//
+//   j = 0;
+//   //xmax = 0;
+//   //xmin = 10000;
+//	if ( ( infile = fopen( finname, "r" ) ) == NULL )
+//	{
+//		printf("lbnread oops\n");
+//a: goto a;
+//	}
+//   while ((j < LMAX) && (fgets(buffer,BMAX,infile) != NULL))
+//   {
+//		strcpy(lbnline[j],buffer);
+//   // printf(" %s  " , buffer);
+//		sscanf(buffer,"%c%c%c%c %d %d %d %d %d %d %c",
+//             &m0,&m1,&m2,&m3,&i,&x,&y,&s,&w,&h,&d);
+//		if (m0 != '#')
+//		{
+//    //        lbn[j].m = m0;    //no need of m in python
+//    //        if ((m0 == 'P')&&(m1 == 'a'))
+//    //        lbn[j].m = Path;
+//    //        lbn[j].i = i;    
+//    //        lbn[j].x = x;
+//    //        lbn[j].y = y;
+//    //        lbn[j].w = w;
+//    //        lbn[j].h = h;
+//    //        lbn[j].s = s;
+//            //lbn[j].b = -1;
+//            //lbn[j].l = j;
+//    //        lbn[j].a = TODO;
+//    //        lbn[j].x2 = x+w;
+//    //        lbn[j].y2 = y+h;
+//    //        lbn[j].d = BLANK;
+//    //        if (d =='M') lbn[j].d = MED;
+//    //        if (d =='L') lbn[j].d = LOW;
+//    //        if (d =='H') lbn[j].d = HIGH;
+//   //         if (x < xmin) xmin = x;         //used only in one place in some lplace function soo need of declaring it as global var
+//            //if (x+w > xmax) xmax = x+w;     // nowhere used
+////            if (j >= LMAX)
+////            {
+////               printf("\nBEWARE: score truncated at line %d\n",j);
+////               printf("more than %d laban score items\n",LMAX);
+////            }
+//            ++j;
+//		}
+//   } /* while reading next line */
+//   //printf("  %d   " , xmin );
+//   //Num_Lab_Entries = j;
+////	printf("\n   lbnread: %d lbn symbols\n",Num_Lab_Entries);
+//}  /* lbnread */
+///************************************************/
 
 void lassign(void)
 /*
@@ -1621,141 +1622,141 @@ int loverlap(int p1j, int p2j, int p1k, int p2k)
 } /* loverlap */
 /********************************************/
 
-void lfindstaff(char* gen)
-/*
-    find the centres of the staves
-
-    called by linter,
-	calls     lsortx, lgetout,
-
-staff[TMAX][6].
-   staff[k][0] = stff[j][0]; // current staff index
-   staff[k][1] = stff[j-1][1];// left staff x coordinate
-   staff[k][2] = stff[j][1]; // current staff x cooridnate
-   staff[k][3] = stff[j+1][1]; // right staff x coordinate
-   staff[k][4] = -1;   // decides if staff represents a 'MAN' or'Woman'
-   staff[k][5] = TODO;
-*/
-{
-   int j,jp,jq;
-   int k,kp,kq;
-   int staffstart;//y coordinate of middle Stav
-   int nstaffstart;//index of the staves
-   int nstff;//number of staves
-   int stff[TMAX][2];//temporary array to store staff info
-
-   k = 0;
-   staffstart = 0;
-   for (j = 0; j < Num_Lab_Entries; ++j)
-   {
-      if (lbn[j].m == Stav)
-      {
-         stff[k][0] = j;
-         stff[k][1] = lbn[j].x;
-         if (lbn[j].y > staffstart)
-            staffstart = lbn[j].y;
-         nstaffstart = j;
-         ++k;
-         lbn[j].a = DONE;
-      }
-   }
-   if (k < 3)
-   {
-      printf("lfindstaff: only %d staff lines\n",k);
-      lgetout(1);
-      if (ok == 1) goto rtrn;
-   }
-   if (k > TMAX)
-   {
-      printf("lfindstaff: %d staff lines, max %d\n",k,TMAX);
-      lgetout(1);
-      if (ok == 1) goto rtrn;
-   }
-   nstff = k;
-   lsortx(stff,nstff);
-   k = 0;
-   for (j = 1; j < nstff; j += 3)
-   {
-      staff[k][0] = stff[j][0];
-      staff[k][1] = stff[j-1][1];
-      staff[k][2] = stff[j][1];
-      staff[k][3] = stff[j+1][1];
-      staff[k][4] = -1;
-      staff[k][5] = TODO;
-      ++k;
-   }
-   numberOfStaff = k;
-   stmiddle = (staff[0][2] + staff[numberOfStaff-1][2])/2;
-   npins = 0;
-   // seek pins under center stafflines
-   printf("####### %d\n ",nstaffstart);
-   for (j = 0; j < nstaffstart; ++j)
-   {
-      printf("@@@@@@@@@ %c",lbn[j].m);
-
-      if (lbn[j].m == Pins)
-      {
-         printf("!!!!!!!!!!!!");
-         jp = lbn[j].x;
-         jq = lbn[j].x2;
-         pins[npins][0] = j;
-         pins[npins][1] = -1;
-         for (k = 0; k < numberOfStaff; ++k)
-         {
-            kp = staff[k][2] - 1;
-            kq = kp+2;
-            if (loverlap(jp,jq,kp,kq) > 0)
-            {
-               if (lbn[j].d == 0)
-               {
-                  staff[k][4] = MAN;
-                  pins[npins][1] = k;
-				  lbn[j].a = DONE;
-               }
-               else
-               {
-                  staff[k][4] = WOMAN;
-                  pins[npins][1] = k;
-				  lbn[j].a = DONE;
-               } /* empty pin */
-            } /* pin under central staff */
-         } /* k : staff lines */
-         ++npins;
-      } /* a pin found */
-   } /* j */
-   if (numberOfStaff < 1)
-	   printf("No staves found\n");
-   else
-   for (j = 0; j < numberOfStaff; ++j)
-   {
-		if (j == 0)
-			printf("\n");
-		/*printf("staff %d: ",j+1);
-      if (staff[j][4] == MAN)
-         printf(" man\n");
-      else
-      if (staff[j][4] == WOMAN)
-         printf(" woman\n");
-      else
-      printf(" no gender\n");*/
-		if(gen != NULL)
-		{
-		  if(numberOfStaff == 1)
-		  {
-		    if(gen[0] == 'm')
-		      staff[j][4] = MAN;
-		    else if(gen[0] == 'f')
-		      staff[j][4] = WOMAN;
-		  }
-		  else if(j==0)
-		    staff[j][4] = MAN;
-		  else if(j==1)
-		    staff[j][4] = WOMAN;
-		}
-   }
-rtrn: ;
-}   /* lfindstaff */
-/***************************************************/
+//void lfindstaff(char* gen)
+///*
+//    find the centres of the staves
+//
+//    called by linter,
+//	calls     lsortx, lgetout,
+//
+//staff[TMAX][6].
+//   staff[k][0] = stff[j][0]; // current staff index
+//   staff[k][1] = stff[j-1][1];// left staff x coordinate
+//   staff[k][2] = stff[j][1]; // current staff x cooridnate
+//   staff[k][3] = stff[j+1][1]; // right staff x coordinate
+//   staff[k][4] = -1;   // decides if staff represents a 'MAN' or'Woman'
+//   staff[k][5] = TODO;
+//*/
+//{
+//   int j,jp,jq;
+//   int k,kp,kq;
+//   int staffstart;//y coordinate of middle Stav
+//   int nstaffstart;//index of the staves
+//   int nstff;//number of staves
+//   int stff[TMAX][2];//temporary array to store staff info
+//
+//   k = 0;
+//   staffstart = 0;
+//   for (j = 0; j < Num_Lab_Entries; ++j)
+//   {
+//      if (lbn[j].m == Stav)
+//      {
+//         stff[k][0] = j;
+//         stff[k][1] = lbn[j].x;
+//         if (lbn[j].y > staffstart)
+//            staffstart = lbn[j].y;
+//         nstaffstart = j;
+//         ++k;
+//         lbn[j].a = DONE;
+//      }
+//   }
+//   if (k < 3)
+//   {
+//      printf("lfindstaff: only %d staff lines\n",k);
+//      lgetout(1);
+//      if (ok == 1) goto rtrn;
+//   }
+//   if (k > TMAX)
+//   {
+//      printf("lfindstaff: %d staff lines, max %d\n",k,TMAX);
+//      lgetout(1);
+//      if (ok == 1) goto rtrn;
+//   }
+//   nstff = k;
+//   lsortx(stff,nstff);
+//   k = 0;
+//   for (j = 1; j < nstff; j += 3)
+//   {
+//      staff[k][0] = stff[j][0];
+//      staff[k][1] = stff[j-1][1];
+//      staff[k][2] = stff[j][1];
+//      staff[k][3] = stff[j+1][1];
+//      staff[k][4] = -1;
+//      staff[k][5] = TODO;
+//      ++k;
+//   }
+//   numberOfStaff = k;
+//   stmiddle = (staff[0][2] + staff[numberOfStaff-1][2])/2;
+//   npins = 0;
+//   // seek pins under center stafflines
+//   printf("####### %d\n ",nstaffstart);
+//   for (j = 0; j < nstaffstart; ++j)
+//   {
+//      printf("@@@@@@@@@ %c",lbn[j].m);
+//
+//      if (lbn[j].m == Pins)
+//      {
+//         printf("!!!!!!!!!!!!");
+//         jp = lbn[j].x;
+//         jq = lbn[j].x2;
+//         pins[npins][0] = j;
+//         pins[npins][1] = -1;
+//         for (k = 0; k < numberOfStaff; ++k)
+//         {
+//            kp = staff[k][2] - 1;
+//            kq = kp+2;
+//            if (loverlap(jp,jq,kp,kq) > 0)
+//            {
+//               if (lbn[j].d == 0)
+//               {
+//                  staff[k][4] = MAN;
+//                  pins[npins][1] = k;
+//				  lbn[j].a = DONE;
+//               }
+//               else
+//               {
+//                  staff[k][4] = WOMAN;
+//                  pins[npins][1] = k;
+//				  lbn[j].a = DONE;
+//               } /* empty pin */
+//            } /* pin under central staff */
+//         } /* k : staff lines */
+//         ++npins;
+//      } /* a pin found */
+//   } /* j */
+//   if (numberOfStaff < 1)
+//	   printf("No staves found\n");
+//   else
+//   for (j = 0; j < numberOfStaff; ++j)
+//   {
+//		if (j == 0)
+//			printf("\n");
+//		/*printf("staff %d: ",j+1);
+//      if (staff[j][4] == MAN)
+//         printf(" man\n");
+//      else
+//      if (staff[j][4] == WOMAN)
+//         printf(" woman\n");
+//      else
+//      printf(" no gender\n");*/
+//		if(gen != NULL)
+//		{
+//		  if(numberOfStaff == 1)
+//		  {
+//		    if(gen[0] == 'm')
+//		      staff[j][4] = MAN;
+//		    else if(gen[0] == 'f')
+//		      staff[j][4] = WOMAN;
+//		  }
+//		  else if(j==0)
+//		    staff[j][4] = MAN;
+//		  else if(j==1)
+//		    staff[j][4] = WOMAN;
+//		}
+//   }
+//rtrn: ;
+//}   /* lfindstaff */
+///***************************************************/
 
 void lfindystart(void)
 /*
@@ -9864,9 +9865,9 @@ void get_files ( char file[] )
 
 //		add_id_num ( name, nudesname, ".n" );
 
-    printf("nude file name %s " , nudesname);
+//    printf("nude file name %s " , nudesname);
 
-    if ( ( nudesfile = fopen ( nudesname, "w" ) ) == NULL )
+    if ( ( nudesfile = fopen ( nudesname, "a" ) ) == NULL )
 		{
 			if ( nudesfile ) fclose ( nudesfile );
 			printf ( "\n\n %s OOPS?\n", nudesname );
@@ -10521,7 +10522,7 @@ void funcConvInitialise()
   ForUpdatingVardoub(myobject , "inv10" , &inv10);
   ForUpdatingVardoub(myobject , "inv256" , &inv256);
   ForUpdatingVardoub(myobject , "inv1000" , &inv1000);
-
+  ForUpdatingVardoub(myobject , "tolr" , &tolr);
 
 
   ForUpdatingVardoub(myobject , "anglex" , &anglex);
