@@ -1,4 +1,7 @@
 *
+* created l1.lbn_5.n from l1.lbn using lintel084
+*
+*
 * lintel.n
 repeat 0 1 allow world world
 *
@@ -2048,9 +2051,7 @@ repeat    0     1 add    f3o8 fo4  fo8
 repeat    0     1 add    f3o4 fo2  fo4
 repeat    0     1 add    f5o8 fo2  fo8
 repeat    0     1 set tcls1 trlx1
-repeat    0     1 set tcls2 trlx2
-repeat    0     1 set tcls3 trlx3
-repeat    0     1 set lcls1 lrlx1
+repeat    0    repeat    0     1 set lcls1 lrlx1
 repeat    0     1 set lcls2 lrlx2
 repeat    0     1 set lcls3 lrlx3
 repeat    0     1 set fcls1 frlx1
@@ -2098,4 +2099,120 @@ end rightkneebend
 *
 *********************************************************
 subroutine dance
+***********************************
+subroutine dance
 *
+*
+call        0   1 doman
+call        0   1 forleft
+*
+************************************
+*
+repeat      0 195 call   doman
+* 1  -4 * 1   4 * 1   1 * 1  -2 *
+***************************
+*
+*   bar 0
+*
+* 1  -2 *
+***************************
+*
+*   bar 1
+*
+* 1   1 *
+repeat      2  14 set    fend  12
+repeat      2  14 call   fmed
+repeat      2  14 set    coords mpelvis
+repeat      2  14 call   forright
+call        2  14 close
+* 1 -10 * 1 -10 * 1  -1 *
+repeat     15  27 set    fend  12
+repeat     15  27 call   fmed
+repeat     15  27 set    coords mpelvis
+repeat     15  27 call   forleft
+call       15  27 lside
+* 1  -2 *
+***************************
+*
+*   bar 2
+*
+* 1   1 * 1 -10 * 1   1 *
+repeat     27  39 set    fend  12
+repeat     27  39 call   fmed
+repeat     27  39 set    coords mpelvis
+repeat     27  39 call   forright
+call       27  39 rside
+* 1 -10 * 1  -1 *
+repeat     40  52 set    fend  12
+repeat     40  52 call   fmed
+repeat     40  52 set    coords mpelvis
+repeat     40  52 call   forleft
+call       40  52 lbacdiag
+* 1  -2 * 1  -1 * 1  -2 *
+***************************
+*
+*   bar 3
+*
+* 1 -10 * 1 -10 * 1   1 *
+repeat     66  78 set    fend  12
+repeat     66  78 call   fmed
+repeat     66  78 set    coords mpelvis
+repeat     66  78 call   forright
+call       66  78 rbacdiag
+* 1   1 * 1  -2 *
+***************************
+*
+*   bar 4
+*
+* 1 -10 * 1   1 *
+repeat     79  91 set    fend  12
+repeat     79  91 call   fmed
+repeat     79  91 set    coords mpelvis
+repeat     79  91 call   forright
+call       79  91 rside
+* 1 -10 * 1   1 * 1   5 * 1  -2 *
+***************************
+*
+*   bar 5
+*
+* 1 -10 * 1   4 *
+* arms
+quadratic 105 117 bendto rlarm  relbow ruarm    0   0   0
+quadratic 105 117 bendto ruarm  rshldr shldrs 315 270  90
+quadratic 105 117 bendto rhand  rwrist rlarm    0   0   0
+* 1 -10 * 1  -2 *
+***************************
+*
+*   bar 6
+*
+* 1 -10 * 1  -4 *
+* arms
+quadratic 130 142 bendto llarm  lelbow luarm    0   0   0
+quadratic 130 142 bendto luarm  lshldr shldrs 114  90  90
+* 1 -10 * 1  -4 * 1   1 *
+* pivot
+repeat    144 156 call   forright * b = right
+repeat    144 145 centre bfoot  mx my mz
+linear    144 156 spinby fig    bfoot  pelvis 0 y
+repeat    144 156 moveto fig    bfoot  mx my mz
+* 1   1 * 1  -2 * 1 -10 * 1 -10 * 1  -2 * 1 -10 * 1 -10 * 1  -2 * 1 -10 * 1 -10 * 1  -2 * 1 -10 * 1 -10 * 1  -2 * 1 -10 * 1 -10 * 1  -2 * 1 -10 * 1  -9 * 1 -10 *
+**************************
+*
+repeat      0 293 ground man
+repeat      0   1 moveto woman  wlfoot  10000 10000 10000
+repeat      0 293 centre mpelvis fx fy fz
+repeat      0 293 add     fy -900 fz
+repeat      0 293 place   fx  500 fy
+repeat      0 293 observe -9    0  0
+*
+end dance
+****************************
+*
+subroutine setfmax
+*
+repeat 0 1 set fmax 293
+*
+end setfmax
+****************************
+*
+stop
