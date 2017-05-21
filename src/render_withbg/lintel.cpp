@@ -2691,71 +2691,71 @@ void lstart(void)
 } /* lstart */
 /***********************************************/
 
-   void lsetrange(void)
-/*
-   set range of symbols to be interpreted
-
-   called by linter,
-*/
-{
-  int bend;//useless
-  int k,kmax;//kmax is index of symbol with ymax
-  int ymax;//highest y2 of a symbol
-  int bstart;
-   ystart = 0;
-   yend = lbn[0].y;
-   ymax = yend;
-   startScoreSymbol = 0;
-   endScoreSymbol = Num_Lab_Entries;
-
-   
-   //finds the starting symbol and stores its y in ystart
-   for (k = 0; k < Num_Lab_Entries; ++k)
-   {
-      if (lbn[k].m == Bars)
-      {
-         if (lbn[k].i == bstart)
-         {
-
-            startScoreSymbol = k;
-            ystart = lbn[k].y;//break should be used to avoid redundancy
-         }
-
-      }
-   }
-  // bend = bstart ;//+ blength;
-   //useless
- //  for (k = (startScoreSymbol+1); k < Num_Lab_Entries; ++k)
- //  {
- //     if (lbn[k].m == Bars)
- //     {
- //        if (lbn[k].i == bend)
- //           endScoreSymbol = k;
- //     }
- //  }
-   //finds the last symbol and stores its y in ymax
-   for (k = 0; k < Num_Lab_Entries; ++k)
-   {
-      if (lbn[k].m == Dirn)
-      {
-         if (lbn[k].y > yend)
-            yend = lbn[k].y;
-         if ((lbn[k].y+lbn[k].h) > ymax)
-		 {
-            ymax = lbn[k].y+lbn[k].h;
-			kmax = k;
-		 }
-      }
-   }
-
-   //max_Numframe is total number of frames required for the dance
-
-   max_Numframe = 2 + int(lbn_fpp*double(ymax));
-  
-  printf("###### %d %d %d %d",ystart,yend,startScoreSymbol,endScoreSymbol);
-	printf("\n   lsetrange: pixels %d, frames %d\n",ymax,max_Numframe);
-} /* lsetrange */
-/****************************************************/
+//   void lsetrange(void)
+///*
+//   set range of symbols to be interpreted
+//
+//   called by linter,
+//*/
+//{
+//  int bend;//useless
+//  int k,kmax;//kmax is index of symbol with ymax
+//  int ymax;//highest y2 of a symbol
+//  int bstart;
+//   ystart = 0;
+//   yend = lbn[0].y;
+//   ymax = yend;
+//   startScoreSymbol = 0;
+//   endScoreSymbol = Num_Lab_Entries;
+//
+//   
+//   //finds the starting symbol and stores its y in ystart
+//   for (k = 0; k < Num_Lab_Entries; ++k)
+//   {
+//      if (lbn[k].m == Bars)
+//      {
+//         if (lbn[k].i == bstart)
+//         {
+//
+//            startScoreSymbol = k;
+//            ystart = lbn[k].y;//break should be used to avoid redundancy
+//         }
+//
+//      }
+//   }
+//  // bend = bstart ;//+ blength;
+//   //useless
+// //  for (k = (startScoreSymbol+1); k < Num_Lab_Entries; ++k)
+// //  {
+// //     if (lbn[k].m == Bars)
+// //     {
+// //        if (lbn[k].i == bend)
+// //           endScoreSymbol = k;
+// //     }
+// //  }
+//   //finds the last symbol and stores its y in ymax
+//   for (k = 0; k < Num_Lab_Entries; ++k)
+//   {
+//      if (lbn[k].m == Dirn)
+//      {
+//         if (lbn[k].y > yend)
+//            yend = lbn[k].y;
+//         if ((lbn[k].y+lbn[k].h) > ymax)
+//		 {
+//            ymax = lbn[k].y+lbn[k].h;
+//			kmax = k;
+//		 }
+//      }
+//   }
+//
+//   //max_Numframe is total number of frames required for the dance
+//
+//   max_Numframe = 2 + int(lbn_fpp*double(ymax));
+//  
+//  printf("###### %d %d %d %d",ystart,yend,startScoreSymbol,endScoreSymbol);
+//	printf("\n   lsetrange: pixels %d, frames %d\n",ymax,max_Numframe);
+//} /* lsetrange */
+///****************************************************/
 
 void lcopyfigs(char* renderFile)
 /*
@@ -2765,19 +2765,19 @@ void lcopyfigs(char* renderFile)
    calls     lgetout,
 */
 {
-	if (renderFile[0] == 'r') {
-		sprintf(figsname,"lintel.n");
-  printf("hereree \n");
-  }
-	else if (renderFile[0] == 'n') {
-		sprintf(figsname,"lintelnudes.n");
-	}
-	else
-  {
-		printf("Enter a valid option r for render n for nudes\n");
-		exit(0);
-	}
-  
+//	if (renderFile[0] == 'r') {
+//		sprintf(figsname,"lintel.n");
+//  
+//  }
+//	else if (renderFile[0] == 'n') {
+//		sprintf(figsname,"lintelnudes.n");
+//	}
+//	else
+//  {
+//		printf("Enter a valid option r for render n for nudes\n");
+//		exit(0);
+//	}
+//  
    if ((figsfile = fopen(figsname,"r")) == NULL)
    {
       if (figsfile) fclose(figsfile);
@@ -2848,138 +2848,138 @@ void lfinish(void)
 } /* lfinish */
 /********************************************/
 
-void lselectfig(void)
-/*
-   select figure
-
-   called by linter,
-*/
-{
-  int k;
-   int numberOfFigure;
-   int nogo;
-   int st;
-   int stv0,stv1,st4;
-   int stv[2];
-   char key;
-
-again:
-   for (k = 0; k < numberOfStaff; ++k)
-      staff[k][5] = DONE;
-   numberOfFigure = 0;//number of figures
-   numberOfMen = 0;//no. of male figs
-   numberOfWomen = 0;//no. of female figs
-   nogo = FALSE;
-   if (numberOfStaff < 1)
-      printf("no staves\n");
-   else
-   if (numberOfStaff == 1)
-   {
-      staff[0][5] = TODO;
-      if (staff[0][4] == MAN)
-         ++numberOfMen;
-      else
-         ++numberOfWomen;
-   }
-   else
-   if (numberOfStaff > 1)
-   {
-      numberMenWomen = 0;
-      if (numberOfStaff > TMAX)
-         printf("This can only interpret staves from 1 to %d\n",
-		    TMAX);
-      if (lbn_figures == 2)
-      {
-         stv[0] = 1; stv[1] = 2;
-         trackOnMainFig = TRUE;
-      }
-      else // (lbn_figures != 2)
-      {
-         printf("\nPlease type the number of staves to be interpreted\n");
-         if (gets(buffer) == NULL)
-         {
-            printf("OOPS: cannot open standard input\n");
-            lgetout(1);
-            nogo = TRUE;
-            if (ok == 1) goto rtrn;
-         }
-         sscanf(buffer,"%d",&lbn_figures);
-         if (lbn_figures > 2)
-         {
-            printf("sorry; this program can only interpret 2 staves at a time\n");
-            nogo = TRUE;
-            goto again;
-         }
-         if (lbn_figures == 1)
-            printf("Please enter the staff number to be interpreted\n");
-         else
-         {
-            printf("Please enter staff numbers to be interpreted\n");
-            printf("separated by a space, and followed by the 'enter' key.\n\n");
-         }
-         if (gets(buffer) == NULL)
-         {
-            printf("OOPS: cannot read staff numbers\n");
-            lgetout(1);
-            nogo = TRUE;
-            if (ok == 1) goto rtrn;
-         }
-         if (lbn_figures == 1)
-         {
-            sscanf(buffer,"%d",&stv0);
-            stv[0] = stv0; stv[1] = -1;
-         }
-         else
-         {
-            sscanf(buffer,"%d %d",&stv0,&stv1);
-            stv[0] = stv0; stv[1] = stv1;
-         }
-      } /* lbn_figures != 2 */
-      for (numberOfFigure = 0; numberOfFigure < lbn_figures; ++numberOfFigure)
-      {
-            st = stv[numberOfFigure]-1;
-            if ((st < 0)||(st > numberOfStaff))
-            {
-                printf("OOPS: staff number %d out of range\n",st+1);
-                goto again;
-            }
-            st4 = staff[st][4];
-            if ( ((numberOfMen > 0)&&(st4 == MAN))
-               ||((numberOfWomen > 0)&&(st4 == WOMAN)) )
-            {
-                printf("Sorry: can only do one man and/or one woman.");
-                printf("Please select again.\n");
-                nogo = TRUE;
-             } /* more than 1 man or woman */
-             else
-             {
-                if (st4 == WOMAN) ++numberOfWomen;
-                if (st4 == MAN) ++numberOfMen;
-                staff[st][5] = TODO;
-             } /* a man or woman */
-             numberMenWomen = numberOfMen*numberOfWomen;
-       } /* numberOfFigure */
-   } /* numberOfStaff > 1 */
-   if (nogo == TRUE)
-      goto again;
-
-rtrn:
-   if (lbn_figures != 2)
-   {
-       trackOnMainFig = TRUE;
-       printf("Track main figure? Hit 'enter' for Yes, any other key for No\n");
-       key = getchar();
-       if (key != '\n')
-          trackOnMainFig = FALSE;
-   }
-   else
-     trackOnMainFig = TRUE;//follows the figure while dance
-   if (trackOnMainFig == FALSE)
-       printf("\n   tracking OFF\n");
-   else
-       printf("\n   tracking ON\n");
-} /* lselectfig */
-/***********************************************/
+//void lselectfig(void)
+///*
+//   select figure
+//
+//   called by linter,
+//*/
+//{
+//  int k;
+//   int numberOfFigure;
+//   int nogo;
+//   int st;
+//   int stv0,stv1,st4;
+//   int stv[2];
+//   char key;
+//
+//again:
+//   for (k = 0; k < numberOfStaff; ++k)
+//      staff[k][5] = DONE;
+//   numberOfFigure = 0;//number of figures
+//   numberOfMen = 0;//no. of male figs
+//   numberOfWomen = 0;//no. of female figs
+//   nogo = FALSE;
+//   if (numberOfStaff < 1)
+//      printf("no staves\n");
+//   else
+//   if (numberOfStaff == 1)
+//   {
+//      staff[0][5] = TODO;
+//      if (staff[0][4] == MAN)
+//         ++numberOfMen;
+//      else
+//         ++numberOfWomen;
+//   }
+//   else
+//   if (numberOfStaff > 1)
+//   {
+//      numberMenWomen = 0;
+//      if (numberOfStaff > TMAX)
+//         printf("This can only interpret staves from 1 to %d\n",
+//		    TMAX);
+//      if (lbn_figures == 2)
+//      {
+//         stv[0] = 1; stv[1] = 2;
+//         trackOnMainFig = TRUE;
+//      }
+//      else // (lbn_figures != 2)
+//      {
+//         printf("\nPlease type the number of staves to be interpreted\n");
+//         if (gets(buffer) == NULL)
+//         {
+//            printf("OOPS: cannot open standard input\n");
+//            lgetout(1);
+//            nogo = TRUE;
+//            if (ok == 1) goto rtrn;
+//         }
+//         sscanf(buffer,"%d",&lbn_figures);
+//         if (lbn_figures > 2)
+//         {
+//            printf("sorry; this program can only interpret 2 staves at a time\n");
+//            nogo = TRUE;
+//            goto again;
+//         }
+//         if (lbn_figures == 1)
+//            printf("Please enter the staff number to be interpreted\n");
+//         else
+//         {
+//            printf("Please enter staff numbers to be interpreted\n");
+//            printf("separated by a space, and followed by the 'enter' key.\n\n");
+//         }
+//         if (gets(buffer) == NULL)
+//         {
+//            printf("OOPS: cannot read staff numbers\n");
+//            lgetout(1);
+//            nogo = TRUE;
+//            if (ok == 1) goto rtrn;
+//         }
+//         if (lbn_figures == 1)
+//         {
+//            sscanf(buffer,"%d",&stv0);
+//            stv[0] = stv0; stv[1] = -1;
+//         }
+//         else
+//         {
+//            sscanf(buffer,"%d %d",&stv0,&stv1);
+//            stv[0] = stv0; stv[1] = stv1;
+//         }
+//      } /* lbn_figures != 2 */
+//      for (numberOfFigure = 0; numberOfFigure < lbn_figures; ++numberOfFigure)
+//      {
+//            st = stv[numberOfFigure]-1;
+//            if ((st < 0)||(st > numberOfStaff))
+//            {
+//                printf("OOPS: staff number %d out of range\n",st+1);
+//                goto again;
+//            }
+//            st4 = staff[st][4];
+//            if ( ((numberOfMen > 0)&&(st4 == MAN))
+//               ||((numberOfWomen > 0)&&(st4 == WOMAN)) )
+//            {
+//                printf("Sorry: can only do one man and/or one woman.");
+//                printf("Please select again.\n");
+//                nogo = TRUE;
+//             } /* more than 1 man or woman */
+//             else
+//             {
+//                if (st4 == WOMAN) ++numberOfWomen;
+//                if (st4 == MAN) ++numberOfMen;
+//                staff[st][5] = TODO;
+//             } /* a man or woman */
+//             numberMenWomen = numberOfMen*numberOfWomen;
+//       } /* numberOfFigure */
+//   } /* numberOfStaff > 1 */
+//   if (nogo == TRUE)
+//      goto again;
+//
+//rtrn:
+//   if (lbn_figures != 2)
+//   {
+//       trackOnMainFig = TRUE;
+//       printf("Track main figure? Hit 'enter' for Yes, any other key for No\n");
+//       key = getchar();
+//       if (key != '\n')
+//          trackOnMainFig = FALSE;
+//   }
+//   else
+//     trackOnMainFig = TRUE;//follows the figure while dance
+//   if (trackOnMainFig == FALSE)
+//       printf("\n   tracking OFF\n");
+//   else
+//       printf("\n   tracking ON\n");
+//} /* lselectfig */
+///***********************************************/
 
 void ldobar(void)
 /*
