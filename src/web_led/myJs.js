@@ -36,31 +36,45 @@ function generateStaff(width, height, blockSize) {
 }
 
 
-
-function handleObjectMoving(options) {
-    var object = options.target;
-    points = new fabric.Point(object.getLeft(), object.getTop());
-    points = laban.util.normalizeCoords(points, object.movx, object.movy);	
-    object.set({
-    	left: points.x,
-    	top: points.y
+function addObjectEvent(canvas) {
+    return (function (options) {
+	target = options.target;
+	checkForParent(canvas, target);
     });
-
-    if(object.parentRegion) {
-    	return;
-    }
-    
+}
+function checkForParent(canvas, object) {
     var currentObjLevel = object.level || ENUM.INFI;
     currentObjLevel = object.level === 0 ? 0 : currentObjLevel;
     object.level = currentObjLevel;
-    var objects = this.getObjects();
+    var objects = canvas.getObjects();
+    // console.log(objects);
     objects = objects.filter(function (o) {
-    	return o.level < currentObjLevel && o.isInsideParent
+    	return o.level < currentObjLevel && o.isInsideParent;
     });
-    
+    // console.log("objs ", objects);
     objects.forEach(function (p) {
+	// console.log("Adding Object here ", p.isInsideParent(object));
     	p.isInsideParent(object) && p.addObject(object);
     });
+}
+
+
+function handleObjectMoving(canvas) {
+    return (function(options) {
+	var object = options.target;
+	points = new fabric.Point(object.getLeft(), object.getTop());
+	points = laban.util.normalizeCoords(points, object.movx, object.movy);	
+	object.set({
+    	    left: points.x,
+    	    top: points.y
+	});
+	if(object.parentRegion) {
+    	    return;
+	}
+	object.setCoords();
+	
+	checkForParent(canvas, object);
+    })
 }
 
 var selectedElement = null;
@@ -87,8 +101,9 @@ window.onload = function() {
     
     
     // Initialize Events for canvas
-    canvas.on('object:moving', handleObjectMoving);
-    canvas.on('object:selected', getOptionsAdder(canvas));    
+    canvas.on('object:moving', handleObjectMoving(canvas));
+    canvas.on('object:selected', getOptionsAdder(canvas));
+    canvas.on('object:added', addObjectEvent(canvas));
     canvas.on('selection:cleared', function(e) {
 	var target = canvas;
 	clearOptionsBar();
@@ -97,20 +112,23 @@ window.onload = function() {
     });
 
     canvas.on('mouse:down', function (opt) {
-
 	if (!selectedElement) return;
 	toolbar.deactivateAll().renderAll();
 	var height = selectedElement.getHeight() / 2;
 	height = opt.e.clientY - height - 100;
 	var width = selectedElement.getWidth() / 2;
 	width = opt.e.clientX - width;
-	selectedElement && canvas.add(selectedElement) && selectedElement.set ({
-	    lockMovementX: false,
-	    lockMovementY: false,
-	    lockScalingX: true,
+	op = {
+	    target: selectedElement
+	}
+	selectedElement.set ({
 	    left: width,
 	    top: height 
-	}) && selectedElement.setCoords();
+	});
+	selectedElement.setCoords();
+	canvas.add(selectedElement);
+	
+	// console.log("left ", selectedElement.getLeft());
 	canvas.setActiveObject(selectedElement);
 	selectedElement = null;
     });
@@ -121,13 +139,15 @@ window.onload = function() {
 	    selectedElement = clone;
 	    clone.set (
 		{
-		    "top": 100,
+		    lockMovementX: false,
+		    lockMovementY: false,
+		    lockScalingX: true,
     		    movx: 10,
     		    movy: 10,
 		    scaleX: 0.4,
 		    scaleY: 0.4,
-		    "left": 100,
-		    hasControls: true
+		    hasControls: true,
+		    level: 1
 		}
 	    );
 	});
@@ -166,19 +186,18 @@ function manageOptions(options, canvas) {
     }
 }
 
-function getOptionsAdder(canvas) {
+// function getOptionsAdder(canvas) {
+//     return (function (opt) {
+// 	console.log(opt.target);
+// 	var target = opt.target;
+//     });
+// }
 
+
+function getOptionsAdder(canvas) {
     return (function (opt) {
 	var target = opt.target;
-	
-    });
-}
-
-
-function getOptionsAdder(canvas) {
-
-    return (function (opt) {
-	var target = opt.target;
+	// console.log(target);
 	clearOptionsBar();
 	if (!target.displayable)
 	    return;
@@ -776,7 +795,6 @@ function toolbarDraw(tcanvas) {
         tcanvas.add(loadedObjects[22]);
         tcanvas.renderAll();
     });
-    tcanvas.on('object:moving', handleObjectMoving);
 
     fabric.Image.fromURL("laban_notations/body/right_shoulder.svg",function(oImg)
     {

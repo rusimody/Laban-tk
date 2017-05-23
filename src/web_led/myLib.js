@@ -10,7 +10,7 @@ Region = fabric.util.createClass(fabric.Group,  {
 
 
     isInsideParent: function(object) {
-	return (object.left >= this.left) && object.top >= this.top && (object.left + object.width) <= (this.left + this.width) && (object.top + object.height) <= (this.top + this.height);
+	return (object.getLeft() >= this.getLeft()) && object.getTop() >= this.getTop() && (object.getLeft() + object.getWidth()) <= (this.getLeft() + this.getWidth()) && (object.getTop() + object.getHeight()) <= (this.getTop() + this.getHeight());
     },
     
     _getRegionBounds: function() {
@@ -82,8 +82,9 @@ Region = fabric.util.createClass(fabric.Group,  {
     
 
     addObject: function(obj) {
-	if (obj.level <= this.level)
+	if (obj.level <= this.level) {
 	    return;
+	}
 	obj.on('moving', this._onChildMove(obj));
 	obj.parentRegion = this;
 	this.objects.push(obj)
@@ -125,7 +126,7 @@ Staff = fabric.util.createClass(Region, {
     leftLines: 0,
     blockSizeY: 50,
     rightLines: 0,
-    timbars: [],
+    timebars: [],
     getStaffLine: function (height, leftMargin, dashed, color) {
 	var strokeDashArray = dashed ? [5,5] : [];
 	var color = color || '#000'
@@ -149,7 +150,7 @@ Staff = fabric.util.createClass(Region, {
 								   strokeWidth: strokeWidth,
 								   selectable: false,
 								   strokeDashArray: strokeDashArray});
-	    this.timbars.push(bar);
+	    this.timebars.push(bar);
 	    this.addWithUpdate(bar);
 	    this.setCoords();
 	    
@@ -174,7 +175,7 @@ Staff = fabric.util.createClass(Region, {
 	var negativeRatio =  staff.strokeWidth;
 	negativeRatio = staff.getWidth() <= this.strokeWidth ? negativeRatio : staff.strokeWidth * 2;
 	var mLeft = staff.getLeft() + staff.getWidth() - negativeRatio;
-	this.getTimeBars(this.getHeight(), staff.getLeft(), mLeft, false, '#343434');
+	this.getTimeBars(this.getHeight(), staff.getLeft(), mLeft, false, '#000');
     },
 
     addMainLine: function() {
@@ -189,10 +190,11 @@ Staff = fabric.util.createClass(Region, {
     updateTimeBars: function() {
 	self = this;
 	var left = self.getLeft();
-	self.timbars.forEach(function (bar) {
+	self.timebars.forEach(function (bar) {
+	    console.log(bar.currentLeft);
 	    bar.set ({
 	    	left: bar.currentLeft - self.blockSize,
-		width: self.getWidth() - self.strokeWidth
+		width: self.getWidth() - (self.strokeWidth * 2)
 	    });
 	    bar.setCoords();
 	    bar.currentLeft = bar.getLeft();
@@ -200,6 +202,7 @@ Staff = fabric.util.createClass(Region, {
     },
 
     addComponentRight: function() {
+	// console.log("Staves ", self.timebars);
 	staff = this;
 	var negativeRatio =  staff.strokeWidth;
 	negativeRatio = staff.getWidth() <= this.strokeWidth ? negativeRatio : staff.strokeWidth * 2
@@ -213,14 +216,15 @@ Staff = fabric.util.createClass(Region, {
     addComponentLeft: function() {
 	staff = this;
 	var mLeft = staff.getLeft() - (staff.blockSize * 2) ;
+
 	staff.addWithUpdate(staff.getStaffLine(staff.getHeight(), mLeft, this.leftLines % 2 == 1));
-	staff.setCoords();
-	this.leftLines += 1;
 	if (staff.getLeft() <= 0) {
 	    staff.set({
 		"left": 0
 	    });
 	}
+	staff.setCoords();
+	this.leftLines += 1;
 	this.updateTimeBars();
     },
     removeComponent: function() {
@@ -281,6 +285,7 @@ laban.Canvas = fabric.util.createClass(fabric.Canvas, {
     	    originY: 'top',
 	    movx: 0,
     	    movy: 0,
+	    timebars: [],
 	    lockMovementX: true,
 	    lockMovementY: true,
     	    centeredRotation: true,
@@ -296,10 +301,37 @@ laban.Canvas = fabric.util.createClass(fabric.Canvas, {
     removeObj: function(obj) {
 	this.remove(obj);
 	var index = this.staves.indexOf(obj);
+ 	var children = obj.objects;
+	self = this;
+	children.forEach(function (ob) {
+	    self.remove(ob);
+	});
 	this.staves.splice(index, 1);
+	prevLeft = obj.getLeft();
+	for(var i = index; i < this.staves.length; ++i) {
+	    tPrevLeft = this.staves[i].getLeft();
+	    this.staves[i].set({
+		left: prevLeft
+	    });
+	    prevLeft = tPrevLeft;
+	    this.staves[i].setCoords();
+	}
     },
     showDump: function() {
 	console.log(this._objects)
+    },
+    zoomIn: function() {
+	zoomCounter = this.zoomCounter || 1
+	zoomCounter ++;
+	this.zoomCounter = zoomCounter;
+	this.setZoom(zoomCounter);
+    },
+    zoomOut: function() {
+	zoomCounter = this.zoomCounter || 0
+	zoomCounter --;
+	zoomCounter = zoomCounter <= 0 ? 1 : zoomCounter;
+	this.zoomCounter = zoomCounter;
+	this.setZoom(zoomCounter);
     },
     displayable: function() {
 	self = this;
@@ -307,6 +339,22 @@ laban.Canvas = fabric.util.createClass(fabric.Canvas, {
 	    addCompRight: {
 		func: self.addstaff.bind(this), 
 		title: "Add Staff",
+		args: [],
+		input: {
+		    type: 'button'
+		}
+	    },
+	    zoomOut: {
+		func: self.zoomOut.bind(this),
+		title: "Zoom Out",
+		args: [],
+		input: {
+		    type: 'button'
+		}
+	    },
+	    zoomIn: {
+		func: self.zoomIn.bind(this),
+		title: "ZoomIn",
 		args: [],
 		input: {
 		    type: 'button'

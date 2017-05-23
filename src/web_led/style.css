@@ -1,5 +1,5 @@
 canvas {
-    border: 1px solid #ccc;
+    border: 3px solid #000;
 }
 
 .container {
@@ -12,6 +12,7 @@ canvas {
 .fixed {
     position: fixed;
     top: 0;
+    z-index: 2;
 }
 
 .options-bar {
@@ -21,7 +22,6 @@ canvas {
 }
 
 .app {
-
     margin-top: 100px;
 }
 
