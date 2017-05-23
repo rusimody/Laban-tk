@@ -23,7 +23,15 @@ class GlobalVar():
         
         self.STEP = 12
 
+        self.FRONT = 100 
+        self.BACK = 200
+        self.MLHAND = 1
+        self.MRHAND = 2 
+        self.WLHAND = 10
+        self.WRHAND = 20
+
         self.STRETCH = 4 #intem number of stretched symbol
+
         self.NO = 0
         self.CL = 1
         self.PR = 2
@@ -212,6 +220,12 @@ class GlobalVar():
         self.figsname = ""
         self.figsfile = None
 
+        ####
+        self.symbolStartAtYpos = [0 for j in range(5*self.FMAX)]   #symbols starting at given y positions
+        self.ymax = 0 #top of score
+        self.curSymbolBend = 0 #bendess of current symbol
+
+
         self.currentHeight = 0
         self.currentY2 = 0
         self.currentX2 = 0
@@ -234,6 +248,7 @@ class GlobalVar():
         
         self.oriented = 0
         self.colm = [] 
+
 GV = GlobalVar()
 
 #command line arguments are taken through tempFilename file
@@ -250,4 +265,4 @@ led_param(GV)
 get_files(GV,argFilename)#some part remains in c file complete it when initialize main in python
 linter(GV,arg1,arg2)
 
-
+print ("file name : " , GV.nudesname)

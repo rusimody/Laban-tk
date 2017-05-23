@@ -10,6 +10,7 @@ def lcopyfig(GV,renderFile):
         print("Enter the valid option, r for render, n for nudes")
         sys.exit(0)
     try:
+        print ("figsname" , GV.figsname)
         GV.figsfile = open(GV.figsname,"r")
     except (OSError,IOError) as err:
         print("oops %s not in folder: %s"%(GV.figsname,err))

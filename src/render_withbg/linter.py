@@ -3,11 +3,13 @@ from lfindstaff import lfindstaff
 from lsetrange import lsetrange
 from lselectfig import lselectfig
 from lcopyfig import lcopyfig
+from lbows import lbows
 from lfindystart import lfindystart
 from lbent import lbent
 from lcolx import lcolx
 #from laction import laction
 #from lfinish import lfinish
+
 
 def linter(GV,renderFile,gender):
     lbn_read(GV)
@@ -16,7 +18,7 @@ def linter(GV,renderFile,gender):
     lselectfig(GV)
     lcopyfig(GV,renderFile)
     lfindystart(GV)
-    #lbows(GV)
+    lbows(GV)
     lbent(GV)
     for GV.currentStaffNumber in range(GV.numberOfStaff): 
         GV.hold = GV.NO

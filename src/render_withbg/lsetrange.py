@@ -20,6 +20,5 @@ def lsetrange(GV):
                 yMax = GV.listLbnObject[i].Ypos + GV.listLbnObject[i].Height
                 kMax = i
     GV.max_Numframe = 2 + (int ( 2 + GV.lbn_fpp*yMax))
-    print("#####")
     print(GV.ystart,GV.yend,GV.startScoreSymbol,GV.endScoreSymbol)
     print("\n lsetrange: pixels %d, frames %d\n"%(yMax,GV.max_Numframe))

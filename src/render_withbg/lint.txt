@@ -1,7 +1,4 @@
 *
-* created l2.lbn_1.n from l2.lbn using lintel084
-*
-*
 * lintel.n
 repeat 0 1 allow world world
 *
@@ -2102,31 +2099,3 @@ end rightkneebend
 *********************************************************
 subroutine dance
 *
-*
-call        0   1 doman
-call        0   1 forleft
-*
-************************************
-*
-repeat      0   0 call   doman
-*
-**************************
-*
-repeat      0   2 ground man
-repeat      0   1 moveto woman  wlfoot  10000 10000 10000
-repeat      0   2 centre mpelvis fx fy fz
-repeat      0   2 add     fy -900 fz
-repeat      0   2 place   fx  500 fy
-repeat      0   2 observe -9    0  0
-*
-end dance
-****************************
-*
-subroutine setfmax
-*
-repeat 0 1 set fmax 2
-*
-end setfmax
-****************************
-*
-stop
