@@ -22,7 +22,7 @@ function setupCanvas(mContainerId, properties) {
     mainContainer.appendChild(container);
     fabricCanvas = new laban.Canvas(properties['canvasid'], { selection: false });
     fabricCanvas.setWidth( container.offsetWidth  );
-    fabricCanvas.setHeight( container.offsetHeight  );
+    fabricCanvas.setHeight( container.offsetHeight );
     fabricCanvas.renderAll();
     return fabricCanvas;
 }
@@ -63,6 +63,7 @@ function handleObjectMoving(options) {
     });
 }
 
+var selectedElement = null;
 window.onload = function() {
     /* --------------------------------DOM SETUP STARTS---------------------------- */    // setup
     var properties = {
@@ -82,7 +83,8 @@ window.onload = function() {
     
     // Temp
     drawCanvasObjects(canvas);
-    toolbarDraw();
+    toolbarDraw(toolbar);
+    
     
     // Initialize Events for canvas
     canvas.on('object:moving', handleObjectMoving);
@@ -93,8 +95,43 @@ window.onload = function() {
 	var displayables = target.displayable()
 	manageOptions(displayables, target);
     });
-    toolbar.on('object:selected', getOptionsAdder(toolbar));    
 
+    canvas.on('mouse:down', function (opt) {
+
+	if (!selectedElement) return;
+	toolbar.deactivateAll().renderAll();
+	var height = selectedElement.getHeight() / 2;
+	height = opt.e.clientY - height - 100;
+	var width = selectedElement.getWidth() / 2;
+	width = opt.e.clientX - width;
+	selectedElement && canvas.add(selectedElement) && selectedElement.set ({
+	    lockMovementX: false,
+	    lockMovementY: false,
+	    lockScalingX: true,
+	    left: width,
+	    top: height 
+	}) && selectedElement.setCoords();
+	canvas.setActiveObject(selectedElement);
+	selectedElement = null;
+    });
+    // toolbar.on('object:selected', getOptionsAdder(toolbar));    
+    toolbar.on('object:selected', function(opt) {
+	// selectedElement = 
+	opt.target.clone(function (clone) {
+	    selectedElement = clone;
+	    clone.set (
+		{
+		    "top": 100,
+    		    movx: 10,
+    		    movy: 10,
+		    scaleX: 0.4,
+		    scaleY: 0.4,
+		    "left": 100,
+		    hasControls: true
+		}
+	    );
+	});
+    });
 
     // Explicit fire event 'selection:cleared'
     // to generate options for canvas at load time
@@ -128,11 +165,20 @@ function manageOptions(options, canvas) {
 	optionsbar.appendChild(input);
     }
 }
+
 function getOptionsAdder(canvas) {
 
     return (function (opt) {
 	var target = opt.target;
-	console.log("Selected Object ", target.name);
+	
+    });
+}
+
+
+function getOptionsAdder(canvas) {
+
+    return (function (opt) {
+	var target = opt.target;
 	clearOptionsBar();
 	if (!target.displayable)
 	    return;
@@ -155,29 +201,30 @@ function getOptionsAdder(canvas) {
 }
 
 function drawCanvasObjects(canvas) {
-    var mObj2 = new fabric.Rect({
-    	left: 100,
-    	top: 50,
-    	width: 50,
-    	height: 50,
-    	fill: 'transparent',
-    	stroke: 'red',
-    	strokeWidth: 3,
-    	originX: 'left',
-    	originY: 'top',
-    	centeredRotation: true,
-    	level: 1,
-    	children: [],
-    	movx: 50,
-    	movy: 50,
-    	name: "redOne"
-    });
-    canvas.add(mObj2);
+    // var mObj2 = new fabric.Rect({
+    // 	left: 100,
+    // 	top: 50,
+    // 	width: 50,
+    // 	height: 50,
+    // 	fill: 'transparent',
+    // 	stroke: 'red',
+    // 	strokeWidth: 3,
+    // 	originX: 'left',
+    // 	originY: 'top',
+    // 	centeredRotation: true,
+    // 	level: 1,
+    // 	children: [],
+    // 	movx: 50,
+    // 	movy: 50,
+    // 	name: "redOne"
+    // });
+    // canvas.add(mObj2);
 }
 
-function toolbarDraw() {
-    var tcanvas = new fabric.Canvas('toolbar', { selection: false });
+function toolbarDraw(tcanvas) {
+    // var tcanvas = new fabric.Canvas('toolbar', { selection: false });
     var loadedObjects = [];
+    
 
     fabric.Image.fromURL("laban_notations/direction/left_forword_diagonal.svg",function(oImg) {
         loadedObjects[0] = oImg;
@@ -195,7 +242,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[0]);
@@ -219,7 +266,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[1]);
@@ -243,7 +290,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[2]);
@@ -267,7 +314,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[3]);
@@ -291,7 +338,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[4]);
@@ -315,7 +362,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[5]);
@@ -339,7 +386,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[6]);
@@ -363,7 +410,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[7]);
@@ -387,7 +434,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[8]);
@@ -411,7 +458,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[9]);
@@ -435,7 +482,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[10]);
@@ -459,7 +506,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[11]);
@@ -483,7 +530,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[12]);
@@ -507,7 +554,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[13]);
@@ -531,7 +578,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[14]);
@@ -555,7 +602,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[15]);
@@ -579,7 +626,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[16]);
@@ -603,7 +650,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[17]);
@@ -627,7 +674,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[18]);
@@ -651,7 +698,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[19]);
@@ -675,7 +722,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[20]);
@@ -699,7 +746,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[21]);
@@ -723,7 +770,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[22]);
@@ -748,7 +795,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[11]);
@@ -772,7 +819,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[12]);
@@ -796,7 +843,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[13]);
@@ -820,7 +867,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[14]);
@@ -844,7 +891,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[15]);
@@ -868,7 +915,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[16]);
@@ -892,7 +939,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[17]);
@@ -916,7 +963,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[18]);
@@ -940,7 +987,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[19]);
@@ -964,7 +1011,7 @@ function toolbarDraw() {
             lockScalingX: true,
             lockScalingY: true,
             hasBorders: true,
-            hasControls: true,
+            hasControls: false,
             hasRotatingPoint: false
         });
         tcanvas.add(loadedObjects[20]);
