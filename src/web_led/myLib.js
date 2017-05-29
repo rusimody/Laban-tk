@@ -8,9 +8,18 @@ Region = fabric.util.createClass(fabric.Group,  {
 	object.__objectPosition = new fabric.Point(object.getLeft() - object.parentRegion.getLeft(), object.getTop() - object.parentRegion.getTop());
     },
 
+    isContainedWithinObject: function(other) {
+	var boundingRect = other.getBoundingRect(),
+	    point1 = new fabric.Point(boundingRect.left, boundingRect.top),
+	    point2 = new fabric.Point(boundingRect.left + boundingRect.width, boundingRect.top + boundingRect.height);
+
+	return this.isContainedWithinRect(point1, point2);
+    },
 
     isInsideParent: function(object) {
-	return (object.getLeft() >= this.getLeft()) && object.getTop() >= this.getTop() && (object.getLeft() + object.getWidth()) <= (this.getLeft() + this.getWidth()) && (object.getTop() + object.getHeight()) <= (this.getTop() + this.getHeight());
+	var rect = this.getBoundingRect();
+	var res = (object.getLeft() >= rect.left) && object.getTop() >= rect.top && (object.getLeft()+object.getWidth() <= (rect.left+rect.width)) && (object.getTop() + object.getHeight() <= (rect.top + rect.height));
+	return res;
     },
     
     _getRegionBounds: function() {
@@ -36,20 +45,6 @@ Region = fabric.util.createClass(fabric.Group,  {
 	this.callSuper ("initialize", objects, options)
 	this.objects = []
 	this.on('moving', this.updateChildPositions);
-	// this.on('moving', function(evt) {
-	//     points		= new fabric.Point(this.getLeft(), this.getTop());
-	//     var childObjs	= this.objects;
-	//     laban.util.normalizeCoords(points, this.movx, this.movy);
-	//     childObjs && childObjs.map(function (o) {
-    	// 	leftCMove	= points.x + o.__objectPosition.x;
-    	// 	rightCMove	= points.y + o.__objectPosition.y
-    	// 	o.set({
-    	// 	    left	: leftCMove,
-    	// 	    top		: rightCMove
-    	// 	});
-	// 	o.setCoords();
-	//     });
-	// });
     },
 
 
@@ -127,6 +122,9 @@ Staff = fabric.util.createClass(Region, {
     blockSizeY: 50,
     rightLines: 0,
     timebars: [],
+    lineHeight: 0,
+    lines: [],
+    updateSibs: null,
     getStaffLine: function (height, leftMargin, dashed, color) {
 	var strokeDashArray = dashed ? [5,5] : [];
 	var color = color || '#000'
@@ -159,15 +157,16 @@ Staff = fabric.util.createClass(Region, {
     },
 
     initialize: function (objects, options) {
-	objects = objects || []
-	options = options || { }	
+	objects = objects || [];
+	options = options || { };
 	this.callSuper ("initialize", objects,  options)
 	this.movx = this.movx == undefined || this.movx == null ? this.blockSize : this.movx;
 	this.movy = this.movy == undefined || this.movy == null ? this.blockSize : this.movy;
+	this.lineHeight = this.height;
 	this.generateStaff();
     },
     
-    generateStaff: function(rightLines) {
+    generateStaff: function() {
 	this.addMainLine();
 	this.addComponentRight();
 	this.addComponentLeft();
@@ -178,12 +177,15 @@ Staff = fabric.util.createClass(Region, {
 	this.getTimeBars(this.getHeight(), staff.getLeft(), mLeft, false, '#000');
     },
 
-    addMainLine: function() {
+    addMainLine: function(height) {
+	height = this.lineHeight;
 	staff = this;
 	var negativeRatio =  staff.strokeWidth;
 	negativeRatio = staff.getWidth() <= this.strokeWidth ? negativeRatio : staff.strokeWidth * 2;
 	var mLeft = staff.getLeft() + staff.getWidth() + (staff.blockSize * 2) - negativeRatio;
-	staff.addWithUpdate(staff.getStaffLine(staff.getHeight(), mLeft, false, '#f00'));
+	var line = staff.getStaffLine(height, mLeft, false, '#f00');
+	this.lines.push(line);
+	staff.addWithUpdate(line);
 	staff.setCoords();
     },
 
@@ -191,7 +193,6 @@ Staff = fabric.util.createClass(Region, {
 	self = this;
 	var left = self.getLeft();
 	self.timebars.forEach(function (bar) {
-	    console.log(bar.currentLeft);
 	    bar.set ({
 	    	left: bar.currentLeft - self.blockSize,
 		width: self.getWidth() - (self.strokeWidth * 2)
@@ -201,32 +202,74 @@ Staff = fabric.util.createClass(Region, {
 	});
     },
 
-    addComponentRight: function() {
-	// console.log("Staves ", self.timebars);
+    checkCanvasSize: function() {
+	var staff = this;
+	if (staff.getLeft() <= 0) {
+	    staff.set({
+		left: 0
+	    });
+	}
+	staff.setCoords();
+	if (staff.canvas && staff.getLeft() + staff.getWidth() > staff.canvas.getWidth())
+	    staff.canvas.setWidth(staff.getLeft()+staff.getWidth());
+	staff.canvas && staff.canvas.checkSiblings && staff.canvas.checkSiblings(staff);
+    },
+
+    addComponentRight: function(height) {
+	height = this.lineHeight;
 	staff = this;
 	var negativeRatio =  staff.strokeWidth;
 	negativeRatio = staff.getWidth() <= this.strokeWidth ? negativeRatio : staff.strokeWidth * 2
 	var mLeft = staff.getLeft() + staff.getWidth() + (staff.blockSize * 2) - negativeRatio;
-	staff.addWithUpdate(staff.getStaffLine(staff.getHeight(), mLeft, this.rightLines % 2 == 1));
+	var line = staff.getStaffLine(height, mLeft, this.rightLines % 2 == 1);
+	this.lines.push(line);
+	staff.addWithUpdate(line);
 	staff.setCoords();
 	this.rightLines += 1;
 	this.updateTimeBars();
+	this.checkCanvasSize();
     },
 
-    addComponentLeft: function() {
+    addComponentLeft: function(height) {
+	height = this.lineHeight;
 	staff = this;
 	var mLeft = staff.getLeft() - (staff.blockSize * 2) ;
-
-	staff.addWithUpdate(staff.getStaffLine(staff.getHeight(), mLeft, this.leftLines % 2 == 1));
-	if (staff.getLeft() <= 0) {
-	    staff.set({
-		"left": 0
-	    });
-	}
-	staff.setCoords();
+	var line = staff.getStaffLine(height, mLeft, this.leftLines % 2 == 1);
+	this.lines.push(line);
+	staff.addWithUpdate(line);
 	this.leftLines += 1;
 	this.updateTimeBars();
+	this.checkCanvasSize();
     },
+
+    updateLineHeight: function(lineHeight) {
+	var plh = this.lineHeight;
+	this.lineHeight = lineHeight;
+	var scaleFactor = lineHeight / this.getHeight();
+	this.set({
+	    height: lineHeight
+	});
+	this.lines.forEach(function(line) {
+	    line.set({
+		"y2": 1000
+	    });
+	    line.setCoords();
+	    // console.log(line.getTop());
+	    // currentHeight = line.getHeight();
+	    // var mtop = (plh - lineHeight)/2+ line.getTop();
+	    // line.setHeight(lineHeight);
+	    // line.setTop(mtop);
+	    // line.setCoords();
+	    // console.log(line);
+	});
+
+	this.objects.forEach(function(object) {
+	    // object.setTop((plh-lineHeight)/2 + object.getTop())
+	    object.setCoords();
+	});
+	this.setCoords();
+    },
+    
     removeComponent: function() {
 	this.canvas.removeObj(this);
     },
@@ -265,6 +308,7 @@ Staff = fabric.util.createClass(Region, {
 laban.Canvas = fabric.util.createClass(fabric.Canvas, {
     margin: 100,
     strokeWidth: 3,
+    heightIncreaseFactor: 200,
     addstaff: function() {
 	this.staves = this.staves || []
 	var nleft = 50;
@@ -274,7 +318,7 @@ laban.Canvas = fabric.util.createClass(fabric.Canvas, {
 
 	nleft += 200 + this.staves.length * this.margin * 2;
 	nleft -= (this.staves.length) * this.strokeWidth * 2;
-	var ntop = 0;
+	var ntop = this.getHeight()-this.getHeight();
 	var myStaff = new Staff([], {
     	    left: nleft,
     	    top: ntop,
@@ -282,12 +326,12 @@ laban.Canvas = fabric.util.createClass(fabric.Canvas, {
 	    height: this.getHeight(),
     	    fill: 'transparent',
     	    originX: 'left',
-    	    originY: 'top',
-	    movx: 0,
-    	    movy: 0,
+    	    originY: 'bottom',
+	    movx: 50,
+    	    movy: 50,
 	    timebars: [],
 	    lockMovementX: true,
-	    lockMovementY: true,
+	    lockMovementY: false,
     	    centeredRotation: true,
     	    name: "staff" + this.staves.length,
     	    level: 0,
@@ -327,11 +371,26 @@ laban.Canvas = fabric.util.createClass(fabric.Canvas, {
 	this.setZoom(zoomCounter);
     },
     zoomOut: function() {
-	zoomCounter = this.zoomCounter || 0
-	zoomCounter --;
-	zoomCounter = zoomCounter <= 0 ? 1 : zoomCounter;
-	this.zoomCounter = zoomCounter;
-	this.setZoom(zoomCounter);
+	var height = this.getHeight();
+	var newHeight = height + this.heightIncreaseFactor;
+	this.setHeight( newHeight);
+	this.staves.forEach(function(staff) {
+	    staff.setTop(newHeight);
+	    staff.updateLineHeight(newHeight);
+	});
+    },
+    checkSiblings: function(staff) {
+	var currentIndex = 0;
+	for (var i = currentIndex + 1; i < this.staves.length; ++i) {
+	    if(this.staves[i].getLeft() - (this.staves[i-1].getLeft() + this.staves[i-1].getWidth()) <= this.margin) {
+		this.staves[i].setLeft(this.staves[i].getLeft() + this.margin);
+		this.staves[i].setCoords();
+	    }
+	    
+	}
+	var lastStaff = this.staves[this.staves.length-1];
+	var maxWidth = lastStaff.getLeft() + lastStaff.getWidth();
+	(maxWidth > this.getWidth() && (this.setWidth(maxWidth)));
     },
     displayable: function() {
 	self = this;
@@ -344,22 +403,22 @@ laban.Canvas = fabric.util.createClass(fabric.Canvas, {
 		    type: 'button'
 		}
 	    },
-	    zoomOut: {
-		func: self.zoomOut.bind(this),
-		title: "Zoom Out",
-		args: [],
-		input: {
-		    type: 'button'
-		}
-	    },
-	    zoomIn: {
-		func: self.zoomIn.bind(this),
-		title: "ZoomIn",
-		args: [],
-		input: {
-		    type: 'button'
-		}
-	    },
+	    // zoomOut: {
+	    // 	func: self.zoomOut.bind(this),
+	    // 	title: "Zoom Out",
+	    // 	args: [],
+	    // 	input: {
+	    // 	    type: 'button'
+	    // 	}
+	    // },
+	    // zoomIn: {
+	    // 	func: self.zoomIn.bind(this),
+	    // 	title: "ZoomIn",
+	    // 	args: [],
+	    // 	input: {
+	    // 	    type: 'button'
+	    // 	}
+	    // },
 	    showObjectsDump: {
 		func: self.showDump.bind(this),
 		title: "Show Dump",
