@@ -4,12 +4,59 @@ var defaultMoveY = 50;
 var mainContainerId = 'main-container'
 var optionsContainer = 'option-bar';
 var optionsbar = optionsbar || undefined;
+// console.log("Require ", require);
 var ENUM = {
     STAFF: 0,
     DIRN:  1,
     INFI:  100000
 }
 
+
+var Notations = {
+    body: {
+	pathbase: "laban_notations/body/",
+	files: [
+	    "chest.svg",
+	    "down__middle_arm_gesture.svg",
+	    "left_ankle.svg",
+	    "left_elbow.svg",
+	    "left_fingers.svg",
+	    "left_finger.svg",
+	    "left_foot.svg",
+	    "left_high_arm_gesture.svg",
+	    "left_hip.svg",
+	    "left_knee.svg",
+	    "left_low_leg_gesture.svg",
+	    "left_middle_arm_gesture.svg",
+	    "left_shoulder.svg",
+	    "left_toe.svg",
+	    "left_whole_foot.svg",
+	    "left_wrist.svg",
+	    "palm.svg",
+	    "palm_upper_side.svg",
+	    "up__middle_arm_gesture.svg"
+	]
+    },
+    finger: {
+	pathbase: "laban_notations/body/",
+	files: [
+	    "right_ankle.svg",
+	    "right_elbow.svg",
+	    "right_fingers.svg",
+	    "right_finger.svg",
+	    "right_foot.svg",
+	    "right_high_arm_gesture.svg",
+	    "right_hip.svg",
+	    "right_knee.svg",
+	    "right_low_leg_gesture.svg",
+	    "right_middle_arm_gesture.svg",
+	    "right_shoulder.svg",
+	    "right_toe.svg",
+	    "right_whole_foot.svg",
+	    "right_wrist.svg"
+	]
+    }
+}
 
 // static code
 function setupCanvas(mContainerId, properties) {
@@ -51,9 +98,8 @@ function checkForParent(canvas, object) {
     objects = objects.filter(function (o) {
     	return o.level < currentObjLevel && o.isInsideParent;
     });
-    // console.log("objs ", objects);
+    console.log("objs ", objects);
     objects.forEach(function (p) {
-	// console.log("Adding Object here ", p.isInsideParent(object));
     	p.isInsideParent(object) && p.addObject(object);
     });
 }
@@ -114,10 +160,13 @@ window.onload = function() {
     canvas.on('mouse:down', function (opt) {
 	if (!selectedElement) return;
 	toolbar.deactivateAll().renderAll();
-	var height = selectedElement.getHeight() / 2;
-	height = opt.e.clientY - height - 100;
-	var width = selectedElement.getWidth() / 2;
-	width = opt.e.clientX - width;
+	// var height = selectedElement.getHeight() / 2;
+	// height = opt.e.clientY - height - 100;
+	// var width = selectedElement.getWidth() / 2;
+	// width = opt.e.clientX - width;
+	var pointer = canvas.getPointer(opt.e);
+	width = pointer.x;
+	height = pointer.y;
 	op = {
 	    target: selectedElement
 	}
@@ -243,796 +292,852 @@ function drawCanvasObjects(canvas) {
 function toolbarDraw(tcanvas) {
     // var tcanvas = new fabric.Canvas('toolbar', { selection: false });
     var loadedObjects = [];
-    
+    var xScale = 0.2;
+    var yScale = 0.2;
+    var twidth = 80;
+    var theight = 130;
 
-    fabric.Image.fromURL("laban_notations/direction/left_forword_diagonal.svg",function(oImg) {
-        loadedObjects[0] = oImg;
-        loadedObjects[0].set({
-            left: 10,
-            top: 20,
-            width:80,
-            height:130,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[0]);
-        tcanvas.renderAll();
+    var mtop = 10;
+    var notationsToAdd = [];
+    for (notation in Notations) {
+	var pathBase = Notations[notation].pathbase;
+	var mleft = 10;
+	var text = tcanvas.add(new fabric.Text(notation, {
+	    left: 0, //Take the block's position
+	    top: mtop,
+	    fontSize:30,
+	    fill: 'black'
+	}));
+	mtop += 40;
+	for(var i = 0; i < Notations[notation].files.length; ++i) {
+	    var file = pathBase + Notations[notation].files[i];
+	    var newNotation = {
+		img: file,
+		props: {
+		    left: mleft,
+		    top: mtop,
+		    width: twidth,
+		    height: theight,
+		    movx: 0,
+		    movy: 0,
+		    scaleX: xScale,
+		    scaleY: yScale,
+		    lockMovementX: true,
+		    lockMovementY: true,
+		    lockScalingX: true,
+		    lockScalingY: true,
+		    hasBorders: true,
+		    hasControls: false,
+		    hasRotatingPoint: false
+		}
+	    }
+	    notationsToAdd.push(newNotation);
+	    mleft += 30;
+	    (mleft+(80*xScale) >= tcanvas.getWidth() &&
+	     (mleft = 10) &&
+	     (mtop += 40));
+	    (mtop + (theight * yScale) >= tcanvas.getHeight() &&
+	     (tcanvas.setHeight(tcanvas.getHeight() + theight)));
+	}
+	mtop += 80;
+    }
+    notationsToAdd.forEach(function(notation) {
+	fabric.Image.fromURL(notation.img, function(oImg) {
+	    oImg.set(notation.props);
+	    tcanvas.add(oImg);
+	    tcanvas.renderAll();
+	    loadedObjects.push(oImg);
+	});
     });
+	
+    // fabric.Image.fromURL("laban_notations/direction/left_forword_diagonal.svg",function(oImg) {
+    //     loadedObjects[0] = oImg;
+    //     loadedObjects[0].set({
+    //         left: 10,
+    //         top: 20,
+    //         width:80,
+    //         height:130,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[0]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/direction/left_forword.svg",function(oImg)
-    {
-        loadedObjects[1] = oImg;
-        loadedObjects[1].set({
-            left: 30,
-            top: 10,
-            width:80,
-            height:130,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[1]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/direction/left_forword.svg",function(oImg)
+    // {
+    //     loadedObjects[1] = oImg;
+    //     loadedObjects[1].set({
+    //         left: 30,
+    //         top: 10,
+    //         width:80,
+    //         height:130,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[1]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/direction/right_forword.svg",function(oImg)
-    {
-        loadedObjects[2] = oImg;
-        loadedObjects[2].set({
-            left: 50,
-            top: 10,
-            width:80,
-            height:130,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[2]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/direction/right_forword.svg",function(oImg)
+    // {
+    //     loadedObjects[2] = oImg;
+    //     loadedObjects[2].set({
+    //         left: 50,
+    //         top: 10,
+    //         width:80,
+    //         height:130,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[2]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/direction/right_forword_diagonal.svg",function(oImg)
-    {
-        loadedObjects[3] = oImg;
-        loadedObjects[3].set({
-            left: 70,
-            top: 20,
-            width:80,
-            height:130,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[3]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/direction/right_forword_diagonal.svg",function(oImg)
+    // {
+    //     loadedObjects[3] = oImg;
+    //     loadedObjects[3].set({
+    //         left: 70,
+    //         top: 20,
+    //         width:80,
+    //         height:130,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[3]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/direction/left_side.svg",function(oImg)
-    {
-        loadedObjects[4] = oImg;
-        loadedObjects[4].set({
-            left: 10,
-            top: 55,
-            width:80,
-            height:130,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[4]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/direction/left_side.svg",function(oImg)
+    // {
+    //     loadedObjects[4] = oImg;
+    //     loadedObjects[4].set({
+    //         left: 10,
+    //         top: 55,
+    //         width:80,
+    //         height:130,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[4]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/direction/centre.svg",function(oImg)
-    {
-        loadedObjects[5] = oImg;
-        loadedObjects[5].set({
-            left: 40,
-            top: 55,
-            width:80,
-            height:130,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[5]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/direction/centre.svg",function(oImg)
+    // {
+    //     loadedObjects[5] = oImg;
+    //     loadedObjects[5].set({
+    //         left: 40,
+    //         top: 55,
+    //         width:80,
+    //         height:130,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[5]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/direction/right_side.svg",function(oImg)
-    {
-        loadedObjects[6] = oImg;
-        loadedObjects[6].set({
-            left: 70,
-            top: 55,
-            width:80,
-            height:130,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[6]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/direction/right_side.svg",function(oImg)
+    // {
+    //     loadedObjects[6] = oImg;
+    //     loadedObjects[6].set({
+    //         left: 70,
+    //         top: 55,
+    //         width:80,
+    //         height:130,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[6]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/direction/left_backword_diagonal.svg",function(oImg)
-    {
-        loadedObjects[7] = oImg;
-        loadedObjects[7].set({
-            left: 10,
-            top: 90,
-            width:80,
-            height:130,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[7]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/direction/left_backword_diagonal.svg",function(oImg)
+    // {
+    //     loadedObjects[7] = oImg;
+    //     loadedObjects[7].set({
+    //         left: 10,
+    //         top: 90,
+    //         width:80,
+    //         height:130,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[7]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/direction/left_backword.svg",function(oImg)
-    {
-        loadedObjects[8] = oImg;
-        loadedObjects[8].set({
-            left: 30,
-            top: 100,
-            width:80,
-            height:130,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[8]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/direction/left_backword.svg",function(oImg)
+    // {
+    //     loadedObjects[8] = oImg;
+    //     loadedObjects[8].set({
+    //         left: 30,
+    //         top: 100,
+    //         width:80,
+    //         height:130,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[8]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/direction/right_backword.svg",function(oImg)
-    {
-        loadedObjects[9] = oImg;
-        loadedObjects[9].set({
-            left: 50,
-            top: 100,
-            width:80,
-            height:130,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[9]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/direction/right_backword.svg",function(oImg)
+    // {
+    //     loadedObjects[9] = oImg;
+    //     loadedObjects[9].set({
+    //         left: 50,
+    //         top: 100,
+    //         width:80,
+    //         height:130,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[9]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/direction/right_backword_diagonal.svg",function(oImg)
-    {
-        loadedObjects[10] = oImg;
-        loadedObjects[10].set({
-            left: 70,
-            top: 90,
-            width:80,
-            height:130,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[10]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/direction/right_backword_diagonal.svg",function(oImg)
+    // {
+    //     loadedObjects[10] = oImg;
+    //     loadedObjects[10].set({
+    //         left: 70,
+    //         top: 90,
+    //         width:80,
+    //         height:130,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[10]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/body/right_hip.svg",function(oImg)
-    {
-        loadedObjects[11] = oImg;
-        loadedObjects[11].set({
-            left: 105,
-            top: 10,
-            width:30,
-            height:107,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[11]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/body/right_hip.svg",function(oImg)
+    // {
+    //     loadedObjects[11] = oImg;
+    //     loadedObjects[11].set({
+    //         left: 105,
+    //         top: 10,
+    //         width:30,
+    //         height:107,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[11]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/body/right_knee.svg",function(oImg)
-    {
-        loadedObjects[12] = oImg;
-        loadedObjects[12].set({
-            left: 120,
-            top: 10,
-            width:30,
-            height:107,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[12]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/body/right_knee.svg",function(oImg)
+    // {
+    //     loadedObjects[12] = oImg;
+    //     loadedObjects[12].set({
+    //         left: 120,
+    //         top: 10,
+    //         width:30,
+    //         height:107,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[12]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/body/right_ankle.svg",function(oImg)
-    {
-        loadedObjects[13] = oImg;
-        loadedObjects[13].set({
-            left: 135,
-            top: 10,
-            width:30,
-            height:107,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[13]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/body/right_ankle.svg",function(oImg)
+    // {
+    //     loadedObjects[13] = oImg;
+    //     loadedObjects[13].set({
+    //         left: 135,
+    //         top: 10,
+    //         width:30,
+    //         height:107,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[13]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/body/right_foot.svg",function(oImg)
-    {
-        loadedObjects[14] = oImg;
-        loadedObjects[14].set({
-            left: 150,
-            top: 10,
-            width:30,
-            height:107,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[14]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/body/right_foot.svg",function(oImg)
+    // {
+    //     loadedObjects[14] = oImg;
+    //     loadedObjects[14].set({
+    //         left: 150,
+    //         top: 10,
+    //         width:30,
+    //         height:107,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[14]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/body/right_toe.svg",function(oImg)
-    {
-        loadedObjects[15] = oImg;
-        loadedObjects[15].set({
-            left: 165,
-            top: 10,
-            width:30,
-            height:107,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[15]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/body/right_toe.svg",function(oImg)
+    // {
+    //     loadedObjects[15] = oImg;
+    //     loadedObjects[15].set({
+    //         left: 165,
+    //         top: 10,
+    //         width:30,
+    //         height:107,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[15]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/body/left_hip.svg",function(oImg)
-    {
-        loadedObjects[16] = oImg;
-        loadedObjects[16].set({
-            left: 105,
-            top: 40,
-            width:34,
-            height:123,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[16]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/body/left_hip.svg",function(oImg)
+    // {
+    //     loadedObjects[16] = oImg;
+    //     loadedObjects[16].set({
+    //         left: 105,
+    //         top: 40,
+    //         width:34,
+    //         height:123,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[16]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/body/left_knee.svg",function(oImg)
-    {
-        loadedObjects[17] = oImg;
-        loadedObjects[17].set({
-            left: 120,
-            top: 40,
-            width:34,
-            height:123,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[17]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/body/left_knee.svg",function(oImg)
+    // {
+    //     loadedObjects[17] = oImg;
+    //     loadedObjects[17].set({
+    //         left: 120,
+    //         top: 40,
+    //         width:34,
+    //         height:123,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[17]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/body/left_ankle.svg",function(oImg)
-    {
-        loadedObjects[18] = oImg;
-        loadedObjects[18].set({
-            left: 135,
-            top: 40,
-            width:34,
-            height:123,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[18]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/body/left_ankle.svg",function(oImg)
+    // {
+    //     loadedObjects[18] = oImg;
+    //     loadedObjects[18].set({
+    //         left: 135,
+    //         top: 40,
+    //         width:34,
+    //         height:123,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[18]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/body/left_foot.svg",function(oImg)
-    {
-        loadedObjects[19] = oImg;
-        loadedObjects[19].set({
-            left: 150,
-            top: 40,
-            width:34,
-            height:123,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[19]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/body/left_foot.svg",function(oImg)
+    // {
+    //     loadedObjects[19] = oImg;
+    //     loadedObjects[19].set({
+    //         left: 150,
+    //         top: 40,
+    //         width:34,
+    //         height:123,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[19]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/body/left_toe.svg",function(oImg)
-    {
-        loadedObjects[20] = oImg;
-        loadedObjects[20].set({
-            left: 165,
-            top: 40,
-            width:34,
-            height:123,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[20]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/body/left_toe.svg",function(oImg)
+    // {
+    //     loadedObjects[20] = oImg;
+    //     loadedObjects[20].set({
+    //         left: 165,
+    //         top: 40,
+    //         width:34,
+    //         height:123,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[20]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/body/palm.svg",function(oImg)
-    {
-        loadedObjects[21] = oImg;
-        loadedObjects[21].set({
-            left: 115,
-            top: 70,
-            width:85,
-            height:104,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[21]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/body/palm.svg",function(oImg)
+    // {
+    //     loadedObjects[21] = oImg;
+    //     loadedObjects[21].set({
+    //         left: 115,
+    //         top: 70,
+    //         width:85,
+    //         height:104,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[21]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/body/palm_upper_side.svg",function(oImg)
-    {
-        loadedObjects[22] = oImg;
-        loadedObjects[22].set({
-            left: 145,
-            top: 70,
-            width:82,
-            height:104,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[22]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/body/palm_upper_side.svg",function(oImg)
+    // {
+    //     loadedObjects[22] = oImg;
+    //     loadedObjects[22].set({
+    //         left: 145,
+    //         top: 70,
+    //         width:82,
+    //         height:104,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[22]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/body/right_shoulder.svg",function(oImg)
-    {
-        loadedObjects[11] = oImg;
-        loadedObjects[11].set({
-            left: 105,
-            top: 100,
-            width:30,
-            height:107,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[11]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/body/right_shoulder.svg",function(oImg)
+    // {
+    //     loadedObjects[11] = oImg;
+    //     loadedObjects[11].set({
+    //         left: 105,
+    //         top: 100,
+    //         width:30,
+    //         height:107,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[11]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/body/right_elbow.svg",function(oImg)
-    {
-        loadedObjects[12] = oImg;
-        loadedObjects[12].set({
-            left: 120,
-            top: 100,
-            width:30,
-            height:107,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[12]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/body/right_elbow.svg",function(oImg)
+    // {
+    //     loadedObjects[12] = oImg;
+    //     loadedObjects[12].set({
+    //         left: 120,
+    //         top: 100,
+    //         width:30,
+    //         height:107,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[12]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/body/right_wrist.svg",function(oImg)
-    {
-        loadedObjects[13] = oImg;
-        loadedObjects[13].set({
-            left: 135,
-            top: 100,
-            width:30,
-            height:107,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[13]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/body/right_wrist.svg",function(oImg)
+    // {
+    //     loadedObjects[13] = oImg;
+    //     loadedObjects[13].set({
+    //         left: 135,
+    //         top: 100,
+    //         width:30,
+    //         height:107,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[13]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/body/right_finger.svg",function(oImg)
-    {
-        loadedObjects[14] = oImg;
-        loadedObjects[14].set({
-            left: 150,
-            top: 100,
-            width:30,
-            height:107,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[14]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/body/right_finger.svg",function(oImg)
+    // {
+    //     loadedObjects[14] = oImg;
+    //     loadedObjects[14].set({
+    //         left: 150,
+    //         top: 100,
+    //         width:30,
+    //         height:107,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[14]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/body/right_fingers.svg",function(oImg)
-    {
-        loadedObjects[15] = oImg;
-        loadedObjects[15].set({
-            left: 165,
-            top: 100,
-            width:30,
-            height:107,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[15]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/body/right_fingers.svg",function(oImg)
+    // {
+    //     loadedObjects[15] = oImg;
+    //     loadedObjects[15].set({
+    //         left: 165,
+    //         top: 100,
+    //         width:30,
+    //         height:107,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[15]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/body/left_shoulder.svg",function(oImg)
-    {
-        loadedObjects[16] = oImg;
-        loadedObjects[16].set({
-            left: 105,
-            top: 130,
-            width:34,
-            height:123,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[16]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/body/left_shoulder.svg",function(oImg)
+    // {
+    //     loadedObjects[16] = oImg;
+    //     loadedObjects[16].set({
+    //         left: 105,
+    //         top: 130,
+    //         width:34,
+    //         height:123,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[16]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/body/left_elbow.svg",function(oImg)
-    {
-        loadedObjects[17] = oImg;
-        loadedObjects[17].set({
-            left: 120,
-            top: 130,
-            width:34,
-            height:123,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[17]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/body/left_elbow.svg",function(oImg)
+    // {
+    //     loadedObjects[17] = oImg;
+    //     loadedObjects[17].set({
+    //         left: 120,
+    //         top: 130,
+    //         width:34,
+    //         height:123,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[17]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/body/left_wrist.svg",function(oImg)
-    {
-        loadedObjects[18] = oImg;
-        loadedObjects[18].set({
-            left: 135,
-            top: 130,
-            width:34,
-            height:123,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[18]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/body/left_wrist.svg",function(oImg)
+    // {
+    //     loadedObjects[18] = oImg;
+    //     loadedObjects[18].set({
+    //         left: 135,
+    //         top: 130,
+    //         width:34,
+    //         height:123,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[18]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/body/left_finger.svg",function(oImg)
-    {
-        loadedObjects[19] = oImg;
-        loadedObjects[19].set({
-            left: 150,
-            top: 130,
-            width:34,
-            height:123,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[19]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/body/left_finger.svg",function(oImg)
+    // {
+    //     loadedObjects[19] = oImg;
+    //     loadedObjects[19].set({
+    //         left: 150,
+    //         top: 130,
+    //         width:34,
+    //         height:123,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[19]);
+    //     tcanvas.renderAll();
+    // });
 
-    fabric.Image.fromURL("laban_notations/body/left_fingers.svg",function(oImg)
-    {
-        loadedObjects[20] = oImg;
-        loadedObjects[20].set({
-            left: 165,
-            top: 130,
-            width:34,
-            height:123,
-            movx: 0,
-            movy: 0,
-            scaleX: 0.2,
-            scaleY: 0.2,
-            lockMovementX: true,
-            lockMovementY: true,
-            lockScalingX: true,
-            lockScalingY: true,
-            hasBorders: true,
-            hasControls: false,
-            hasRotatingPoint: false
-        });
-        tcanvas.add(loadedObjects[20]);
-        tcanvas.renderAll();
-    });
+    // fabric.Image.fromURL("laban_notations/body/left_fingers.svg",function(oImg)
+    // {
+    //     loadedObjects[20] = oImg;
+    //     loadedObjects[20].set({
+    //         left: 165,
+    //         top: 130,
+    //         width:34,
+    //         height:123,
+    //         movx: 0,
+    //         movy: 0,
+    //         scaleX: 0.2,
+    //         scaleY: 0.2,
+    //         lockMovementX: true,
+    //         lockMovementY: true,
+    //         lockScalingX: true,
+    //         lockScalingY: true,
+    //         hasBorders: true,
+    //         hasControls: false,
+    //         hasRotatingPoint: false
+    //     });
+    //     tcanvas.add(loadedObjects[20]);
+    //     tcanvas.renderAll();
+    // });
 }
