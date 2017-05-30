@@ -151,6 +151,7 @@ var Notations = {
 function setupCanvas(mContainerId, properties) {
     mainContainer = document.getElementById(mContainerId);
     container = document.createElement('div');
+    container.setAttribute("id", properties["containerid"]);
     canvas = document.createElement('canvas');
     container.setAttribute('class', properties['containerclass']);
     canvas.setAttribute('id', properties['canvasid']);
@@ -158,7 +159,7 @@ function setupCanvas(mContainerId, properties) {
     mainContainer.appendChild(container);
     fabricCanvas = new laban.Canvas(properties['canvasid'], { selection: false });
     fabricCanvas.setWidth( container.offsetWidth  );
-    fabricCanvas.setHeight( container.offsetHeight );
+    fabricCanvas.setHeight( properties.height ||  container.offsetHeight );
     fabricCanvas.renderAll();
     return fabricCanvas;
 }
@@ -217,13 +218,17 @@ window.onload = function() {
     /* --------------------------------DOM SETUP STARTS---------------------------- */    // setup
     var properties = {
 	canvasid	: 'laban-editor',
-	containerclass	: 'container led'
+	containerclass	: 'container led',
+	containerid: "ledcontainer",
+	height: 8000
     }
     var canvas = setupCanvas('main-container', properties);
-
+    var elem = document.getElementById("ledcontainer");
+    elem.scrollTop = elem.scrollHeight;
     var toolbarProperties = {
 	canvasid	: 'toolbar',
-	containerclass	: 'container toolbar'
+	containerclass	: 'container toolbar',
+	containerid     : "ledtoolbarcontainer"
     }
 
     optionsbar = document.getElementById('option-container');
