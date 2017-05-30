@@ -55,7 +55,96 @@ var Notations = {
 	    "right_whole_foot.svg",
 	    "right_wrist.svg"
 	]
-    }
+    },
+    direction: {
+	pathbase: "laban_notations/direction/",
+	files: [
+        "centre.svg",
+        "left_backword_diagonal.svg",
+        "left_backword.svg",
+        "left_forword_diagonal.svg",
+        "left_forword.svg",
+        "left_side.svg",
+        "right_backword_diagonal.svg",
+        "right_backword.svg",
+        "right_forword_diagonal.svg",
+        "right_forword.svg",
+        "right_side.svg"
+    ]
+    },
+    intensity: {
+        pathbase: "laban_notations/intensity/",
+        files: [
+            "long_1.svg",
+            "long_4.svg",
+            "short_1.svg",
+            "short_4.svg"
+        ]
+    },
+    others: {
+        pathbase: "laban_notations/others/",
+        files: [
+            "inward_undulation.svg",
+            "outword_undulation.svg",
+            "path_back.svg",
+            "path_front.svg",
+            "tambaurine.svg",
+            "trill.svg",
+            "Untitled-18 copy.svg",
+            "Untitled-19.svg",
+            "Untitled-20 copy.svg",
+            "Untitled-21 copy.svg",
+            "Untitled-23 copy.svg",
+            "Untitled-24 copy.svg",
+            "Untitled-3 copy.svg",
+            "Untitled-47 copy.svg",
+            "Untitled-5 copy.svg",
+            "Untitled-6 copy.svg",
+            "Untitled-70.svg",
+            "Untitled-72 copy.svg"
+        ]
+    },
+    rotation: {
+        pathbase: "laban_notations/rotation/",
+        files: [
+            "back_left_of_audiance.svg",
+            "back_of_audiance.svg",
+            "back_right_of_audiance.svg",
+            "cartwheeling_left.svg",
+            "cartwheeling_right.svg",
+            "front_left_of_audiance.svg",
+            "front_of_audiance.svg",
+            "front_right_of_audiance.svg",
+            "left_of_audiance.svg",
+            "right_of_audiance.svg",
+            "somersaulting_backward.svg",
+            "somersaulting_forward.svg"
+        ]
+    },
+    turning: {
+        pathbase: "laban_notations/turning/",
+        files: [
+            "anticlockwise_turning.svg",
+            "clockwise_turning.svg",
+            "degrees_of_rotation_anticlockwise_135.svg",
+            "degrees_of_rotation_anticlockwise_180.svg",
+            "degrees_of_rotation_anticlockwise_225.svg",
+            "degrees_of_rotation_anticlockwise_270.svg",
+            "degrees_of_rotation_anticlockwise_315.svg",
+            "degrees_of_rotation_anticlockwise_360.svg",
+            "degrees_of_rotation_anticlockwise_45.svg",
+            "degrees_of_rotation_anticlockwise_90.svg",
+            "degrees_of_rotation_clockwise_135.svg",
+            "degrees_of_rotation_clockwise_180.svg",
+            "degrees_of_rotation_clockwise_225.svg",
+            "degrees_of_rotation_clockwise_270.svg",
+            "degrees_of_rotation_clockwise_315.svg",
+            "degrees_of_rotation_clockwise_360.svg",
+            "degrees_of_rotation_clockwise_45.svg",
+            "degrees_of_rotation_clockwise_90.svg",
+            "no_turn.svg"
+        ]
+    },
 }
 
 // static code
